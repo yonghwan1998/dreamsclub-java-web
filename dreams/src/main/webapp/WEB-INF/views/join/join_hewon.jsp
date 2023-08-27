@@ -104,23 +104,9 @@ legend {
 				<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 			</li>
 			
-<!-- 			<li>
-				<label for="mobile">전화번호</label>
-				<select name="memberPhone"> 
-					<option value="010" selected>&nbsp;010&nbsp;</option>
-					<option value="011">&nbsp;011&nbsp;</option>
-					<option value="016">&nbsp;016&nbsp;</option>
-					<option value="017">&nbsp;017&nbsp;</option>
-					<option value="018">&nbsp;018&nbsp;</option>
-					<option value="019">&nbsp;019&nbsp;</option>
-				</select>
-				- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
-				- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
-				<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-				<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
-			</li> -->
 			
-			<li>
+<!--
+ 			<li>
 				<label for="mobile">전화번호</label>
 				<select name="memberPhone"> 
 					<option value="010" selected>&nbsp;010&nbsp;</option>
@@ -134,7 +120,17 @@ legend {
 				- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
 				<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
 				<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
-			</li> 
+			</li>  
+			-->
+			
+			<!-- 전화번호2222222 -->
+			<li>
+			<label for="mobile">전화번호</label>
+			<input type="text" name="memberPhone" id="memberPhone" >
+			<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
+			<div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div>
+			
+			</li>
 			
 			
 			<li>
@@ -220,7 +216,9 @@ $("#join").submit(function() {
 		submitResult=false;
 	}
 
-	// 핸드폰 번호 조건문
+	
+/*
+// 핸드폰 번호 조건문
 	var mobile2Reg=/\d{3,4}/;
 	var mobile3Reg=/\d{4}/;
 	if($("#mobile2").val()=="" || $("#mobile3").val()=="") {
@@ -229,12 +227,26 @@ $("#join").submit(function() {
 	} else if(!mobile2Reg.test($("#mobile2").val()) || !mobile3Reg.test($("#mobile3").val())) {
 		$("#mobileRegMsg").css("display","block");
 		submitResult=false;
-	}
+	} 
+*/
 	
 	if($("#zipcode").val()=="") {
 		$("#zipcodeMsg").css("display","block");
 		submitResult=false;
 	}
+	
+	
+	// 핸드폰 조건문222
+	var memberPhoneReg = /^0\d{1,2}-\d{3,4}-\d{4}$/;
+	if($("#memberPhone").val()=="") {
+		$("#mobileMsg").css("display","block");
+		submitResult=false;
+	} else if(!memberPhoneReg.test($("memberPhone").val())) {
+		$("#mobileRegMsg").css("display","block");
+		submitResult=false;
+	}
+	
+
 	
 	
 	// 주소
