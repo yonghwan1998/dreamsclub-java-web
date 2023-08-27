@@ -11,13 +11,21 @@ import xyz.dreams.mapper.GoodsMapper;
 
 @Repository
 @RequiredArgsConstructor
-public class GoodsDAOImpl implements GoodsDAO{
+public class GoodsDAOImpl implements GoodsDAO {
 	private final SqlSession sqlSession;
 
+//	굿즈 메인 페이지
+
 	@Override
-	public List<GoodsDTO> selectGoodsList() {
-		return sqlSession.getMapper(GoodsMapper.class).selectGoodsList();
+	public List<GoodsDTO> selectGoodsList(String q) {
+		return sqlSession.getMapper(GoodsMapper.class).selectGoodsList(q);
 	}
-	
-	
+
+//	굿즈 디테일 페이지
+
+	@Override
+	public List<GoodsDTO> selectGoodsDetailList(String goodsCode) {
+		return sqlSession.getMapper(GoodsMapper.class).selectGoodsDetailList(goodsCode);
+	}
+
 }

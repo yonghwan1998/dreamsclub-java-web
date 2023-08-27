@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.MemberDAO;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.exception.ExistsMemberException;
 import xyz.dreams.exception.LoginAuthFailException;
+import xyz.dreams.exception.MemberNotFoundException;
 
 @Service
 @RequiredArgsConstructor

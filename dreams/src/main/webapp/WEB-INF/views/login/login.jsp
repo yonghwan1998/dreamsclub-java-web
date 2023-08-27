@@ -1,39 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false" %>
+
 
 <!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath }/img/favicon.png">
+    
+     <script>
+      function MemberLogin() {
+      if ( login.memberId.value == "" ) {
+         alert("아이디를 입력하십시요.");
+         joinform.memberId.focus();
+         return;
+      } 
+      if ( login.memberPw.value == "" ) {
+         alert("비밀번호를 입력하십시요.");
+         joinform.memberPw.focus();
+         return;
+      }   
+      
+      login.action = "<c:url value="/login"/>";
+      login.submit();
+      }
+   </script>
 </head>
 
-<script>
-	function MemberLogin() {
-		if (login.memberId.value == "") {
-			alert("아이디를 입력하십시오.");
-			login.memberId.focus();
-			return;
-		}
-		if (login.memberPw.value == "") {
-			alert("비밀번호를 입력하십시오.");
-			login.memberPw.focus();
-			return;
-		}
-
-		login.action = "<c:url value="/login"/>";
-		login.submit();
-	}
-</script>
 <!-- 로그인 부분 시작 -->
 <body>
+
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -56,7 +51,7 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="/dreams/login" method="post" name="login" >
+                                    <form action="/dreams/login" method="post" name="login">
                                         <input type="text" name="memberId" placeholder="아이디를 입력해 주세요."  />
                                         <input type="password" name="memberPw" placeholder="비밀번호를 입력해 주세요." />
                                         <div class="button-box">
@@ -70,6 +65,10 @@
                                                
                                             </div>
                                             <button type="button" onclick="MemberLogin();"><span>로그인</span></button>
+                                            <tr>
+                                   <td width="20"></td>
+                                   <td style="color: red;">${message }</td>         
+                                 </tr>
                                             <!--틀린 경우 정보와 다르다는 메세지를 띄우고 3번 이상 틀릴 시 휴면 계정으로 변환-->
                                         </div>
                                     </form>
@@ -85,6 +84,5 @@
 </div>
 
 </body>
-
 
 </html>

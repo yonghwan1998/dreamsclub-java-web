@@ -16,9 +16,11 @@ public class GoodsServiceImpl implements GoodsService {
 
 	private final GoodsDAO goodsDAO;
 
+//	굿즈 메인 페이지
+
 	@Override
-	public List<GoodsDTO> getGoodsList() {
-		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList();
+	public List<GoodsDTO> getGoodsList(String q) {
+		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList("%" + q + "%");
 		String[] goodsCodeSplit = null;
 		String goodsName = null;
 
@@ -43,4 +45,16 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		return goodsResult;
 	}
+
+//	굿즈 디테일 페이지
+
+	@Override
+	public GoodsDTO getGoodsDetail(String goodsCode) {
+		List<GoodsDTO> goodsDetailList = goodsDAO.selectGoodsDetailList("%-" + goodsCode + "-%");
+
+		GoodsDTO goodsDetail = goodsDetailList.get(0);
+
+		return goodsDetail;
+	}
+
 }

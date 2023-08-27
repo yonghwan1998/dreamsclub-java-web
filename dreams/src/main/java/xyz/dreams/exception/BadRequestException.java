@@ -1,5 +1,5 @@
 package xyz.dreams.exception;
-//팀원과 얘기해보고 exception 패키지 따로 만들 예정
+
 //비정상적으로 페이지를 요청한 경우의 문제를 처리하기 위한 예외 클래스 
 public class BadRequestException extends Exception{
 	private static final long serialVersionUID = 1L;

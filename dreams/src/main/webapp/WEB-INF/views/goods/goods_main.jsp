@@ -43,7 +43,7 @@
 											<div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
 												<div class="shop-list-content">
 													<h3>
-														<a href="/dreams/goods/detail">${goods.goodsCode }</a>
+														<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }" class="goodsCode" >${goods.goodsCode }</a>
 													</h3>
 													<div class="product-list-price">
 														<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
@@ -84,9 +84,9 @@
 						<div class="sidebar-widget">
 							<h4 class="pro-sidebar-title">Search</h4>
 							<div class="pro-sidebar-search mb-50 mt-25">
-								<form class="pro-sidebar-search-form" action="#">
-									<input type="text" placeholder="Search here...">
-									<button>
+								<form class="pro-sidebar-search-form" method="get" action="/dreams/goods/main/search">
+									<input id="searchText" type="text" name="q" placeholder="Search here...">
+									<button id="searchBtn">
 										<i class="pe-7s-search"></i>
 									</button>
 								</form>
@@ -256,33 +256,31 @@
 	</div>
 	<!-- Modal end -->
 	<script type="text/javascript">
-		
-		 $("#addCartBtn").click(function() {
-				var goodsCode = $("#amount").val();
-				var goodsInfo = $("#addCartBtn").val();
-
-				alert(goodsCode);
-				alert(goodsInfo);
-				
-				$.ajax({
-					type : "get",
-					url : "<c:url value="/goods/temp"/>",
-					contentType: "application/json;charset=UTF-8",
-					data : JSON.stringify({
-						"goodsCode" : goodsCode,
-						"goodsInfo" : goodsInfo
-					}),
-					dataType : "json",
-					success : function(result) {
-						if (result == "success") {
-							alert("jsp");
-						}
-					},
-					error : function(xhr) {
-						alert("에러코드(게시글 삽입) = " + xhr.stauts);
+	
+		// 장바구니 버튼 클릭시
+		$("#addCartBtn").click(function() {
+			var goodsCode = $(".goodsCode").text();
+	
+			alert(goodsCode);
+			
+			$.ajax({
+				type : "post",
+				url : "<c:url value="/goods/rest_test"/>",
+				contentType : "application/json",
+				data : JSON.stringify({
+					"goodsCode" : goodsCode
+				}),
+				dateType : "text",
+				success : function(result) {
+					if (result == "success") {
+						alert("jsp");
 					}
-				});
+				},
+				error : function(xhr) {
+					alert("에러코드(게시글 삽입) = " + xhr.stauts);
+				}
 			});
+		});
 		
 	</script>
 </body>

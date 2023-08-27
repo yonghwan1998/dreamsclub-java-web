@@ -1,4 +1,4 @@
-package xyz.dreams.controller;
+package xyz.dreams.rest;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

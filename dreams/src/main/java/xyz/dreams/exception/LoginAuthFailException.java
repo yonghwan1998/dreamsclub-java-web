@@ -7,9 +7,10 @@ import lombok.Getter;
 public class LoginAuthFailException extends Exception{
 	private static final long serialVersionUID = 1L;
 	
-	//사용자가 입력한 id 값을 저장하기 위한 필드
+	//예외처리에 필요한 값을 저장하기 위한 필드
+	// => 사용자부터 입력받은 아이디를 저장하기 위한 필드
 	@Getter
-	private String memberId;
+	private String memberId ;
 	
 	public LoginAuthFailException() {
 		// TODO Auto-generated constructor stub
@@ -17,6 +18,8 @@ public class LoginAuthFailException extends Exception{
 	public LoginAuthFailException(String message, String memberId) {
 		super(message);
 		this.memberId=memberId;
+	
+		
 	}
 	
 }

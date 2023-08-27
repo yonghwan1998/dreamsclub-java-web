@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.GoodsMapper">
-	<select id="selectGoodsList" resultType="Goods">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods order by GOODS_CODE
+
+	<!-- 굿즈 메인 페이지 -->
+
+	<select id="selectGoodsList" resultType="GoodsDTO">
+		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods where GOODS_CODE like #{q} order by GOODS_CODE
+	</select>
+
+	<!-- 굿즈 디테일 페이지 -->
+
+	<select id="selectGoodsDetailList" resultType="GoodsDTO">
+		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods where GOODS_CODE like #{goodsCode} order by GOODS_CODE
 	</select>
 </mapper>

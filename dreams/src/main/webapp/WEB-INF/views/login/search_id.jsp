@@ -21,10 +21,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-0 col-md-20 ml-auto mr-auto">
-                <div class="login-register-wrapper">
+                <div class="login-register-wrapper" style="width: 50%; margin: 50px auto;">
                     <div class="login-register-tab-list nav">
                         <!--강민경: 로고 이미지 기입-->
-                        <li>
+                        <li id = "loginimg">
                             <img src="${pageContext.request.contextPath }/img/logo/dreams_login_logo.png">
                         </li>
                     </div>

@@ -9,16 +9,15 @@ import xyz.dreams.dto.MemberDTO;
 
 public interface MemberService {
 
-	//강민경: DAO-login 메소드와 getLogin DB 비교 
-	//Member getMember(String memberId, String memberPw) throws MemberNotFoundException;
+	// 강민경: DAO-login 메소드와 getLogin DB 비교
+	// Member getMember(String memberId, String memberPw) throws
+	// MemberNotFoundException;
 	MemberDTO loginAuth(MemberDTO member) throws LoginAuthFailException;
 
-
-	
 	// 회원가입
 	void addMember(MemberDTO member);
 
-	//업데이트
+	// 업데이트
 	void modifyMember(MemberDTO member);
 
 	// 삭제
@@ -28,7 +27,6 @@ public interface MemberService {
 
 	List<MemberDTO> getMemberList();
 
-
 //	//오진서 2 ▼
 //	void addMember(MemberDTO member) throws ExistsMemberException;
 //	void modifyMember(MemberDTO member) throws MemberNotFoundException;
@@ -36,4 +34,3 @@ public interface MemberService {
 //	List<MemberDTO> getMemberList();
 
 }
-
