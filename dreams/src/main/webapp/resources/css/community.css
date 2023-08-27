@@ -1,0 +1,460 @@
+@charset "UTF-8";
+
+
+/*=================================*/
+/*커뮤니티 게시판 - 예지: 전체 추가*/
+/*=================================*/
+
+.communityContainer {
+width: 1200px;
+margin: 100px auto;
+}
+
+.commnunityTitle {
+text-align: center;
+}
+
+.boardMain{
+  width: 100%;
+}
+
+.boardSerchBig{
+  width: 100%;
+  background-color: #eeeeee;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.boardSearch{
+  width: 70%;
+  display: flex;
+  padding: 10px 30px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.boardSerch select{
+  width: 10%;
+  border: 1px solid #000;
+  border-color: #fff;
+}
+
+#searchTalk{
+  border: 1px solid #000;
+  border-color: #000;
+  background-color: #fff;
+}
+
+.boardSearch button{
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  background: #005000;
+  padding: 0px 40px;
+  margin: 0 0px;
+  line-height: 45px;
+}
+
+.communityTable{
+  position: relative;
+  clear: both;
+}
+
+.boardTable{
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-top: 3px solid #4a4a4a;
+  margin-bottom: 20px;
+  font-family: '나눔고딕',"seoulnamsanregular","NanumBarunGothic", Dotum, Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.boardTableMain th{
+  padding: 20px 0px;
+  color: #000;
+  text-align: center;
+  background: #f5f5f5
+}
+
+.boardTableMain td{
+  border-bottom: 1px solid #dedede;
+  color: #555555;
+  font-size: 15px;
+  padding: 18px 5px;
+  position: relative;
+  text-align: center;
+}
+
+.commnunityTable .listNotice{
+  color: #FF0000;
+}
+
+.commnunityTable .text-left{
+  text-align: left;
+}
+
+.boardTableMain a:hover{
+  color : green;
+}
+
+
+/*글쓰기 버튼*/
+.writeBtnContainer{
+  margin: 30px 0 30px 0;
+}
+
+.boardWriteBtn a {
+  display: inline-block;
+  background: #b5b5b5;
+  border: 1px solid #b5b5b5;
+  padding: 15px 50px;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
+  margin: 0 3px;
+}
+
+.boardWriteBtn .a:hover{
+  color: green;
+}
+
+/*페이지 번호*/
+.boardPageContainer {
+  position: relative;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.boardPage a {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dedede;
+  text-align: center;
+  line-height: 34px;
+  background: #fff;
+  display: inline-block;
+}
+
+
+/*커뮤니티 글쓰기 페이지*/
+.boardWriteMain {
+  margin: 50px auto 0px;
+  padding: 0 0 50px 0;
+  width: 1200px;
+}
+
+.baordWriteTable {
+  margin: 0 auto;
+  width: 85%;
+  border-top: 2px solid #000;
+}
+
+.baordWriteTable th {
+  background: #f5f5f5;
+  position: relative;
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: #222222;
+  border-bottom: 1px solid #dedede;
+  width: 140px;
+  font-weight: normal;
+}
+
+.baordWriteTable td{
+  border-bottom: 1px solid #dedede;
+  color: #555555;
+  font-size: 14px;
+  padding: 15px;
+  position: relative;
+  vertical-align: top;
+  line-height: 25px;
+}
+
+.communityWriteContent {
+  height: 300px;
+}
+
+.communityImgUpload{
+  display: flex;
+}
+
+.baordWriteTable .communityWriteImg {
+  background-color: white; 
+  border-color: white;
+  display: flex;
+}
+
+.baordWriteTable label{
+  background: #EAEAEA;
+  border: 1px solid #000;
+  border-radius: 5%;
+  color: #000;
+  font-size: 14px;
+  padding: 3px 5px;
+  width: 14%;
+  text-align: center;
+  margin: auto;
+}
+
+.communityWriteImg{
+  visibility: hidden;
+}
+
+.communityWriteBtn{
+  clear: both;
+  margin: 30px 0 30px 0;
+  text-align: center;
+}
+
+.communityWriteBtn a {
+  display: inline-block;
+  background: #b5b5b5;
+  border: 1px solid #b5b5b5;
+  padding: 15px 50px;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
+  margin: 0 3px;
+}
+
+.communityWriteBtn .upload {
+  background: #6c697c;
+  border: 1px solid #6c697c;
+}
+
+
+
+/*커뮤니티 글 뷰 페이지*/
+.communityDetail {
+  margin: 50px auto 0px;
+  padding: 0 0 50px 0;
+  width: 1200px;
+}
+
+.communityDetailPath h5{
+  color: gray;
+  font-weight: bold;
+  padding: 0 10px;
+  margin: 50px 0 25px 0;
+}
+
+.communityDetailContainer{
+  border-top: 3px solid #4a4a4a;
+  margin: 0 0 20px 0;
+}
+
+.communityDetailContainer .headwrap{
+  width: 100%;
+  background: #f5f5f5;
+  height: 30px;
+  padding: 25px 50px;
+  font-size: 14px;
+  color: #222222;
+  border-bottom: 1px solid #dedede;
+  display: flex;
+}
+
+.communityDetailContainerBody{
+padding: 40px;
+margin-bottom: 30px;
+color: #555555;
+font-size: 14px;
+line-height: 35px;
+word-break: keep-all;
+word-wrap: break-word;
+border-bottom: 3px solid #4a4a4a;
+}
+
+.communityDetailBtn{
+  clear: both;
+  margin: 30px 0 30px 0;
+  text-align: center;
+}
+
+.communityDetailBtn a {
+  display: inline-block;
+  background: #b5b5b5;
+  border: 1px solid #b5b5b5;
+  padding: 15px 50px;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
+  margin: 0 3px;
+}
+
+/*댓글*/
+.communityReply{
+  width: 1200px;
+  margin: 70px auto 50px;
+  background: #f2f5fa;
+  padding: 15px 30px;
+  border: 1px solid #e7e9ee;
+  text-align: right;
+  color: #666666;
+  font-size: 15px;
+}
+
+.communityReplyText{
+  margin: 0 15px 0 0;
+  background: #fff;
+  height: 80px;
+}
+
+.onekanBtn{
+  cursor: pointer;
+  width: 10%;
+  background: gray;
+}
+
+.countwritten{
+text-align: right;
+padding: 20px 20px 10px 0;
+}
+
+.communityReplyCount {
+  color: #444444;
+  font-size: 14px;
+  line-height: 37px;
+}
+
+.communityReplyView ul {
+  border-top: 1px solid #dedede;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.communityReplyView li {
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+  position: relative;
+  padding: 30px 35px;
+}
+
+.communityReplyView li p.txt {
+  font-size: 14px;
+  color: #444444;
+  line-height: 22px;
+  margin-bottom: 20px;
+  display: block;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+.communityReplyView li div {
+  color: #999999;
+  font-size: 13px;
+  display: flex;
+  margin: 0 15px 0 0;
+  height: 20px;
+}
+
+.communityReplyView li div p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  color: gray;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+  padding: 0 30px 0 0;
+}
+
+/*대댓글*/
+.commentReRely {
+  color: #999999;
+  font-size: 15px;
+  height: 40px;
+  width: 40px;
+  border: 1px solid #dedede;
+  padding: 3px 10px;
+}
+
+.communityReReplyView div{
+  display: flex;
+}
+
+.communityReReplyView div p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  color: gray;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+  padding: 0 30px 0 0;
+}
+
+.communityReReplyView p.txt {
+  font-size: 14px;
+  color: #444444;
+  line-height: 22px;
+  margin-bottom: 20px;
+}
+
+.communityReReplyView div{
+  display: flex;
+  height: 20px;
+}
+
+.communityReReplyView div p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  color: gray;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+  padding: 0 30px 0 0;
+}
+
+/*대댓글 박스*/
+.communityReReplyForm{
+  width: 1150px;
+  margin: 0px auto 20px;
+  background: #eeeeee;
+  padding: 15px 30px;
+  border: 1px solid #e7e9ee;
+  text-align: center;
+  color: #666666;
+  font-size: 15px;
+}
+
+.communityReReplyWrite {
+  width: 100%;
+  display: flex;
+}
+
+.communityReReplyForm textarea {
+  padding: 10px 20px;
+  width: 70%;
+  background: #fff;
+  color: #666666;
+  font-size: 15px;
+  margin: 0 10px 0 0;
+  border: 1px solid #cccccc;
+  line-height: 24px;
+  height: 60px;
+  box-sizing: content-box;
+}
+
+.communityReReplyForm a {
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  background: #4a4a4a;
+  padding: 30px 30px;
+  margin: 0 10px 0 0;
+  height: 45px;
+}
+
+.communityReReplyForm p {
+  margin-top: 5px;
+  text-align: right;
+  font-size: 15px;
+  margin-right: 50px;
+}
+
+/*=================여기까지================*/

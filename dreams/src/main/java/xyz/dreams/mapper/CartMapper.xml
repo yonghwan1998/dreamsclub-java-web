@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.dreams.mapper.CartMapper">
+
+	<!-- 카트 추가 -->
+	<insert id="insertCart">
+		insert into cart(member_id, goods_code, cart_quantity, goods_price)
+			values(#{memberId}, #{goodsCode}, #{cartQuantity}, #{goodsPrice})
+	</insert>
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+		delete from cart where cart_no=#{cartNo}
+		<!-- 카트삭제가 아니라 카트 안의 상품 삭제인데 다시 생각해봐야할듯 -->
+	</delete>
+	
+	<!-- 카트 수량 수정 -->
+	<update id="updateCart">
+		update cart set cart_quantity=#{cartQuantity} where cart_no=#{cartNo}
+	</update>
+	
+	<!-- 카트 목록 보기 -->
+	<select id="selectCartList" resultType="CartDTO">
+		select a.cart_no, a.member_id, a.cart_quantity, a.goods_code, b.goods_price
+		from cart a left outer join goods b on a.goods_code=b.goods_code
+		where a.member_id=#{memberId}
+	</select>
+	
+	<!-- 카트 확인 -->
+	<select id="checkCart">
+		select * from cart
+		where member_id=#{memberId} and goods_code=#{goodsCode}
+	</select>
+
+
+
+</mapper>

@@ -1,18 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
 
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- web.xml : WAS(Web Application Server) 프로그램이 시작될 때 프로젝트를 웹자원으로 변환하기 
+		위해 필요한 정보를 제공하는 환경설정파일 -->
+	<!-- => Listener 설정, Filter 설정, Servlet 설정, ErrorPage 설정, WelcomeFile 설정 
+		등 -->
+
+	<!-- The definition of the Root Spring Container shared by all Servlets 
+		and Filters -->
+	<!-- context-param : 모든 웹프로그램에게 필요한 값을 제공하기 위한 엘리먼트 -->
+	<!-- => contextConfigLocation 이름으로 스프링 컨테이너(WebApplicationContext 객체)에게 
+		Spring Bean Configuration File의 경로를 제공 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
+		<!-- 모든 웹자원에서 사용할 수 있는 Spring Bean를 등록하기 위한 Spring Bean Configuration File -->
+		<!-- => 모든 Front Controller 기능을 제공하는 웹프로그램에게 필요한 객체 제공 -->
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- listener : WAS 프로그램이 시작될 때 Listener 클래스를 제공받아 객체로 생성하기 위한 엘리먼트 -->
+	<!-- Listener 클래스 : ServletContextListener 인터페이스를 상속받은 자식클래스 -->
+	<!-- => contextInitialized 메소드 : Listener 객체 생성 후 자동 호출되는 메소드 - 초기화 작업 -->
+	<!-- => contextDestroyed 메소드 : Listener 객체 소멸 전 자동 호출되는 메소드 - 마무리 작업 -->
 	<listener>
+		<!-- listener-class : ServletContextListener 인터페이스를 상속받은 자식클래스를 설정하기 위한 
+			엘리먼트 -->
+		<!-- => WAS 프로그램이 시작될 때 ContextLoaderListener 클래스를 객체로 생성하고 contextInitialized 
+			메소드를 호출하여 초기화 작업 -->
+		<!-- => ContextLoaderListener 클래스의 contextInitialized 메소드에 의해 스프링 컨테이너 
+			(Root Spring Container)를 생성하면서 Spring Bean Configuration File을 제공받아 클래스를 
+			Spring Bean(객체)으로 등록 -->
+		<!-- Listener 객체에 의해 생성된 스프링 컨테이너(WebApplicationContext 객체)는 모든 웹자원(서블릿 
+			또는 필터)에게 Spring Bean을 사용할 수 있도록 제공 -->
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<!-- servlet : 필터 클래스를 필터으로 등록하기 위한 엘리먼트 -->
+	<filter>
+		<!-- filter-name : 필터를 구분하기 위한 식별자를 설정하기 위한 엘리먼트 -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- filter-class : 필터로 구현하기 위한 클래스를 설정하는 엘리먼트 -->
+		<!-- CharacterEncodingFilter : 리퀘스트 메세지 몸체부에 저장되어 전달되는 값에 대한 문자형태(캐릭터셋)를 
+			변경하는 기능을 제공하는 필터 클래스 -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- init-param 엘리먼트를 사용하여 CharacterEncodingFilter 클래스에 변경할 문자형태(캐릭터셋)를 
+			제공 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+
+	<!-- filter-mapping : 필터가 실행될 수 있는 웹프로그램의 URL 주소를 등록하기 위한 엘리먼트 -->
+	<filter-mapping>
+		<!-- filter-name : 설정된 URL 주소로 실행될 필터의 식별자를 설정하기 위한 엘리먼트 -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- url-pattern : 필터를 실행하기 위한 URL 주소(패턴)를 설정하기 위한 엘리먼트 -->
+		<!-- => 클라이언트의 모든 요청에 대해 필터가 실행되도록 등록 -->
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- <servlet-mapping> <servlet-name>springMVC</servlet-name> <url-pattern>*.do</url-pattern> 
+		</servlet-mapping> -->
 
 	<!-- Processes application requests -->
 	<servlet>
@@ -24,9 +78,11 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
+		<!-- url-pattern 엘리먼트의 내용을 [/]로 설정한 경우 클라이언트의 모든 웹프로그램 요청에 대해 Front Controller가 
+			처리할 수 있도록 설정 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 

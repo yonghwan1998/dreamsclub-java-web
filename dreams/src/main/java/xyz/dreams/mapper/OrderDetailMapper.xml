@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.dreams.mapper.OrderDetailMapper">
+    <select id="getOrderById" parameterType="java.lang.String" resultType="OrderDetailDTO">
+        SELECT
+            <!-- 주문 번호, 주문인, 상품명, 수량, 가격 -->
+            OD.ORDER_DETAIL_NO,
+            OD.ORDER_ID,
+            M.MEMBER_ID AS MEMBER_ID,			<!-- 회원 ID  -->
+            C.CART_NO AS CART_ID,				<!-- 장바구니 ID -->
+            M.MEMBER_NAME,						<!-- 회원 이름 -->
+            C.GOODS_CODE,						<!-- 장바구니의 상품 코드 -->
+            C.CART_QUANTITY,					<!-- 장바구니의 수량 -->
+            <!-- C.ORDER_PRICE -->						<!-- 장바구니의 주문 가격 -->
+        FROM
+            ORDER_DETAIL OD
+		LEFT JOIN
+        	MEMBER M ON OD.MEMBER_ID = M.MEMBER_ID
+       	LEFT JOIN
+       		CART C ON OD.MEMBER_ID = C.MEMBER_ID AND OD.GOODS_CODE = C.GOODS_CODE
+        WHERE
+            ORDER_ID = #{orderId}
+    </select>
+    
+    <select id="getOrderList" resultType="OrderDetailDTO">
+        SELECT
+            <!-- 주문 번호, 주문인, 상품명, 수량, 가격 -->
+			OD.ORDER_DETAIL_NO,
+            OD.ORDER_ID,
+            M.MEMBER_ID AS MEMBER_ID,			<!-- 회원 ID  -->
+            C.CART_NO AS CART_ID,				<!-- 장바구니 ID -->
+            M.MEMBER_NAME,						<!-- 회원 이름 -->
+            C.GOODS_CODE,						<!-- 장바구니의 상품 코드 -->
+            C.CART_QUANTITY					<!-- 장바구니의 수량 -->
+            <!-- C.ORDER_PRICE -->						<!-- 장바구니의 주문 가격 -->
+        FROM
+            ORDER_DETAIL OD
+        LEFT JOIN
+        	MEMBER M ON OD.MEMBER_ID = M.MEMBER_ID
+       	LEFT JOIN
+       		CART C ON OD.MEMBER_ID = C.MEMBER_ID AND OD.GOODS_CODE = C.GOODS_CODE
+    </select>
+</mapper>
