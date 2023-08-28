@@ -18,7 +18,8 @@ public interface CommunityDAO {
 	int modifyCommunity(CommunityDTO community);
 	
 	/*게시판 삭제*/
-	int deleteCommunity(CommunityDTO community);
+	int deleteCommunity(int commNo);
+
 
 	
 }

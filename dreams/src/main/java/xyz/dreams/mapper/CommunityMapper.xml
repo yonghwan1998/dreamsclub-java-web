@@ -4,7 +4,7 @@
 
 <!-- 게시판 등록 -->
 <insert id="enrollCommunity">
-	insert into Community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) values (COMMUNITY_SEQ.NEXTVAL, #{COMM_TITLE}, #{COMM_CONT}, #{MEMBER_ID})
+	insert into Community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
 </insert>
 
 <!-- 게시판 전체 목록보기 -->
@@ -14,17 +14,17 @@
 
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
-	select * from community where COMM_NO=#{COMM_NO}
+	select * from community where COMM_NO=#{commNo}
 </select>
 
 <!-- 게시판 글 수정 -->
 <update id="modifyCommunity">
-	update community set comm_tit=#{comm_tit}, comm_cont=#{comm_cont} where comm_no
+	update community set comm_title=#{commTitle}, comm_cont=#{commCont} where comm_no
 </update>
 
 <!-- 게시판 글 삭제 -->
 <delete id="deleteCommunity">
-	delete * from community where COMM_NO=#{COMM_NO}
+	delete from community where COMM_NO=#{commNo}
 </delete>
 
 </mapper>

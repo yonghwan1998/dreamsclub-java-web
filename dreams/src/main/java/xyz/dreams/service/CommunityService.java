@@ -7,7 +7,7 @@ import xyz.dreams.dto.CommunityDTO;
 public interface CommunityService {
 
 	/*게시판 등록*/
-	int enrollCommunity(CommunityDTO community);
+	void enrollCommunity(CommunityDTO community);
 	
 	/*게시판 목록*/
 	List<CommunityDTO> getList();
@@ -16,9 +16,9 @@ public interface CommunityService {
 	CommunityDTO getPage(int communityNo);
 	
 	/*게시판 글 수정*/
-	int modifyCommunity(CommunityDTO community);
+	void modifyCommunity(CommunityDTO community);
 	
 	/*게시판 삭제*/
-	int deleteCommunity(CommunityDTO community);
+	void deleteCommunity(int commNo);
 
 }
