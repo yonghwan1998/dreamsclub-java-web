@@ -30,7 +30,7 @@
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="/dreams/goods/detail"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
+													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
 													</a>
 												</div>
 											</div>
@@ -51,7 +51,7 @@
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
-													<a href="#" id="addCartBtn">ADD TO CART</a>
+													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }">상세정보</a>
 												</div>
 											</div>
 										</div>
