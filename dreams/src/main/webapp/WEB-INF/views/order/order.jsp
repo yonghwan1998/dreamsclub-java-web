@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 컨텐츠 상단 홈/결제 -->
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
     <div class="container">
@@ -225,27 +226,25 @@
                             <div class="your-order-top">
                                 <ul>
                                     <li>상품</li>
-                                    <li>Total</li>
+                                    <li>결제 금액</li>
                                 </ul>
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">${goods.goodsCode} X ${goods.goodsCount }</span> <span
-                                            class="order-price">${goods.goodsPrice } </span></li>
-                                    <!-- <li><span class="order-middle-left">생수 X 10</span> <span
-                                            class="order-price">10,000 </span></li> -->
+                                    <li><span class="order-middle-left">${goods.goodsCode}(${goods.goodsSize}) &nbsp;&nbsp; X &nbsp;&nbsp;  ${goods.goodsCount }</span> <span
+                                            class="order-price"><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원 </span></li>
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
                                 <ul>
                                     <li class="your-order-shipping">배송비</li>
-                                    <li>무료</li>
+                                    <li style="color: red;">무료</li>
                                 </ul>
                             </div>
                             <div class="your-order-total">
                                 <ul>
-                                    <li class="order-total">Total</li>
-                                    <li>310,000</li>
+                                    <li class="order-total">총 금액</li>
+                                    <li><span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -254,32 +253,32 @@
                                 <div class="panel-group" id="accordion">
                                     <div class="panel payment-accordion">
                                         <div class="panel-heading" id="method-one">
-                                            <h4 class="panel-title">
-                                                <a data-bs-toggle="collapse" href="#method1">
-                                                    무통장 입금
+                                        	<h4 class="panel-title">
+                                                <a class="collapsed" data-bs-toggle="collapse" href="#method1">
+                                                    시스템 오류
                                                 </a>
                                             </h4>
                                         </div>
                                         <div id="method1" class="panel-collapse collapse show"
                                             data-bs-parent="#accordion">
                                             <div class="panel-body">
-                                                <p>주문 시 기재하신 입금자명과 실제 입금자명이 상이할 경우 입금 처리가 되지 않아 
-                                                별도 연락 부탁 드립니다.</p>
+                                                <p>현재 시스템 오류로 카드 결제만 가능합니다. <br>이 점 양해 부탁드립니다.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="panel payment-accordion">
                                         <div class="panel-heading" id="method-two">
                                             <h4 class="panel-title">
-                                                <a class="collapsed" data-bs-toggle="collapse" href="#method2">
-                                                    시스템 오류
+                                                <a data-bs-toggle="collapse" href="#method2">
+                                                    무통장 입금
                                                 </a>
                                             </h4>
                                         </div>
                                         <div id="method2" class="panel-collapse collapse"
                                             data-bs-parent="#accordion">
                                             <div class="panel-body">
-                                                <p>현재 시스템 오류로 카드 결제만 가능합니다. 이 점 양해 부탁드립니다.</p>
+                                                <p>주문 시 기재하신 입금자명과 실제 입금자명이 상이할 경우 입금 처리가 되지 않아 
+                                                별도 연락 부탁 드립니다.</p>
                                             </div>
                                         </div>
                                     </div>
