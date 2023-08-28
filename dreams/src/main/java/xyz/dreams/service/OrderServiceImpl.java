@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public GoodsDTO getGoodsInfo(String memberId) {
-		return orderDAO.getGoodsInfo(memberId);
+	public GoodsDTO getGoodsInfo(String goodsCode) {
+		return orderDAO.getGoodsInfo(goodsCode);
 	}
 }

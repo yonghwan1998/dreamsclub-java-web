@@ -57,15 +57,15 @@
 	
 	<select id="getGoodsInfo" resultType="GoodsDTO">
 		SELECT
-			GOODS_CODE,
-			GOODS_COUNT,
-			GOODS_IMAGE,
-			GOODS_PRICE
+			G.GOODS_CODE AS GGC,
+			<!-- GOODS_COUNT, -->
+			G.GOODS_IMAGE,
+			G.GOODS_PRICE
 		FROM
 			GOODS G
 		LEFT JOIN		
-			ORDER_NEW O ON O.GOODS_CODE = G.GOODS_CODE
+			ORDER_NEW O ON O.GOODS_CODE = GGC
 		WHERE
-			G.GOODS_CODE = #{goodsCode}
+			GGC = #{goodsCode}
 	</select>
 </mapper>

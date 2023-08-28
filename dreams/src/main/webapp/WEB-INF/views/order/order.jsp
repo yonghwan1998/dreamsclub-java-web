@@ -230,10 +230,10 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">녹즙 X 100</span> <span
-                                            class="order-price">300,000 </span></li>
-                                    <li><span class="order-middle-left">생수 X 10</span> <span
-                                            class="order-price">10,000 </span></li>
+                                    <li><span class="order-middle-left">${goods.goodsCode} X ${goods.goodsCount }</span> <span
+                                            class="order-price">${goods.goodsPrice } </span></li>
+                                    <!-- <li><span class="order-middle-left">생수 X 10</span> <span
+                                            class="order-price">10,000 </span></li> -->
                                 </ul>
                             </div>
                             <div class="your-order-bottom">

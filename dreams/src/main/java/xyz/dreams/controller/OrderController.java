@@ -31,7 +31,7 @@ public class OrderController {
             String memberId = member.getMemberId();
             MemberDTO memberInfo = orderService.getMemberInfo(memberId);
             model.addAttribute("memberInfo", memberInfo);
-            model.addAttribute("goodsInfo", orderService.getGoodsInfo(memberId));
+            model.addAttribute("goods", goods);
             model.addAttribute("memberId", memberId);
         }
         

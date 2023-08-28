@@ -19,5 +19,5 @@ public interface OrderDAO {
 	MemberDTO getMemberInfo(String memberId);
 	
 	//굿즈 조회
-	GoodsDTO getGoodsInfo(String memberId);
+	GoodsDTO getGoodsInfo(String goodsCode);
 }

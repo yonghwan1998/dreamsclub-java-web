@@ -30,7 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public GoodsDTO getGoodsInfo(String memberId) {
-		return sqlSession.getMapper(OrderMapper.class).getGoodsInfo(memberId);
+	public GoodsDTO getGoodsInfo(String goodsCode) {
+		return sqlSession.getMapper(OrderMapper.class).getGoodsInfo(goodsCode);
 	}
 }
