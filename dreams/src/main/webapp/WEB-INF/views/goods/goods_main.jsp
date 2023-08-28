@@ -30,7 +30,7 @@
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
 													</a>
 												</div>
 											</div>
@@ -38,7 +38,7 @@
 										<div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
 											<div class="shop-list-content">
 												<h3>
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }" class="goodsCode" >${goods.goodsCode }</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>" class="goodsCode" >${goods.goodsCode }</a>
 												</h3>
 												<div class="product-list-price">
 													<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
@@ -51,7 +51,7 @@
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }">상세정보</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>">상세정보</a>
 												</div>
 											</div>
 										</div>
@@ -61,6 +61,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				<!-- 
 				<div class="pro-pagination-style text-center mt-30">
 					<ul>
 						<li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
@@ -69,6 +70,7 @@
 						<li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
 					</ul>
 				</div>
+				-->
 
 
 			</div>
