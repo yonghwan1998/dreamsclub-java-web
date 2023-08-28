@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.OrderDetailMapper">
-    <select id="getOrderById" parameterType="java.lang.String" resultType="OrderDetailDTO">
+    <select id="getOrderById" resultType="OrderDetailDTO">
         SELECT
             <!-- 주문 번호, 주문인, 상품명, 수량, 가격 -->
             OD.ORDER_DETAIL_NO,

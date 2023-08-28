@@ -45,10 +45,8 @@ public class AdminController {
 	@RequestMapping(value = "/goods", method = RequestMethod.GET)
 	public String AdminGoodsView(Model model) {
 
-		String q = "";
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(q);
+		List<GoodsDTO> goodsList = goodsService.getAdminGoodsList();
 		model.addAttribute("goodsList", goodsList);
-		model.addAttribute("goodsCount", goodsList.size());
 
 		return "admin/admin_goods";
 	}

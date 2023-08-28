@@ -8,6 +8,7 @@ import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.Member;
+import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.MypageService;
 
 @RestController
@@ -17,7 +18,7 @@ public class MypageRestController {
 	private final MypageService mypageService;
 	
 	@PutMapping("/memberupdate")
-	public String memberModify(@RequestBody Member member) {
+	public String memberModify(@RequestBody MemberDTO member) {
 		member.setMemberpw(HtmlUtils.htmlEscape(member.getMemberpw()));
 		member.setMembername(HtmlUtils.htmlEscape(member.getMembername()));
 		member.setMemberemail(HtmlUtils.htmlEscape(member.getMemberemail()));
