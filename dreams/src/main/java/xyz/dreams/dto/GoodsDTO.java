@@ -10,4 +10,8 @@ public class GoodsDTO {
 	private String goodsYn;
 	private int goodsStock;
 	private String goodsImage;
+	
+//	구매하기에서 사용할 필드
+	private int goodsCount;
+	private String goodsSize;
 }

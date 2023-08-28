@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+	function purchaseGoods() {
+      	purchase.action = "<c:url value="/goods/detail"/>";
+      	purchase.submit();
+	}
+</script>
+
 <div class="shop-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -45,8 +52,11 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-content ml-70">
+                        <form  method="post" name="purchase">
                     <h2>${goodsCode }</h2>
                     <div class="product-details-price">
+                    <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+                    <input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }">
                         <span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
                     </div>
                     <div class="pro-details-rating-wrap">
@@ -74,10 +84,11 @@
                     </div>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                            <input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount" >
                         </div>
                         <div class="pro-details-cart btn-hover">
-                            <a href="${pageContext.request.contextPath }/order/new">구매하기</a>
+                            <a onclick="purchaseGoods();">구매하기</a>
+                        </form>
                         </div>
                     </div>
                     <div class="pro-details-meta">
@@ -332,3 +343,4 @@
     </div>
 </div>
 <!-- Modal end -->
+

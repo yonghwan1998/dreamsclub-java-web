@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
+import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.GoodsService;
 
 @Controller
@@ -55,5 +57,13 @@ public class GoodsController {
 	}
 
 //	POST - 굿즈 상세 페이지
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.POST)
+	public String purchase(@ModelAttribute GoodsDTO goods, Model model) {
+		model.addAttribute("goods", goods);
+		System.out.println(goods);
+		return "goods/goods_detail";
+	}
+
 
 }
