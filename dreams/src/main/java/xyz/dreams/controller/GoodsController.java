@@ -59,12 +59,18 @@ public class GoodsController {
 	}
 
 //	POST - 굿즈 상세 페이지
-	
+
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	public String purchase(@ModelAttribute GoodsDTO goods, HttpSession session) {
+		String[] goodsCodeSplit = null;
+
+		goodsCodeSplit = goods.getGoodsCode().split("-");
+		goods.setGoodsCode(goodsCodeSplit[1]);
+
+		goods.setGoodsPrice(goods.getGoodsPrice() * goods.getGoodsCount());
+
 		session.setAttribute("goods", goods);
 		return "redirect:/order/new";
 	}
-
 
 }
