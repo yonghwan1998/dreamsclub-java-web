@@ -15,13 +15,16 @@ import xyz.dreams.mapper.MemberMapper;
 public class MemberDAOImpl implements MemberDAO {
 	private final SqlSession sqlSesstion;
 
-	// 강민경
+	// 강민경: 로그인 시 사용 
 	@Override
 	public MemberDTO selectLoginCheck(String memberId) {
 		return sqlSesstion.getMapper(MemberMapper.class).selectLoginCheck(memberId);
 	}
-	
-	
+	//강민경: 아이디, 비밀번호 찾기 시 사용 
+	@Override
+	public MemberDTO selectSearch(String memberName) {
+		return sqlSesstion.getMapper(MemberMapper.class).selectSearch(memberName);
+	}
 	
 	
 	//오진서
@@ -50,5 +53,6 @@ public class MemberDAOImpl implements MemberDAO {
 		public List<MemberDTO> selectMemberList() {
 			return sqlSesstion.getMapper(MemberMapper.class).selectMemberList();
 		}
+
 }
 

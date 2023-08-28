@@ -1,27 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<script>
-	function resultIdAlert(){
-		if(searchId.memberName.value==""){
-			alert("이름을 입력하십시요.");
-			searchId.memberName.focus();
-	         return;
-	      } 
-	      if (searchId.memberEmail.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchId.memberEmail.focus();
-	         return;
-	      }   
-	      
-	      searchId.submit();
-	      }
-		 
-</script>
-
+-
 
 <!-- 로그인 부분 시작 -->
-
+-
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -44,13 +26,15 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="<c:url value="/login/search_id/search_result_id"/> method="post" name="searchId">
-                                        <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="password" name="memberEmail" placeholder="이메일을 입력해 주세요.">
-                                        <div class="button-box">
-                                            <button type="button" onclick="resultIdAlert();"><span>확인</span></button>
+                                    <form action="<c:url value="/login/search_id/search_result_id"/>" method="post">
+											 <tr>
+			                                   <td width="20"></td>
+			                                   <td style=" text-align: center;">${member.memberId }</td>         
+			                                </tr>                                            
+                                            
+                                            <button type="submit" onclick="resultAlert"><span>확인</span></button>
                                             <!--자바 스크립트 (alert 창 띄우기 하기)-->
-                                        </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -62,8 +46,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 
