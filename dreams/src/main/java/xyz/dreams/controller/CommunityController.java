@@ -3,9 +3,11 @@ package xyz.dreams.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,17 +49,16 @@ public class CommunityController {
 	}
 	
 	/*게시판 등록하기*/
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String communityWritePOST(CommunityDTO community, RedirectAttributes rttr) {
-				
+	@RequestMapping(value = "/write/add", method = RequestMethod.POST)
+	public String communityWritePOST(@ModelAttribute CommunityDTO community, HttpSession session) throws Exception{
+		
+		//세션 아이디값 가져오기(member객체로)
+		System.out.println(session.getAttribute("member"));
 		communityService.enrollCommunity(community);
 		
-		//등록성공 경고창 구현
-		rttr.addFlashAttribute("result", "enroll success");
-		
-		return "redirect:/community";
+		return "redirect:community/community_main";
 	}
-	
+
 	/*게시판 수정 페이지 이동*/
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String communityModify(int commNo, Model model) {
