@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.OrderMapper">
-	<resultMap type="xyz.dreams.dto.OrderDTO" id="orderResultMap">
+	<!-- <resultMap type="xyz.dreams.dto.OrderDTO" id="orderResultMap">
 		<id property="orderId" column="ORDER_ID"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="goodsCode" column="GOODS_CODE"/>
@@ -13,7 +13,7 @@
 		<result property="orderStatus" column="ORDER_STATUS"/>
 		<result property="orderQuantity" column="ORDER_QUANTITY"/>
 		<result property="orderHow" column="ORDER_HOW"/>
-	</resultMap>
+	</resultMap> -->
 	
 	<insert id="insertOrder" parameterType="xyz.dreams.dto.OrderDTO">
 		INSERT INTO ORDER_NEW (
@@ -29,7 +29,7 @@
 		)
 	</insert>
 	
-	<update id="updateOrder" parameterType="xyz.dreams.dto.OrderDTO" >
+	<update id="updateOrder" >
 		UPDATE ORDER_NEW SET
 			ORDER_PCODE = #{orderPcode},
 			ORDER_ADDRESS1 = #{orderAddress1},
@@ -38,7 +38,7 @@
 			ORDER_ID = #{orderId}
 	</update>
 	
-	<select id="getMemberInfo" parameterType="java.lang.String" resultType="MemberDTO">
+	<select id="getMemberInfo" resultType="MemberDTO">
 		SELECT
 			M.MEMBER_ID,
 			M.MEMBER_NAME,
@@ -48,14 +48,14 @@
 			M.MEMBER_ADDRESS1,
 			M.MEMBER_ADDRESS2
 		FROM
-			ORDER_NEW O
+			MEMBER M
 		LEFT JOIN
-			MEMBER M ON O.MEMBER_ID = M.MEMBER_ID
+			ORDER_NEW O ON M.MEMBER_ID = O.MEMBER_ID
 		WHERE
-			O.MEMBER_ID = #{memberId}
+			M.MEMBER_ID = #{memberId}
 	</select>
 	
-	<select id="getCartInfo" parameterType="java.lang.String" resultType="CartDTO">
+	<select id="getCartInfo" resultType="CartDTO">
 		SELECT
 			<!-- 상품명, 수량, 가격 -->
 			C.GOODS_CODE, 
