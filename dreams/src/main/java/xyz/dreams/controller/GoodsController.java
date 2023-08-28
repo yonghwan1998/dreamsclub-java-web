@@ -62,7 +62,7 @@ public class GoodsController {
 	public String purchase(@ModelAttribute GoodsDTO goods, Model model) {
 		model.addAttribute("goods", goods);
 		System.out.println(goods);
-		return "goods/goods_detail";
+		return "order/new";
 	}
 
 
