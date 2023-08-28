@@ -3,6 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 	function purchaseGoods() {
+		if ( purchase.goodsSize.value == "0" ) {
+	         alert("사이즈를 입력해주세요.");
+	         purchase.goodsSize.focus();
+	         return;
+	      } 
       	purchase.action = "<c:url value="/goods/detail"/>";
       	purchase.submit();
 	}
@@ -73,13 +78,12 @@
                     <div class="pro-details-size-color">
                         <div class="pro-details-size">
                             <span>Size</span>
-                            <div class="pro-details-size-content">
-                                <ul>
-                                    <li><a href="#">S</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">L</a></li>
-                                </ul>
-                            </div>
+                            <select name="goodsSize">
+                            	<option value="0" selected>사이즈를 선택해 주세요.</option>
+                            	<option value="L">L</option>
+                            	<option value="M">M</option>
+                            	<option value="S">S</option>
+                            </select>
                         </div>
                     </div>
                     <div class="pro-details-quality">
