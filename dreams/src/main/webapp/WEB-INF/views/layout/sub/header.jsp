@@ -70,7 +70,7 @@
 							<li><a href="index.html">Dreams <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
 									<li><a href="/dreams/introduction">구단소개</a></li>
-									<li><a href="#">공지사항</a></li>
+									<li><a href="/dreams/notice">공지사항</a></li>
 								</ul></li>
 							<!-- Navbar - 선수단 -->
 							<li><a href="/dreams/team"> 선수단 </a></li>
