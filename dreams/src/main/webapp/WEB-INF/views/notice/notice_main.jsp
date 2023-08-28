@@ -86,14 +86,26 @@
                 </table>
             </div>
 
-            <!--글쓰기 버튼-->
-            <div class="writeBtnContainer">
-                <div class="boardWriteBtn" style="text-align: right;">
-                    <a href="/dreams/notice/write">등록</a>
-                    <a href="/dreams/notice/write">수정</a>
-                    <a href="/dreams/notice/write">삭제</a>
-                </div>
-            </div>
+
+
+
+   					   <!--글쓰기 버튼-->
+            
+						<c:choose>
+
+							<c:when test="${member.memberStatus == 9}">
+								<div class="writeBtnContainer">
+             						   <div class="boardWriteBtn" style="text-align: right;">
+                						    <a href="/dreams/notice/write">등록</a>
+                  							<a href="/dreams/notice/write">수정</a>
+                    						<a href="/dreams/notice/write">삭제</a>
+               						   </div>
+       					        </div>
+							</c:when>
+
+						</c:choose>
+
+            
 
             <!--페이지-->
             <div class="boardPageContainer">
