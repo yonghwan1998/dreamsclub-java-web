@@ -44,9 +44,9 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="<c:url value="/login/search_id/search_result_id"/> method="post" name="searchId">
+                                    <form method="post" name="searchId">
                                         <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="password" name="memberEmail" placeholder="이메일을 입력해 주세요.">
+                                        <input type="email" name="memberEmail" placeholder="이메일을 입력해 주세요.">
                                         <div class="button-box">
                                             <button type="button" onclick="resultIdAlert();"><span>확인</span></button>
                                             <!--자바 스크립트 (alert 창 띄우기 하기)-->
