@@ -61,8 +61,7 @@ public class GoodsController {
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	public String purchase(@ModelAttribute GoodsDTO goods, Model model) {
 		model.addAttribute("goods", goods);
-		System.out.println(goods);
-		return "order/new";
+		return "order/order";
 	}
 
 

@@ -5,11 +5,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.OrderService;
@@ -21,9 +23,9 @@ public class OrderController {
     private final OrderService orderService;
     
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String orderPage(Model model, HttpSession session) {
+    public String orderPage(@ModelAttribute GoodsDTO goods, Model model, HttpSession session) {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
-        System.out.println("Controller1"+member);
+        System.out.println("Controller1"+goods);
         if (member != null) {
             String memberId = member.getMemberId();
             MemberDTO memberInfo = orderService.getMemberInfo(memberId);

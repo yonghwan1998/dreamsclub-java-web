@@ -15,9 +15,11 @@ public class OrderDetailDTO {
     private int orderDetailNo;		// 시퀸스
     private String orderId;         // 주문 번호
     private String memberId;        // 회원 ID (Member 테이블의 PK)
-    private String cartNo;          // 장바구니 ID (Cart 테이블의 PK)
     private String memberName;      // 회원 이름 (Member 테이블의 필드)
-    private String goodsCode;   	// 장바구니의 상품 코드 (Cart 테이블의 필드)
-    private int cartQuantity;       // 장바구니의 수량 (Cart 테이블의 필드)
-    private double orderPrice;      // 주문 가격
+    private String goodsCode;   	// 상품명 (Goods 테이블의 PK)
+    private int goodsPrice;			// 상품 가격
+    
+//    private int cartQuantity;       // 장바구니의 수량 (Cart 테이블의 필드)
+//    private double orderPrice;      // 주문 가격
+//    private String cartNo;          // 장바구니 ID (Cart 테이블의 PK)
 }

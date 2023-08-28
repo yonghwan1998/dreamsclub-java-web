@@ -55,16 +55,13 @@
 			M.MEMBER_ID = #{memberId}
 	</select>
 	
-	<select id="getCartInfo" resultType="CartDTO">
+	<select id="getGoodsInfo" resultType="GoodsDTO">
 		SELECT
 			<!-- 상품명, 수량, 가격 -->
-			C.GOODS_CODE, 
-			C.CART_QUANTITY
-			<!-- C.ORDER_PRICE -->
 		FROM
 			ORDER_NEW O
 		LEFT JOIN		
-			CART C ON O.MEMBER_ID = C.MEMBER_ID
+			<!-- CART C ON O.MEMBER_ID = C.MEMBER_ID -->
 		WHERE
 			O.MEMBER_ID = #{memberId}
 	</select>
