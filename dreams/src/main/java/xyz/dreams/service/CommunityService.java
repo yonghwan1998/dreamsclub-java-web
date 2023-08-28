@@ -16,9 +16,9 @@ public interface CommunityService {
 	CommunityDTO getPage(int communityNo);
 	
 	/*게시판 글 수정*/
-	int modifyCommunity(CommunityDTO community);
+	void modifyCommunity(CommunityDTO community);
 	
 	/*게시판 삭제*/
-	int deleteCommunity(CommunityDTO community);
+	void deleteCommunity(int commNo);
 
 }

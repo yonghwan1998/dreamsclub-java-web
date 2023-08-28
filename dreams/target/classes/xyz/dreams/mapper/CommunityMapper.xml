@@ -14,7 +14,7 @@
 
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
-	select * from community where COMM_NO=#{commNO}
+	select * from community where COMM_NO=#{commNo}
 </select>
 
 <!-- 게시판 글 수정 -->
@@ -24,7 +24,7 @@
 
 <!-- 게시판 글 삭제 -->
 <delete id="deleteCommunity">
-	delete * from community where COMM_NO=#{COMM_NO}
+	delete from community where COMM_NO=#{commNo}
 </delete>
 
 </mapper>
