@@ -1,7 +1,7 @@
 package xyz.dreams.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDetailDTO;
 import xyz.dreams.service.OrderDetailService;
 
@@ -20,11 +21,13 @@ public class OrderDetailController {
    private final OrderDetailService orderDetailService;
 
    @RequestMapping(method = RequestMethod.GET)
-   public String viewOrder(HttpServletRequest request, OrderDetailDTO orderDetailDTO, Model model) {
-       String memberId = request.getParameter("memberId");
-       if (memberId != null) {
-           orderDetailDTO.setMemberId(memberId);
-           
+   public String viewOrder(HttpSession session, Model model) {
+       MemberDTO member = (MemberDTO) session.getAttribute("member");
+       System.out.println("Controller1"+member);
+       if (member != null) {
+    	   String memberId = member.getMemberId();
+           model.addAttribute("memberId", memberId);
+
            OrderDetailDTO orderDetail = orderDetailService.getOrderById(memberId);
            if (orderDetail != null) {
                model.addAttribute("orderDetail", orderDetail);
