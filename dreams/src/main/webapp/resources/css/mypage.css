@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+
+.searchblock { width: 100%; height: 100px; background-color: #dadada; display: flex; justify-content: space-around; }
+.searchtext { line-height: 100px; }
+.searchtitle { background-color: hotpink; padding-top: 30px; }
+.searchdatebox { width: 240px; height: 100%; background-color: lightseagreen; }
+.searchbutton { width: 80px; height: 30px; background-color: #4080ee; color: white; margin-top: 30px; }
+.councelbox { width: 100%; border-to: 3px solid #ccc; margin-top: 100px; }
+.councelheader{ width: 100%; height: 60px; background-color: #ddd; display: flex; }
+.counceldate { width: 15%; line-height: 60px; padding-left: 20px; }
+.ordernumber { width: 50%; line-height: 60px; }
+.counceltitle { width: 25%; line-height: 60px; }
+.councelstate { width: 10%; line-height: 60px; }
+
+.searchForm { width: 100%; height: 100px; background-color: #dadada; display: flex; justify-content: space-around; }
+
+
+
+
+#coupang-banner span.banner-bg{float:left;width:100%;}
+#coupang-banner .banner-middle{width:980px;margin:0 auto;}
+#coupang-banner .banner-middle a{float:left;display: inline-block}
+
+body, div, dl, dt, dd, ul, ol, menu, li, h1, h2, h3, h4, h5, h6, pre, 
+form, fieldset, input, textarea, blockquote, th, td, 
+
+/* html5 block elements */
+article, aside, hgroup, header, footer, figure, figcaption, nav, section, 
+time, mark, canvas, video, audio, details, 
+summary {
+    display: block;
+}
+
+dl, dt, dd, ul, ol, menu, 
+li {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, 
+img {
+    border: 0;
+    padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+body .__next-wrap,
+.__next-wrap input,
+.__next-wrap textarea,
+.__next-wrap select,
+.__next-wrap button,
+.__next-wrap table {
+  font-family: "맑은 고딕", malgun gothic, apple sd gothic neo, "나눔고딕", nanumgothic, "돋움", dotum, sans-serif;
+}
+
+
+.portal-modal {
+  z-index: 30;
+}
+
+#contents {
+  z-index: inherit !important;
+}
+
+* { margin:0;padding:0; }
+body {
+  font-family: "맑은 고딕", malgun gothic, apple sd gothic neo, "나눔고딕", nanumgothic, "돋움", dotum, sans-serif;
+}
+.__next-wrap {
+  position: relative;
+  min-height: 1000px;
+  line-height: 1.42857;
+  color: #333;
+  font-family: "맑은 고딕", malgun gothic, apple sd gothic neo, "나눔고딕", nanumgothic, "돋움", dotum, sans-serif;
+}
+
+.__next-wrap input, .__next textarea, .__next select, .__next button, .__next table {
+  font-family: "맑은 고딕", malgun gothic, apple sd gothic neo, "나눔고딕", nanumgothic, "돋움", dotum, sans-serif;
+}
+
+.__next-wrap * {box-sizing: border-box;}
+.__next-wrap a, .__next button {-webkit-touch-callout: none;user-select: none;-webkit-user-select: none;cursor: pointer;text-decoration: none; outline: none;}
+.__next-wrap [hidden] {display: none;}
+.__next-wrap ol, .__next ul {list-style-type: none;}
+.__next-wrap::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+html {
+  font-size: 16px;
+}
+img, fieldset, button, input {
+  border: 0 none;
+}
+button:focus {
+  outline: 0;
+}
+@media (max-width: 320px) {
+  html {font-size: 14px;}
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.__next.disable-body-scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.__next.disable-body-scroll.focus-in {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
+  
+#contents.increase-z-index {
+  z-index: 30;
+}
+  
+@font-face {
+  font-family: "robotoThinNumber";
+  src: url(//assets.coupangcdn.com/customjs/roboto-fonts/20151120/roboto-thin-number.eot);
+  src: url(//assets.coupangcdn.com/customjs/roboto-fonts/20151120/roboto-thin-number.eot?#iefix) format('embedded-opentype'),
+       url(//assets.coupangcdn.com/customjs/roboto-fonts/20151120/roboto-thin-number.woff) format('woff'),
+       url(//assets.coupangcdn.com/customjs/roboto-fonts/20151120/roboto-thin-number.ttf) format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}  
+  

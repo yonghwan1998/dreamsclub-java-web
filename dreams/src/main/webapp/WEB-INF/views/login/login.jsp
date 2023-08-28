@@ -2,21 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<!doctype html>
-<html class="no-js" lang="zxx">
 
-<head>
     
      <script>
       function MemberLogin() {
       if ( login.memberId.value == "" ) {
          alert("아이디를 입력하십시요.");
-         joinform.memberId.focus();
+         login.memberId.focus();
          return;
       } 
       if ( login.memberPw.value == "" ) {
          alert("비밀번호를 입력하십시요.");
-         joinform.memberPw.focus();
+         login.memberPw.focus();
          return;
       }   
       
@@ -24,10 +21,10 @@
       login.submit();
       }
    </script>
-</head>
+
 
 <!-- 로그인 부분 시작 -->
-<body>
+
 
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
@@ -39,6 +36,7 @@
                         <li id = "loginimg">
                             <img src="${pageContext.request.contextPath }/img/logo/dreams_login_logo.png">
                         </li>
+                        
                     </div>
                     <div class="login-register-tab-list nav">
                         <li>
@@ -61,14 +59,14 @@
                                                 
                                                 <div><a href="/dreams/login/search_id">아이디 찾기&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                               
-                                                <div><a href="#">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+                                                <div><a href="/dreams/join/hewon">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                                
                                             </div>
                                             <button type="button" onclick="MemberLogin();"><span>로그인</span></button>
                                             <tr>
-                                   <td width="20"></td>
-                                   <td style="color: red;">${message }</td>         
-                                 </tr>
+			                                   <td width="20"></td>
+			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
+			                                </tr>
                                             <!--틀린 경우 정보와 다르다는 메세지를 띄우고 3번 이상 틀릴 시 휴면 계정으로 변환-->
                                         </div>
                                     </form>
@@ -82,7 +80,3 @@
         </div>
     </div>
 </div>
-
-</body>
-
-</html>

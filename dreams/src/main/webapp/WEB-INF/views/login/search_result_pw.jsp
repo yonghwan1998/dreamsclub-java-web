@@ -2,31 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	function resultPwAlert(){
+	function.resultPwAlert(){
 		if(searchPw.memberName.value==""){
 			alert("이름을 입력하십시요.");
 			searchPw.memberName.focus();
 	         return;
 	      } 
 		if (searchPw.memberId.value == "" ) {
-	         alert("이메일을 입력하십시요.");
+	         alert("아이디를 입력하십시요.");
 	         searchPw.memberId.focus();
 	         return;
-	     if (searchPw.memberEmail.value == "" ) {
+	     } 
+	    if (searchPw.memberEmail.value == "" ) {
 	         alert("이메일을 입력하십시요.");
 	         searchPw.memberEmail.focus();
 	         return;
 	     }   
 	      
-	      searchId.submit();
+	      searchPw.action = "<c:url value="/search_result_pw"/>";
+	      searchPw.submit();
 	      }
 		 
 </script>
 
 
-
-<!-- 로그인 부분 시작 -->
-
+<!-- 비밀번호 찾기 -->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -50,12 +50,12 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="/dreams/login/search_pw" method="post" name="searchPw">
+                                    <form action="/dreams/search_pw" method="post" name="searchPw">
                                         <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
                                         <input type="password" name="memberId" placeholder="아이디를 입력해 주세요.">
                                         <input type="password" name="memberEmail" placeholder="이메일를 입력해 주세요.">
                                         <div class="button-box">
-                                            <button type="button" onclick="resultPwAlert();"><span>확인</span></button>
+                                            <button type="submit" onclick="resultPwAlert"><span>확인</span></button>
                                             <tr>
 			                                   <td width="20"></td>
 			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
@@ -73,5 +73,3 @@
         </div>
     </div>
 </div>
-
-
