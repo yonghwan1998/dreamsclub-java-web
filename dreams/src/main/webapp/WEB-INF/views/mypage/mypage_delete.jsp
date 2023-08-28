@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false"%>
-<!DOCTYPE html>
-<html class="no-js" lang="zxx">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
 
 
@@ -30,7 +28,6 @@
 
 
 
-<body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -38,7 +35,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="#" class="app-brand-link">
+            <a href="/dreams/mypage" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">My page</span>
             </a>
 
@@ -54,16 +51,12 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">회원 정보</span></li>
             <li class="menu-item">
               <a 
-              	href="#" 
-              	target="_blank"
-              	class="menu-link">                
-                <div data="Authentications">회원정보 변경</div>                
+              	href="/dreams/mypage/modify" class="menu-link">                
+                <div data-i18n="Authentications">회원정보 변경</div>                
               </a>
               <a 
-              	href="#" 
-              	target="_blank"
-              	class="menu-link">                
-                <div data="Authentications">회원 탈퇴</div>                
+              	href="/dreams/mypage/delete" class="menu-link">                
+                <div data-i18n="Authentications">회원 탈퇴</div>                
               </a>
             </li>
 
@@ -72,16 +65,12 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">나의 상품</span></li>
             <li class="menu-item">
               <a 
-              	href="#" 
-              	target="_blank" 
-              	class="menu-link ">
-                <div data="Authentications">Q&A(나의 1:1 문의)</div>
+              	href="/dreams/mypage/myqna" class="menu-link ">
+                <div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
               </a>
                 <a 
-              	href="#" 
-              	target="_blank" 
-              	class="menu-link ">
-                <div data="Authentications">주문목록/배송조회</div>
+              	href="/dreams/mypage/check" class="menu-link ">
+                <div data-i18n="Authentications">주문목록/배송조회</div>
               </a>
             </li>
           </ul>
@@ -139,7 +128,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="#" method="post">
-                                        <input type="text" name="user-name" placeholder="Username">
+                              
                                         <input type="password" name="user-password" placeholder="Password">
                                         <div class="button-box">
                                             <button type="submit"><span>회원 탈퇴</span></button>
@@ -193,6 +182,3 @@
     </div>
     <!-- / Layout wrapper -->
 
-
-</body>
-</html>

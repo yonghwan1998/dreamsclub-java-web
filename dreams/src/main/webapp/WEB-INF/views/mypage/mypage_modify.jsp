@@ -1,44 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false"%>
-<!DOCTYPE html>
-<html class="no-js" lang="zxx">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
 
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    
-    <!-- CSS
-	============================================ -->
-   
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Icon Font CSS -->
-    <link rel="stylesheet" href="assets/css/icons.min.css">
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-
-
-<body>
-    <!-- Layout wrapper -->
+      <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="#" class="app-brand-link">
+            <a href="/dreams/mypage" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">My page</span>
             </a>
 
@@ -54,15 +26,11 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">회원 정보</span></li>
             <li class="menu-item">
               <a 
-              	href="#" 
-              	target="_blank"
-              	class="menu-link">                
+              	href="/dreams/mypage/modify" class="menu-link">                
                 <div data-i18n="Authentications">회원정보 변경</div>                
               </a>
               <a 
-              	href="#" 
-              	target="_blank"
-              	class="menu-link">                
+              	href="/dreams/mypage/delete" class="menu-link">                
                 <div data-i18n="Authentications">회원 탈퇴</div>                
               </a>
             </li>
@@ -72,15 +40,11 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">나의 상품</span></li>
             <li class="menu-item">
               <a 
-              	href="#" 
-              	target="_blank" 
-              	class="menu-link ">
+              	href="/dreams/mypage/myqna" class="menu-link ">
                 <div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
               </a>
                 <a 
-              	href="#" 
-              	target="_blank" 
-              	class="menu-link ">
+              	href="/dreams/mypage/check" class="menu-link ">
                 <div data-i18n="Authentications">주문목록/배송조회</div>
               </a>
             </li>
@@ -218,6 +182,3 @@
     </div>
     <!-- / Layout wrapper -->
 
-
-</body>
-</html>
