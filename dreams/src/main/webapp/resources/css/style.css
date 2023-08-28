@@ -14291,8 +14291,9 @@ h3.cart-page-title {
   color: #10620A;
 }
 
+/* 형섭: 3px로 수정 */
 .cart-table-content table {
-  border: 1px solid #ebebeb;
+  border: 3px solid #ebebeb;
 }
 .cart-table-content table thead > tr {
   background-color: #f9f9f9;
