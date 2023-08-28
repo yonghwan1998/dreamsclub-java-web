@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+	function purchaseGoods() {
+		if ( purchase.goodsSize.value == "0" ) {
+	         alert("사이즈를 입력해주세요.");
+	         purchase.goodsSize.focus();
+	         return;
+	      } 
+      	purchase.action = "<c:url value="/goods/detail"/>";
+      	purchase.submit();
+	}
+</script>
+
 <div class="shop-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -45,8 +57,11 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-content ml-70">
+                        <form  method="post" name="purchase">
                     <h2>${goodsCode }</h2>
                     <div class="product-details-price">
+                    <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+                    <input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }">
                         <span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
                     </div>
                     <div class="pro-details-rating-wrap">
@@ -63,29 +78,27 @@
                     <div class="pro-details-size-color">
                         <div class="pro-details-size">
                             <span>Size</span>
-                            <div class="pro-details-size-content">
-                                <ul>
-                                    <li><a href="#">S</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">L</a></li>
-                                </ul>
-                            </div>
+                            <select name="goodsSize">
+                            	<option value="0" selected>사이즈를 선택해 주세요.</option>
+                            	<option value="L">L</option>
+                            	<option value="M">M</option>
+                            	<option value="S">S</option>
+                            </select>
                         </div>
                     </div>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                            <input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount" >
                         </div>
                         <div class="pro-details-cart btn-hover">
-                            <a href="#">Add To Cart</a>
+                            <a onclick="purchaseGoods();">구매하기</a>
                         </div>
                     </div>
+                        </form>
                     <div class="pro-details-meta">
                         <span>Category :</span>
                         <ul>
-                            <li><a href="#">Minimal,</a></li>
-                            <li><a href="#">Furniture,</a></li>
-                            <li><a href="#">Fashion</a></li>
+                            <li>${goodsDetail.goodsCategory }</li>
                         </ul>
                     </div>
                 </div>
@@ -332,3 +345,4 @@
     </div>
 </div>
 <!-- Modal end -->
+

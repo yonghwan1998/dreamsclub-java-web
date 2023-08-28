@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.MemberDAO;
 import xyz.dreams.dto.MemberDTO;
-import xyz.dreams.exception.ExistsMemberException;
 import xyz.dreams.exception.LoginAuthFailException;
 import xyz.dreams.exception.MemberNotFoundException;
 
@@ -23,21 +21,41 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO loginAuth(MemberDTO member) throws LoginAuthFailException {
 		// 매개변수로 전달받은 회원정보의 아이디로 기존 회원정보를 검색하여 검색결과를 반환받아 저장
-		MemberDTO authUserinfo = memberDAO.selectLoginCheck(member.getMemberId());
+		MemberDTO authMember = memberDAO.selectLoginCheck(member.getMemberId());
 
-		if (authUserinfo == null) {
-			throw new LoginAuthFailException("아이디의 회원정보가 존재하지 않습니다.", member.getMemberId());
+		if (authMember == null) {
+			throw new LoginAuthFailException("회원정보가 존재하지 않습니다.", member.getMemberId());
 		}
 
 		// 매개변수로 전달받은 회원정보의 비밀번호와 검색된 회원정보의 비밀번호를 비교하여
 		// 같지 않은 경우 - 비밀번호 인증 실패
-		if (!BCrypt.checkpw(member.getMemberPw(), authUserinfo.getMemberPw())) {
+		if (!BCrypt.checkpw(member.getMemberPw(), authMember.getMemberPw())) {
 			throw new LoginAuthFailException("아이디가 없거나 비밀번호가 맞지 않습니다.", member.getMemberId());
 		}
 
 		// 매개변수로 전달받은 회원정보의 아이디로 검색된 회원정보 반환
-		return authUserinfo;
+		return authMember;
 	}
+	//강민경: 매개변수로 회원정보(이름, 이메일)를 전달받아 인증 처리하기 위한 메소드
+	// =>인증 성공: 매개변수로 전달받은 아이디의 회원정보를 검색하여 반환 /실패 시 예외 발생
+	@Override
+	public MemberDTO seachLogin(MemberDTO member) throws MemberNotFoundException {
+		MemberDTO authSearch = memberDAO.selectSearch(member.getMemberName());
+
+		if (authSearch == null) {
+			throw new MemberNotFoundException("회원정보가 존재하지 않습니다.", member.getMemberName());
+		}
+
+		// 매개변수로 전달받은 회원정보의 비밀번호와 검색된 회원정보의 비밀번호를 비교하여
+		// 같지 않은 경우 - 비밀번호 인증 실패
+		if (!member.getMemberEmail().equals(authSearch.getMemberEmail())) {
+			throw new MemberNotFoundException("이름 또는 이메일을 잘못 입력했습니다. 다시 확인해주세요.", member.getMemberEmail());
+		}
+
+		// 매개변수로 전달받은 회원정보의 아이디로 검색된 회원정보 반환
+		return authSearch;
+	}
+	
 
 
 	/*
@@ -90,6 +108,9 @@ public class MemberServiceImpl implements MemberService {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+
+		
 
 
 

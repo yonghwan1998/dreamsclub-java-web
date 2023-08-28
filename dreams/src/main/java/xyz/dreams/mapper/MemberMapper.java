@@ -16,8 +16,10 @@ public interface MemberMapper {
 	List<MemberDTO> selectMemberList();
 
 	
-	//강민경
+	//강민경: 로그인 시 사용
 	MemberDTO selectLoginCheck(String memberId);
 	
+	//강민경: 아이디 찾기, 비밀번호 찾기 시 사용 
+	MemberDTO selectSearch(String memberName);
 	
 }

@@ -56,5 +56,12 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDetail;
 	}
+	
+//	관리자 페이지 굿즈 관리
+	@Override
+	public List<GoodsDTO> getAdminGoodsList() {
+		List<GoodsDTO> goodsList = goodsDAO.selectAdminGoodsList();
 
+		return goodsList;
+	}
 }

@@ -3,52 +3,41 @@
 
 <!-- 헤더 시작 -->
 <header class="header-area header-padding-2 sticky-bar header-res-padding clearfix">
-	<!-- <div class="header-top-area">  -->
-	<div class="container">
-		<div class="header-top-wap">
-			<div class="language-currency-wrap">
-				<div class="header-top-wap">
-					<div class="language-currency-wrap">
-						<!--  회원 권한에 따라 다르게 보여지는 문구 -->
-						<c:choose>
+	<div class="header-top-area">
+		<div class="container">
+			<div class="header-top-wap">
+				<div class="language-currency-wrap">
+					<!--  회원 권한에 따라 다르게 보여지는 문구 -->
+					<c:choose>
 
-							<c:when test="${member.memberStatus == 1}">
-								<a> ${member.memberName }님, 환영합니다!</a>
-							</c:when>
+						<c:when test="${member.memberStatus == 1}">
+							<a> ♡${member.memberName }님♡, 환영합니다!</a>
+						</c:when>
 
 
-							<c:when test="${member.memberStatus == 9}">
-								<a>관리자님, 환영합니다!"</a>
-							</c:when>
+						<c:when test="${member.memberStatus == 9}">
+							<a>관리자님, 환영합니다!</a>
+						</c:when>
 
 
-							<c:otherwise>
-								<a>Dreams 환영합니다!</a>
-							</c:otherwise>
-						</c:choose>
-
-					</div>
-
-				</div>
+						<c:otherwise>
+							<a>Dreams 환영합니다!</a>
+						</c:otherwise>
+					</c:choose>
+				</div>	
+				
 				<!-- 헤더 우측 상단 -->
 				<div class="header-offer">
 					<p>
-						배송비 <span>무료</span> 이벤트 진행 중!!
+						☆★배송비 <span>무료</span> 이벤트 진행 중★☆
 					</p>
 				</div>
-				<div>
-					<!-- 진서 로그인 페이지로 이동 ▼-->
-					<div class="header-login">
-						<a href="<c:url value="/login"/>"> 로그인 </a>
-
-						<!-- 진서 회원가입 페이지로 이동 ▼-->
-						<div class="header-join">
-							<a href="<c:url value="/join/check"/>"> 회원가입 </a>
-						</div>
-					</div>
+				<!-- 진서 로그인 페이지로 이동 ▼-->
+				<div class="header-login">
+					<a href="<c:url value="/login"/>"> 로그인 </a>
+					<a href="<c:url value="/join/check"/>"> 회원가입 </a>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
@@ -70,7 +59,7 @@
 							<li><a href="index.html">Dreams <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
 									<li><a href="/dreams/introduction">구단소개</a></li>
-									<li><a href="#">공지사항</a></li>
+									<li><a href="/dreams/notice">공지사항</a></li>
 								</ul></li>
 							<!-- Navbar - 선수단 -->
 							<li><a href="/dreams/team"> 선수단 </a></li>

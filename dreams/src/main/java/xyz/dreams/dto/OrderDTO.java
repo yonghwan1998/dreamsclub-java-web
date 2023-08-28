@@ -41,4 +41,8 @@ public class OrderDTO {
 	private Date orderStatusChange;	//주문상태 변경일 - 관리자
 	private int orderQuantity;		//주문 수량(안쓸듯)
 	private int orderHow;			//결제 수단(final)
+	
+	private int goodsCount;
+	private String goodsImage;
+	private int goodsPrice;
 }

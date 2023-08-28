@@ -1,6 +1,6 @@
 package xyz.dreams.service;
 
-import xyz.dreams.dto.CartDTO;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 
@@ -14,6 +14,6 @@ public interface OrderService {
 	//회원 정보 조회(배송 정보)
 	MemberDTO getMemberInfo(String memberId);
 	
-	//장바구니 조회(결제 정보)
-	CartDTO getCartInfo(String memberId);
+	//굿즈 정보 조회(결제 정보)
+	GoodsDTO getGoodsInfo(String goodsCode);
 }
