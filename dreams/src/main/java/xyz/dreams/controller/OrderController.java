@@ -23,14 +23,15 @@ public class OrderController {
     private final OrderService orderService;
     
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String orderPage(@ModelAttribute GoodsDTO goods, Model model, HttpSession session) {
+    public String orderPage(Model model, HttpSession session) {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
+        GoodsDTO goods = (GoodsDTO) session.getAttribute("goods");
         System.out.println("Controller1"+goods);
         if (member != null) {
             String memberId = member.getMemberId();
             MemberDTO memberInfo = orderService.getMemberInfo(memberId);
             model.addAttribute("memberInfo", memberInfo);
-            model.addAttribute("cartInfo", orderService.getCartInfo(memberId));
+            model.addAttribute("goodsInfo", orderService.getGoodsInfo(memberId));
             model.addAttribute("memberId", memberId);
         }
         

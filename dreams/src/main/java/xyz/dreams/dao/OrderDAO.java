@@ -3,6 +3,7 @@ package xyz.dreams.dao;
 import org.springframework.stereotype.Repository;
 
 import xyz.dreams.dto.CartDTO;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 
@@ -17,6 +18,6 @@ public interface OrderDAO {
 	//회원 정보 조회
 	MemberDTO getMemberInfo(String memberId);
 	
-	//장바구니 조회
-	CartDTO getCartInfo(String memberId);
+	//굿즈 조회
+	GoodsDTO getGoodsInfo(String memberId);
 }

@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.dto.CartDTO;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.mapper.OrderMapper;
@@ -30,7 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public CartDTO getCartInfo(String memberId) {
-		return sqlSession.getMapper(OrderMapper.class).getCartInfo(memberId);
+	public GoodsDTO getGoodsInfo(String memberId) {
+		return sqlSession.getMapper(OrderMapper.class).getGoodsInfo(memberId);
 	}
 }

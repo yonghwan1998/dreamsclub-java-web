@@ -57,12 +57,15 @@
 	
 	<select id="getGoodsInfo" resultType="GoodsDTO">
 		SELECT
-			<!-- 상품명, 수량, 가격 -->
+			GOODS_CODE,
+			GOODS_COUNT,
+			GOODS_IMAGE,
+			GOODS_PRICE
 		FROM
-			ORDER_NEW O
+			GOODS G
 		LEFT JOIN		
-			<!-- CART C ON O.MEMBER_ID = C.MEMBER_ID -->
+			ORDER_NEW O ON O.GOODS_CODE = G.GOODS_CODE
 		WHERE
-			O.MEMBER_ID = #{memberId}
+			G.GOODS_CODE = #{goodsCode}
 	</select>
 </mapper>
