@@ -23,22 +23,23 @@ public class OrderServiceImpl implements OrderService{
 	public int updateOrder(OrderDTO orderDTO) {
 		return orderDAO.updateOrder(orderDTO);
 	}
-
+	
 	@Override
 	public MemberDTO getMemberInfo(String memberId) {
-		MemberDTO member = orderDAO.getMemberInfo(memberId);
-		if(member != null) {
-			MemberDTO memberDTO = new MemberDTO();
-			memberDTO.setMemberName(member.getMemberName());
-			memberDTO.setMemberPhone(member.getMemberPhone());
-			memberDTO.setMemberEmail(member.getMemberEmail());
-			memberDTO.setMemberPcode(member.getMemberPcode());
-			memberDTO.setMemberAddress1(member.getMemberAddress1());
-			memberDTO.setMemberAddress2(member.getMemberAddress2());
-			return memberDTO;
-		}
-		return null;
+		return orderDAO.getMemberInfo(memberId);
 	}
+
+	/*
+	 * @Override public MemberDTO getMemberInfo(String memberId) { MemberDTO member
+	 * = orderDAO.getMemberInfo(memberId); if(member != null) { MemberDTO memberDTO
+	 * = new MemberDTO(); memberDTO.setMemberName(member.getMemberName());
+	 * memberDTO.setMemberPhone(member.getMemberPhone());
+	 * memberDTO.setMemberEmail(member.getMemberEmail());
+	 * memberDTO.setMemberPcode(member.getMemberPcode());
+	 * memberDTO.setMemberAddress1(member.getMemberAddress1());
+	 * memberDTO.setMemberAddress2(member.getMemberAddress2()); return memberDTO; }
+	 * return null; }
+	 */
 
 	@Override
 	public CartDTO getCartInfo(String memberId) {
