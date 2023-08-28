@@ -1,11 +1,10 @@
 package xyz.dreams.service;
 
 import java.util.List;
+
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
 import xyz.dreams.exception.MemberNotFoundException;
-
-import xyz.dreams.dto.MemberDTO;
 
 public interface MemberService {
 
@@ -13,7 +12,9 @@ public interface MemberService {
 	// Member getMember(String memberId, String memberPw) throws
 	// MemberNotFoundException;
 	MemberDTO loginAuth(MemberDTO member) throws LoginAuthFailException;
-
+	//강민경: Id, Pw 찾을 때 사용
+	MemberDTO seachLogin(MemberDTO member) throws MemberNotFoundException;
+	
 	// 회원가입
 	void addMember(MemberDTO member);
 

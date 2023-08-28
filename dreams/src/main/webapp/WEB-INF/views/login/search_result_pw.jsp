@@ -2,26 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	function resultIdAlert(){
-		if(searchId.memberName.value==""){
+	function.resultPwAlert(){
+		if(searchPw.memberName.value==""){
 			alert("이름을 입력하십시요.");
-			searchId.memberName.focus();
+			searchPw.memberName.focus();
 	         return;
 	      } 
-	      if (searchId.memberEmail.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchId.memberEmail.focus();
+		if (searchPw.memberId.value == "" ) {
+	         alert("아이디를 입력하십시요.");
+	         searchPw.memberId.focus();
 	         return;
-	      }   
+	     } 
+	    if (searchPw.memberEmail.value == "" ) {
+	         alert("이메일을 입력하십시요.");
+	         searchPw.memberEmail.focus();
+	         return;
+	     }   
 	      
-	      searchId.submit();
+	      searchPw.action = "<c:url value="/search_result_pw"/>";
+	      searchPw.submit();
 	      }
 		 
 </script>
 
 
-<!-- 로그인 부분 시작 -->
-
+<!-- 비밀번호 찾기 -->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -33,22 +38,28 @@
                             <img src="${pageContext.request.contextPath }/img/logo/dreams_login_logo.png">
                         </li>
                     </div>
-                    <div class="login-register-tab-list nav">
+                     <div class="login-register-tab-list nav">
                          <li>
                              <a class="active" data-toggle="tab" href="#lg1">
-                                 <h6> 아이디 찾기 </h6>
-                            </a>
+                                 <h6> 비밀번호 찾기 </h6>
+                              </a>
                          </li>
                     </div>
+                    
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="<c:url value="/login/search_id/search_result_id"/> method="post" name="searchId">
+                                    <form action="/dreams/search_pw" method="post" name="searchPw">
                                         <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="password" name="memberEmail" placeholder="이메일을 입력해 주세요.">
+                                        <input type="password" name="memberId" placeholder="아이디를 입력해 주세요.">
+                                        <input type="password" name="memberEmail" placeholder="이메일를 입력해 주세요.">
                                         <div class="button-box">
-                                            <button type="button" onclick="resultIdAlert();"><span>확인</span></button>
+                                            <button type="submit" onclick="resultPwAlert"><span>확인</span></button>
+                                            <tr>
+			                                   <td width="20"></td>
+			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
+			                                </tr>
                                             <!--자바 스크립트 (alert 창 띄우기 하기)-->
                                         </div>
                                     </form>
@@ -62,13 +73,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
