@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false" %>
-<!doctype html>
-<html class="no-js" lang="zxx">
-
-<body>
 <div class="shop-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -337,7 +332,3 @@
     </div>
 </div>
 <!-- Modal end -->
-
-</body>
-
-</html>
