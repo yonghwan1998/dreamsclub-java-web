@@ -4,6 +4,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
+<script type="text/javascript">
+function searchBtn() {
+	var searchInput = document.getElementById("searchInput").value;
+	alert(searchInput);
+	
+}
+</script>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
 	<div class="layout-container">
@@ -66,7 +74,7 @@
 					<!-- Search -->
 					<div class="navbar-nav align-items-center">
 						<div class="nav-item d-flex align-items-center">
-							<i class="bx bx-search fs-4 lh-0"></i> <input type="text" class="form-control border-0 shadow-none" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
+							<i class="bx bx-search fs-4 lh-0" onclick="searchBtn()"></i> <input type="text" class="form-control border-0 shadow-none" id="searchInput" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
 						</div>
 					</div>
 					<!-- / Search -->
