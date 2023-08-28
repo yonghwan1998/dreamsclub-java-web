@@ -8,8 +8,7 @@
     <title>주문 상세 정보</title>
 </head>
 <body>
-    <h1>주문 상세 정보</h1>
-    <%--
+    <%-- <h1>주문 상세 정보</h1>
     <table border="1">
         <tr>
             <th>상품명</th>
@@ -25,7 +24,7 @@
         </c:forEach>
     </table>
     
-    <a href="${pageContext.request.contextPath }/orders">주문 목록으로 돌아가기</a> --%>
+    <a href="${pageContext.request.contextPath }/order">주문 목록으로 돌아가기</a>  --%>
     
     
     <div class="col-12" style="padding-right: 0px;">
