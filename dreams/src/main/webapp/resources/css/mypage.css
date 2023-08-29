@@ -3,20 +3,23 @@
 
 .searchblock { width: 100%; height: 100px; background-color: #dadada; display: flex; justify-content: space-around; }
 .searchtext { line-height: 100px; }
-.searchtitle { background-color: hotpink; padding-top: 30px; }
+.searchtitle { background-color:gray; padding-top: 30px; }
 .searchdatebox { width: 240px; height: 100%; background-color: lightseagreen; }
 .searchbutton { width: 80px; height: 30px; background-color: #4080ee; color: white; margin-top: 30px; }
 .councelbox { width: 100%; border-to: 3px solid #ccc; margin-top: 100px; }
 .councelheader{ width: 100%; height: 60px; background-color: #ddd; display: flex; }
-.counceldate { width: 15%; line-height: 60px; padding-left: 20px; }
+.counceldate {width: 15%; line-height: 60px; padding-left: 20px; }
 .ordernumber { width: 50%; line-height: 60px; }
 .counceltitle { width: 25%; line-height: 60px; }
 .councelstate { width: 10%; line-height: 60px; }
 
 .searchForm { width: 100%; height: 100px; background-color: #dadada; display: flex; justify-content: space-around; }
 
-
-
+.filter-tab { display: flex; background-color: #dadada; justify-content: space-around;}
+.datebutton { padding: 10px; font-size: 20px; margin: 20px 3px; }
+.searchperiod { line-height: 100px; font-size: 20px; font-weight: bold; }
+.searchperi { line-height: 100px; font-size: 20px; font-weight: bold; }
+.boardPageContainer { text-align: center;}
 
 #coupang-banner span.banner-bg{float:left;width:100%;}
 #coupang-banner .banner-middle{width:980px;margin:0 auto;}

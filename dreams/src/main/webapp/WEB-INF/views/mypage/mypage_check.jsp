@@ -232,6 +232,8 @@
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex9.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex4.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex9.png">
+ <img alt="" src="${pageContext.request.contextPath }/img/ready/ex5.png">
+ <img alt="" src="${pageContext.request.contextPath }/img/ready/ex9.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex6.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex9.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex7.png">
