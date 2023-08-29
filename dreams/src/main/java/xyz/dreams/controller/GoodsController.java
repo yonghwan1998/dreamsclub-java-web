@@ -34,6 +34,9 @@ public class GoodsController {
 		System.out.println("column = " + column);
 
 		Map<String, Object> map = new HashMap<>();
+		if (q != null) {
+			q.replaceAll(" ", "");
+		}
 		map.put("q", q);
 		map.put("column", column);
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);

@@ -8,7 +8,7 @@
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods
 		<if test="q != null and q != ''"> 
 			<bind name="search" value="'%'+q+'%'"/>
-			where GOODS_CODE like #{search} 
+			where REPLACE(GOODS_CODE,' ', '') like #{search} 
 		</if>
 		order by ${column}
 	</select>
