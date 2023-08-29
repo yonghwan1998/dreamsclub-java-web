@@ -19,13 +19,14 @@ public class RestGoodsController {
 	
 //	GET - 굿즈 메인 페이지
 	
-//	@GetMapping("/rest_search")
-//	public String doSearchBtn(@RequestParam String q) {
-//		System.out.println(q);
-//		return "success";
-//	}
 
 //	POST - 굿즈 메인 페이지
+
+	@PostMapping("/rest_option")
+	public String getOptionGoodsList(@RequestBody String option) {
+		System.out.println(option);
+		return "success";
+	}
 
 //	GET - 굿즈 상세 페이지
 	

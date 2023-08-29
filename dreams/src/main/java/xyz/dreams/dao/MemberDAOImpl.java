@@ -22,8 +22,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	//강민경: 아이디, 비밀번호 찾기 시 사용 
 	@Override
-	public MemberDTO selectSearch(String memberName) {
-		return sqlSesstion.getMapper(MemberMapper.class).selectSearch(memberName);
+	public String selectSearch(MemberDTO member) {
+		return sqlSesstion.getMapper(MemberMapper.class).selectSearch(member);
 	}
 	
 	

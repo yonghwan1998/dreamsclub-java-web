@@ -100,7 +100,7 @@
 		base-package="xyz.dreams.service" />
 
 	<context:component-scan
-		base-package="xyz.dreams.controller" />
+		base-package="xyz.dreams.rest" />
 
 	<!-- 파일 업로드 처리 기능을 제공하는 클래스를 Spring Bean으로 등록 -->
 	<!-- => Spring Bean의 식별자(beanName)를 반드시 [multipartResolver]로 설정 -->

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
@@ -31,11 +32,13 @@ public class LoginController {
 
 	// 1-2. 로그인 성공 시 세션 생성 실패시 LoginAuthInterceptor
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String login(@ModelAttribute MemberDTO member, HttpSession session) throws LoginAuthFailException {
+	public String login(@ModelAttribute MemberDTO member, HttpSession Loginsession) throws LoginAuthFailException {
 		MemberDTO authMember = memberService.loginAuth(member);
-		session.setAttribute("member", authMember);
+		Loginsession.setAttribute("member", authMember);
 		return "redirect:/";
 	}
+	
+	
 	//2-1. 아이디 찾기
 	@RequestMapping(value = "/search_id", method = RequestMethod.GET)
 	public String search_id() {
@@ -43,12 +46,14 @@ public class LoginController {
 	}
 	//2-2. 아이디 찾기, 매개변수 member에는 name, email를 받음 
 	@RequestMapping(value = "/search_id", method = RequestMethod.POST)
-	public String search_id(@ModelAttribute MemberDTO member, HttpSession session) throws MemberNotFoundException {
-		MemberDTO authSearch = memberService.seachLogin(member);
-		session.setAttribute("member", authSearch);
-		return "redirect:/login/search_result_id";
+	public String search_id(@ModelAttribute MemberDTO member, Model model)  {
+		String id = memberService.searchId(member);
+		model.addAttribute("searchId", id);
+		return "login/search_result_id";
 	}
 
+	
+	
 	@RequestMapping(value = "/search_pw", method = RequestMethod.GET)
 	public String search_pw(HttpServletRequest request, Model model, MemberDTO searchDTO) {
 		return "login/search_result_pw";

@@ -14,13 +14,17 @@ import xyz.dreams.dto.CommunityDTO;
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
 	private final CommunityDAO communityDAO;
+	private final SqlSession sqlsession;
 
+	/*게시판 등록*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int enrollCommunity(CommunityDTO community) {
-		return communityDAO.enrollCommunity(community);
+	public void enrollCommunity(CommunityDTO community) {
+		
+		communityDAO.enrollCommunity(community);
 	}
 
+	/*게시판 목록 보기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public List<CommunityDTO> getList() {
@@ -29,6 +33,7 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDAO.getList();
 	}
 
+	/*게시판 글 조회*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public CommunityDTO getPage(int communityNo) {
@@ -36,15 +41,16 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDAO.getPage(communityNo);
 	}
 
+	/*게시판 글 수정*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int modifyCommunity(CommunityDTO community) {
-		return 0;
+	public void modifyCommunity(CommunityDTO community) {
 	}
 
+	/*게시판 글 삭제*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int deleteCommunity(CommunityDTO community) {
-		return 0;
+	public void deleteCommunity(int commNo) {
+		communityDAO.deleteCommunity(commNo);
 	}
 }

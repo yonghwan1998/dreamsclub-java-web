@@ -287,6 +287,10 @@ border-bottom: 3px solid #4a4a4a;
   margin: 0 3px;
 }
 
+#delete_btn{
+	background-color: #99004C;
+}
+
 /*댓글*/
 .communityReply{
   width: 1200px;

@@ -35,8 +35,8 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 	}
 
 	@Override
-	public int deleteCommunity(CommunityDTO community) {
-		return sqlSession.getMapper(CommunityMapper.class).deleteCommunity(community);
+	public int deleteCommunity(int commNo) {
+		return sqlSession.getMapper(CommunityMapper.class).deleteCommunity(commNo);
 	}
 
 

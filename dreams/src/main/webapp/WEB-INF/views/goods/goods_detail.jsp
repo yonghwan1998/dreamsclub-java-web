@@ -92,15 +92,13 @@
                         </div>
                         <div class="pro-details-cart btn-hover">
                             <a onclick="purchaseGoods();">구매하기</a>
-                        </form>
                         </div>
                     </div>
+                        </form>
                     <div class="pro-details-meta">
                         <span>Category :</span>
                         <ul>
-                            <li><a href="#">Minimal,</a></li>
-                            <li><a href="#">Furniture,</a></li>
-                            <li><a href="#">Fashion</a></li>
+                            <li>${goodsDetail.goodsCategory }</li>
                         </ul>
                     </div>
                 </div>

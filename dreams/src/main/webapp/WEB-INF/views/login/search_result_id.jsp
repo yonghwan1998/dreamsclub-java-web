@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
--
 
-<!-- 로그인 부분 시작 -->
--
+<!-- id 찾은 결과 값 보여줌 -->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -25,16 +23,21 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
-                                <div class="login-register-form">
+                                <div class="login-register-form" id="searchIdpage">
                                     <form action="<c:url value="/login/search_id/search_result_id"/>" method="post">
 											 <tr>
 			                                   <td width="20"></td>
-			                                   <td style=" text-align: center;">${member.memberId }</td>         
+			                                   <c:choose>
+				                                   <c:when test="${empty(searchId)}">
+				                                   		<tr><td style=" align: center;">아이디를 찾을 수 없습니다.</td></tr>
+				                                   </c:when>
+				                                   <c:otherwise>
+				                                   		<tr><td style=" align: center;">아이디는 [${searchId }]입니다.</td></tr>
+				                                   </c:otherwise>   
+			                                   </c:choose>      
 			                                </tr>                                            
-                                            
-                                            <button type="submit" onclick="resultAlert"><span>확인</span></button>
-                                            <!--자바 스크립트 (alert 창 띄우기 하기)-->
-                                        
+                                            <br>
+                                            <button type="button" onclick="location.href='<c:url value="/login"/>'"><span>확인</span></button>
                                     </form>
                                 </div>
                             </div>

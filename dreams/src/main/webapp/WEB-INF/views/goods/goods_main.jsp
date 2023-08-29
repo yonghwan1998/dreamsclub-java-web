@@ -2,6 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script>
+function selectChange(q){
+	$("#searchColumn").val($("#selectFilter").val());
+	$("#searchText").val(q);
+	$("#searchForm").submit();
+}
+
+</script>
+
+
 <div class="shop-area pt-95 pb-100">
 	<div class="container">
 		<div class="row flex-row-reverse">
@@ -9,14 +19,14 @@
 				<div class="shop-top-bar">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
-							<select>
-								<option value="">이름순</option>
-								<option value="">별점순</option>
-								<option value="">가격순</option>
-								<option value="">리뷰순</option>
+							<select id="selectFilter" onchange="selectChange('${map.q }');">
+								<option value="goods_code">이름순</option>
+								<%-- <option value="star">별점순</option> --%>
+								<option value="goods_price">가격순</option>
+								<%-- <option value="review">리뷰순</option> --%>
 							</select>
 						</div>
-						<p>${goodsCount }개검색 결과</p>
+						<p>${goodsCount }개 검색 결과</p>
 					</div>
 				</div>
 
@@ -30,7 +40,7 @@
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
 													</a>
 												</div>
 											</div>
@@ -38,7 +48,7 @@
 										<div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
 											<div class="shop-list-content">
 												<h3>
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }" class="goodsCode" >${goods.goodsCode }</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>" class="goodsCode" >${goods.goodsCode }</a>
 												</h3>
 												<div class="product-list-price">
 													<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
@@ -51,7 +61,7 @@
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }">상세정보</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>">상세정보</a>
 												</div>
 											</div>
 										</div>
@@ -61,6 +71,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				<!-- 
 				<div class="pro-pagination-style text-center mt-30">
 					<ul>
 						<li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
@@ -69,6 +80,7 @@
 						<li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
 					</ul>
 				</div>
+				-->
 
 
 			</div>
@@ -77,7 +89,8 @@
 					<div class="sidebar-widget">
 						<h4 class="pro-sidebar-title">Search</h4>
 						<div class="pro-sidebar-search mb-50 mt-25">
-							<form class="pro-sidebar-search-form" method="get" action="/dreams/goods/main/search">
+							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
+								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
 								<input id="searchText" type="text" name="q" placeholder="Search here...">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>

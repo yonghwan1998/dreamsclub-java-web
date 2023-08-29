@@ -33,6 +33,8 @@ public class OrderController {
             model.addAttribute("memberInfo", memberInfo);
             model.addAttribute("goods", goods);
             model.addAttribute("memberId", memberId);
+        } else {
+        	return "redirect:/login";
         }
         
         return "order/order";

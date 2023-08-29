@@ -13,5 +13,6 @@ public class GoodsDTO {
 	
 //	구매하기에서 사용할 필드
 	private int goodsCount;
+	private String goodsCategory;
 	private String goodsSize;
 }

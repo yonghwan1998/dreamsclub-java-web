@@ -5,7 +5,12 @@
 	<!-- 굿즈 메인 페이지 -->
 
 	<select id="selectGoodsList" resultType="GoodsDTO">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods where GOODS_CODE like #{q} order by GOODS_CODE
+		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods
+		<if test="q != null and q != ''"> 
+			<bind name="search" value="'%'+q+'%'"/>
+			where GOODS_CODE like #{search} 
+		</if>
+		order by ${column}
 	</select>
 
 	<!-- 굿즈 디테일 페이지 -->
@@ -18,5 +23,9 @@
 	<select id="selectAdminGoodsList" resultType="GoodsDTO">
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods order by GOODS_CODE
 	</select>
+	
+	<insert id="insertGoods">
+		insert into goods values (#{goodsCode}, #{goodsPrice}, #{goodsInfo}, #{goodsYn}, #{goodsStock}, #{goodsImage})
+	</insert>
 	
 </mapper>
