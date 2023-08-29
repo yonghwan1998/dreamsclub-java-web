@@ -37,7 +37,7 @@
 			                                   </c:choose>      
 			                                </tr>                                            
                                             <br>
-                                            <button type="button" onclick="<c:url value="/dreams"/>"><span>확인</span></button>
+                                            <button type="button" onclick="location.href='<c:url value="/login"/>'"><span>확인</span></button>
                                     </form>
                                 </div>
                             </div>
