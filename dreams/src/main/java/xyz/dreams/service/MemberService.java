@@ -12,7 +12,7 @@ public interface MemberService {
 	// Member getMember(String memberId, String memberPw) throws
 	// MemberNotFoundException;
 	MemberDTO loginAuth(MemberDTO member) throws LoginAuthFailException;
-	//강민경: Id, Pw 찾을 때 사용
+	//강민경: Id 찾을 때 사용
 	String searchId(MemberDTO member);
 	
 	// 회원가입

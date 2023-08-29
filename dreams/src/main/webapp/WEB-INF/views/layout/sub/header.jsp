@@ -32,14 +32,21 @@
 						☆★배송비 <span>무료</span> 이벤트 진행 중★☆
 					</p>
 				</div>
-				<!-- 진서 로그인 페이지로 이동 ▼-->
-				<div class="header-login">
-					<a href="<c:url value="/login"/>"> 로그인 </a>
-					<a href="<c:url value="/join/check"/>"> 회원가입 </a>
-				</div>
+				<!--강민경: 회원이면 로그아웃 버튼 뜨도록 설정 --> 
+				<c:choose>
+					<c:when test = "${empty (member)}">
+						<div class="header-login">
+							<a href="<c:url value="/login"/>"> 로그인 </a>
+							<a href="<c:url value="/join/check"/>"> 회원가입 </a>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<a href="<c:url value="/login/logout"/>"> 로그아웃 </a>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 		</div>
-	</div>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -56,7 +63,7 @@
 						<ul>
 							<!-- Navbar - 드림즈 -->
 							<!-- 형섭: 마우스 올리면 서브메뉴 두 개 선택되던 것 수정 -->
-							<li><a href="index.html">Dreams <i class="fa fa-angle-down"></i></a>
+							<li><a href="<c:url value="/"/>">Dreams <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
 									<li><a href="/dreams/introduction">구단소개</a></li>
 									<li><a href="/dreams/notice">공지사항</a></li>
