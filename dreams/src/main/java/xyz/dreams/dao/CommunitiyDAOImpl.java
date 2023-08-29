@@ -1,6 +1,7 @@
 package xyz.dreams.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,17 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 	@Override
 	public void upCountCommunity(int commNo) {
 		sqlSession.getMapper(CommunityMapper.class).upCountCommunity(commNo);
+	}
+
+	/*페이징 처리*/
+	@Override
+	public List<CommunityDTO> selectCommunityList(Map<String, Object> map) {
+		return sqlSession.getMapper(CommunityMapper.class).selectCommunityList(map);
+	}
+
+	@Override
+	public int selectCommunityCount() {
+		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount();
 	}
 
 

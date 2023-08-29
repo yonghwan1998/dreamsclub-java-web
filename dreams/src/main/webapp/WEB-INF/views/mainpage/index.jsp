@@ -2,20 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="false" %>
 
-<!doctype html>
-<html class="no-js" lang="zxx">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath }/img/favicon.png">
-</head>
-
-<body>
 <!-- 메인 사진 슬라이더 -->
 <div class="slider-area">
     <div class="slider-active owl-carousel nav-style-1 owl-dot-none">
@@ -486,8 +472,3 @@
         </div>
     </div>
 </div>
-
-
-</body>
-
-</html>

@@ -32,4 +32,14 @@
 	update community set comm_hit = comm_hit+1 where comm_no=#{commNo}
 </update>
 
+<!-- 페이징 처리 -->
+<select id="selectCommunityList" resultType="CommunityDTO">
+	select * from (select rownum rn, community.* from(select comm_no, member_id, comm_title, comm_cont, comm_date, comm_hit
+		from community order by comm_no desc) community) where rn between #{startRow} and #{endRow})
+</select>
+
+<!-- 게시글 총 개수(페이징처리) -->
+<select id="selectCommunityCount" resultType="int">
+	select count(*) from community
+</select>
 </mapper>
