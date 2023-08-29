@@ -20,6 +20,6 @@ public interface MemberMapper {
 	MemberDTO selectLoginCheck(String memberId);
 	
 	//강민경: 아이디 찾기, 비밀번호 찾기 시 사용 
-	MemberDTO selectSearch(String memberName);
+	String selectSearch(MemberDTO member);
 	
 }

@@ -39,21 +39,11 @@ public class MemberServiceImpl implements MemberService {
 	//강민경: 매개변수로 회원정보(이름, 이메일)를 전달받아 인증 처리하기 위한 메소드
 	// =>인증 성공: 매개변수로 전달받은 아이디의 회원정보를 검색하여 반환 /실패 시 예외 발생
 	@Override
-	public MemberDTO seachLogin(MemberDTO member) throws MemberNotFoundException {
-		MemberDTO authSearch = memberDAO.selectSearch(member.getMemberName());
-
-		if (authSearch == null) {
-			throw new MemberNotFoundException("회원정보가 존재하지 않습니다.", member.getMemberName());
-		}
-
-		// 매개변수로 전달받은 회원정보의 비밀번호와 검색된 회원정보의 비밀번호를 비교하여
-		// 같지 않은 경우 - 비밀번호 인증 실패
-		if (!member.getMemberEmail().equals(authSearch.getMemberEmail())) {
-			throw new MemberNotFoundException("이름 또는 이메일을 잘못 입력했습니다. 다시 확인해주세요.", member.getMemberEmail());
-		}
+	public String searchId(MemberDTO member) {
+		String id= memberDAO.selectSearch(member);
 
 		// 매개변수로 전달받은 회원정보의 아이디로 검색된 회원정보 반환
-		return authSearch;
+		return id;
 	}
 	
 

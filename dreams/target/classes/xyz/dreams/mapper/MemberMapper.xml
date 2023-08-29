@@ -64,9 +64,8 @@
 	select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS from member where MEMBER_ID=#{memberId} 
 	</select>
 	<!-- 강민경: 아이디 찾기, 비밀번호 찾기 시 사용  -->
-	<select id="selectSearch" resultType="MemberDTO">
+	<select id="selectSearch" resultType="string">
 	<!-- where절에서 id, pw값을 받고 결과 값을 resultType="~~"으로 전달  -->
-	select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS
-	 from member where MEMBER_NAME=#{memberName} 
+	select MEMBER_ID from member where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
 </mapper>

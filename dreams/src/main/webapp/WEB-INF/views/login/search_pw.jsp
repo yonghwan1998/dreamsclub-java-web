@@ -25,8 +25,7 @@
 
 
 
-<!-- 로그인 부분 시작 -->
-
+<!-- 비밀번호 찾기 페이지-->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -60,7 +59,6 @@
 			                                   <td width="20"></td>
 			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
 			                                </tr>
-                                            <!--자바 스크립트 (alert 창 띄우기 하기)-->
                                         </div>
                                     </form>
                                 </div>
