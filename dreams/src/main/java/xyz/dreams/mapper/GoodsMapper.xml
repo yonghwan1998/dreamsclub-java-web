@@ -19,4 +19,8 @@
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods order by GOODS_CODE
 	</select>
 	
+	<insert id="insertGoods">
+		insert into goods values (#{goodsCode}, #{goodsPrice}, #{goodsInfo}, #{goodsYn}, #{goodsStock}, #{goodsImage})
+	</insert>
+	
 </mapper>

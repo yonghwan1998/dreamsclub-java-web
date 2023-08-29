@@ -97,6 +97,7 @@ function searchBtn() {
 					<div class="admin_card">
 						<h5 class="admin_card-header">굿즈 목록</h5>
 						<div class="table-responsive text-nowrap">
+						<span><a href="/dreams/admin/goods/write">굿즈 등록</a></span>
 							<table class="table table-hover">
 								<thead>
 									<tr>

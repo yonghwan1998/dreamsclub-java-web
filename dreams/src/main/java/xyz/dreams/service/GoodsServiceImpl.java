@@ -64,4 +64,18 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsList;
 	}
+
+	@Override
+	public void addGoods(GoodsDTO goods) {
+		
+		String goodsSize = goods.getGoodsSize(); 
+		String goodsCode = goods.getGoodsCode(); 
+		String goodsCategory = goods.getGoodsCategory(); 
+		
+		goodsCode = goodsCategory+"-"+goodsCode+"-"+goodsSize;
+		
+		goods.setGoodsCode(goodsCode);
+		
+		goodsDAO.insertGoods(goods);
+	}
 }

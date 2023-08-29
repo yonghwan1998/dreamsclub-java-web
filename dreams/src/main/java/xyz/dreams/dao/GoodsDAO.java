@@ -17,4 +17,6 @@ public interface GoodsDAO {
 //	관리자 페이지 굿즈 관리
 
 	List<GoodsDTO> selectAdminGoodsList();
+	
+	int insertGoods(GoodsDTO goods);
 }

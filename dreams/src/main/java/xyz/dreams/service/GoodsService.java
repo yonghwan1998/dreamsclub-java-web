@@ -17,4 +17,6 @@ public interface GoodsService {
 //	관리자 페이지 굿즈 관리
 
 	List<GoodsDTO> getAdminGoodsList();
+	
+	void addGoods(GoodsDTO goods);
 }
