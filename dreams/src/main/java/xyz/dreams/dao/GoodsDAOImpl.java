@@ -1,6 +1,7 @@
 package xyz.dreams.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -17,8 +18,8 @@ public class GoodsDAOImpl implements GoodsDAO {
 //	굿즈 메인 페이지
 
 	@Override
-	public List<GoodsDTO> selectGoodsList(String q) {
-		return sqlSession.getMapper(GoodsMapper.class).selectGoodsList(q);
+	public List<GoodsDTO> selectGoodsList(Map<String, Object> map) {
+		return sqlSession.getMapper(GoodsMapper.class).selectGoodsList(map);
 	}
 
 //	굿즈 디테일 페이지
@@ -27,7 +28,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public List<GoodsDTO> selectGoodsDetailList(String goodsCode) {
 		return sqlSession.getMapper(GoodsMapper.class).selectGoodsDetailList(goodsCode);
 	}
-	
+
 //	관리자 페이지 굿즈 관리
 
 	@Override

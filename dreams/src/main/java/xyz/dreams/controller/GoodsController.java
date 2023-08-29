@@ -1,6 +1,8 @@
 package xyz.dreams.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,18 +28,19 @@ public class GoodsController {
 
 //	GET - 굿즈 메인 페이지
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String view(Model model) {
-		String q = "";
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(q);
-		model.addAttribute("goodsList", goodsList);
-		model.addAttribute("goodsCount", goodsList.size());
-		return "goods/goods_main";
-	}
+	@RequestMapping("/main")
+	public String view(String q, @RequestParam(defaultValue = "goods_code") String column, Model model) {
+		System.out.println("q = " + q);
+		System.out.println("column = " + column);
 
-	@RequestMapping(value = "/main/search", method = RequestMethod.GET)
-	public String search(@RequestParam String q, Model model) {
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(q);
+		Map<String, Object> map = new HashMap<>();
+		if (q != null) {
+			q.replaceAll(" ", "");
+		}
+		map.put("q", q);
+		map.put("column", column);
+		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
+		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
 		return "goods/goods_main";
@@ -49,7 +52,7 @@ public class GoodsController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(HttpServletRequest request, Model model) {
-		
+
 //		굿즈 코드에서 이름만
 		String goodsCode = request.getParameter("goodsCode");
 		model.addAttribute("goodsCode", goodsCode);
@@ -58,11 +61,11 @@ public class GoodsController {
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsCode);
 		String[] goodsCodeSplit = null;
 		goodsCodeSplit = goodsDetail.getGoodsCode().split("-");
-		if (goodsCodeSplit[0].equals("U")) {
+		if (goodsCodeSplit[1].equals("U")) {
 			goodsDetail.setGoodsCategory("Uniform");
-		}else if (goodsCodeSplit[0].equals("C")) {
+		} else if (goodsCodeSplit[1].equals("C")) {
 			goodsDetail.setGoodsCategory("Cap");
-		}else if (goodsCodeSplit[0].equals("F")) {
+		} else if (goodsCodeSplit[1].equals("F")) {
 			goodsDetail.setGoodsCategory("Fan Goods");
 		}
 		model.addAttribute("goodsDetail", goodsDetail);
@@ -77,7 +80,7 @@ public class GoodsController {
 		String[] goodsCodeSplit = null;
 
 		goodsCodeSplit = goods.getGoodsCode().split("-");
-		goods.setGoodsCode(goodsCodeSplit[1]);
+		goods.setGoodsCode(goodsCodeSplit[0]);
 
 		goods.setGoodsPrice(goods.getGoodsPrice() * goods.getGoodsCount());
 

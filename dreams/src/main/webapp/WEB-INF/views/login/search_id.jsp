@@ -7,21 +7,18 @@
 			alert("이름을 입력하십시요.");
 			searchId.memberName.focus();
 	         return;
-	      } 
-	      if (searchId.memberEmail.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchId.memberEmail.focus();
-	         return;
-	      }   
-	      
-	      searchId.submit();
-	      }
-		 
+	     } 
+	     if (searchId.memberEmail.value == "" ) {
+	        alert("이메일을 입력하십시요.");
+	        searchId.memberEmail.focus();
+	        return;
+	     }   
+	     searchId.action = '<c:url value="/login/search_id"/>';
+	     searchId.submit();
+	}
 </script>
 
-
-<!-- 로그인 부분 시작 -->
-
+<!-- 아이디 찾기 페이지 -->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
@@ -49,7 +46,6 @@
                                         <input type="email" name="memberEmail" placeholder="이메일을 입력해 주세요.">
                                         <div class="button-box">
                                             <button type="button" onclick="resultIdAlert();"><span>확인</span></button>
-                                            <!--자바 스크립트 (alert 창 띄우기 하기)-->
                                         </div>
                                     </form>
                                 </div>

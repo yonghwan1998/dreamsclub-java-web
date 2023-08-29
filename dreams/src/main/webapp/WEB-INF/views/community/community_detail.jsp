@@ -33,7 +33,9 @@
             <!--버튼-->
             <div class="communityDetailBtn">
                 <a href="/dreams/community">목록으로</a>
-				<a href="/dreams/community/delete?commNo=${pageInfo.commNo}" role="button" id="delete_btn">삭제하기</a>            
+                	<c:if test="${member.memberId == pageInfo.memberId }" >
+						<a href="/dreams/community/delete?commNo=${pageInfo.commNo}" role="button" id="delete_btn">삭제하기</a>  
+					</c:if>       
 			</div>
             <!-- 수정하기 버튼 나중에 추가
             <div class="communityDetailBtn">
@@ -132,11 +134,15 @@ $("#communityDetailBtn").on("click", function(e){
 	form.submit();
 });
 
-//삭제버튼
-//$("#delete_btn").on("click", funtion(e){
-//	form.attr("action", "/community/delete");
-//	form.attr("method", "post");
-//	form.submit();
-//});
+funciton delete_btn(){
+	alert("$(member.memberId)");
+};
+
+funciton delete_btn(){
+	alert("$(pageInfo.memberId)");
+};
+
+
+
 
 </script>

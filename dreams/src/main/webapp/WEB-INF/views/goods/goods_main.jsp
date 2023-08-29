@@ -2,6 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script>
+function selectChange(q){
+	$("#searchColumn").val($("#selectFilter").val());
+	$("#searchText").val(q);
+	$("#searchForm").submit();
+}
+
+</script>
+
+
 <div class="shop-area pt-95 pb-100">
 	<div class="container">
 		<div class="row flex-row-reverse">
@@ -9,14 +19,14 @@
 				<div class="shop-top-bar">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
-							<select>
-								<option value="">이름순</option>
-								<option value="">별점순</option>
-								<option value="">가격순</option>
-								<option value="">리뷰순</option>
+							<select id="selectFilter" onchange="selectChange('${map.q }');">
+								<option value="goods_code">이름순</option>
+								<%-- <option value="star">별점순</option> --%>
+								<option value="goods_price">가격순</option>
+								<%-- <option value="review">리뷰순</option> --%>
 							</select>
 						</div>
-						<p>${goodsCount }개검색 결과</p>
+						<p>${goodsCount }개 검색 결과</p>
 					</div>
 				</div>
 
@@ -79,7 +89,8 @@
 					<div class="sidebar-widget">
 						<h4 class="pro-sidebar-title">Search</h4>
 						<div class="pro-sidebar-search mb-50 mt-25">
-							<form class="pro-sidebar-search-form" method="get" action="/dreams/goods/main/search">
+							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
+								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
 								<input id="searchText" type="text" name="q" placeholder="Search here...">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>

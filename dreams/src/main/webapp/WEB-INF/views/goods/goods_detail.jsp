@@ -4,7 +4,7 @@
 <script>
 	function purchaseGoods() {
 		if ( purchase.goodsSize.value == "0" ) {
-	         alert("사이즈를 입력해주세요.");
+	         alert("사이즈를 선택해주세요.");
 	         purchase.goodsSize.focus();
 	         return;
 	      } 
