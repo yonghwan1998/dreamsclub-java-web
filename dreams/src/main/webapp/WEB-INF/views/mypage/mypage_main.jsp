@@ -75,7 +75,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>아이디</label>
-                                                   abc123
+                                                   ${member.memberId }
                                                 </div>
                                             </div>
                                          </div>
@@ -84,7 +84,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이름</label>
-                                                    홍길동
+                                                    ${member.memberName }
                                                 </div>
                                             </div>
                                           </div>
@@ -93,7 +93,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이메일</label>
-                                                    abc123@itwill.xyz
+                                                    ${member.memberEmail }
                                                 </div>
                                             </div>
                                           </div>
@@ -102,7 +102,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>휴대폰 번호 </label>
-                                                    010-1234-5678
+                                                   ${member.memberPhone }
                                                 </div>
                                             </div>
                                          </div>
@@ -111,7 +111,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>주소1</label>
-                                                    서울시 강남구 역삼동
+                                                    ${member.memberAddress1 }
                                                 </div>
                                             </div>
                                          </div>
@@ -119,8 +119,8 @@
                                         <div class="row">
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>주소2</label>
-                                                    삼원타워 4층
+                                               		 <label>주소2</label>
+                                                    ${member.memberAddress2 }
                                                 </div>
                                             </div>
                                          </div>

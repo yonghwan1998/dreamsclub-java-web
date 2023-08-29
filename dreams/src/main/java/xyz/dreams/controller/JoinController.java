@@ -10,20 +10,20 @@ import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.MemberService;
 
 @Controller
-@RequestMapping("/join")
+@RequestMapping("/join") //http://localhost:8000/dreams/join
 @RequiredArgsConstructor
 public class JoinController {
 	
 	private final MemberService memberService;
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	@RequestMapping(value = "/check", method = RequestMethod.GET) //http://localhost:8000/dreams/join/check
 	public String check() {
-		return "join/join_check";
+		return "join/join_check"; // join파일안에 join_check 불러옴
 	}
 
-	@RequestMapping(value = "/hewon", method = RequestMethod.GET)
+	@RequestMapping(value = "/hewon", method = RequestMethod.GET) //http://localhost:8000/dreams/join/hewon
 	public String main() {
-		return "join/join_hewon";
+		return "join/join_hewon"; // join파일안에 join_check 불러옴
 	}
 
 	@RequestMapping(value = "/hewon", method = RequestMethod.POST)
@@ -38,5 +38,18 @@ public class JoinController {
 		
 		return "redirect:/"; //회원가입 성공시 http://localhost:8000/dreams/으로 리턴
 	}
+	
+	
+//	// 아이디 중복 체크
+//		@ResponseBody
+//		@RequestMapping(value="/member_id_check", method = RequestMethod.GET)
+//			public String idChk(String memberId) throws Exception {
+//				MemberDTO member = memberService.getMember(memberId);
+//				System.out.println("member = "+member);
+//				if(member==null) {
+//					return "ok";
+//				}
+//				return "no";
+//		}	
 
 }
