@@ -9,32 +9,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDetailDTO;
 import xyz.dreams.service.OrderDetailService;
+import xyz.dreams.service.OrderService;
 
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/order/detail")
+@RequestMapping("/order")
 public class OrderDetailController {
-   private final OrderDetailService orderDetailService;
+	private final OrderService orderService;
 
-   @RequestMapping(method = RequestMethod.GET)
+   @RequestMapping(value = "/detail" ,method = RequestMethod.GET)
    public String viewOrder(HttpSession session, Model model) {
        MemberDTO member = (MemberDTO) session.getAttribute("member");
-       System.out.println("Controller1"+member);
+	   GoodsDTO goods = (GoodsDTO) session.getAttribute("goods"); 
+       System.out.println("Controller1"+goods);
+       
        if (member != null) {
     	   String memberId = member.getMemberId();
-           model.addAttribute("memberId", memberId);
+    	   MemberDTO memberInfo = orderService.getMemberInfo(memberId);
 
-           OrderDetailDTO orderDetail = orderDetailService.getOrderById(memberId);
-           if (orderDetail != null) {
-               model.addAttribute("orderDetail", orderDetail);
-           } else {
-               // 주문 정보가 없을 경우에 대한 처리
-        	   System.out.println("주문 정보가 없습니다.");
-           }
+           model.addAttribute("memberId", memberId);
+           model.addAttribute("goods", goods);
+           model.addAttribute("memberInfo", memberInfo); 
+
        }
        
        return "order/order_detail";

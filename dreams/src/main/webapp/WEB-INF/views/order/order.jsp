@@ -303,7 +303,7 @@
                     </div>
                     <!-- 주문하기 버튼 -->
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="/dreams/order/detail/{memberId}">주문하기</a>
+                        <a class="btn-hover" href="/dreams/order/detail">주문하기</a>
                     </div>
                 </div>
             </div>

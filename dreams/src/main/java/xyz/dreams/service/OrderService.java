@@ -22,5 +22,5 @@ public interface OrderService {
 	
 	
 	//
-	public List<OrderDetailDTO> getGoods(List<OrderDetailDTO> orders);
+	//public List<OrderDetailDTO> getGoods(List<OrderDetailDTO> orders);
 }

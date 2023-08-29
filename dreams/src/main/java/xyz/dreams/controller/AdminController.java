@@ -30,6 +30,7 @@ public class AdminController {
 	public String AdminMemberView(Model model) {
 		List<MemberDTO> getMemberList = memberService.getMemberList();
 		model.addAttribute("getMemberList", getMemberList);
+		System.out.println("getMemberList"+getMemberList);
 		return "admin/admin";
 	}
 

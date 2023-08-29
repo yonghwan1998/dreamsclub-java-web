@@ -24,5 +24,5 @@ public interface OrderDAO {
 	
 	
 	//
-	public OrderDetailDTO getGoods(String goodsCode);
+//	public OrderDetailDTO getGoods(String goodsCode);
 }

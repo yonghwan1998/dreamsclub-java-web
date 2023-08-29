@@ -25,7 +25,7 @@ public class OrderController {
 	  private final OrderService orderService;
 	  
 	  @RequestMapping(value = "/new", method = RequestMethod.GET) 
-	  public String OrderNew(Model model, HttpSession session, OrderDTO opd) { 
+	  public String OrderNew(Model model, HttpSession session) { 
 		  MemberDTO member = (MemberDTO) session.getAttribute("member");
 		  GoodsDTO goods = (GoodsDTO) session.getAttribute("goods"); 
 		  System.out.println("Controller1"+goods); 
@@ -33,7 +33,8 @@ public class OrderController {
 		  if (member != null) { 
 			  String memberId = member.getMemberId(); 
 			  MemberDTO memberInfo = orderService.getMemberInfo(memberId);
-			  model.addAttribute("memberInfo", memberInfo); model.addAttribute("goods", goods); 
+			  model.addAttribute("memberInfo", memberInfo); 
+			  model.addAttribute("goods", goods); 
 			  model.addAttribute("memberId", memberId);
 
 //			  model.addAttribute("orderList", orderService.getGoods(opd.getOrders()));

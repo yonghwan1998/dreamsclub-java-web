@@ -42,19 +42,18 @@ public class OrderServiceImpl implements OrderService{
 	
 	
 	//
-	@Override
-	public List<OrderDetailDTO> getGoods(List<OrderDetailDTO> orders) {
-		List<OrderDetailDTO> result = new ArrayList<OrderDetailDTO>();
-		
-		for(OrderDetailDTO ord : orders) {
-			OrderDetailDTO goodsInfo = orderDAO.getGoods(ord.getGoodsCode());
-			goodsInfo.setGoodsCount(ord.getGoodsCount());
-			
-			result.add(goodsInfo);
-		}
-		
-		return result;
-	}
+	/*
+	 * @Override public List<OrderDetailDTO> getGoods(List<OrderDetailDTO> orders) {
+	 * List<OrderDetailDTO> result = new ArrayList<OrderDetailDTO>();
+	 * 
+	 * for(OrderDetailDTO ord : orders) { OrderDetailDTO goodsInfo =
+	 * orderDAO.getGoods(ord.getGoodsCode());
+	 * goodsInfo.setGoodsCount(ord.getGoodsCount());
+	 * 
+	 * result.add(goodsInfo); }
+	 * 
+	 * return result; }
+	 */
 
 	
 }

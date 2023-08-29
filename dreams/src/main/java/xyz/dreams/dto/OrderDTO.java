@@ -3,6 +3,8 @@ package xyz.dreams.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 /*
@@ -32,6 +34,8 @@ public class OrderDTO {
 	private String orderAddress2;	//상세 주소
 	private String orderPhone;		//전화번호
 	private String orderMemo;		//배송 메모
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date orderDate;			//주문 날짜
 	
 	//관리자

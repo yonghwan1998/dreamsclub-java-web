@@ -25,11 +25,12 @@
                         <thead>
                             <tr>
                                 <th>상품 이미지</th>
-                                <th>주문 번호</th>
-                                <th>상품명 ${memberInfo }</th>
-                                <th>수량 ${orderList}</th>
+                                <th>상품명</th>
+                                <th>카테고리</th>
+                                <th>사이즈</th>
+                                <th>수량</th>
                                 <th>가격</th>
-                                <th>주문일</th>
+                                <!-- <th>주문일</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +38,12 @@
                                 <td class="product-thumbnail">
                                     <img src="${pageContext.request.contextPath }/img/cart/cart-1.png" alt="">
                                 </td>
-                                <td class="product-name">HRD-123</td>
-                                <td class="product-subtotal">홍길동</td>
-                                <td class="product-quantity">3</td>
-                                <td class="product-price-cart"><span class="amount">$260.00</span></td>
-                                <td class="product-wishlist-cart">2023/08/26</td>
+                                <td class="product-subtotal">${goods.goodsCode }</td>
+                                <td class="product-subtotal">${goods.goodsCategory }</td>
+                                <td class="product-subtotal">${goods.goodsSize }</td>
+                                <td class="product-quantity">${goods.goodsCount }</td>
+                                <td class="product-price-cart"><span class="amount">${goods.goodsPrice }</span></td>
+                                <!-- <td class="product-wishlist-cart">2023/08/26</td> -->
                             </tr>
                         </tbody>
                     </table>
