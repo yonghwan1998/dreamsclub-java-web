@@ -2,6 +2,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script>
+function selectChange(obj){
+	var option = obj.value;
+	
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/goods/rest_option"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"option" : option
+		}),
+		dateType : "text",
+		success : function(result) {
+			if (result == "success") {
+				alert("success");
+			}
+				alert("fail");
+		},
+		error : function(xhr) {
+			alert("에러코드(게시글 삽입) = " + xhr.stauts);
+		}
+	});
+	
+}
+
+</script>
+
+
 <div class="shop-area pt-95 pb-100">
 	<div class="container">
 		<div class="row flex-row-reverse">
@@ -9,14 +37,14 @@
 				<div class="shop-top-bar">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
-							<select>
-								<option value="">이름순</option>
-								<option value="">별점순</option>
-								<option value="">가격순</option>
-								<option value="">리뷰순</option>
+							<select id="selectFilter" onchange="selectChange(this);">
+								<option value="name">이름순</option>
+								<option value="star">별점순</option>
+								<option value="price">가격순</option>
+								<option value="review">리뷰순</option>
 							</select>
 						</div>
-						<p>${goodsCount }개검색 결과</p>
+						<p>${goodsCount }개 검색 결과</p>
 					</div>
 				</div>
 
