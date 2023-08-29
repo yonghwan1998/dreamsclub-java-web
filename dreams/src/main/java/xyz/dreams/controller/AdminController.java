@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,5 +50,17 @@ public class AdminController {
 		model.addAttribute("goodsList", goodsList);
 
 		return "admin/admin_goods";
+	}
+	
+	@RequestMapping(value = "/goods/write", method = RequestMethod.GET)
+	public String AdminGoodsWriteView() {
+		
+		return "admin/admin_goods_write";
+	}
+	
+	@RequestMapping(value = "/goods/write", method = RequestMethod.POST)
+	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods) {
+		goodsService.addGoods(goods);
+		return "redirect:/admin/goods";
 	}
 }

@@ -34,4 +34,9 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public List<GoodsDTO> selectAdminGoodsList() {
 		return sqlSession.getMapper(GoodsMapper.class).selectAdminGoodsList();
 	}
+
+	@Override
+	public int insertGoods(GoodsDTO goods) {
+		return sqlSession.getMapper(GoodsMapper.class).insertGoods(goods);
+	}
 }

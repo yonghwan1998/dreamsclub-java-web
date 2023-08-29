@@ -2,6 +2,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script>
+function selectChange(obj){
+	var option = obj.value;
+	
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/goods/rest_option"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"option" : option
+		}),
+		dateType : "text",
+		success : function(result) {
+			if (result == "success") {
+				alert("success");
+			}
+				alert("fail");
+		},
+		error : function(xhr) {
+			alert("에러코드(게시글 삽입) = " + xhr.stauts);
+		}
+	});
+	
+}
+
+</script>
+
+
 <div class="shop-area pt-95 pb-100">
 	<div class="container">
 		<div class="row flex-row-reverse">
@@ -9,14 +37,14 @@
 				<div class="shop-top-bar">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
-							<select>
-								<option value="">이름순</option>
-								<option value="">별점순</option>
-								<option value="">가격순</option>
-								<option value="">리뷰순</option>
+							<select id="selectFilter" onchange="selectChange(this);">
+								<option value="name">이름순</option>
+								<option value="star">별점순</option>
+								<option value="price">가격순</option>
+								<option value="review">리뷰순</option>
 							</select>
 						</div>
-						<p>${goodsCount }개검색 결과</p>
+						<p>${goodsCount }개 검색 결과</p>
 					</div>
 				</div>
 
@@ -30,7 +58,7 @@
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/pro-1.jpg" alt=""> <img class="hover-img" src="${pageContext.request.contextPath }/img/product/pro-1-1.jpg" alt="">
 													</a>
 												</div>
 											</div>
@@ -38,7 +66,7 @@
 										<div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
 											<div class="shop-list-content">
 												<h3>
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }" class="goodsCode" >${goods.goodsCode }</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>" class="goodsCode" >${goods.goodsCode }</a>
 												</h3>
 												<div class="product-list-price">
 													<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
@@ -51,7 +79,7 @@
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
-													<a href="/dreams/goods/detail?goodsCode=${goods.goodsCode }">상세정보</a>
+													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>">상세정보</a>
 												</div>
 											</div>
 										</div>
@@ -61,6 +89,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				<!-- 
 				<div class="pro-pagination-style text-center mt-30">
 					<ul>
 						<li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
@@ -69,6 +98,7 @@
 						<li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
 					</ul>
 				</div>
+				-->
 
 
 			</div>

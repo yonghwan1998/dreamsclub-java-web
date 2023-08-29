@@ -1,22 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false" %>
 
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!-- 커뮤니티 CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath }/img/favicon.png">
-    <!-- 커뮤니티 CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
-</head>
-<body>
 <!--전체(글+댓글)-->
 <div class="communityDetail">
     <!--글제목+내용+목록으로-->
@@ -46,7 +33,8 @@
             <!--버튼-->
             <div class="communityDetailBtn">
                 <a href="/dreams/community">목록으로</a>
-            </div>
+				<a href="/dreams/community/delete?commNo=${pageInfo.commNo}" role="button" id="delete_btn">삭제하기</a>            
+			</div>
             <!-- 수정하기 버튼 나중에 추가
             <div class="communityDetailBtn">
                 <a href="/dreams/community/modify">수정하기</a>
@@ -134,18 +122,21 @@
 </div>
 
 
-
 <!-- JS -->
-<script type="text/javascript"   src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous">
+<script type="text/javascript">
 let form = $("#infoForm");
 
+//수정버튼
 $("#communityDetailBtn").on("click", function(e){
 	form.attr("action", "/community/modify");
 	form.submit();
-})
+});
+
+//삭제버튼
+//$("#delete_btn").on("click", funtion(e){
+//	form.attr("action", "/community/delete");
+//	form.attr("method", "post");
+//	form.submit();
+//});
 
 </script>
-</body>
-</html>

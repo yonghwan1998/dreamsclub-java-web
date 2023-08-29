@@ -49,10 +49,22 @@ public class GoodsController {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(HttpServletRequest request, Model model) {
+		
+//		굿즈 코드에서 이름만
 		String goodsCode = request.getParameter("goodsCode");
 		model.addAttribute("goodsCode", goodsCode);
 
+//		굿즈 코드 전체
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsCode);
+		String[] goodsCodeSplit = null;
+		goodsCodeSplit = goodsDetail.getGoodsCode().split("-");
+		if (goodsCodeSplit[0].equals("U")) {
+			goodsDetail.setGoodsCategory("Uniform");
+		}else if (goodsCodeSplit[0].equals("C")) {
+			goodsDetail.setGoodsCategory("Cap");
+		}else if (goodsCodeSplit[0].equals("F")) {
+			goodsDetail.setGoodsCategory("Fan Goods");
+		}
 		model.addAttribute("goodsDetail", goodsDetail);
 
 		return "goods/goods_detail";

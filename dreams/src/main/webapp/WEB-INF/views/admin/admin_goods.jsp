@@ -4,6 +4,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
+<script type="text/javascript">
+function searchBtn() {
+	var searchInput = document.getElementById("searchInput").value;
+	alert(searchInput);
+	
+}
+</script>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
 	<div class="layout-container">
@@ -66,7 +74,7 @@
 					<!-- Search -->
 					<div class="navbar-nav align-items-center">
 						<div class="nav-item d-flex align-items-center">
-							<i class="bx bx-search fs-4 lh-0"></i> <input type="text" class="form-control border-0 shadow-none" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
+							<i class="bx bx-search fs-4 lh-0" onclick="searchBtn()"></i> <input type="text" class="form-control border-0 shadow-none" id="searchInput" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
 						</div>
 					</div>
 					<!-- / Search -->
@@ -89,6 +97,7 @@
 					<div class="admin_card">
 						<h5 class="admin_card-header">굿즈 목록</h5>
 						<div class="table-responsive text-nowrap">
+						<span><a href="/dreams/admin/goods/write">굿즈 등록</a></span>
 							<table class="table table-hover">
 								<thead>
 									<tr>
@@ -97,6 +106,7 @@
 										<th>정보</th>
 										<th>판매 여부</th>
 										<th>재고</th>
+										<th>기능</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
@@ -106,10 +116,32 @@
 											<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${goods.goodsCode }</strong></td>
 											<td><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</td>
 											<td>${goods.goodsInfo }</td>
-											<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
-											<!-- <td><span class="badge bg-label-primary me-1">Y (이 색을 Y로)</span></td> -->
-											<!-- <td><span class="badge bg-label-warning me-1">N (이 색을 N으로)</span></td> -->
+											<c:choose>
+												<c:when test="${goods.goodsYn == 'Y'}">
+													<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
+												</c:when>
+						
+												<c:when test="${goods.goodsYn == 'N'}">
+													<td><span class="badge bg-label-danger me-1">${goods.goodsYn }</span></td>
+												</c:when>
+											</c:choose>
+											
 											<td>${goods.goodsStock }</td>
+									<td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-trash me-1"></i> 삭제</a
+                              >
+                            </div>
+                          </div>
+                        </td>
 										</tr>
 									</c:forEach>
 

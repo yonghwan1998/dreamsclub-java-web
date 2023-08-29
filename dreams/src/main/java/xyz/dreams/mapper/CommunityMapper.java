@@ -17,7 +17,7 @@ public interface CommunityMapper {
 	/*게시판 글 수정*/
 	int modifyCommunity(CommunityDTO community);
 	
-	/*게시판 삭제*/
-	int deleteCommunity(CommunityDTO community);
+	/*게시판 삭제 - 삭제 성공시 1반환, 실패시 0반환*/
+	int deleteCommunity(int commNo);
 
 }

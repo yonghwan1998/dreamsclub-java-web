@@ -14,8 +14,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	private final OrderDetailDAO orderDetailDAO;
 
 	 @Override
-	 public OrderDetailDTO getOrderById(String orderId) {
-        return orderDetailDAO.getOrderById(orderId);
+	 public OrderDetailDTO getOrderById(String memberId) {
+        return orderDetailDAO.getOrderById(memberId);
 	 }
 	
 	@Override

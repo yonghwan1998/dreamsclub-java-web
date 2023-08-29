@@ -2295,7 +2295,7 @@ a.default-btn {
   font-size: 13px;
   font-weight: 400;
   line-height: 32px;
-  text-align: left;
+  text-align: center;
   text-transform: capitalize;
   padding-top: 0px;
 }
@@ -2320,7 +2320,7 @@ a.default-btn {
   opacity: 1;
 }
 .main-menu nav ul li ul.submenu li:hover a {
-  padding-left: 12px;
+  padding-left: 30px;
 }
 .main-menu nav ul li ul.mega-menu {
   background-color: #fff;
@@ -3006,13 +3006,32 @@ a.default-btn {
   color: #000000;
 }
 
+.header-login {
+	position: relative;
+    left: 100px;
+}
+
+.header-login a {
+	margin-left: 15px;
+}
+
+.header-login a:link {
+	color: #A749FF;
+}
+
+.header-login a:visited {
+	color : black;
+}
+
 .language-currency-wrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+	position: relative;
+	right: 80px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
 }
 @media only screen and (max-width: 767px) {
   .language-currency-wrap {
@@ -14272,8 +14291,9 @@ h3.cart-page-title {
   color: #10620A;
 }
 
+/* 형섭: 3px로 수정 */
 .cart-table-content table {
-  border: 1px solid #ebebeb;
+  border: 3px solid #ebebeb;
 }
 .cart-table-content table thead > tr {
   background-color: #f9f9f9;
@@ -14902,8 +14922,8 @@ h3.cart-page-title {
 .your-order-area .your-order-wrap .your-order-product-info .your-order-middle {
   border-bottom: 1px solid #dee0e4;
   border-top: 1px solid #dee0e4;
-  margin: 29px 0;
-  padding: 19px 0 18px;
+  margin: 12px 0;
+  padding: 40px 0 30px;
 }
 .your-order-area .your-order-wrap .your-order-product-info .your-order-middle ul li {
   display: -webkit-box;
