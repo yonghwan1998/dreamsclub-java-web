@@ -55,4 +55,8 @@
 		WHERE
 			GGC = #{goodsCode}
 	</select>
+	
+	<select id="getGoods" resultType="OrderDetailDTO">
+		select goodsCode, goodsPrice, goodsImage from order_new where goodsCode = #{goodsCode}
+	</select>
 </mapper>

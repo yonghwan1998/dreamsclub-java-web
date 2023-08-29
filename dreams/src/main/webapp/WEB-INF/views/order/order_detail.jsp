@@ -26,8 +26,8 @@
                             <tr>
                                 <th>상품 이미지</th>
                                 <th>주문 번호</th>
-                                <th>상품명</th>
-                                <th>수량</th>
+                                <th>상품명 ${memberInfo }</th>
+                                <th>수량 ${orderList}</th>
                                 <th>가격</th>
                                 <th>주문일</th>
                             </tr>
@@ -39,7 +39,7 @@
                                 </td>
                                 <td class="product-name">HRD-123</td>
                                 <td class="product-subtotal">홍길동</td>
-                                <td class="product-quantity">2</td>
+                                <td class="product-quantity">3</td>
                                 <td class="product-price-cart"><span class="amount">$260.00</span></td>
                                 <td class="product-wishlist-cart">2023/08/26</td>
                             </tr>
