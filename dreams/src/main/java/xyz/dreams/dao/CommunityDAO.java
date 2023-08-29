@@ -20,6 +20,7 @@ public interface CommunityDAO {
 	/*게시판 삭제*/
 	int deleteCommunity(int commNo);
 
-
+	/*게시글 조회수 증가*/
+	void upCountCommunity(int commNo);
 	
 }
