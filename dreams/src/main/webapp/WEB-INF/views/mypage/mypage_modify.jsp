@@ -76,7 +76,8 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>아이디</label>
-                                                    <input type="text">
+                                                    ${member.memberName }
+                                                    <input type="text" readonly="readonly">
                                                 </div>
                                             </div>
                                          </div>
@@ -85,6 +86,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>새 비밀번호</label>
+                                                    
                                                     <input type="password">
                                                 </div>
                                             </div>
