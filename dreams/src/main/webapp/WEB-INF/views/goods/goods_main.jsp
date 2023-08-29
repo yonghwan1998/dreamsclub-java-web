@@ -20,9 +20,9 @@ function selectChange(q){
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
 							<select id="selectFilter" onchange="selectChange('${map.q }');">
-								<option value="goods_code">이름순</option>
+								<option value="goods_code" ${map.column == 'goods_code' ? 'selected="selected"' : '' }>이름순</option>
 								<%-- <option value="star">별점순</option> --%>
-								<option value="goods_price">가격순</option>
+								<option value="goods_price" ${map.column == 'goods_price' ? 'selected="selected"' : '' }>가격순</option>
 								<%-- <option value="review">리뷰순</option> --%>
 							</select>
 						</div>
