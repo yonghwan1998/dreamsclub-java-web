@@ -46,7 +46,7 @@
 	                        <tr class="boardTableList">
 	                            <td class="t1"><c:out value="${CommunityList.commNo }"/></td>
 	                            <td class="t2 text-left">
-	                            	<a class="move" href="/dreams/community/detail?commNo=<c:out value='${CommunityList.commNo}'/>">
+	                            	<a class="move" href="<c:url value="/community/detail?commNo=${CommunityList.commNo}"/>">
 	                            		<c:out value="${CommunityList.commTitle }"/>
 	                            	</a>
 	                           	</td>
@@ -64,7 +64,7 @@
             <!--글쓰기 버튼-->
             <div class="writeBtnContainer">
                 <div class="boardWriteBtn" style="text-align: right;">
-                    <a href="/dreams/community/write">글쓰기</a>
+                    <a href=<c:url value="/community/write"/>>글쓰기</a>
                 </div>
             </div>
 

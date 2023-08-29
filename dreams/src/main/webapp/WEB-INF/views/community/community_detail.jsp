@@ -32,9 +32,9 @@
 
             <!--버튼-->
             <div class="communityDetailBtn">
-                <a href="/dreams/community">목록으로</a>
+                <a href=<c:url value="/community"/>>목록으로</a>
                 	<c:if test="${member.memberId == pageInfo.memberId }" >
-						<a href="/dreams/community/delete?commNo=${pageInfo.commNo}" role="button" id="delete_btn">삭제하기</a>  
+						<a href=<c:url value="/community/delete?commNo=${pageInfo.commNo}"/> role="button" id="delete_btn">삭제하기</a>  
 					</c:if>       
 			</div>
             <!-- 수정하기 버튼 나중에 추가
@@ -42,7 +42,7 @@
                 <a href="/dreams/community/modify">수정하기</a>
             </div>
             -->
-           	<form id="infoForm" action="/community/detail" method="get">
+           	<form id="infoForm" action=<c:url value="/community/detail"/> method="get">
 				<input type="hidden" id="commNo" name="commNo" value='<c:out value="${pageInfo.commNo}"/>'>
 			</form>
             

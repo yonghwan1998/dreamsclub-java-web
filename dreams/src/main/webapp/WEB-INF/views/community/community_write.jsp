@@ -52,7 +52,7 @@
 
         <!--작성 버튼(취소, 등록)-->
         <div class="communityWriteBtn">
-            <a href="/dreams/community">취소</a>
+            <a href=<c:url value="/dreams/community"/>>취소</a>
             <button type="submit" class="upload" value="등록" onclick="chk_form()">등록</button>
         </div>
     </div>
@@ -62,11 +62,11 @@
 <script type="text/javascript">
 
 funtion chk_form(){
-if(document.getElementById("comm_title").value==''){
+if(document.getElementById("commTitle").value==''){
 	alert("제목을 입력해주십시오.");
 	return false;
 }
-if(document.getElementById("comm_cont").value==''){
+if(document.getElementById("commCont").value==''){
 	alert("내용을 입력해주십시오.");
 	return false;
 }
