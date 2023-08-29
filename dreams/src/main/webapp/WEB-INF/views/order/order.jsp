@@ -25,43 +25,43 @@
                     	<c:choose>
                     		<c:when test="${memberInfo != null }">
 	                          <div class="col-lg-6 col-md-6">
-	                              <div class="billing-info mb-20">
+	                              <div class="orderOld">
 	                                  <label>이름</label>
-	                                  <p><c:out value="${memberInfo.memberName}" /></p>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberName}" />" re></input>
 	                              </div>
 	                          </div>
 	                          <div class="col-lg-6 col-md-6">
-	                              <div class="billing-info mb-20">
+	                              <div class="orderOld">
 	                                  <label>전화번호</label>
-	                                  <p><c:out value="${memberInfo.memberPhone}" /></p>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberPhone}" />"></input>
 	                              </div>
 	                          </div>
 	
 	                          <div class="col-lg-12">
-	                              <div class="billing-info mb-20">
+	                              <div class="orderOld">
 	                                  <label>이메일</label>
-	                                  <p><c:out value="${memberInfo.memberEmail}" /></p>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberEmail}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-6">
 	                              <div class="billing-info mb-20">
 	                                  <label>우편번호</label>
-	                                  <p><c:out value="${memberInfo.memberPcode}" /></p>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberPcode}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
 	                              <div class="billing-info mb-20">
 	                                  <label>기본주소</label>
-	                                  <p><c:out value="${memberInfo.memberAddress1}" /></p>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberAddress1}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
 	                          	<div class="billing-info mb-20">
 	                                  <label>상세주소</label>
-	                                  <p><c:out value="${memberInfo.memberAddress2}" /></p>
+	                                 <input type="text" value="<c:out value="${memberInfo.memberAddress2}" />"></input>
 	                          	</div>
 	                         </div>
                          	</c:when>
@@ -87,52 +87,52 @@
 					</div>
 
                     <!-- 신규 배송지 등록 토글 -->
-                    <div class="different-address open-toggle mt-30">
-                    <div class="row">
-                    	<div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-20">
-                                <label>이름</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-20">
-                                <label>전화번호</label>
-                                <input type="text">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="billing-info mb-20">
-                                <label>이메일</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        
-                        <label style="margin-bottom: 7px;">주소</label>
-                        <div class="form-group">
-                            <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호"
-                                name="addr1" id="addr1" type="text" readonly="readonly">
-                            <button type="button" class="btn btn-default" onclick="execution_daum_address();"><i
-                                    class="fa fa-search"></i> 주소 찾기</button>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" style="top: 5px;" placeholder="기본주소" name="addr2" id="addr2"
-                                type="text" readonly="readonly" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" style="margin-bottom: 30px"/>
-                        </div>
-                    	</div>
-                    
-                    </div>
-		 			<!-- 배송요청 사항 -->
-                    <div class="additional-info-wrap">
-                        <h4>배송 요청사항</h4>
-                        <div class="additional-info">
-                            <textarea placeholder="ex. 도착하면 연락주세요. " name="message"></textarea>
-                        </div>
-                    </div>
+					<div class="different-address open-toggle mt-30">
+					    <div class="row">
+					        <form id="orderForm" action="<c:url value="/order/detail"/>" method="post">
+					            <div class="col-lg-6 col-md-6">
+					                <div class="billing-info mb-20">
+					                    <label>이름</label>
+					                    <input type="text" name="name">
+					                </div>
+					            </div>
+					            <div class="col-lg-6 col-md-6">
+					                <div class="billing-info mb-20">
+					                    <label>전화번호</label>
+					                    <input type="text" name="phone">
+					                </div>
+					            </div>
+					            <div class="col-lg-12">
+					                <div class="billing-info mb-20">
+					                    <label>이메일</label>
+					                    <input type="text" name="email">
+					                </div>
+					            </div>
+					            <label style="margin-bottom: 7px;">주소</label>
+					            <div class="form-group">
+					                <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호"
+					                    name="addr1" id="addr1" type="text" readonly="readonly">
+					                <button type="button" class="btn btn-default" onclick="execution_daum_address();"><i
+					                        class="fa fa-search"></i> 주소 찾기</button>
+					            </div>
+					            <div class="form-group">
+					                <input class="form-control" style="top: 5px;" placeholder="기본주소" name="addr2" id="addr2"
+					                    type="text" readonly="readonly" />
+					            </div>
+					            <div class="form-group">
+					                <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" style="margin-bottom: 30px"/>
+					            </div>
+					            
+					            <!-- 배송 요청사항 -->
+					            <div class="additional-info-wrap">
+					                <h4>배송 요청사항</h4>
+					                <div class="additional-info">
+					                    <textarea placeholder="ex. 도착하면 연락주세요. " name="orderMemo"></textarea>
+					                </div>
+					            </div>
+					        </form>
+					    </div>
+					</div>
                 </div>
             </div>
 
@@ -303,13 +303,11 @@
                     </div>
                     <!-- 주문하기 버튼 -->
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="<c:url value="/dreams/order/detail"/>">주문하기</a>
+                        <button type="button" class="btn-hover" onclick="submitOrderForm()">주문하기</button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
     </div>
 </div>
 
@@ -380,6 +378,8 @@ function execution_daum_address(){
     const newAddressRadio = document.querySelector(".checkout-toggle");
     const newAddressToggle = document.querySelector(".different-address");
 
+	//
+
     existingAddressRadio.addEventListener("change", function() {
         if (this.checked) {
             newAddressToggle.style.display = "none";
@@ -393,3 +393,9 @@ function execution_daum_address(){
     });
 });
    </script>
+   <script>
+function submitOrderForm() {
+    var form = document.getElementById("orderForm");
+    form.submit();
+}
+</script>

@@ -35,7 +35,7 @@
             <!-- 회원 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">회원 관리</span></li>
             <li class="menu-item active">
-              <a href="<a href="<c:url value="/dreams/admin"/>">" class="menu-link">
+              <a href="<c:url value="/admin"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                 <div data-i18n="Tables">회원 관리</div>
               </a>
@@ -44,7 +44,7 @@
             <!-- 굿즈 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">굿즈 관리</span></li>
             <li class="menu-item">
-              <a href="<a href="<c:url value="/dreams/admin/goods"/>">" class="menu-link">
+              <a href="<c:url value="/admin/goods"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Authentications">굿즈 관리</div>
               </a>
@@ -53,7 +53,7 @@
             <!-- 주문 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">주문 관리</span></li>
             <li class="menu-item">
-              <a href="<a href="<c:url value="/dreams/admin/order"/>">" class="menu-link">
+              <a href="<c:url value="/admin/order"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-support"></i>
                 <div data-i18n="Support">주문 관리</div>
               </a>

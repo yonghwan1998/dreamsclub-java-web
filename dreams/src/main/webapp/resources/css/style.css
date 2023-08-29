@@ -3008,7 +3008,7 @@ a.default-btn {
 
 .header-login {
 	position: relative;
-    left: 100px;
+    left: 3rem;
 }
 
 .header-login a {
@@ -3025,7 +3025,7 @@ a.default-btn {
 
 .language-currency-wrap {
 	position: relative;
-	right: 80px;
+	right: 3rem;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -14310,6 +14310,11 @@ h3.cart-page-title {
   vertical-align: middle;
   white-space: nowrap;
 }
+
+.cart-table-content table thead > tr th,
+.cart-table-content table tbody > tr td {
+  border: 1px solid #ebebeb;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .cart-table-content table thead > tr th {
     padding: 21px 35px 22px;
@@ -15010,7 +15015,7 @@ h3.cart-page-title {
   font-size: 14px;
   color: #333;
 }
-.your-order-area .Place-order > a {
+.your-order-area .Place-order > button {
   background-color: #a749ff;
   color: #fff;
   display: block;
@@ -15023,7 +15028,7 @@ h3.cart-page-title {
   border-radius: 50px;
   z-index: 9;
 }
-.your-order-area .Place-order > a:hover {
+.your-order-area .Place-order > button:hover {
   background-color: #333;
 }
 
