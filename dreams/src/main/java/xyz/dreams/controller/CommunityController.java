@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityDTO;
+import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CommunityService;
 
 @Controller
@@ -86,7 +88,13 @@ public class CommunityController {
 	
 	/*페이지 삭제*/
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String communityDeleteGET(@RequestParam("commNo") int commNo) throws Exception{
+	public String communityDeleteGET(@RequestParam("commNo") int commNo, @ModelAttribute CommunityDTO communiryDTO,
+				HttpSession session) throws Exception{
+		
+		//로그인 세션 불러오기
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		//DTO에 글쓴이 넣기
+		communiryDTO.setMemberId(member.getMemberId());
 		
 		communityService.deleteCommunity(commNo);
 		
