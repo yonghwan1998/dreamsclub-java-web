@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.OrderMapper">
-	<!-- <resultMap type="xyz.dreams.dto.OrderDTO" id="orderResultMap">
-		<id property="orderId" column="ORDER_ID"/>
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="goodsCode" column="GOODS_CODE"/>
-		<result property="orderPcode" column="ORDER_PCODE"/>
-		<result property="orderAddress1" column="ORDER_ADDRESS1"/>
-		<result property="orderAddress2" column="ORDER_ADDRESS2"/>
-		<result property="orderPhone" column="ORDER_PHONE"/>
-		<result property="orderMemo" column="ORDER_MEMO"/>
-		<result property="orderStatus" column="ORDER_STATUS"/>
-		<result property="orderQuantity" column="ORDER_QUANTITY"/>
-		<result property="orderHow" column="ORDER_HOW"/>
-	</resultMap> -->
 	
 	<insert id="insertOrder" parameterType="xyz.dreams.dto.OrderDTO">
 		INSERT INTO ORDER_NEW (
