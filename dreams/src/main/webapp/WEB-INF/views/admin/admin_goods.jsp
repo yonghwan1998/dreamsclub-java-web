@@ -114,9 +114,16 @@ function searchBtn() {
 											<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${goods.goodsCode }</strong></td>
 											<td><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</td>
 											<td>${goods.goodsInfo }</td>
-											<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
-											<!-- <td><span class="badge bg-label-primary me-1">Y (이 색을 Y로)</span></td> -->
-											<!-- <td><span class="badge bg-label-warning me-1">N (이 색을 N으로)</span></td> -->
+											<c:choose>
+												<c:when test="${goods.goodsYn == 'Y'}">
+													<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
+												</c:when>
+						
+												<c:when test="${goods.goodsYn == 'N'}">
+													<td><span class="badge bg-label-warning me-1">${goods.goodsYn }</span></td>
+												</c:when>
+											</c:choose>
+											
 											<td>${goods.goodsStock }</td>
 										</tr>
 									</c:forEach>
