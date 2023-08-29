@@ -106,6 +106,7 @@ function searchBtn() {
 										<th>정보</th>
 										<th>판매 여부</th>
 										<th>재고</th>
+										<th>기능</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
@@ -121,11 +122,26 @@ function searchBtn() {
 												</c:when>
 						
 												<c:when test="${goods.goodsYn == 'N'}">
-													<td><span class="badge bg-label-warning me-1">${goods.goodsYn }</span></td>
+													<td><span class="badge bg-label-danger me-1">${goods.goodsYn }</span></td>
 												</c:when>
 											</c:choose>
 											
 											<td>${goods.goodsStock }</td>
+									<td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-trash me-1"></i> 삭제</a
+                              >
+                            </div>
+                          </div>
+                        </td>
 										</tr>
 									</c:forEach>
 
