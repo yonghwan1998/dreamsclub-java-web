@@ -113,18 +113,25 @@
                 <a data-bs-toggle="tab" href="#des-details1">Additional information</a>
                 
                 <!--  오진서: QnA 버튼 수정 -->
-                <a class="active" data-bs-toggle="tab" href="#des-details2">Q&A</a>
+                <a data-bs-toggle="tab" href="#des-details2">Q & A</a>
                 
                 <!-- 강민경: 리뷰 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
-            </div>
-            
-            <!-- ▼ QnA -->
+            </div>     
+                
+                <!-- ▼ QnA -->
             <div class="tab-content description-review-bottom">
                 <div id="des-details2" class="tab-pane active">
                     <div class="product-description-wrapper">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                        <p>ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo consequat. Duis aute irure dolor in reprehend in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt </p>
+                    
+                    <details>
+					  <summary>사이즈 문의 드립니다!!</summary>
+					  <ul>
+					    <li> 178cm에 70kg 는 사이즈 몇을 입나요?</li>
+					  </ul>
+					  
+					</details>
+					
                     </div>
                 </div>
                 
