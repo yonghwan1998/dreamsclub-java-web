@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.dto.OrderDetailDTO;
 import xyz.dreams.mapper.OrderMapper;
 
 @Repository
@@ -33,4 +34,9 @@ public class OrderDAOImpl implements OrderDAO {
 	public GoodsDTO getGoodsInfo(String goodsCode) {
 		return sqlSession.getMapper(OrderMapper.class).getGoodsInfo(goodsCode);
 	}
+
+	/*
+	 * @Override public OrderDetailDTO getGoods(String goodsCode) { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 }

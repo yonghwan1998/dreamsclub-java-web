@@ -91,7 +91,7 @@ function selectChange(q){
 						<div class="pro-sidebar-search mb-50 mt-25">
 							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
-								<input id="searchText" type="text" name="q" placeholder="Search here...">
+								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
 								</button>
