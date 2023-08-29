@@ -19,5 +19,8 @@ public interface CommunityMapper {
 	
 	/*게시판 삭제 - 삭제 성공시 1반환, 실패시 0반환*/
 	int deleteCommunity(int commNo);
+	
+	/*게시글 조회수 증가*/
+	void upCountCommunity(int commNo);
 
 }

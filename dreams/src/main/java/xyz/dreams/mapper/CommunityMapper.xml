@@ -27,4 +27,9 @@
 	delete from community where COMM_NO=#{commNo}
 </delete>
 
+<!-- 게시글 조회수 증가 -->
+<update id="upCountCommunity" parameterType="int">
+	update community set comm_hit = comm_hit+1 where comm_no=#{commNo}
+</update>
+
 </mapper>

@@ -21,4 +21,6 @@ public interface CommunityService {
 	/*게시판 삭제*/
 	void deleteCommunity(int commNo);
 
+	/*게시글 조회수 증가*/
+	void upCountCommunity(int commNo);
 }

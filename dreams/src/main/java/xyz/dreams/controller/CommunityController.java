@@ -36,6 +36,10 @@ public class CommunityController {
 		CommunityDTO comm=communityService.getPage(commNo);
 		comm.setCommCont(comm.getCommCont().replace("\r\n", "<br>").replace("\n", "<br"));
 		model.addAttribute("pageInfo", comm);
+		
+		//조회수 +1
+		communityService.upCountCommunity(commNo);
+		
 		return "community/community_detail";
 	}
 	

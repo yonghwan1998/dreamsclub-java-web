@@ -53,4 +53,10 @@ public class CommunityServiceImpl implements CommunityService{
 	public void deleteCommunity(int commNo) {
 		communityDAO.deleteCommunity(commNo);
 	}
+
+	/*게시글 조회수 증가*/
+	@Override
+	public void upCountCommunity(int commNo) {
+		communityDAO.upCountCommunity(commNo);
+	}
 }
