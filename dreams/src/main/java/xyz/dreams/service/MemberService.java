@@ -15,6 +15,9 @@ public interface MemberService {
 	//강민경: Id 찾을 때 사용
 	String searchId(MemberDTO member);
 	
+	//강민경: 비밀번호 찾기 
+	
+	
 	// 회원가입
 	void addMember(MemberDTO member);
 
