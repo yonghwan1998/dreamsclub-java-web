@@ -86,7 +86,7 @@ legend {
 			</li>
 			<li>
 				<label for="passwd">비밀번호 확인</label>
-				<input type="password" id="repasswd"> <%-- name="memberPw" 없앴더니 회원가입토대로 로그인이됨 --%>
+				<input type="password" name="memberPw2" id="repasswd"> <%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
 				<div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
 				<div id="repasswdMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
 			</li>
