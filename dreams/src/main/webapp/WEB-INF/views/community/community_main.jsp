@@ -42,22 +42,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- 
-                        <tr class="boardTableList">
-                            <td class="t1 listNotice">공지</td>
-                            <td class="t2 listNotice text-left"><a href="#">공지</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">날짜</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">1</td>
-                            <td class="t2 text-left"><a href="/dreams/community/detail">드림즈 이번 포스트시즌</a></td>
-                            <td class="t3">작성자</td>
-                            <td class="t4">날짜</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                         -->
                         <c:forEach items="${CommunityList }" var="CommunityList" >
 	                        <tr class="boardTableList">
 	                            <td class="t1"><c:out value="${CommunityList.commNo }"/></td>
@@ -84,15 +68,37 @@
                 </div>
             </div>
 
-            <!--페이지-->
+            <!--페이징-->
             <div class="boardPageContainer">
                 <div class="boardPage">
-                    <!--jstl로 페이지가 5장 이상이 아닐때는 그냥 텍스트라는 조건을 주긴해야하지만 일단 그냥 넣는다.-->
-                    <a href="/dreams/community">《</a>
-                    <a href="#">〈</a>
-                    <a href="#">1</a>
-                    <a href="#">〉</a>
-                    <a href="#">》</a>
+					<c:choose>
+						<c:when test="${pager.startPage > pager.blockSize }">
+							<a href="<c:url value="/community"/>?pageNum=${pager.prevPage}">《</a>
+						</c:when>
+						<c:otherwise>
+							《
+						</c:otherwise>
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+						<c:choose>
+							<c:when test="${pager.pageNum != i  }">
+								<a href="<c:url value="/community"/>?pageNum=${i+1}">${i+1}</a>
+							</c:when>
+							<c:otherwise>
+								${i+1 }
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+				
+					<c:choose>
+						<c:when test="${pager.endPage != pager.totalPage }">
+							<a href="<c:url value="/community"/>?pageNum=${pager.nextPage}">》</a>
+						</c:when>
+						<c:otherwise>
+							》
+						</c:otherwise>
+					</c:choose>	
                 </div>
             </div>
         </div>

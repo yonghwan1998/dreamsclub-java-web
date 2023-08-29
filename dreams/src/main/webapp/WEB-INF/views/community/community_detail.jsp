@@ -144,15 +144,5 @@ funciton delete_btn(){
 
 
 
-//삭제버튼 작성자한테만 보이기
-//const memberId=getmemberId;
-//const deleteLink = document.getElementById('delete_btn')
-//if(memberId){
-	//deleteLink.style.display='block';
-//} else{
-//	deleteLink.style.display='none';
-//}
-
-
 
 </script>
