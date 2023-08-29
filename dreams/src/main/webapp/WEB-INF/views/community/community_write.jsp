@@ -6,6 +6,7 @@
 
 <!--커뮤니티 글쓰기-->
 <form id="communityWrite_input" action="<c:url value='/community/write/add'/>" method="post" enctype="multipart/form-data">
+<input type="hidden" id="communityWriter" name="memberId" value="${member.memberId }">
 <div class="boardWriteMain">
     <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
         <h3 style="margin-bottom: 40px;">커뮤니티 글쓰기</h3>
@@ -21,14 +22,6 @@
                     	value="${community.commTitle }">
                 </td>
             </tr>  
-            <!-- 작성자 -->   
-            <tr>
-                <th>작성자</th>
-                <td>
-                    <input type="text" id="communityWriter" name="memberId" 
-                    	value="${member.memberId }" readonly="readonly">
-                </td>
-            </tr>    
         <!--내용-->
             <tr>
                 <th>내용</th>
@@ -52,8 +45,8 @@
 
         <!--작성 버튼(취소, 등록)-->
         <div class="communityWriteBtn">
-            <a href=<c:url value="/dreams/community"/>>취소</a>
-            <button type="submit" class="upload" value="등록" onclick="chk_form()">등록</button>
+            <a href="<c:url value="/dreams/community"/>">취소</a>
+            <a href="javascript:chk_form();">등록</a>
         </div>
     </div>
 </div>
@@ -61,16 +54,16 @@
 
 <script type="text/javascript">
 
-funtion chk_form(){
-if(document.getElementById("commTitle").value==''){
-	alert("제목을 입력해주십시오.");
-	return false;
-}
-if(document.getElementById("commCont").value==''){
-	alert("내용을 입력해주십시오.");
-	return false;
-}
-document.getElementById('communityWrite_input').submit();
+function chk_form() {
+	if(document.getElementById("communityWriteTitle").value==''){
+		alert("제목을 입력해주십시오.");
+		return false;
+	}
+	if(document.getElementById("communityWriteContent").value==''){
+		alert("내용을 입력해주십시오.");
+		return false;
+	}
+	document.getElementById('communityWrite_input').submit();
 }
 
 

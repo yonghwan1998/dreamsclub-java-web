@@ -64,7 +64,9 @@
             <!--글쓰기 버튼-->
             <div class="writeBtnContainer">
                 <div class="boardWriteBtn" style="text-align: right;">
-                    <a href=<c:url value="/community/write"/>>글쓰기</a>
+                	<c:if test="${!empty(member)}">
+                    	<a href=<c:url value="/community/write"/>>글쓰기</a>
+                    </c:if>
                 </div>
             </div>
 
