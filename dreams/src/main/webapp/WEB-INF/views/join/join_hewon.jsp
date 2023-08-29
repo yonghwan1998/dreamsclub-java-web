@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false"%>
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +72,7 @@ legend {
 		<ul>
 			<li>
 				<label for="id">아이디</label>
-				<input type="text" name="memberId" id="id"><span id="idCheck">아이디 중복 검사</span>
+				<input type="text" name="memberId" id="id">  <span id="idCheck">아이디 중복 검사</span> 
 				<div id="idMsg" class="error">아이디를 입력해 주세요.</div>
 				<div id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</div>
 				<!-- <div id="idCheckMsg" class="error">아이디 중복 검사를 반드시 실행해 주세요.</div> -->
@@ -105,7 +104,7 @@ legend {
 			</li>
 			
 			
-<!--
+<!--  
  			<li>
 				<label for="mobile">전화번호</label>
 				<select name="memberPhone"> 
@@ -121,16 +120,19 @@ legend {
 				<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
 				<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
 			</li>  
-			-->
+ -->			
 			
 			<!-- 전화번호2222222 -->
 			<li>
 			<label for="mobile">전화번호</label>
 			<input type="text" name="memberPhone" id="memberPhone" >
 			<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-			<div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div>
+			<!-- <div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div> 
 			
 			</li>
+			 -->
+			
+					
 			
 			
 			<li>
@@ -159,6 +161,7 @@ legend {
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+var idck = 0;
 
 <script type="text/javascript">
 
@@ -217,10 +220,10 @@ $("#join").submit(function() {
 	}
 
 	
-/*
-// 핸드폰 번호 조건문
-	var mobile2Reg=/\d{3,4}/;
-	var mobile3Reg=/\d{4}/;
+
+/* // 핸드폰 번호 조건문
+	var mobile2Reg=/^\d{3,4}$/;
+	var mobile3Reg=/^\d{4}$/;
 	if($("#mobile2").val()=="" || $("#mobile3").val()=="") {
 		$("#mobileMsg").css("display","block");
 		submitResult=false;
@@ -228,23 +231,23 @@ $("#join").submit(function() {
 		$("#mobileRegMsg").css("display","block");
 		submitResult=false;
 	} 
-*/
+
 	
 	if($("#zipcode").val()=="") {
 		$("#zipcodeMsg").css("display","block");
 		submitResult=false;
-	}
+	} */
 	
 	
-	// 핸드폰 조건문222
-	var memberPhoneReg = /^0\d{1,2}-\d{3,4}-\d{4}$/;
+ 	// 핸드폰 조건문222
+	var memberPhoneReg = /^\d{2,3}-\d{3,4}-\d{4}$/;
 	if($("#memberPhone").val()=="") {
 		$("#mobileMsg").css("display","block");
 		submitResult=false;
-	} else if(!memberPhoneReg.test($("memberPhone").val())) {
+/* 	} else if(!memberPhoneReg.test($("memberPhone").val())) {
 		$("#mobileRegMsg").css("display","block");
-		submitResult=false;
-	}
+		submitResult=false; */
+	} 
 	
 
 	
@@ -299,5 +302,6 @@ $("#postSearch").click(function() {
     }).open();
 });
 </script>
-</body>
-</html>
+
+<!-- </body>
+</html> -->
