@@ -18,10 +18,10 @@ NOTICE_DEL   NOT NULL VARCHAR2(1)
 	
 @Data
 public class NoticeDTO {
-	private int noticeNo;
-	private String noticeTitle;
-	private String noticeCont;
+	private int noticeNo; 		//공지사항 번호
+	private String noticeTitle; //공지사항 제목
+	private String noticeCont;	//공지사항 내용
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date noticeDate;
-	private String noticeDel;
+	private Date noticeDate;	//공지사항 작성날짜
+	private String noticeDel;	//공지사항 삭제
 }

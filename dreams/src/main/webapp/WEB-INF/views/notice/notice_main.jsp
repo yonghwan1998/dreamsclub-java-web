@@ -36,89 +36,125 @@
                             <th class="t2" style="width: 700px">제목</th>
                             <th class="t3" style="width: 150px">작성자</th>
                             <th class="t4" style="width: 150px">작성일</th>
-                            <th class="t5" style="width: 100px">조회수</th>
+                           <!--  <th class="t5" style="width: 100px">조회수</th>  -->
                         </tr>
                     </thead>
+                    
                     <tbody>
-                        <tr class="boardTableList">
-                            <td class="t1 listNotice">공지</td>
-                            <td class="t2 listNotice text-left"><a href="#">공지사항</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">날짜</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">1</td>
-                            <td class="t2 text-left"><a href="/dreams/notice/detail">드림즈-NC, 지역사회 발전 위해 힘 모은다</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">2023-08-05</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">2</td>
-                            <td class="t2 text-left"><a href="/dreams/notice/detail">365바른약속치과의원-드림즈, 2023시즌 스폰서십 체결</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">2023-08-07</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">3</td>
-                            <td class="t2 text-left"><a href="/dreams/notice/detail">본인확인 서비스 일시중단 안내(8월 8일 화요일 19시~20시)</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">2023-08-07</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">4</td>
-                            <td class="t2 text-left"><a href="/dreams/notice/detail">드림즈, 고성군야구협회와 함께하는 일일 야구교실 열어</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">2023-08-12</td>
-                            <td class="t5">조회수</td>
-                        </tr>
-                        <tr class="boardTableList">
-                            <td class="t1">5</td>
-                            <td class="t2 text-left"><a href="/dreams/notice/detail">드림즈, '메모리얼 리노베이션'진행...구단 역사 창원드림즈파크에 새겨</a></td>
-                            <td class="t3">관리자</td>
-                            <td class="t4">2023-08-14</td>
-                            <td class="t5">조회수</td>
-                        </tr>
+                        <c:forEach items="${NoticeList }" var="NoticeList" >
+	                        <tr class="boardTableList">
+	                            <td class="t1"><c:out value="${NoticeList.noticeNo }"/></td>
+	                            <td class="t2 text-left">
+	                            	<a class="move" href="/dreams/notice/detail?noticeNo=<c:out value='${NoticeList.noticeNo}'/>">
+	                            		<c:out value="${NoticeList.noticeTitle }"/>
+	                            	</a>
+	                           	</td>
+	                            <td class="t3"><c:out value="${NoticeList.memberId }"/></td>
+	                            <td class="t4"><c:out value="${NoticeList.noticeDate }"/></td>
+	                       <!--   <td class="t5"><c:out value="${NoticeList.noticeHit }"/></td> -->    
+	                        </tr>
+	                    </c:forEach>                      
                     </tbody>
-                </table>
+               </table>
+               
+              
+                    
+                    
+                <form id="moveForm" method="get">
+                </form>   
             </div>
 
 
 
 
-   					   <!--글쓰기 버튼-->
+			<!--글쓰기 버튼-->
+         
+			<c:choose>
+
+				<c:when test="${member.memberStatus == 9}">
+					<div class="writeBtnContainer">
+     						   <div class="boardWriteBtn" style="text-align: right;">
+        						    <a href="/dreams/notice/write">등록</a>
+          							<a href="/dreams/notice/modify">수정</a>
+            						<a href="/dreams/notice/delete?noticeNo=${pageInfo.noticeNo}">삭제</a>  
+      						   </div>
+			        </div>
+				</c:when>
+
+			</c:choose>
+
             
-						<c:choose>
 
-							<c:when test="${member.memberStatus == 9}">
-								<div class="writeBtnContainer">
-             						   <div class="boardWriteBtn" style="text-align: right;">
-                						    <a href="/dreams/notice/write">등록</a>
-                  							<a href="/dreams/notice/write">수정</a>
-                    						<a href="/dreams/notice/write">삭제</a>
-               						   </div>
-       					        </div>
-							</c:when>
-
-						</c:choose>
-
-            
-
-            <!--페이지-->
+            <!--페이징-->
             <div class="boardPageContainer">
                 <div class="boardPage">
-                    <!--jstl로 페이지가 5장 이상이 아닐때는 그냥 텍스트라는 조건을 주긴해야하지만 일단 그냥 넣는다.-->
-                    <a href="/notice/main">《</a>
-                    <a href="#">〈</a>
-                    <a href="#">1</a>
-                    <a href="#">〉</a>
-                    <a href="#">》</a>
+					<c:choose>
+						<c:when test="${pager.startPage > pager.blockSize }">
+							<a href="<c:url value="/notice"/>?pageNum=${pager.prevPage}">《</a>
+						</c:when>
+						<c:otherwise>
+							《
+						</c:otherwise>
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+						<c:choose>
+							<c:when test="${pager.pageNum != i  }">
+								<a href="<c:url value="/notice"/>?pageNum=${i+1}">${i+1}</a>
+							</c:when>
+							<c:otherwise>
+								${i+1 }
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+				
+					<c:choose>
+						<c:when test="${pager.endPage != pager.totalPage }">
+							<a href="<c:url value="/notice"/>?pageNum=${pager.nextPage}">》</a>
+						</c:when>
+						<c:otherwise>
+							》
+						</c:otherwise>
+					</c:choose>	
                 </div>
             </div>
+            
         </div>
+
+<script type="text/javascript"
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous">
+
+//글 등록 성공 경고창
+$(document).ready(function(){
+	let result = '<c:out value="${result}"/>';
+	checkAlert(result);
+	function checkAlert(result){
+		if(result==""){
+			return;
+		} else if(result=="enroll success"){
+			alert("글이 등록되었습니다.")
+		}
+	}
+});
+  
+  
+//<a>태그 동작코드
+let moveForm=$("#moveForm");
+
+$(".move").on("click", funtion(e){
+	e.preventDefault();
+	
+	moveForm.append("<input type='hidden' name='noticeNo' value='"+$(this).attr("href")+"'>");
+	moveForm.attr("action", "/notice/detail");
+	moveForm.submit();
+}
+
+</script>
+
+
+
 
     </div>
 </div>
