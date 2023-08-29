@@ -15569,6 +15569,10 @@ h3.cart-page-title {
   font-weight: 700;
   color: #000000;
 }
+/*강민경: 아이디 찾기 페이지 결과 가운데 정렬 수정*/
+#searchIdpage{
+	 text-align: center;
+}
 .login-register-wrapper .login-register-tab-list {
   display: -webkit-box;
   display: -ms-flexbox;

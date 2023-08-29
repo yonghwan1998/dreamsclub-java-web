@@ -23,7 +23,7 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
-                                <div class="login-register-form">
+                                <div class="login-register-form" id="searchIdpage">
                                     <form action="<c:url value="/login/search_id/search_result_id"/>" method="post">
 											 <tr>
 			                                   <td width="20"></td>
