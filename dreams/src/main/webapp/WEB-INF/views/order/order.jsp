@@ -7,7 +7,7 @@
         <div class="breadcrumb-content text-center">
             <ul>
                 <li>
-                    <a href="/dreams">홈</a>
+                    <a href="<c:url value="/dreams"/>">홈</a>
                 </li>
                 <li class="active" style="font-weight: bold;">결제</li>
             </ul>
@@ -68,7 +68,7 @@
 	                        <c:otherwise>
 	                       	<div class="col-lg-12">
 					            <p>로그인이 필요한 서비스입니다. 로그인하거나 회원 가입을 진행해주세요.</p>
-					            <p><a href="/dreams/login">로그인</a> 또는 <a href="/dreams/join/check">회원 가입</a></p>
+					            <p><a href="<c:url value="/dreams/login"/>">로그인</a> 또는 <a href="<c:url value="/dreams/join/check"/>">회원 가입</a></p>
 				        	</div>
 	                        </c:otherwise>
 						</c:choose>
@@ -303,7 +303,7 @@
                     </div>
                     <!-- 주문하기 버튼 -->
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="/dreams/order/detail">주문하기</a>
+                        <a class="btn-hover" href="<c:url value="/dreams/order/detail"/>">주문하기</a>
                     </div>
                 </div>
             </div>

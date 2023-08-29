@@ -6,7 +6,7 @@
         <div class="breadcrumb-content text-center">
             <ul>
                 <li>
-                    <a href="/dreams">홈</a>
+                    <a href="<c:url value="/dreams"/>">홈</a>
                 </li>
                 <li class="active" style="font-weight: bold;">주문 내역</li>
             </ul>
@@ -26,10 +26,10 @@
                             <tr>
                                 <th>상품 이미지</th>
                                 <th>상품명</th>
-                                <th>카테고리</th>
                                 <th>사이즈</th>
                                 <th>수량</th>
                                 <th>가격</th>
+                                <th>배송메모</th>
                                 <!-- <th>주문일</th> -->
                             </tr>
                         </thead>
@@ -39,10 +39,10 @@
                                     <img src="${pageContext.request.contextPath }/img/cart/cart-1.png" alt="">
                                 </td>
                                 <td class="product-subtotal">${goods.goodsCode }</td>
-                                <td class="product-subtotal">${goods.goodsCategory }</td>
                                 <td class="product-subtotal">${goods.goodsSize }</td>
                                 <td class="product-quantity">${goods.goodsCount }</td>
                                 <td class="product-price-cart"><span class="amount">${goods.goodsPrice }</span></td>
+                                <td class="product-subtotal">${goods.goodsCategory }</td>
                                 <!-- <td class="product-wishlist-cart">2023/08/26</td> -->
                             </tr>
                         </tbody>
