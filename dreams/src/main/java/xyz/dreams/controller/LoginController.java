@@ -58,5 +58,13 @@ public class LoginController {
 	public String search_pw(HttpServletRequest request, Model model, MemberDTO searchDTO) {
 		return "login/search_result_pw";
 	}
+	
+	//4. 로그아웃
+	@RequestMapping("/logout")
+	public String logout(HttpSession session, Model model) {
+			session.invalidate();
+		
+		return "redirect:/";
+	}
 
 }
