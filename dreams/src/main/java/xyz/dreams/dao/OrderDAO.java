@@ -6,6 +6,7 @@ import xyz.dreams.dto.CartDTO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.dto.OrderDetailDTO;
 
 @Repository
 public interface OrderDAO {
@@ -20,4 +21,8 @@ public interface OrderDAO {
 	
 	//굿즈 조회
 	GoodsDTO getGoodsInfo(String goodsCode);
+	
+	
+	//
+//	public OrderDetailDTO getGoods(String goodsCode);
 }

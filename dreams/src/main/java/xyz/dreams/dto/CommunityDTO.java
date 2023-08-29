@@ -29,6 +29,6 @@ public class CommunityDTO {
 	private Date commDate; //작성날짜
 	private String commImg; //첨가 이미지
 	private String commDel; //삭제유무
-	private String commHit; //조회수
+	private int commHit; //조회수
 }
 

@@ -20,9 +20,9 @@ function selectChange(q){
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
 							<select id="selectFilter" onchange="selectChange('${map.q }');">
-								<option value="goods_code">이름순</option>
+								<option value="goods_code" ${map.column == 'goods_code' ? 'selected="selected"' : '' }>이름순</option>
 								<%-- <option value="star">별점순</option> --%>
-								<option value="goods_price">가격순</option>
+								<option value="goods_price" ${map.column == 'goods_price' ? 'selected="selected"' : '' }>가격순</option>
 								<%-- <option value="review">리뷰순</option> --%>
 							</select>
 						</div>
@@ -91,7 +91,7 @@ function selectChange(q){
 						<div class="pro-sidebar-search mb-50 mt-25">
 							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
-								<input id="searchText" type="text" name="q" placeholder="Search here...">
+								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
 								</button>

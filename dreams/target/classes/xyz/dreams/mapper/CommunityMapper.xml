@@ -9,7 +9,7 @@
 
 <!-- 게시판 전체 목록보기 -->
 <select id="getList" resultType="xyz.dreams.dto.CommunityDTO">
-	select * from community
+	select * from community order by comm_no desc
 </select>
 
 <!-- 게시판 글 하나 보기 -->
@@ -26,5 +26,10 @@
 <delete id="deleteCommunity">
 	delete from community where COMM_NO=#{commNo}
 </delete>
+
+<!-- 게시글 조회수 증가 -->
+<update id="upCountCommunity" parameterType="int">
+	update community set comm_hit = comm_hit+1 where comm_no=#{commNo}
+</update>
 
 </mapper>

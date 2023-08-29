@@ -39,5 +39,11 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 		return sqlSession.getMapper(CommunityMapper.class).deleteCommunity(commNo);
 	}
 
+	/*조회수 증가*/
+	@Override
+	public void upCountCommunity(int commNo) {
+		sqlSession.getMapper(CommunityMapper.class).upCountCommunity(commNo);
+	}
+
 
 }

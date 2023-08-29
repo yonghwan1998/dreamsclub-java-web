@@ -1,19 +1,15 @@
 package xyz.dreams.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityDTO;
@@ -28,23 +24,25 @@ public class CommunityController {
 
 	/*게시판 목록 페이지 접속*/
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String community(Model model) {
-		List<CommunityDTO> cList = communityService.getList();
+	public String community(Model model) {		
 		model.addAttribute("CommunityList", communityService.getList());
-		
 		return "community/community_main";
 	}
 	
 	
 	/*게시판 글 하나 보는 페이지 (조회)*/
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String communityDetail(HttpServletRequest request, Model model) {
+	public String communityDetail(@RequestParam int commNo, Model model) {
+		CommunityDTO comm=communityService.getPage(commNo);
+		comm.setCommCont(comm.getCommCont().replace("\r\n", "<br>").replace("\n", "<br"));
+		model.addAttribute("pageInfo", comm);
 		
-		int communtiyNo = Integer.parseInt(request.getParameter("commNo"));
-		model.addAttribute("pageInfo", communityService.getPage(communtiyNo));
+		//조회수 +1
+		communityService.upCountCommunity(commNo);
 		
 		return "community/community_detail";
 	}
+	
 	
 	/*게시판 글쓰기 페이지 접속*/
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -56,15 +54,9 @@ public class CommunityController {
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String communityWritePOST(@ModelAttribute CommunityDTO community, HttpSession session) throws Exception{
 		
-		//세션 아이디값 가져오기(member객체로)
-		session.getAttribute("memberId");
-		communityService.enrollCommunity(community);
-		
-		//띄워쓰기, 줄바꿈등의 개행문자를 문자처리하여 DB에 저장하기
-		community.setCommCont(community.getCommCont().replaceAll("\r\n", "<br>"));
-		
-		System.out.println(community.toString());
-		
+		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		communityService.enrollCommunity(community);		
 		return "redirect:/community";
 	}
 
@@ -88,13 +80,13 @@ public class CommunityController {
 	
 	/*페이지 삭제*/
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String communityDeleteGET(@RequestParam("commNo") int commNo, @ModelAttribute CommunityDTO communiryDTO,
+	public String communityDeleteGET(@RequestParam("commNo") int commNo, @ModelAttribute CommunityDTO communityDTO,
 				HttpSession session) throws Exception{
 		
 		//로그인 세션 불러오기
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		//DTO에 글쓴이 넣기
-		communiryDTO.setMemberId(member.getMemberId());
+		communityDTO.setMemberId(member.getMemberId());
 		
 		communityService.deleteCommunity(commNo);
 		
