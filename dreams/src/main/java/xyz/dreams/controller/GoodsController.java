@@ -1,6 +1,8 @@
 package xyz.dreams.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,22 +28,21 @@ public class GoodsController {
 
 //	GET - 굿즈 메인 페이지
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String view(Model model) {
-		String q = "";
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(q);
+	@RequestMapping("/main")
+	public String view(String q, @RequestParam(defaultValue = "goods_code") String column, Model model) {
+		System.out.println("q = "+q);
+		System.out.println("column = "+column);
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("q", q);
+		map.put("column", column);
+		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
+		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
 		return "goods/goods_main";
 	}
 
-	@RequestMapping(value = "/main/search", method = RequestMethod.GET)
-	public String search(@RequestParam String q, Model model) {
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(q);
-		model.addAttribute("goodsList", goodsList);
-		model.addAttribute("goodsCount", goodsList.size());
-		return "goods/goods_main";
-	}
 
 //	POST - 굿즈 메인 페이지
 

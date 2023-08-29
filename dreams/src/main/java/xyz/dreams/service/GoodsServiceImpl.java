@@ -3,6 +3,7 @@ package xyz.dreams.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class GoodsServiceImpl implements GoodsService {
 //	굿즈 메인 페이지
 
 	@Override
-	public List<GoodsDTO> getGoodsList(String q) {
-		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList("%" + q + "%");
+	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
+		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList(map);
 		String[] goodsCodeSplit = null;
 		String goodsName = null;
 
