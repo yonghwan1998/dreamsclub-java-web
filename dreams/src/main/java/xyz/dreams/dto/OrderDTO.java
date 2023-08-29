@@ -1,9 +1,7 @@
 package xyz.dreams.dto;
 
-
 import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.List;
 
 import lombok.Data;
 
@@ -34,15 +32,21 @@ public class OrderDTO {
 	private String orderAddress2;	//상세 주소
 	private String orderPhone;		//전화번호
 	private String orderMemo;		//배송 메모
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date orderDate;			//주문 날짜
-	private int orderStatus;		//주문상태 - 관리자
-	private Date orderStatusChange;	//주문상태 변경일 - 관리자
-	private int orderQuantity;		//주문 수량(안쓸듯)
-	private int orderHow;			//결제 수단(final)
 	
+	//관리자
+	private int orderStatus;		//주문상태
+	private Date orderStatusChange;	//주문상태 변경일 - 관리자
+	
+	//삭제 예정
+	//private int orderQuantity;		//주문 수량(안쓸듯)
+	//private int orderHow;			//결제 수단(final)
+	
+	//받아야 할 값
 	private int goodsCount;
 	private String goodsImage;
 	private int goodsPrice;
+	
+	//OrderDetailDTO의 객체를 요소로 가지는 List 타입의 변수
+	private List<OrderDetailDTO> orders;
 }
