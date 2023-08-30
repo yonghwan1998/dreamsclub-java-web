@@ -118,10 +118,8 @@
 	                    <c:forEach items="${getMemberList }" var="member">
 	                      <tr>
 	                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${member.memberName }</strong></td>
-	                        <td>2021-02-22</td>
-	                        <%-- <td>${member.memberRegDate}</td> --%>
-	                        <td>2023-08-21</td>
-      						<%-- <td>${member.memberLastLogin}</td> --%>
+	                        <td>${member.memberRegDate}</td>
+      						<td>${member.memberLastLogin}</td>
 	                        <td>
                         		<c:choose>
                         			<c:when test="${member.memberStatus eq 1 }">
