@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 컨텐츠 상단 홈/결제 -->
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
     <div class="container">
@@ -17,7 +18,7 @@
 <!-- 주문 내역 -->
 <div class="cart-main-area pt-90 pb-100">
     <div class="container">
-        <h3 class="cart-page-title">홍길동님의 주문 내역</h3>
+        <h3 class="cart-page-title">${member.memberName }님의 주문 내역</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="table-content table-responsive cart-table-content">
@@ -38,11 +39,12 @@
                                 <td class="product-thumbnail">
                                     <img src="${pageContext.request.contextPath }/img/cart/cart-1.png" alt="">
                                 </td>
-                                <td class="product-subtotal">${goods.goodsCode }</td>
+                                <td class="product-quantity">${goods.goodsCode }</td>
                                 <td class="product-subtotal">${goods.goodsSize }</td>
-                                <td class="product-quantity">${goods.goodsCount }</td>
-                                <td class="product-price-cart"><span class="amount">${goods.goodsPrice }</span></td>
-                                <td class="product-subtotal">${goods.goodsCategory }</td>
+                                <td class="product-subtotal">${goods.goodsCount }</td>
+                                <td class="product-subtotal"><span class="amount">
+                                	<fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span></td>
+                                <td class="product-price-cart">${orderMemo }</td>
                                 <!-- <td class="product-wishlist-cart">2023/08/26</td> -->
                             </tr>
                         </tbody>

@@ -1,7 +1,6 @@
 package xyz.dreams.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -50,7 +49,4 @@ public class OrderDTO {
 	private int goodsCount;
 	private String goodsImage;
 	private int goodsPrice;
-	
-	//OrderDetailDTO의 객체를 요소로 가지는 List 타입의 변수
-	private List<OrderDetailDTO> orders;
 }

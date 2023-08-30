@@ -2,31 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
-
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    
-    <!-- CSS
-	============================================ -->
-   
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Icon Font CSS -->
-    <link rel="stylesheet" href="assets/css/icons.min.css">
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-
+	<script>
+		function confirmWithdrawal() {
+			var confirmDelete = confirm("정말로 회원탈퇴하시겠습니까?");
+			
+			if(confirmDelete) {
+				//여기에 실제 회원탈퇴 로직 추가
+				alert("회원탈퇴가 완료되었습니다.");
+			}
+		}
+	
+	</script>
 
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -127,11 +113,11 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
+                                    <form action="/dreams/" method="post">
                               
                                         <input type="password" name="user-password" placeholder="Password">
                                         <div class="button-box">
-                                            <button type="submit"><span>회원 탈퇴</span></button>
+                                            <button type="submit" onclick ="confirmWithdrawal()"><span>회원 탈퇴</span></button>
                                         </div>
                                         
                                          <div class="button-box">

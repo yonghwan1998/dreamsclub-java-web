@@ -2,6 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
+<script>
+	function validatePassword() {
+		var newPassword = document.getElementById("new_password").value;
+		var confirmPassword = document.getElementById("confirm_password").value;
+		
+		if(newPassword !== confirmPassword) {
+			alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			return false;
+		}
+		
+		var passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g;
+		if(!passwordPattern.test(newPassword)) {
+			alert("비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.");
+			return false;
+		}
+		
+		//추가 할 유효성 검사 규칙 적기
+		
+		return true;
+	}
+
+</script>
 
       <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -72,12 +94,14 @@
                             <div id="my-account-1" class="panel-collapse collapse show" data-bs-parent="#faq">
                                 <div class="panel-body">
                                     <div class="myaccount-info-wrapper">
+                                    
+                                    <form action="/dreams/mypage/modify" method="post" enctype="application/x-www-form-urlencoded">
+                                    
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>아이디</label>
-                                                    ${member.memberName }
-                                                    <input type="text" readonly="readonly">
+                                                   	<input type="text" readonly="readonly" value=" ${member.memberId }">
                                                 </div>
                                             </div>
                                          </div>
@@ -85,9 +109,8 @@
                                          <div class="row">
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>새 비밀번호</label>
-                                                    
-                                                    <input type="password">
+                                                    <label for="new_password">새 비밀번호</label>
+                                                    <input type="password" id="new_password" name="new_password" required>
                                                 </div>
                                             </div>
                                          </div>
@@ -95,8 +118,8 @@
                                           <div class="row">
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>새 비밀번호 확인</label>
-                                                    <input type="password">
+                                                    <label for="confirm_password">새 비밀번호 확인</label>
+                                                    <input type="password" id="confirm_password" name="confirm_password" required>
                                                 </div>
                                             </div>
                                           </div>
@@ -105,7 +128,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이름</label>
-                                                    <input type="text">
+                                                    <input type="text" value=" ${member.memberName }">
                                                 </div>
                                             </div>
                                           </div>
@@ -114,7 +137,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이메일</label>
-                                                    <input type="email">
+                                                    <input type="email" value=" ${member.memberEmail }">
                                                 </div>
                                             </div>
                                           </div>
@@ -123,7 +146,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>휴대폰 번호 </label>
-                                                    <input type="text">
+                                                    <input type="text" value=" ${member.memberPhone }">
                                                 </div>
                                             </div>
                                          </div>
@@ -132,7 +155,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>주소1</label>
-                                                    <input type="text">
+                                                    <input type="text" value=" ${member.memberAddress1 }">
                                                 </div>
                                             </div>
                                          </div>
@@ -141,7 +164,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>주소2</label>
-                                                    <input type="text">
+                                                    <input type="text" value=" ${member.memberAddress2 }">
                                                 </div>
                                             </div>
                                          </div>
@@ -151,9 +174,14 @@
                                                 <a href="#"><i class="fa fa-arrow-up"></i>위로</a>
                                             </div>
                                             <div class="billing-btn">
-                                                <button type="submit">확인</button>
+                                            
+                                            <input type="submit" value="확인">
+                                      <!--  <button type="submit">확인</button>  -->
                                             </div>
                                         </div>
+                                        
+                                     </form>
+                                     
                                   </div>
                             </div>
                         </div>
