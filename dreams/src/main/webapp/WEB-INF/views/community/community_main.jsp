@@ -42,17 +42,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${CommunityList }" var="CommunityList" >
+                        <c:forEach items="${communityList }" var="community" >
 	                        <tr class="boardTableList">
-	                            <td class="t1"><c:out value="${CommunityList.commNo }"/></td>
+	                            <td class="t1"><c:out value="${community.commNo }"/></td>
 	                            <td class="t2 text-left">
-	                            	<a class="move" href="<c:url value="/community/detail?commNo=${CommunityList.commNo}"/>">
-	                            		<c:out value="${CommunityList.commTitle }"/>
+	                            	<a class="move" href="<c:url value="/community/detail?commNo=${community.commNo}"/>">
+	                            		<c:out value="${community.commTitle }"/>
 	                            	</a>
 	                           	</td>
-	                            <td class="t3"><c:out value="${CommunityList.memberId }"/></td>
-	                            <td class="t4"><c:out value="${CommunityList.commDate }"/></td>
-	                            <td class="t5"><c:out value="${CommunityList.commHit }"/></td>
+	                            <td class="t3"><c:out value="${community.memberId }"/></td>
+	                            <td class="t4"><c:out value="${community.commDate }"/></td>
+	                            <td class="t5"><c:out value="${community.commHit }"/></td>
 	                        </tr>
 	                    </c:forEach>                      
                     </tbody>
@@ -85,10 +85,10 @@
 					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
 						<c:choose>
 							<c:when test="${pager.pageNum != i  }">
-								<a href="<c:url value="/community"/>?pageNum=${i+1}">${i+1}</a>
+								<a href="<c:url value="/community"/>?pageNum=${i}">${i}</a>
 							</c:when>
 							<c:otherwise>
-								${i+1 }
+								${i }
 							</c:otherwise>
 						</c:choose>	
 					</c:forEach>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	}
 });
   
-  
+
 //<a>태그 동작코드
 let moveForm=$("#moveForm");
 

@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
+
+<script type="text/javascript">
+function searchBtn() {
+	var searchInput = document.getElementById("searchInput").value;
+	alert(searchInput);
+	
+}
+</script>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -8,7 +17,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="<a href="<c:url value="/dreams/admin"/>">" class="app-brand-link">
+            <a href="<c:url value="/dreams/admin"/>" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin</span>
             </a>
             
@@ -35,7 +44,7 @@
             <!-- 회원 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">회원 관리</span></li>
             <li class="menu-item">
-              <a href="<a href="<c:url value="/dreams/admin"/>">" class="menu-link">
+              <a href="<c:url value="/admin"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                 <div data-i18n="Tables">회원 관리</div>
               </a>
@@ -45,7 +54,7 @@
             <!-- 굿즈 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">굿즈 관리</span></li>
             <li class="menu-item">
-              <a href="<a href="<c:url value="/dreams/admin/goods"/>">" class="menu-link">
+              <a href="<c:url value="/admin/goods"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Authentications">굿즈 관리</div>
               </a>
@@ -55,7 +64,7 @@
             <!-- 주문 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">주문 관리</span></li>
             <li class="menu-item active">
-              <a href="<c:url value="/dreams/admin/order"/>" class="menu-link">
+              <a href="<c:url value="/admin/order"/>" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-support"></i>
                 <div data-i18n="Support">주문 관리</div>
               </a>
@@ -85,14 +94,8 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="검색어를 입력해 주세요."
-                    aria-label="Search..."
-                  />
-                </div>
+					<i class="bx bx-search fs-4 lh-0" onclick="searchBtn()"></i> <input type="text" class="form-control border-0 shadow-none" id="searchInput" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
+				</div>
               </div>
               <!-- /Search -->
             </div>

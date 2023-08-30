@@ -161,7 +161,7 @@ legend {
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-var idck = 0;
+<!-- var idck = 0; -->
 
 <script type="text/javascript">
 

@@ -4,26 +4,29 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
 <!--전체(글+댓글)-->
-<div class="communityDetail">
+<div class="noticeDetail">
     <!--글제목+내용+목록으로-->
-    <div class="communityDetailWrtten">
+    <div class="noticeDetailWrtten">
         <!--글 경로 (Dreams > 공지사항)-->
-        <div class="communityDetailPath">
+        <div class="noticeDetailPath">
             <h5>Dreams > 공지사항</h5>
         </div>
 
         <!--글 컨테이너-->
-        <div class="communityDetailContainer">
+        <div class="noticeDetailContainer">
 	          <!--글 제목-->
 	          <div class="headwrap">
-	              <div class="title" style="width: 70%;">드림즈-경상남도, 지역사회 발전 위해 힘 모은다</div>
-	              <div class="writer" style="width: 15%; text-align: right;">작성자 : 관리자</div>
-	              <div class="wrtieDate" style="width: 15%; text-align: right;">작성일자 : 2023-08-05 </div>
-	          </div>
+                	<div class="pageNo" style="width: 5%;"><c:out value="${pageInfo.noticeNo }"/></div>
+                   <div class="title" style="width: 65%;"><c:out value="${pageInfo.noticeTitle }"/></div>
+                   <div class="writer" style="width: 15%; text-align: right;">작성자 : <c:out value="${pageInfo.memberId }"/></div>
+                   <div class="wrtieDate" style="width: 15%; text-align: right;">작성일자 : <c:out value="${pageInfo.noticeDate }"/></div>
+               </div>
 	          
 	
 	          <!--글 내용-->
 	          <div class="communityDetailContainerBody">
+	              <c:out value="${pageInfo.noticeCont }"/>
+	          <!-- 
 	              드림즈가 경상남도와 '파트너십 구축을 통한 상생 협력 업무 협약'을 4일(금) 맺었습니다.
 	              <br>
 	              <br>
@@ -42,12 +45,50 @@
 	              권일도 재송 드림즈 대표이사는 "이번 협약을 계기로 구단의 사회공헌 활동인 D-NATION과 연계한 도민들의 스포츠 관람 기회 확대와 지
 	              <br>
 	              역 취약계층 지원에 더 많은 노력을 기울이겠다"라고 말했습니다.
+	              
+	               -->
 	          </div>
         </div>
 
             <!--버튼-->
-        <div class="communityDetailBtn">
+        <div class="noticeDetailBtn">
             <a href="/dreams/notice">목록으로</a>
+            	<c:if test="${member.memberId == pageInfo.memberId }" >
+						<a href="/dreams/notice/delete?noticeNo=${pageInfo.noticeNo}" role="button" id="delete_btn">삭제하기</a>  
+					</c:if> 
         </div>
+        
+         <!-- 수정하기 버튼 나중에 추가
+            <div class="noticeDetailBtn">
+                <a href="/dreams/notice/modify">수정하기</a>
+            </div>
+            -->
+           	<form id="infoForm" action="/notice/detail" method="get">
+				<input type="hidden" id="noticeNo" name="noticeNo" value='<c:out value="${pageInfo.noticeNo}"/>'>
+			</form>
+            
     </div>
 </div>
+
+<!-- JS -->
+<script type="text/javascript">
+let form = $("#infoForm");
+
+//수정버튼
+$("#noticeDetailBtn").on("click", function(e){
+	form.attr("action", "/notice/modify");
+	form.submit();
+});
+
+funciton delete_btn(){
+	alert("$(member.memberId)");
+};
+
+funciton delete_btn(){
+	alert("$(pageInfo.memberId)");
+};
+
+
+
+
+</script>
