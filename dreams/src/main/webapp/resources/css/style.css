@@ -15027,6 +15027,10 @@ h3.cart-page-title {
   text-transform: uppercase;
   border-radius: 50px;
   z-index: 9;
+  border: 1px solid #fff;
+  left: 7rem;
+  position: relative;
+  width: 50%;
 }
 .your-order-area .Place-order > button:hover {
   background-color: #333;

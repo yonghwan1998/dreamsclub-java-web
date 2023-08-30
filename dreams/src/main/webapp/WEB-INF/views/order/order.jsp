@@ -30,20 +30,20 @@
 	                          <div class="col-lg-6 col-md-6">
 	                              <div class="orderOld">
 	                                  <label>이름</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberName}" />" re></input>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberName}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	                          <div class="col-lg-6 col-md-6">
 	                              <div class="orderOld">
 	                                  <label>전화번호</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberPhone}" />"></input>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberPhone}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	
 	                          <div class="col-lg-12">
 	                              <div class="orderOld">
 	                                  <label>이메일</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberEmail}" />"></input>
+	                                  <input type="text" value="<c:out value="${memberInfo.memberEmail}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	                          
@@ -481,7 +481,8 @@ var action_popup = {
     }
 }
 </script>
-<<script type="text/javascript">
+<script type="text/javascript">
+
 $(function () {
     // memberPcode 값이 null인 경우 클래스 변경
     if ("<c:out value="${memberInfo.memberPcode}" />" === "") {

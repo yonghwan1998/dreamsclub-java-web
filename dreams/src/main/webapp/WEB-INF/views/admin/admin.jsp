@@ -130,7 +130,7 @@ function searchBtn() {
 	                        <td>
 							    <c:choose>
 							        <c:when test="${member.memberStatus eq 1 }">
-							            <button class="badge bg-label-success me-1 toggle-button" data-status="1" style="border: 0px solid #fff">일반회원</button>
+							            <button class="badge bg-label-success me-1 toggle-button" data-status="1" style="border: 1px solid lightgreen">일반회원</button>
 							        </c:when>
 							        <c:when test="${member.memberStatus eq 0 }">
 							            <button class="badge bg-label-primary me-1 toggle-button" data-status="0">탈퇴회원</button>
