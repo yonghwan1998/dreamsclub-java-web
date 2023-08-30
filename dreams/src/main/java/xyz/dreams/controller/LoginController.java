@@ -57,11 +57,18 @@ public class LoginController {
 	public String search_pw() {
 		return "login/search_pw";
 	}
+	
+	
 	//3-2. 비밀번호 찾기 
 	@RequestMapping(value = "/search_pw", method = RequestMethod.POST)
-	public String search_pw(Model model, @ModelAttribute MemberDTO member) {
-		return "login/search_result_pw";
+	public String search_pw(@ModelAttribute MemberDTO member, Model model) {
+		memberService.searchPw(member);
+		
+		return "login/login";
 	}
+	
+	
+	
 	//4. 로그아웃
 	@RequestMapping("/logout")
 	public String logout(HttpSession session, Model model) {

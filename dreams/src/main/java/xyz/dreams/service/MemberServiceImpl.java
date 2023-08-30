@@ -1,6 +1,9 @@
 package xyz.dreams.service;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.MemberDAO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
-import xyz.dreams.exception.MemberNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -47,8 +49,18 @@ public class MemberServiceImpl implements MemberService {
 		return id;
 	}
 	
-	//강민경: 비밀번호 찾기 
-	
+	@Override
+	public void searchPw(MemberDTO member) {
+		String uuid= UUID.randomUUID().toString().replaceAll("-", "").substring(0,10);
+		String hashedPw = BCrypt.hashpw(uuid, BCrypt.gensalt());
+		
+		member.setMemberPw(hashedPw);
+		
+		memberDAO.searchPw(member);
+		
+//		이 아래 부분은 final 때 메일 보내기(암호화 전의 비밀번호를 보내야 함) 
+		System.out.println(uuid);
+	}
 
 	/*
 	 * // 오진서 2 ▼ public void addMember(MemberDTO member) throws

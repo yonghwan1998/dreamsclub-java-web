@@ -30,6 +30,11 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		
 		//강민경: 비밀번호 찾기 시 사용 
+		@Override
+		public int searchPw(MemberDTO member) {
+			return sqlSesstion.getMapper(MemberMapper.class).searchPw(member);
+		}
+		
 		
 		
 	//오진서
@@ -58,6 +63,7 @@ public class MemberDAOImpl implements MemberDAO {
 		public List<MemberDTO> selectMemberList() {
 			return sqlSesstion.getMapper(MemberMapper.class).selectMemberList();
 		}
+		
 
 }
 

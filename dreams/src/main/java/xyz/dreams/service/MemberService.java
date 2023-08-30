@@ -16,6 +16,8 @@ public interface MemberService {
 	String searchId(MemberDTO member);
 	
 	//강민경: 비밀번호 찾기 
+	void searchPw(MemberDTO member);
+	
 	
 	
 	// 회원가입

@@ -73,11 +73,12 @@
 	select MEMBER_ID from member where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
 	
-	<!-- 강민경: 비밀번호 찾기 마저 다시 해야함 
+	<!-- 강민경: 비밀번호 찾기 set 맞는 사람만-->
 	<update id="searchPw">
-	 update member set MEMBER_PW=#{memberPw}
+	 update member set MEMBER_PW = #{memberPw} where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+	  
 	</update>
-	 -->
+	 
 	
 	
 </mapper>

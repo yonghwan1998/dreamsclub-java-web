@@ -1,31 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script>
-	function.resultPwAlert(){
-		if(searchPw.memberName.value==""){
-			alert("이름을 입력하십시요.");
-			searchPw.memberName.focus();
-	         return;
-	      } 
-		if (searchPw.memberId.value == "" ) {
-	         alert("아이디를 입력하십시요.");
-	         searchPw.memberId.focus();
-	         return;
-	     } 
-	    if (searchPw.memberEmail.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchPw.memberEmail.focus();
-	         return;
-	     }   
-	      
-	      searchPw.action = "<c:url value="/search_result_pw"/>";
-	      searchPw.submit();
-	      }
-		 
-</script>
-
-
 <!-- 비밀번호 찾기 -->
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
@@ -50,11 +25,17 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="/dreams/search_pw" method="post" name="searchPw">
-                                        <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="password" name="memberId" placeholder="아이디를 입력해 주세요.">
-                                        <input type="password" name="memberEmail" placeholder="이메일를 입력해 주세요.">
+                                    <form action="<c:url value="/login/search_pw/search_result_pw"/>" method="post" name="searchPw">
                                         <div class="button-box">
+                                        	<td width="20"></td>
+                                        	<c:choose>
+                                        		<c:when test = "${empty(searchPw)}">
+                                        			<tr><td style=" align: center;"> 입력하신 회원정보가 존재하지 않습니다.</td></tr>
+                                        		</c:when>
+                                        		<c:otherwise>
+                                        		<tr><td style=" align: center;">아이디는 [${searchPw }]입니다.</td></tr>
+                                        		</c:otherwise>
+                                        	</c:choose>
                                             <button type="submit" onclick="resultPwAlert"><span>확인</span></button>
                                             <tr>
 			                                   <td width="20"></td>
