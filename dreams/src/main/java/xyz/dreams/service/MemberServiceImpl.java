@@ -49,19 +49,6 @@ public class MemberServiceImpl implements MemberService {
 		return id;
 	}
 
-//	@Override
-//	public void searchPw(MemberDTO member) {
-//		String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
-//		String hashedPw = BCrypt.hashpw(uuid, BCrypt.gensalt());
-//
-//		member.setMemberPw(hashedPw);
-//
-//		memberDAO.searchPw(member);
-//
-////		이 아래 부분은 final 때 메일 보내기(암호화 전의 비밀번호를 보내야 함) 
-//		System.out.println(uuid);
-//	}
-
 	/*
 	 * // 오진서 2 ▼ public void addMember(MemberDTO member) throws
 	 * ExistsMemberException { // 매개변수로 전달받은 회원정보의 아이디가 기존 회원정보의 아이디와 중복될 경우 if
@@ -77,7 +64,9 @@ public class MemberServiceImpl implements MemberService {
 	 * 
 	 * }
 	 */
-
+	
+	
+	// 진서 암호화▼
 	@Override
 	public void addMember(MemberDTO member) {
 		String hashedPassword = BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
@@ -85,7 +74,14 @@ public class MemberServiceImpl implements MemberService {
 
 		memberDAO.insertMember(member);
 	}
-
+	
+//	// 진서 자가 아이디체크,, 어캐했
+//	public String member_id_check (String memberId) {
+//		Optional <MemberEntity> optionMemberEntity = memberRepository.finByMemberId(memberId);
+//	}
+	
+	
+	// 소영 ▼
 	@Override
 	public void modifyMember(MemberDTO member) {
 		String hashedPassword = BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
@@ -103,7 +99,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO getMember(String memberId) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.selectMember(memberId);
 	}
 
 	@Override

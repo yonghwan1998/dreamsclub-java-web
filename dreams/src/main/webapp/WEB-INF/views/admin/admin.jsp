@@ -115,8 +115,8 @@ function searchBtn() {
                         <th>전화번호</th>
                         <th>이메일</th>
                         <th>회원가입 날짜</th>
-                        <th>상태</th>
-                        <th>변경</th>
+                        <th>회원상태 변경</th>
+                        <!-- <th>변경</th> -->
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -128,17 +128,19 @@ function searchBtn() {
 							<td><fmt:formatDate value="${member.memberRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 	                        
 	                        <td>
-                        		<c:choose>
-                        			<c:when test="${member.memberStatus eq 1 }">
-			                        	<span class="badge bg-label-success me-1">일반회원</span>
-		                        	</c:when>
-                        			<c:when test="${member.memberStatus eq 0 }">
-                        				<span class="badge bg-label-primary me-1">탈퇴회원</span>
-                        			</c:when>
-                        		</c:choose>
-	                       	</td>
+							    <c:choose>
+							        <c:when test="${member.memberStatus eq 1 }">
+							            <button class="badge bg-label-success me-1 toggle-button" data-status="1" style="border: 0px solid #fff">일반회원</button>
+							        </c:when>
+							        <c:when test="${member.memberStatus eq 0 }">
+							            <button class="badge bg-label-primary me-1 toggle-button" data-status="0">탈퇴회원</button>
+							        </c:when>
+							    </c:choose>
+							</td>
+
+	                       	
+	                        <%-- finall때 할게요 
 	                        <td>
-	                        
 	                          <div class="dropdown">
 							    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 							      <i class="bx bx-dots-vertical-rounded"></i>
@@ -152,8 +154,8 @@ function searchBtn() {
 							        </a>
 							    </div>
 							  </div>
-							  
-	                        </td>
+	                        </td> --%>
+	                        
 	                      </tr>
 						</c:forEach>
                     </tbody>
@@ -211,12 +213,25 @@ function searchBtn() {
 	</script>
 	
 	<script type="text/javascript">
-function hideMember(memberId) {
-        var row = document.getElementById('row-' + memberId);
-        row.style.display = 'none';
-    }
-</script>
-	
+
+	// 회원관리 - 일반,탈퇴 토글(텍스트만)
+	$(document).ready(function () {
+	    $(".toggle-button").on("click", function () {
+	        var button = $(this);
+	        var newStatus = 1 - parseInt(button.attr("data-status")); // Toggle the status value
+	        
+	        if (newStatus === 1) {
+	            button.attr("data-status", newStatus);
+	            button.text("일반회원");
+	            button.removeClass("bg-label-primary").addClass("bg-label-success");
+	        } else {
+	            button.attr("data-status", newStatus);
+	            button.text("탈퇴회원");
+	            button.removeClass("bg-label-success").addClass("bg-label-primary");
+	        }
+	    });
+	});
+	</script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
