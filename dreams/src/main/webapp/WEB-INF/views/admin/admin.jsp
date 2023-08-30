@@ -121,11 +121,12 @@ function searchBtn() {
                     </thead>
                     <tbody class="table-border-bottom-0">
 	                    <c:forEach items="${getMemberList }" var="member">
-	                      <tr>
-	                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${member.memberName }</strong></td>
+	                      <tr id="row-${member.memberId}">
+	                        <td ><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${member.memberName }</strong></td>
       						<td>${member.memberPhone}</td>
 	                        <td>${member.memberEmail }</td>
 							<td><fmt:formatDate value="${member.memberRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+	                        
 	                        <td>
                         		<c:choose>
                         			<c:when test="${member.memberStatus eq 1 }">
@@ -137,23 +138,29 @@ function searchBtn() {
                         		</c:choose>
 	                       	</td>
 	                        <td>
+	                        
 	                          <div class="dropdown">
 							    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 							      <i class="bx bx-dots-vertical-rounded"></i>
 							    </button>
 							    <div class="dropdown-menu">
-							        <a class="dropdown-item" href="javascript:void(0);">
+							        <a class="dropdown-item" href="javascript:setMember(${member.memberId});">
 							          <i class="bx bx-edit-alt me-1"></i> 수정
 							        </a>
-							        <a class="dropdown-item" href="javascript:void(0);">
+							        <a class="dropdown-item" href="javascript:hideMember(${member.memberId});">
 							          <i class="bx bx-trash me-1"></i> 삭제
 							        </a>
 							    </div>
 							  </div>
+							  
 	                        </td>
 	                      </tr>
 						</c:forEach>
                     </tbody>
+                    
+                    <%-- <form id="setInfoForm">
+							  <input type="hidden" name="setInfo" value="${member.memberStatus }">
+	                    	</form> --%>
                   </table>
                 </div>
               </div>
@@ -202,6 +209,14 @@ function searchBtn() {
 	});
 	  
 	</script>
+	
+	<script type="text/javascript">
+function hideMember(memberId) {
+        var row = document.getElementById('row-' + memberId);
+        row.style.display = 'none';
+    }
+</script>
+	
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
