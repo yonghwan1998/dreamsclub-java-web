@@ -48,14 +48,14 @@
 
 <!--  수정  -->
 	<select id="selectMember" resultType="MemberDTO">
-		select member_id, member_pw,membere_mail, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, memberreg_date, memberlast_login  
-		from member where member_id = #{memberid}
+		select member_id, member_pw, member_email, member_phone, member_name,
+		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE, MEMBER_LAST_LOGIN  
+		from member where member_id = #{memberId}
 	</select>
 
 	<select id="selectMemberList" resultType="MemberDTO">
-		select member_id, member_pw,membere_mail, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, memberreg_date, memberlast_login
+		select member_id, member_pw, member_email, member_phone, member_name,
+		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE
 		  from member
 		order by member_id
 	</select>
@@ -67,9 +67,18 @@
 	select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ADDRESS1, MEMBER_ADDRESS2
 	 from member where MEMBER_ID=#{memberId} 
 	</select>
-	<!-- 강민경: 아이디 찾기, 비밀번호 찾기 시 사용  -->
+	<!-- 강민경: 아이디 찾기 시 사용  -->
 	<select id="selectSearch" resultType="string">
 	<!-- where절에서 id, pw값을 받고 결과 값을 resultType="~~"으로 전달  -->
 	select MEMBER_ID from member where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
+	
+	<!-- 강민경: 비밀번호 찾기 set 맞는 사람만-->
+	<update id="searchPw">
+	 update member set MEMBER_PW = #{memberPw} where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+	  
+	</update>
+	 
+	
+	
 </mapper>

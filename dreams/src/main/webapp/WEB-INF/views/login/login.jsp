@@ -54,7 +54,7 @@
                                                 
                                                 <div><a href="/dreams/login/search_id">아이디 찾기&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                               
-                                                <div><a href="/dreams/join/hewon">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+                                                <div><a href="/dreams/join/check">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                                
                                             </div>
                                             <button type="button" onclick="MemberLogin();"><span>로그인</span></button>

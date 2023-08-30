@@ -1,6 +1,9 @@
 package xyz.dreams.service;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.MemberDAO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
-import xyz.dreams.exception.MemberNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
 		// 매개변수로 전달받은 회원정보의 아이디로 기존 회원정보를 검색하여 검색결과를 반환받아 저장
 		MemberDTO authMember = memberDAO.selectLoginCheck(member.getMemberId());
 
+		
 		if (authMember == null) {
 			throw new LoginAuthFailException("회원정보가 존재하지 않습니다.", member.getMemberId());
 		}
@@ -46,7 +49,18 @@ public class MemberServiceImpl implements MemberService {
 		return id;
 	}
 	
-
+	@Override
+	public void searchPw(MemberDTO member) {
+		String uuid= UUID.randomUUID().toString().replaceAll("-", "").substring(0,10);
+		String hashedPw = BCrypt.hashpw(uuid, BCrypt.gensalt());
+		
+		member.setMemberPw(hashedPw);
+		
+		memberDAO.searchPw(member);
+		
+//		이 아래 부분은 final 때 메일 보내기(암호화 전의 비밀번호를 보내야 함) 
+		System.out.println(uuid);
+	}
 
 	/*
 	 * // 오진서 2 ▼ public void addMember(MemberDTO member) throws
@@ -95,8 +109,7 @@ public class MemberServiceImpl implements MemberService {
 
 		@Override
 		public List<MemberDTO> getMemberList() {
-			// TODO Auto-generated method stub
-			return null;
+			return memberDAO.selectMemberList();
 		}
 
 

@@ -19,7 +19,10 @@ public interface MemberMapper {
 	//강민경: 로그인 시 사용
 	MemberDTO selectLoginCheck(String memberId);
 	
-	//강민경: 아이디 찾기, 비밀번호 찾기 시 사용 
+	//강민경: 아이디 찾기 시 사용 
 	String selectSearch(MemberDTO member);
+	//강민경: 비밀번호 찾기 
+	
+	int searchPw(MemberDTO member);
 	
 }
