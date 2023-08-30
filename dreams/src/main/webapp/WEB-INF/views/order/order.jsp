@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/order.css">
+
 <!-- 컨텐츠 상단 홈/결제 -->
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
     <div class="container">
@@ -45,21 +48,21 @@
 	                          </div>
 	                          
 	                          <div class="col-lg-6">
-	                              <div class="billing-info mb-20">
+	                              <div class="orderOld">
 	                                  <label>우편번호</label>
 	                                  <input type="text" value="<c:out value="${memberInfo.memberPcode}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
-	                              <div class="billing-info mb-20">
+	                              <div class="orderOld">
 	                                  <label>기본주소</label>
 	                                  <input type="text" value="<c:out value="${memberInfo.memberAddress1}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
-	                          	<div class="billing-info mb-20">
+	                          	<div class="orderOld">
 	                                  <label>상세주소</label>
 	                                 <input type="text" value="<c:out value="${memberInfo.memberAddress2}" />"></input>
 	                          	</div>
@@ -302,9 +305,22 @@
                         </div>
                     </div>
                     <!-- 주문하기 버튼 -->
-                    <div class="Place-order mt-25">
-                        <button type="button" class="btn-hover" onclick="confirmOrderForm()">주문하기</button>
-                    </div>
+                    <section>
+	                    <div class="Place-order mt-25">
+	                        <button type="button" class="btn-hover" id="confirm">주문하기</button>
+	                    </div>
+                    </section>
+                    
+                    <!-- confirm 모달을 쓸 페이지에 추가 start-->
+			        <section class="modal modal-section type-confirm">
+			            <div class="enroll_box">
+			                <p class="menu_msg"></p>
+			            </div>
+			            <div class="enroll_btn">
+			                <button class="btn pink_btn btn_ok">예</button>
+			                <button class="btn gray_btn modal_close">아니오</button>
+			            </div>
+			        </section>
                 </div>
             </div>
         </div>
@@ -399,11 +415,88 @@ function submitOrderForm() {
     form.submit();
 }
 
-function confirmOrderForm() {
-	if (confirm("정말 구매하시겠습니까?")) {
-		submitOrderForm();
-	} else {
-		return false;
-	}
+//
+$(function () {
+    //사용 예시 **************************
+    $(document).on("click", "#confirm", function () {
+        action_popup.confirm("정말 구매하시겠습니까?", function (res) {
+            if (res) {
+                submitOrderForm();
+            }
+        })
+    });
+
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+});
+
+var action_popup = {
+    timer: 500,
+    confirm: function (txt, callback) {
+        if (txt == null || txt.trim() == "") {
+            console.warn("confirm message is empty.");
+            return;
+        } else if (callback == null || typeof callback != 'function') {
+            console.warn("callback is null or not function.");
+            return;
+        } else {
+            $(".type-confirm .btn_ok").on("click", function () {
+                $(this).unbind("click");
+                callback(true);
+                action_popup.close(this);
+            });
+            this.open("type-confirm", txt);
+        }
+    },
+
+    open: function (type, txt) {
+        var popup = $("." + type);
+        popup.find(".menu_msg").text(txt);
+        
+        // 스크롤을 페이지 최상단으로 이동
+		$('html, body').animate({ scrollTop: 0 }, 'fast');
+		
+        $("body").append("<div class='dimLayer'></div>");
+        $(".dimLayer").css('height', $(document).height()).attr("target", type);
+        popup.fadeIn(this.timer);
+    },
+
+    close: function (target) {
+        var modal = $(target).closest(".modal-section");
+        var dimLayer;
+        if (modal.hasClass("type-confirm")) {
+            dimLayer = $(".dimLayer[target=type-confirm]");
+            $(".type-confirm .btn_ok").unbind("click");
+        } else if (modal.hasClass("type-alert")) {
+            dimLayer = $(".dimLayer[target=type-alert]")
+        } else {
+            console.warn("close unknown target.")
+            return;
+        }
+        modal.fadeOut(this.timer);
+        setTimeout(function () {
+            dimLayer != null ? dimLayer.remove() : "";
+        }, this.timer);
+    }
 }
+</script>
+<<script type="text/javascript">
+$(function () {
+    // memberPcode 값이 null인 경우 클래스 변경
+    if ("<c:out value="${memberInfo.memberPcode}" />" === "") {
+        $(".orderOld label:contains('우편번호')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
+    }
+    
+    // memberAddress1 값이 null인 경우 클래스 변경
+    if ("<c:out value="${memberInfo.memberAddress1}" />" === "") {
+        $(".orderOld label:contains('기본주소')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
+    }
+
+    // memberAddress2 값이 null인 경우 클래스 변경
+    if ("<c:out value="${memberInfo.memberAddress2}" />" === "") {
+        $(".orderOld label:contains('상세주소')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
+    }
+});
+
 </script>
