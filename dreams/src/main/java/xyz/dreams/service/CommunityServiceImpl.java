@@ -28,6 +28,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	/*게시판 목록 보기*/
+	/*
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public List<CommunityDTO> getList() {
@@ -35,6 +36,7 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return communityDAO.getList();
 	}
+	*/
 
 	/*게시판 글 조회*/
 	@Transactional(rollbackFor = Exception.class)

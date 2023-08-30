@@ -20,10 +20,12 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 		return sqlSession.getMapper(CommunityMapper.class).enrollCommunity(community);
 	}
 
+	/*
 	@Override
 	public List<CommunityDTO> getList() {
 		return sqlSession.getMapper(CommunityMapper.class).getList();
 	}
+	*/
 
 	@Override
 	public CommunityDTO getPage(int communityNo) {

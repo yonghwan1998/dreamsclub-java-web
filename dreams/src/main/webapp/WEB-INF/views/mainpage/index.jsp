@@ -155,10 +155,7 @@
                                     <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                 </a>
-                                <span class="purple">new</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>                                </div>
+                                <span class="purple">new</span>                                    
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -177,10 +174,7 @@
                                     <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                 </a>
-                                <span class="purple">new</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>                                </div>
+                                <span class="purple">new</span>                                    
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -199,10 +193,7 @@
                                     <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                 </a>
-                                <span class="purple">new</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>                                </div>
+                                <span class="purple">new</span>                               
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -221,10 +212,7 @@
                                     <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-4.jpg" alt="">
                                 </a>
-                                <span class="purple">new</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>                                </div>
+                                <span class="purple">new</span>                           
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -248,10 +236,6 @@
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
                                 </a>
                                 <span class="pink">Best</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>
-                                </div>
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -271,10 +255,25 @@
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
                                 </a>
                                 <span class="pink">Best</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>
+                            </div>
+                            <div class="product-content-2">
+                                <div class="title-price-wrap-2">
+                                    <h3><a href="product-details.html">Product Title Here</a></h3>
+                                    <div class="price-2">
+                                        <span>$ 40.00</span>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
+                        <div class="product-wrap-2 mb-25">
+                            <div class="product-img">
+                                <a href="product-details.html">
+                                    <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
+                                    <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
+                                </a>
+                                <span class="pink">Best</span>                                  
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
@@ -294,33 +293,6 @@
                                     <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
                                 </a>
                                 <span class="pink">Best</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-content-2">
-                                <div class="title-price-wrap-2">
-                                    <h3><a href="product-details.html">Product Title Here</a></h3>
-                                    <div class="price-2">
-                                        <span>$ 40.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-                        <div class="product-wrap-2 mb-25">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img class="default-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
-                                    <img class="hover-img" src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg" alt="">
-                                </a>
-                                <span class="pink">Best</span>
-                                <div class="product-action-2">
-                                    <a title="Add To Cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>
-                                </div>
                             </div>
                             <div class="product-content-2">
                                 <div class="title-price-wrap-2">
