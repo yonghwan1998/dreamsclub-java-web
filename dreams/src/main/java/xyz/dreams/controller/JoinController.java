@@ -1,9 +1,11 @@
 package xyz.dreams.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
@@ -51,5 +53,19 @@ public class JoinController {
 //				}
 //				return "no";
 //		}	
+	
+	// 아이디중복체크222
+	@ResponseBody
+	@RequestMapping(value = "/member_id_check", method = RequestMethod.GET)
+	public String idChk(String memberId) throws Exception {
+	    MemberDTO member = memberService.getMember(memberId);
+	    System.out.println(memberId+"="+member);
+	    if (member == null) {
+	        return "ok"; // 사용 가능한 아이디
+	    }
+	    return "no"; // 이미 사용 중인 아이디
+	}
+	
+	
 
 }

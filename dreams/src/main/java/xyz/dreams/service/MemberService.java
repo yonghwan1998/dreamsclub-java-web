@@ -26,11 +26,8 @@ public interface MemberService {
 
 	List<MemberDTO> getMemberList();
 
-//	//오진서 2 ▼
-//	void addMember(MemberDTO member) throws ExistsMemberException;
-//	void modifyMember(MemberDTO member) throws MemberNotFoundException;
-//	void removeMember(String memberId) throws MemberNotFoundException;
-//	List<MemberDTO> getMemberList();
+//	오진서 2 ▼
+
 
 //	이소영
 	void modifyMember(MemberDTO member);
