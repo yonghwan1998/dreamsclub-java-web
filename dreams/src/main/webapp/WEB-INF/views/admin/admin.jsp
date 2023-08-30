@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
+
+<script type="text/javascript">
+function searchBtn() {
+	var searchInput = document.getElementById("searchInput").value;
+	alert(searchInput);
+	
+}
+</script>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -79,14 +89,8 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0" ></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="검색어를 입력해 주세요."
-                    aria-label="Search..."
-                  />
-                </div>
+					<i class="bx bx-search fs-4 lh-0" onclick="searchBtn()"></i> <input type="text" class="form-control border-0 shadow-none" id="searchInput" placeholder="검색어를 입력해 주세요." aria-label="Search..." />
+				</div>
               </div>
               <!-- /Search -->
             </div>
@@ -107,9 +111,10 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>이름</th>
+                        <th style="padding-left: 2rem;">이름</th>
+                        <th>전화번호</th>
+                        <th>이메일</th>
                         <th>회원가입 날짜</th>
-                        <th>마지막 로그인 날짜</th>
                         <th>상태</th>
                         <th>변경</th>
                       </tr>
@@ -118,10 +123,9 @@
 	                    <c:forEach items="${getMemberList }" var="member">
 	                      <tr>
 	                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${member.memberName }</strong></td>
-	                        <td>2021-02-22</td>
-	                        <%-- <td>${member.memberRegDate}</td> --%>
-	                        <td>2023-08-21</td>
-      						<%-- <td>${member.memberLastLogin}</td> --%>
+      						<td>${member.memberPhone}</td>
+	                        <td>${member.memberEmail }</td>
+							<td><fmt:formatDate value="${member.memberRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 	                        <td>
                         		<c:choose>
                         			<c:when test="${member.memberStatus eq 1 }">
@@ -138,40 +142,16 @@
 							      <i class="bx bx-dots-vertical-rounded"></i>
 							    </button>
 							    <div class="dropdown-menu">
-							      <div class="collapse" id="dropdown-${member.memberId}">
 							        <a class="dropdown-item" href="javascript:void(0);">
 							          <i class="bx bx-edit-alt me-1"></i> 수정
 							        </a>
 							        <a class="dropdown-item" href="javascript:void(0);">
 							          <i class="bx bx-trash me-1"></i> 삭제
 							        </a>
-							      </div>
 							    </div>
 							  </div>
 	                        </td>
 	                      </tr>
-	
-	                      <!-- <tr>
-	                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>임꺽정</strong></td>
-	                        <td>2021-02-22</td>
-	                        <td>2023-08-21</td>
-	                        <td><span class="badge bg-label-success me-">휴면 회원</span></td>
-	                        <td>
-	                          <div class="dropdown">
-	                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-	                              <i class="bx bx-dots-vertical-rounded"></i>
-	                            </button>
-	                            <div class="dropdown-menu">
-	                              <a class="dropdown-item" href="javascript:void(0);"
-	                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
-	                              >
-	                              <a class="dropdown-item" href="javascript:void(0);"
-	                                ><i class="bx bx-trash me-1"></i> 삭제</a
-	                              >
-	                            </div>
-	                          </div>
-	                        </td>
-	                      </tr> -->
 						</c:forEach>
                     </tbody>
                   </table>

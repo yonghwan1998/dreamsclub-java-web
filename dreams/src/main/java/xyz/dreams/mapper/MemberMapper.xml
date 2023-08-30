@@ -48,14 +48,14 @@
 
 <!--  수정  -->
 	<select id="selectMember" resultType="MemberDTO">
-		select member_id, member_pw,membere_mail, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, memberreg_date, memberlast_login  
-		from member where member_id = #{memberid}
+		select member_id, member_pw, member_email, member_phone, member_name,
+		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE, MEMBER_LAST_LOGIN  
+		from member where member_id = #{memberId}
 	</select>
 
 	<select id="selectMemberList" resultType="MemberDTO">
-		select member_id, member_pw,membere_mail, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, memberreg_date, memberlast_login
+		select member_id, member_pw, member_email, member_phone, member_name,
+		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE
 		  from member
 		order by member_id
 	</select>

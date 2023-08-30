@@ -78,7 +78,7 @@
                     <div class="pro-details-size-color">
                         <div class="pro-details-size">
                             <span>Size</span>
-                            <select name="goodsSize">
+                            <select name="goodsSize" style="border: 1px solid black; ">
                             	<option value="0" selected>사이즈를 선택해 주세요.</option>
                             	<option value="L">L</option>
                             	<option value="M">M</option>
