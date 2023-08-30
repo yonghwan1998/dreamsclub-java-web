@@ -1,43 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h3 {
-    font-size: 28px;
-    margin-top: 30px;
-}
-
-strong {
-    font-size: 18px;
-    display: block;
-    margin: 20px 0;
-}
-
-.s-txt {
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 30px auto;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/introduction-style.css">
 
     <div class="container">
         <h3>구단 소개</h3>
