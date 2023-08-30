@@ -1,8 +1,13 @@
 package xyz.dreams.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import xyz.dreams.dto.MemberDTO;
 
 @Controller
 @RequestMapping(value = "/mypage" )
@@ -14,9 +19,23 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String mypage2() {
+	public String mypage1() {
 		return "mypage/mypage_modify";
 	}
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String mypage2(@ModelAttribute MemberDTO member, Model model) {
+		System.out.println(member);
+		model.addAttribute("member" , member);
+        // 비밀번호 검증 및 처리 로직
+       // if (!newPassword.equals(confirmPassword)) {
+        //    model.addAttribute("error", "새 비밀번호와 확인이 일치하지 않습니다.");
+        //    return "mypage/mypage_modify"; // 에러 메시지와 함께 다시 페이지로 이동
+      //  }
+
+        // 비밀번호 변경 로직 등 추가 처리
+
+        return "redirect:/mypage"; // 변경이 성공적으로 완료되면 다른 페이지로 리다이렉트
+    }
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String mypage3() {
