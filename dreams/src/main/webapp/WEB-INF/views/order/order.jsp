@@ -303,7 +303,7 @@
                     </div>
                     <!-- 주문하기 버튼 -->
                     <div class="Place-order mt-25">
-                        <button type="button" class="btn-hover" onclick="submitOrderForm()">주문하기</button>
+                        <button type="button" class="btn-hover" onclick="confirmOrderForm()">주문하기</button>
                     </div>
                 </div>
             </div>
@@ -397,5 +397,13 @@ function execution_daum_address(){
 function submitOrderForm() {
     var form = document.getElementById("orderForm");
     form.submit();
+}
+
+function confirmOrderForm() {
+	if (confirm("정말 구매하시겠습니까?")) {
+		submitOrderForm();
+	} else {
+		return false;
+	}
 }
 </script>
