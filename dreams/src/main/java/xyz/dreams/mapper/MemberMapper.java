@@ -22,7 +22,6 @@ public interface MemberMapper {
 	//강민경: 아이디 찾기 시 사용 
 	String selectSearch(MemberDTO member);
 	//강민경: 비밀번호 찾기 
-	
-	int searchPw(MemberDTO member);
+	int updatePw(MemberDTO member);
 	
 }

@@ -2,26 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-function resultPwAlert() {
-	if (searchPw.memberName.value == "") {
-		alert("이름을 입력하십시요.");
-		searchPw.memberName.focus();
-		return;
-	}
-	if (searchPw.memberId.value == "") {
-		alert("아이디를 입력하십시요.");
-		searchPw.memberId.focus();
-		return;
-	}
-	if (searchPw.memberEmail.value == "") {
-		alert("이메일을 입력하십시요.");
-		searchPw.memberEmail.focus();
-		return;
-	}
+	$(function(){
+		$("#searchPwBtn").click(function(){
+			$.ajax({
+				type : "POST",
+				data : {
+					name: $("#name").val(),
+					id : $("#id").val(),
+					email : $("#email").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
 	
-
-	searchPw.submit();
-}
+	
 </script>
 
 
@@ -51,15 +48,11 @@ function resultPwAlert() {
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/dreams/login/search_pw" method="post" name="searchPw">
-                                        <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="text" name="memberId" placeholder="아이디를 입력해 주세요.">
-                                        <input type="email" name="memberEmail" placeholder="이메일를 입력해 주세요."/>
+                                        <input type="text" name="memberName" id="name" name="name" placeholder="이름을 입력해 주세요.">
+                                        <input type="text" name="memberId" id="id" name="id" placeholder="아이디를 입력해 주세요.">
+                                        <input type="email" name="memberEmail" id="email" name="email" placeholder="이메일를 입력해 주세요."/>
                                         <div class="button-box">
-                                            <button type="button" onclick="resultPwAlert();"><span>확인</span></button>
-                                            <tr>
-			                                   <td width="20"></td>
-			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
-			                                </tr>
+                                            <button type="submit" id="searchPwBtn"><span>찾기</span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -72,5 +65,3 @@ function resultPwAlert() {
         </div>
     </div>
 </div>
-
-

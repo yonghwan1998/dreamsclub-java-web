@@ -10,7 +10,12 @@
 			<bind name="search" value="'%'+q+'%'"/>
 			where REPLACE(GOODS_CODE,' ', '') like #{search} 
 		</if>
-		order by ${column}
+		<if test="column == 'goods_code'"> 
+			order by goods_code
+		</if>
+		<if test="column == 'goods_price'"> 
+			order by goods_price, goods_code
+		</if>
 	</select>
 
 	<!-- 굿즈 디테일 페이지 -->

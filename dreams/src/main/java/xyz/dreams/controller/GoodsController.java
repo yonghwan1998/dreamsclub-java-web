@@ -30,19 +30,19 @@ public class GoodsController {
 
 	@RequestMapping("/main")
 	public String view(String q, @RequestParam(defaultValue = "goods_code") String column, Model model) {
-		System.out.println("q = " + q);
-		System.out.println("column = " + column);
 
-		Map<String, Object> map = new HashMap<>();
 		if (q != null) {
-			q.replaceAll(" ", "");
+			q = q.replaceAll(" ", "");
 		}
+		Map<String, Object> map = new HashMap<>();
 		map.put("q", q);
 		map.put("column", column);
+
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
 		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
+
 		return "goods/goods_main";
 	}
 

@@ -1,8 +1,6 @@
 package xyz.dreams.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -27,14 +25,11 @@ public class MemberDAOImpl implements MemberDAO {
 		public String selectSearch(MemberDTO member) {
 			return sqlSesstion.getMapper(MemberMapper.class).selectSearch(member);
 		}
-		
-		
-		//강민경: 비밀번호 찾기 시 사용 
+		//강민경: 비밀번호 변경
 		@Override
-		public int searchPw(MemberDTO member) {
-			return sqlSesstion.getMapper(MemberMapper.class).searchPw(member);
+		public int updatePw(MemberDTO member) {
+			return sqlSesstion.getMapper(MemberMapper.class).updatePw(member);
 		}
-		
 		
 		
 	//오진서

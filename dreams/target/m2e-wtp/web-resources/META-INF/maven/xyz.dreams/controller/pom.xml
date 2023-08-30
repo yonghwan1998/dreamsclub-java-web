@@ -42,11 +42,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!--강민경 오류 실험-->
-		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		
+		<!-- 메일 api -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
 			<version>1.2</version>
 		</dependency>
 
