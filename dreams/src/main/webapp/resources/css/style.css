@@ -16010,3 +16010,53 @@ width: 100%;
     margin-bottom: 20px;
 }
 }
+
+
+/* 형섭: 선수단 추가 */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-section img.full-width {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.player-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.player-item {
+    text-align: center;
+    margin: 0 15px;
+    border: 1px solid #ccc; /* 회색 1px 테두리 추가 */
+    padding: 10px; /* 내부 여백 추가 */
+    background-color: #f9f9f9; /* 배경색 추가 */
+    border-radius: 5px; /* 라운드된 모서리 추가 */
+    display: flex;
+    align-items: center;
+    width: 8rem;
+}
+
+.player-item > div {
+    flex: 1;
+    text-align: center;
+    border-left: 1px solid #ccc;
+    padding: 5px;
+}
+
+.player-item > div:first-child {
+    border-left: none;
+}
+
+.player-item > div:last-child {
+    font-weight: bold;
+}
