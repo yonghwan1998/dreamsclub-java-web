@@ -36,13 +36,12 @@
 	</insert>
 
 	<update id="updateMember">
-		update member
-		where member_id=#{memberid}
+		update member set MEMBER_PW=#{memberPw}, MEMBER_EMAIL=#{memberEmail}, MEMBER_PHONE=#{memberPhone}, MEMBER_NAME=#{memberName}, MEMBER_ADDRESS1=#{memberAddress1}, MEMBER_ADDRESS2=#{memberAddress2} where member_id=#{memberId}
 		
 	</update>
 
 	<delete id ="deleteMember">
-		delete from Member where member_id=#{memberid}
+		delete from Member where member_id=#{memberId}
 	</delete>
 
 

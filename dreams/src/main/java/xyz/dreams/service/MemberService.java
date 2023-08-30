@@ -15,16 +15,9 @@ public interface MemberService {
 	//강민경: Id 찾을 때 사용
 	String searchId(MemberDTO member);
 	
-	//강민경: 비밀번호 찾기 
-	void searchPw(MemberDTO member);
-	
-	
-	
 	// 회원가입
 	void addMember(MemberDTO member);
 
-	// 업데이트
-	void modifyMember(MemberDTO member);
 
 	// 삭제
 	void removeMember(String memberId);
@@ -39,4 +32,7 @@ public interface MemberService {
 //	void removeMember(String memberId) throws MemberNotFoundException;
 //	List<MemberDTO> getMemberList();
 
+//	이소영
+	void modifyMember(MemberDTO member);
+	
 }

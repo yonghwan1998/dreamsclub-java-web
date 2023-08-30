@@ -1,5 +1,8 @@
 package xyz.dreams.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.service.MemberService;
 
 @Controller
 @RequestMapping(value = "/mypage" )
+@RequiredArgsConstructor
 public class MypageController {
+	private final MemberService memberService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String mypage() {
@@ -23,9 +30,11 @@ public class MypageController {
 		return "mypage/mypage_modify";
 	}
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String mypage2(@ModelAttribute MemberDTO member, Model model) {
-		System.out.println(member);
-		model.addAttribute("member" , member);
+	public String mypage2(@ModelAttribute MemberDTO member, HttpSession session) {
+		memberService.modifyMember(member);
+		
+		session.setAttribute("member", member);
+		
         // 비밀번호 검증 및 처리 로직
        // if (!newPassword.equals(confirmPassword)) {
         //    model.addAttribute("error", "새 비밀번호와 확인이 일치하지 않습니다.");

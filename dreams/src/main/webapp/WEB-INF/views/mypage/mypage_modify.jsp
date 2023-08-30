@@ -101,7 +101,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>아이디</label>
-                                                   	<input type="text" readonly="readonly" value=" ${member.memberId }" name="memberId">
+                                                   	<input type="text" readonly="readonly" value="${member.memberId }" name="memberId">
                                                 </div>
                                             </div>
                                          </div>
@@ -110,7 +110,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label for="new_password">새 비밀번호</label>
-                                                    <input type="password" id="new_password" value="${member.memberPw}" name="memberPw" >
+                                                    <input type="password" id="new_password" name="memberPw" >
                                                 </div>
                                             </div>
                                          </div>
@@ -128,7 +128,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이름</label>
-                                                    <input type="text" value=" ${member.memberName }" name="memberName">
+                                                    <input type="text" value="${member.memberName }" name="memberName">
                                                 </div>
                                             </div>
                                           </div>
@@ -137,7 +137,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>이메일</label>
-                                                    <input type="email" value=" ${member.memberEmail }" name = "memberEmail">
+                                                    <input type="email" value="${member.memberEmail }" name = "memberEmail">
                                                 </div>
                                             </div>
                                           </div>
@@ -146,7 +146,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>휴대폰 번호 </label>
-                                                    <input type="text" value=" ${member.memberPhone }" name = "memberPhone">
+                                                    <input type="text" value="${member.memberPhone }" name = "memberPhone">
                                                 </div>
                                             </div>
                                          </div>
@@ -155,7 +155,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>주소1</label>
-                                                    <input type="text" value=" ${member.memberAddress1 }" name = "memberAddress1">
+                                                    <input type="text" value="${member.memberAddress1 }" name = "memberAddress1">
                                                 </div>
                                             </div>
                                          </div>
@@ -164,7 +164,7 @@
                                              <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
                                                     <label>주소2</label>
-                                                    <input type="text" value=" ${member.memberAddress2 }" name = "memberAddress2">
+                                                    <input type="text" value="${member.memberAddress2 }" name = "memberAddress2">
                                                 </div>
                                             </div>
                                          </div>
