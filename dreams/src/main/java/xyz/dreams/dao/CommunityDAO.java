@@ -1,6 +1,7 @@
 package xyz.dreams.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import xyz.dreams.dto.CommunityDTO;
 
@@ -9,7 +10,7 @@ public interface CommunityDAO {
 	int enrollCommunity(CommunityDTO community);
 	
 	/*게시판 목록*/
-	List<CommunityDTO> getList();
+	//List<CommunityDTO> getList();
 	
 	/*게시판 글 하나 보기(조회)*/
 	CommunityDTO getPage(int communityNo);
@@ -22,5 +23,9 @@ public interface CommunityDAO {
 
 	/*게시글 조회수 증가*/
 	void upCountCommunity(int commNo);
+	
+	/*페이징 처리*/
+	List<CommunityDTO> selectCommunityList(Map<String, Object> map);
+	int selectCommunityCount(); //게시글 총 개수
 	
 }

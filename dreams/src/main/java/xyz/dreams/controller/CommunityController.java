@@ -1,5 +1,7 @@
 package xyz.dreams.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,22 @@ public class CommunityController {
 	private final CommunityService communityService;
 
 	/*게시판 목록 페이지 접속*/
+	/*
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String community(Model model) {		
 		model.addAttribute("CommunityList", communityService.getList());
+		return "community/community_main";
+	}
+	*/
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String community(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+		
+		Map<String, Object> map = communityService.getCommunityList(pageNum);
+		
+		model.addAttribute("pager", map.get("pager"));
+		model.addAttribute("communityList", map.get("communityList"));
+		
 		return "community/community_main";
 	}
 	
