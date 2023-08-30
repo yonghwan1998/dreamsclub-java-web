@@ -29,7 +29,7 @@
 			class="single-slider-3 slider-height-20 d-flex align-items-center res-black-overly-xs slider-height-res bg-img">
 			<div>
 				<img
-					src="${pageContext.request.contextPath }/img/mainpage/banner3.png"
+					src="${pageContext.request.contextPath }/img/mainpage/banner3.jpg"
 					alt="">
 			</div>
 		</div>

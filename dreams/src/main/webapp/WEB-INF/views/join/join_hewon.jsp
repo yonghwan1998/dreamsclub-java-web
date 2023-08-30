@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,8 +56,6 @@ legend {
 }
 </style>
 
-<!-- 다음 api -->
-
 </head>
 
 <body>
@@ -67,15 +64,18 @@ legend {
 	<%-- => 0 : 아이디 중복 검사 미실행 또는 아이디 중복 - 아이디 사용 불가능 --%>
 	<%-- => 1 : 아이디 중복 검사 실행 및 아이디 미중복 - 아이디 사용 가능 --%>
 	<input type="hidden" id="idCheckResult" value="0">
+	
 	<fieldset>
 		<legend>회원가입 정보</legend>
 		<ul>
 			<li>
 				<label for="id">아이디</label>
-				<input type="text" name="memberId" id="id">  <span id="idCheck">아이디 중복 검사</span> 
+				<input type="text" name="memberId" id="id"> 
 				<div id="idMsg" class="error">아이디를 입력해 주세요.</div>
-				<div id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</div>
-				<!-- <div id="idCheckMsg" class="error">아이디 중복 검사를 반드시 실행해 주세요.</div> -->
+						
+				<span id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</span>
+				<span id="idDuplMsg" class="error">이미 사용중인 아이디입니다.</span>
+
 			</li>
 			
 			<li>
@@ -103,38 +103,17 @@ legend {
 				<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 			</li>
 			
-			
-<!--  
- 			<li>
-				<label for="mobile">전화번호</label>
-				<select name="memberPhone"> 
-					<option value="010" selected>&nbsp;010&nbsp;</option>
-					<option value="011">&nbsp;011&nbsp;</option>
-					<option value="016">&nbsp;016&nbsp;</option>
-					<option value="017">&nbsp;017&nbsp;</option>
-					<option value="018">&nbsp;018&nbsp;</option>
-					<option value="019">&nbsp;019&nbsp;</option>
-				</select>
-				- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
-				- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
-				<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-				<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
-			</li>  
- -->			
-			
+
 			<!-- 전화번호2222222 -->
 			<li>
-			<label for="mobile">전화번호</label>
+			<label for="memberPhone">전화번호</label>
 			<input type="text" name="memberPhone" id="memberPhone" >
 			<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-			<!-- <div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div> 
+			<div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div> 
 			
 			</li>
-			 -->
-			
-					
-			
-			
+			 
+	
 			<li>
 				<label>우편번호</label>
 				<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly">
@@ -164,7 +143,7 @@ legend {
 <!-- var idck = 0; -->
 
 <script type="text/javascript">
-
+var idch=0;
 // 조건문 ▼
 $("#id").focus();
 
@@ -172,7 +151,7 @@ $("#join").submit(function() {
 	var submitResult=true;
 	
 	$(".error").css("display","none");
-/* 
+
 	// 아이디 조건문
  	var idReg=/^[a-zA-Z0-9]{4,12}$/;
 	if($("#id").val()=="") {
@@ -181,11 +160,10 @@ $("#join").submit(function() {
 	} else if(!idReg.test($("#id").val())) {
 		$("#idRegMsg").css("display","block");
 		submitResult=false;
-	} else if($("#idCheckResult").val()=="0") {
-		$("#idCheckMsg").css("display","block");
+	} else if(idck==0) {
+		$("#idDuplMsg").css("display","block");
 		submitResult=false;
-	} */
-		
+	} 
 	//비밀번호 조건문
 	var passwdReg=/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g;
 	if($("#passwd").val()=="") {
@@ -218,41 +196,25 @@ $("#join").submit(function() {
 		$("#emailRegMsg").css("display","block");
 		submitResult=false;
 	}
-
-	
-
-/* // 핸드폰 번호 조건문
-	var mobile2Reg=/^\d{3,4}$/;
-	var mobile3Reg=/^\d{4}$/;
-	if($("#mobile2").val()=="" || $("#mobile3").val()=="") {
-		$("#mobileMsg").css("display","block");
-		submitResult=false;
-	} else if(!mobile2Reg.test($("#mobile2").val()) || !mobile3Reg.test($("#mobile3").val())) {
-		$("#mobileRegMsg").css("display","block");
-		submitResult=false;
-	} 
-
-	
-	if($("#zipcode").val()=="") {
-		$("#zipcodeMsg").css("display","block");
-		submitResult=false;
-	} */
-	
 	
  	// 핸드폰 조건문222
-	var memberPhoneReg = /^\d{2,3}-\d{3,4}-\d{4}$/;
+	var memberPhoneReg=/^\d{3}-\d{3,4}-\d{4}$/g;
+	var result=memberPhoneReg.test($("#memberPhone").val());
 	if($("#memberPhone").val()=="") {
 		$("#mobileMsg").css("display","block");
 		submitResult=false;
-/* 	} else if(!memberPhoneReg.test($("memberPhone").val())) {
+ 	} else if(!result) {
 		$("#mobileRegMsg").css("display","block");
-		submitResult=false; */
+		submitResult=false; 
 	} 
-	
 
-	
-	
 	// 주소
+	if($("#zipcode").val()=="") {
+		$("#zipcodeMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	
 	if($("#address1").val()=="") {
 		$("#address1Msg").css("display","block");
 		submitResult=false;
@@ -263,33 +225,39 @@ $("#join").submit(function() {
 		submitResult=false;
 	}
 	
+	
 	return submitResult;
 });
 
-<%--  $("#idCheck").click(function() {
-	
-	//아이디 관련 에러메세지가 보여지지 않도록 설정	
-	$("#idMsg").css("display","none");
-	$("#idRegMsg").css("display","none");
 
-	var idReg=/^[a-zA-Z0-9]{4,12}$/;
-	if($("#id").val()=="") {
-		$("#idMsg").css("display","block");
-		return;
-	} else if(!idReg.test($("#id").val())) {
-		$("#idRegMsg").css("display","block");
-		return;
-	}
-	
-//팝업창을 실행하여 [id_check.jsp] 문서 요청
-	window.open("<%=request.getContextPath()%>/views/join/id_check.jsp?id="+$("#id").val()
-			,"idCheck", "width=450, height=130, left=700, top=400");
-}); --%>
-
-//입력태그(아이디)의 입력값이 변경된 경우 호출되는 이벤트 처리 함수 등록
+// 아이디 중복체크 에이젝스 ▽
 $("#id").change(function() {
-	//아이디 중복 검사 결과값을 저장한 입력태그의 입력값 변경 - 아이디 중복 검사 미실행
-	$("#idCheckResult").val("0");
+	idck = 0;
+    //userid 를 param.
+    var memberid =  $("#id").val(); 
+    
+    $.ajax({
+        type : 'get',
+        url : "<c:url value="/join/member_id_check"/>",
+        data : {"memberId":memberid},
+        dataType : "text", // text 인가????
+        success : function(result) {
+            if (result=="ok") {
+            	idck = 1;
+            	// 사용가능한 아이디
+
+
+            
+            } else {
+            	idck = 0;
+                // 이미 사용중인 아이디
+            }
+        },
+        error : function(error) {
+            alert("error : " + error.status);
+
+        }
+    });
 });
 
 // 주소검색
@@ -303,5 +271,5 @@ $("#postSearch").click(function() {
 });
 </script>
 
-<!-- </body>
-</html> -->
+</body>
+</html>

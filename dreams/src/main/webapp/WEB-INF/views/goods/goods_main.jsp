@@ -98,7 +98,7 @@ function selectChange(q){
 							</form>
 						</div>
 					</div>
-					<div class="sidebar-widget mt-45">
+					<!-- <div class="sidebar-widget mt-45">
 						<h4 class="pro-sidebar-title">Filter By Price</h4>
 						<div class="price-filter mt-10">
 							<div class="price-slider-amount">
@@ -128,7 +128,7 @@ function selectChange(q){
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

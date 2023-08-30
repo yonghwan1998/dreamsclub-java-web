@@ -24,6 +24,6 @@ public interface MemberDAO {
 	MemberDTO selectLoginCheck(String memberId);
 	//강민경: 아이디, 비밀번호 찾을 시 사용
 	String selectSearch(MemberDTO member);
-	//강민경: 비밀번호 찾기 
-	int searchPw(MemberDTO member);
+	//강민경: 비밀번호 변경
+	int updatePw(MemberDTO member);
 }

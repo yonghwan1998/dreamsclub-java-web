@@ -1,6 +1,7 @@
 package xyz.dreams.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -59,12 +60,12 @@ public class LoginController {
 	}
 	
 	
-	//3-2. 비밀번호 찾기 
+	//3-2. 비밀번호 찾기-이메일 전송 
 	@RequestMapping(value = "/search_pw", method = RequestMethod.POST)
-	public String search_pw(@ModelAttribute MemberDTO member, Model model) {
-		memberService.searchPw(member);
+	public String search_pw(@ModelAttribute MemberDTO member, HttpServletResponse response) throws MemberNotFoundException{
+		memberService.searchPw(response, member);
 		
-		return "login/login";
+		return "redirect:/login";
 	}
 	
 	
