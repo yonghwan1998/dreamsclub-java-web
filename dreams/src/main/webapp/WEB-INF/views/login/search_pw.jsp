@@ -2,25 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	function resultPwAlert(){
-		if(searchPw.memberName.value==""){
-			alert("이름을 입력하십시요.");
-			searchPw.memberName.focus();
-	         return;
-	      } 
-		if (searchPw.memberId.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchPw.memberId.focus();
-	         return;
-	     if (searchPw.memberEmail.value == "" ) {
-	         alert("이메일을 입력하십시요.");
-	         searchPw.memberEmail.focus();
-	         return;
-	     }   
-	      
-	      searchId.submit();
-	      }
-		 
+function resultPwAlert() {
+	if (searchPw.memberName.value == "") {
+		alert("이름을 입력하십시요.");
+		searchPw.memberName.focus();
+		return;
+	}
+	if (searchPw.memberId.value == "") {
+		alert("아이디를 입력하십시요.");
+		searchPw.memberId.focus();
+		return;
+	}
+	if (searchPw.memberEmail.value == "") {
+		alert("이메일을 입력하십시요.");
+		searchPw.memberEmail.focus();
+		return;
+	}
+	
+
+	searchPw.submit();
+}
 </script>
 
 
@@ -51,8 +52,8 @@
                                 <div class="login-register-form">
                                     <form action="/dreams/login/search_pw" method="post" name="searchPw">
                                         <input type="text" name="memberName" placeholder="이름을 입력해 주세요.">
-                                        <input type="password" name="memberId" placeholder="아이디를 입력해 주세요.">
-                                        <input type="password" name="memberEmail" placeholder="이메일를 입력해 주세요.">
+                                        <input type="text" name="memberId" placeholder="아이디를 입력해 주세요.">
+                                        <input type="email" name="memberEmail" placeholder="이메일를 입력해 주세요."/>
                                         <div class="button-box">
                                             <button type="button" onclick="resultPwAlert();"><span>확인</span></button>
                                             <tr>
