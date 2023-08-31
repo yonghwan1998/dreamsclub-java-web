@@ -64,6 +64,7 @@ function chk_form() {
 		return false;
 	}
 	document.getElementById('communityWrite_input').submit();
+	  alert("게시글이 등록되었습니다.");
 }
 
 
