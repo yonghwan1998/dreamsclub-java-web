@@ -116,7 +116,7 @@ legend {
 	
 			<li>
 				<label>우편번호</label>
-				<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly">
+				<input type="text" name="memberPcode" id="zipcode" size="7" readonly="readonly">
 				<span id="postSearch">우편번호 검색</span>
 				<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 			</li>
