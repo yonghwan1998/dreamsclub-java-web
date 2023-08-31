@@ -4,6 +4,22 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
 
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errors/error</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/error</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/errors/error</location>
+	</error-page>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
 	<!-- web.xml : WAS(Web Application Server) 프로그램이 시작될 때 프로젝트를 웹자원으로 변환하기 
 		위해 필요한 정보를 제공하는 환경설정파일 -->
 	<!-- => Listener 설정, Filter 설정, Servlet 설정, ErrorPage 설정, WelcomeFile 설정 

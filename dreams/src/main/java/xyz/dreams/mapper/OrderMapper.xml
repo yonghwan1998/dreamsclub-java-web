@@ -44,16 +44,16 @@
 	
 	<select id="getGoodsInfo" resultType="GoodsDTO">
 		SELECT
-			G.GOODS_CODE AS GGC,
+			G.GOODS_CODE,
 			<!-- GOODS_COUNT, -->
 			G.GOODS_IMAGE,
 			G.GOODS_PRICE
 		FROM
 			GOODS G
 		LEFT JOIN		
-			ORDER_NEW O ON O.GOODS_CODE = GGC
+			ORDER_NEW O ON O.GOODS_CODE = G.GOODS_CODE
 		WHERE
-			GGC = #{goodsCode}
+			G.GOODS_CODE = #{goodsCode}
 	</select>
 	
 	<select id="getGoods" resultType="OrderDetailDTO">

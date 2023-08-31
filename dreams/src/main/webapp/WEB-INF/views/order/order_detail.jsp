@@ -37,8 +37,8 @@
                         <tbody>
                             <tr>
                                 <td class="product-thumbnail">
-                                    <img src="${pageContext.request.contextPath }/img/cart/cart-1.png" alt="">
-                                    <%-- <img src="${pageContext.request.contextPath }/img/product/${goods.goodsImage }" alt=""> --%>
+                                    <%-- <img src="${pageContext.request.contextPath }/img/cart/cart-1.png" alt=""> --%>
+                                    <img src="${pageContext.request.contextPath }/img/product/${goods.goodsImage}" alt="">
                                 </td>
                                 <td class="product-quantity">${goods.goodsCode }</td>
                                 <td class="product-subtotal">${goods.goodsSize }</td>

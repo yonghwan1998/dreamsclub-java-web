@@ -10,7 +10,7 @@
         <div class="breadcrumb-content text-center">
             <ul>
                 <li>
-                    <a href="<c:url value="/dreams"/>">홈</a>
+                    <a href="<c:url value="/"/>">홈</a>
                 </li>
                 <li class="active" style="font-weight: bold;">결제</li>
             </ul>
