@@ -20,37 +20,9 @@
                 <div class="product-details">
                     <div class="product-details-img">
                         <div class="tab-content jump"> 
-                            <div id="shop-details-1" class="tab-pane large-img-style">
-                                <img src="${pageContext.request.contextPath }/img/product-details/large-1.jpg" alt="">
-                                <span class="dec-price">-10%</span>
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="${pageContext.request.contextPath }/img/product-details/b-large-1.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
-                            </div>
                             <div id="shop-details-2" class="tab-pane active large-img-style">
-                                <img src="${pageContext.request.contextPath }/img/product-details/large-2.jpg" alt="">
-                                <span class="dec-price">-10%</span>
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="${pageContext.request.contextPath }/img/product-details/b-large-2.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
+                                <img src="${pageContext.request.contextPath }/img/product/${goodsDetail.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1.jpg">
                             </div>
-                            <div id="shop-details-3" class="tab-pane large-img-style">
-                                <img src="${pageContext.request.contextPath }/img/product-details/large-3.jpg" alt="">
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="${pageContext.request.contextPath }/img/product-details/b-large-3.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="shop-details-tab nav">
-                            <a class="shop-details-overly" href="#shop-details-1" data-bs-toggle="tab">
-                                <img src="${pageContext.request.contextPath }/img/product-details/small-1.jpg" alt="">
-                            </a>
-                            <a class="shop-details-overly active" href="#shop-details-2" data-bs-toggle="tab">
-                                <img src="${pageContext.request.contextPath }/img/product-details/small-2.jpg" alt="">
-                            </a>
-                            <a class="shop-details-overly" href="#shop-details-3" data-bs-toggle="tab">
-                                <img src="${pageContext.request.contextPath }/img/product-details/small-3.jpg" alt="">
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -205,7 +177,7 @@
                                             </div>
                                         </div>
                                         <div class="review-bottom">
-                                            <p>넘예버여ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ아 집가고 싶다 집가서 침대에 누워서 고양이 만지면서 멍때리고 싶다 샤워 때리고 맥주 갈기고 싶다.</p>
+                                            <p>너무 예뻐요~</p>
                                         </div>
                                     </div>
                                 </div>

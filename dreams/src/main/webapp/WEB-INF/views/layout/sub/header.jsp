@@ -75,7 +75,7 @@
 							<!-- Navbar - 커뮤니티 -->
 							<li><a href="#">커뮤니티 <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
-									<li><a href="#">응원의 한마디</a></li>
+									<!-- <li><a href="#">응원의 한마디</a></li> -->
 									<li><a href="/dreams/community">꿈들의 모임</a></li>
 								</ul></li>
 							<!-- Navbar - 고객센터 -->

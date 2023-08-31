@@ -158,10 +158,11 @@ td {
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 재고</td>
 						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 240" name="goodsStock" value="${goods.goodsStock }"></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 이미지</td>
 						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 240" name="goodsImage" value="${goods.goodsImage }"></td>
-					</tr>
+					</tr> --%>
+					<input type="hidden" style="width: 240" name="goodsImage" value="uniform-1.jpg">
 				</table>
 			</form> <br>
 			<table width=590 border=0 cellpadding=0 cellspacing=0>

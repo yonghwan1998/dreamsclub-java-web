@@ -161,6 +161,7 @@
 </div>
 
 <!-- 굿즈샵 -->
+<%-- 
 <div class="product-area pt-95 pb-70">
 	<div class="container">
 		<div class="section-title-5 text-center">
@@ -370,7 +371,7 @@
 		</div>
 	</div>
 </div>
-
+ --%>
 
 
 <!-- Modal -->
