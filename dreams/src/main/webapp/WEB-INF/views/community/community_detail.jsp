@@ -35,7 +35,7 @@
             <div class="communityDetailBtn">
                 <a href=<c:url value="/community"/>>목록으로</a>
                 	<c:if test="${member.memberId == pageInfo.memberId }" >
-						<a href=<c:url value="/community/delete?commNo=${pageInfo.commNo}"/> role="button" id="delete_btn">삭제하기</a>  
+						<a href="#" role="button" id="delete_btn" name="delete_btn" onclick="deleteCheck()">삭제하기</a>   
 					</c:if>       
 			</div>
             <!-- 수정하기 버튼 나중에 추가
@@ -128,21 +128,16 @@
 
 <!-- JS -->
 <script type="text/javascript">
-let form = $("#infoForm");
+//삭제 확인하기
 
-//수정버튼
-$("#communityDetailBtn").on("click", function(e){
-	form.attr("action", "/community/modify");
-	form.submit();
-});
-
-funciton delete_btn(){
-	alert("$(member.memberId)");
-};
-
-funciton delete_btn(){
-	alert("$(pageInfo.memberId)");
-};
+function deleteCheck(){
+   if(confirm("정말 삭제하시겠습니까?")==true){
+      location.href="<c:url value='/community/delete?commNo=${pageInfo.commNo}'/> ";
+      alert("삭제되었습니다.");
+   }else if(confirm==false){
+      alert("취소되었습니다.");
+   }
+}
 
 
 
