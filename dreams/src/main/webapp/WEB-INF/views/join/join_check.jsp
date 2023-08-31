@@ -1,38 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-
-</head>
-<body>
-
 	<div class="logo">
-		<h2>회원가입약관</h2>
+		<h2 style="margin-top: 20px; text-align: center;">회원가입약관</h2>
 	</div>
 
-	<script>
-		function nextGo() {
-			if (document.f.agree.checked)
-				location.href = "regist.html"
-			else
-				window.alert("이용약관에 동의해주세요")
-		}
-		
-		/*
-		  1. 단일항목 체크상자의 객체접근
-		    : document.form이름.checkbox이름
-		
-		  2. 복수항목 체크상자의 객체접근(name속성값이 일치한 Checkbox가 여러개임)은 배열형태로 접근함.
-		    : document.form이름.checkbox이름 [인덱스]
-		
-		  */
-	</script>
-
-	<textarea rows="10">
+	<textarea rows="10" style="margin-left: 10rem; margin-top: 2rem; width: 80%; height: 30rem;">
  
                 가. 개인정보의 수집 및 이용 목적
                 국가공간정보포털은 다음의 목적을 위하여 개인정보를 처리합니다.
@@ -64,17 +37,32 @@
             </textarea>
 
 	<div>
-		<p>
-			<input type="checkbox" required> 약관에 동의하면
-		</p>
-
-		<!--  현재 페이지에서 join.jsp 페이지으로 이동하기 -->
-		<button onclick="location.href='<c:url value="/join/hewon"/>'">다음</button>
-
+		<span style="display: flex;	align-items: center; justify-content: center; min-height: 15rem;">
+			<input type="checkbox" required style="width: 10%;"> 
+		
+			<p style="margin-bottom: 0px; margin-right: 30px;"> 약관에 동의하면 다음 버튼을 눌러주세요. </p>
+			<!--  현재 페이지에서 join.jsp 페이지으로 이동하기 -->
+			<button onclick="location.href='<c:url value="/join/hewon"/>'" 
+			style="display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; 
+				color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease;">
+				다음</button>
+		</span>
 	</div>
-	<br>
-
-
-</body>
-</html>
-
+	
+	<script>
+		function nextGo() {
+			if (document.f.agree.checked)
+				location.href = "regist.html"
+			else
+				window.alert("이용약관에 동의해주세요")
+		}
+		
+		/*
+		  1. 단일항목 체크상자의 객체접근
+		    : document.form이름.checkbox이름
+		
+		  2. 복수항목 체크상자의 객체접근(name속성값이 일치한 Checkbox가 여러개임)은 배열형태로 접근함.
+		    : document.form이름.checkbox이름 [인덱스]
+		
+		  */
+	</script>
