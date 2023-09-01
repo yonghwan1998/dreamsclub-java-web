@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div style="width: 15%;">
-				<a href="/dreams/">
+				<a href="${pageContext.request.contextPath }/">
 					<img alt="" src="${pageContext.request.contextPath }/img/logo/logo.png">
 				</a>
 			</div>
