@@ -8,9 +8,7 @@ function selectChange(q){
 	$("#searchText").val(q);
 	$("#searchForm").submit();
 }
-
 </script>
-
 
 <div class="shop-area pt-95 pb-100">
 	<div class="container">
@@ -30,7 +28,6 @@ function selectChange(q){
 					</div>
 				</div>
 
-
 				<c:forEach var="goods" items="${goodsList }">
 					<div class="shop-bottom-area mt-35">
 						<div class="tab-content jump">
@@ -40,7 +37,7 @@ function selectChange(q){
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/${goods.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1">
+													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/${goods.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1">
 													</a>
 												</div>
 											</div>
@@ -48,7 +45,7 @@ function selectChange(q){
 										<div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
 											<div class="shop-list-content">
 												<h3>
-													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>" class="goodsCode" >${goods.goodsCode }</a>
+													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>" class="goodsName" >${goods.goodsName }</a>
 												</h3>
 												<div class="product-list-price">
 													<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
@@ -61,7 +58,7 @@ function selectChange(q){
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
-													<a href="<c:url value="/goods/detail?goodsCode=${goods.goodsCode }"/>">상세정보</a>
+													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>">상세정보</a>
 												</div>
 											</div>
 										</div>
@@ -82,7 +79,6 @@ function selectChange(q){
 				</div>
 				-->
 
-
 			</div>
 			<div class="col-lg-3">
 				<div class="sidebar-style mr-30">
@@ -98,7 +94,7 @@ function selectChange(q){
 							</form>
 						</div>
 					</div>
-					<!-- <div class="sidebar-widget mt-45">
+					<div class="sidebar-widget mt-45">
 						<h4 class="pro-sidebar-title">Filter By Price</h4>
 						<div class="price-filter mt-10">
 							<div class="price-slider-amount">
@@ -128,7 +124,7 @@ function selectChange(q){
 								</li>
 							</ul>
 						</div>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>
