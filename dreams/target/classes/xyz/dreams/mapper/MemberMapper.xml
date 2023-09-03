@@ -62,13 +62,11 @@
 	
 	<!-- 강민경: 로그인 시 사용  -->
 	<select id="selectLoginCheck" resultType="MemberDTO">
-	<!-- where절에서 id, pw값을 받고 결과 값을 resultType="~~"으로 전달  -->
 	select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ADDRESS1, MEMBER_ADDRESS2, MEMBER_PCODE
 	 from member where MEMBER_ID=#{memberId} 
 	</select>
 	<!-- 강민경: 아이디 찾기 시 사용  -->
 	<select id="selectSearch" resultType="string">
-	<!-- where절에서 id, pw값을 받고 결과 값을 resultType="~~"으로 전달  -->
 	select MEMBER_ID from member where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
 	

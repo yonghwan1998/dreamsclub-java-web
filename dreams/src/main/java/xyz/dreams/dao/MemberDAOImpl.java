@@ -15,7 +15,7 @@ import xyz.dreams.mapper.MemberMapper;
 public class MemberDAOImpl implements MemberDAO {
 	private final SqlSession sqlSesstion;
 
-		// 강민경: 로그인 시 사용 
+		// 강민경: 로그인, 비밀번호 찾기 시 사용
 		@Override
 		public MemberDTO selectLoginCheck(String memberId) {
 			return sqlSesstion.getMapper(MemberMapper.class).selectLoginCheck(memberId);

@@ -32,9 +32,9 @@ public class LoginController {
 
 	// 1-2. 로그인 성공 시 세션 생성 실패시 LoginAuthInterceptor
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String login(@ModelAttribute MemberDTO member, HttpSession Loginsession) throws LoginAuthFailException {
+	public String login(@ModelAttribute MemberDTO member, HttpSession session) throws LoginAuthFailException {
 		MemberDTO authMember = memberService.loginAuth(member);
-		Loginsession.setAttribute("member", authMember);
+		session.setAttribute("member", authMember);
 		return "redirect:/";
 	}
 	
@@ -71,7 +71,7 @@ public class LoginController {
 	
 	//4. 로그아웃
 	@RequestMapping("/logout")
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session) {
 			session.invalidate();
 		
 		return "redirect:/";
