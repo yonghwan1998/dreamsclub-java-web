@@ -1,7 +1,6 @@
 package xyz.dreams.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,24 +21,28 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
 		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList(map);
-		String[] goodsCodeSplit = null;
 		String goodsName = null;
+		GoodsDTO goodsChangedName=null;
 
 		List<GoodsDTO> goodsResult = new ArrayList<GoodsDTO>();
 		int temp = 0;
-
+		
+		
+//		goodsCode에서 split()으로 goodsName만 남기기
 		for (int i = 0; i < goodsList.size(); i++) {
-			goodsCodeSplit = goodsList.get(i).getGoodsCode().split("-");
-			goodsName = goodsCodeSplit[0];
-			GoodsDTO goodsChangedName = goodsList.get(i);
-			goodsChangedName.setGoodsCode(goodsName);
+			goodsName = goodsList.get(i).getGoodsCode().split("-")[0];
+			
+			goodsChangedName = goodsList.get(i);
+			goodsChangedName.setGoodsName(goodsName);
+			
 			goodsList.set(i, goodsChangedName);
 		}
 
+//		중복되는 goodsName 제거하기
 		goodsResult.add(goodsList.get(0));
 
 		for (int i = 0; i < goodsList.size() - 1; i++) {
-			if (!goodsResult.get(0 + temp).getGoodsCode().equals(goodsList.get(i + 1).getGoodsCode())) {
+			if (!goodsResult.get(0 + temp).getGoodsName().equals(goodsList.get(i + 1).getGoodsName())) {
 				goodsResult.add(goodsList.get(i + 1));
 				temp += 1;
 			}
@@ -50,10 +53,23 @@ public class GoodsServiceImpl implements GoodsService {
 //	굿즈 디테일 페이지
 
 	@Override
-	public GoodsDTO getGoodsDetail(String goodsCode) {
-		List<GoodsDTO> goodsDetailList = goodsDAO.selectGoodsDetailList(goodsCode);
+	public GoodsDTO getGoodsDetail(String goodsName) {
+		System.out.println(goodsName);
+		List<GoodsDTO> goodsDetailList = goodsDAO.selectGoodsDetailList(goodsName);
 
 		GoodsDTO goodsDetail = goodsDetailList.get(0);
+		
+		String[] goodsCodeSplit = null;
+		goodsCodeSplit = goodsDetail.getGoodsCode().split("-");
+		if (goodsCodeSplit[1].equals("U")) {
+			goodsDetail.setGoodsCategory("Uniform");
+		} else if (goodsCodeSplit[1].equals("C")) {
+			goodsDetail.setGoodsCategory("Cap");
+		} else if (goodsCodeSplit[1].equals("F")) {
+			goodsDetail.setGoodsCategory("Fan Goods");
+		}
+		
+		goodsDetail.setGoodsName(goodsName);
 
 		return goodsDetail;
 	}

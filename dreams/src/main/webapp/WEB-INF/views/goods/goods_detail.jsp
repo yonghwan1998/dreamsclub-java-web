@@ -14,69 +14,68 @@
 </script>
 
 <div class="shop-area pt-100 pb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="product-details">
-                    <div class="product-details-img">
-                        <div class="tab-content jump"> 
-                            <div id="shop-details-2" class="tab-pane active large-img-style">
-                                <img src="${pageContext.request.contextPath }/img/product/${goodsDetail.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1.jpg">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="product-details-content ml-70">
-                        <form  method="post" name="purchase">
-                    <h2>${goodsCode }</h2>
-                    <div class="product-details-price">
-                    <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-                    <input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }">
-                        <span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
-                    </div>
-                    <div class="pro-details-rating-wrap">
-                        <div class="pro-details-rating">
-                            <i class="fa fa-star-o yellow"></i>
-                            <i class="fa fa-star-o yellow"></i>
-                            <i class="fa fa-star-o yellow"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                        <span><a href="#">3 Reviews</a></span>
-                    </div>
-                    <p>${goodsDetail.goodsInfo }</p>
-                    <div class="pro-details-size-color">
-                        <div class="pro-details-size">
-                            <span>Size</span>
-                            <select name="goodsSize" style="border: 1px solid black; ">
-                            	<option value="0" selected>사이즈를 선택해 주세요.</option>
-                            	<option value="L">L</option>
-                            	<option value="M">M</option>
-                            	<option value="S">S</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="pro-details-quality">
-                        <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount" >
-                        </div>
-                        <div class="pro-details-cart btn-hover">
-                            <a onclick="purchaseGoods();">구매하기</a>
-                        </div>
-                    </div>
-                        </form>
-                    <div class="pro-details-meta">
-                        <span>Category :</span>
-                        <ul>
-                            <li>${goodsDetail.goodsCategory }</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="product-details">
+					<div class="product-details-img">
+						<div class="tab-content jump">
+							<div id="shop-details-2" class="tab-pane active large-img-style">
+								<img src="${pageContext.request.contextPath }/img/product/${goodsDetail.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6">
+				<div class="product-details-content ml-70">
+					<form method="post" name="purchase">
+						<h2>${goodsDetail.goodsName }</h2>
+						<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+						<div class="product-details-price">
+							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }">
+							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
+						</div>
+						<div class="pro-details-rating-wrap">
+							<div class="pro-details-rating">
+								<i class="fa fa-star-o yellow"></i>
+								<i class="fa fa-star-o yellow"></i>
+								<i class="fa fa-star-o yellow"></i>
+								<i class="fa fa-star-o"></i>
+								<i class="fa fa-star-o"></i>
+							</div>
+							<span><a href="#">3 Reviews</a></span>
+						</div>
+						<p>${goodsDetail.goodsInfo }</p>
+						<div class="pro-details-size-color">
+							<div class="pro-details-size">
+								<span>Size</span> <select name="goodsSize" style="border: 1px solid black;">
+									<option value="0" selected>사이즈를 선택해 주세요.</option>
+									<option value="L">L</option>
+									<option value="M">M</option>
+									<option value="S">S</option>
+								</select>
+							</div>
+						</div>
+						<div class="pro-details-quality">
+							<div class="cart-plus-minus">
+								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
+							</div>
+							<div class="pro-details-cart btn-hover">
+								<a onclick="purchaseGoods();">구매하기</a>
+							</div>
+						</div>
+					</form>
+					<div class="pro-details-meta">
+						<span>Category :</span>
+						<ul>
+							<li>${goodsDetail.goodsCategory }</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="description-review-area pb-90">
     <div class="container">

@@ -22,8 +22,8 @@
 
 	<select id="selectGoodsDetailList" resultType="GoodsDTO">
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
-		<bind name="goodsCode" value="'%'+goodsCode+'%'"/>
-		where GOODS_CODE like #{goodsCode} order by GOODS_CODE
+		<bind name="goodsName" value="'%%'+goodsName+'-%%'"/>
+		where GOODS_CODE like <![CDATA[#{goodsName}]]> order by GOODS_CODE
 	</select>
 	
 	<!-- 관리자 페이지 굿즈 관리 -->

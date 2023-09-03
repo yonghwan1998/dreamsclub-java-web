@@ -47,12 +47,13 @@
 				
 			</div>
 		</div>
-
+	</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xl-2 col-lg-2 col-md-6 col-4">
 				<div class="logo">
-					<a href="/dreams/"> <img alt="logo" src="${pageContext.request.contextPath }/img/logo/logo.png" width="150" height="130">
+					<a href="<c:url value="/"/>">
+						<img alt="logo" src="${pageContext.request.contextPath }/img/logo/logo.png" width="150" height="130">
 					</a>
 				</div>
 			</div>
@@ -62,24 +63,27 @@
 					<nav>
 						<ul>
 							<!-- Navbar - 드림즈 -->
-							<!-- 형섭: 마우스 올리면 서브메뉴 두 개 선택되던 것 수정 -->
-							<li><a href="<c:url value="/"/>">Dreams <i class="fa fa-angle-down"></i></a>
+							<li><a href="<c:url value="#"/>">Dreams <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
-									<li><a href="/dreams/introduction">구단소개</a></li>
-									<li><a href="/dreams/notice">공지사항</a></li>
+									<li><a href="<c:url value="/introduction"/>">구단소개</a></li>
+									<li><a href="<c:url value="/notice"/>">공지사항</a></li>
 								</ul></li>
+								
 							<!-- Navbar - 선수단 -->
-							<li><a href="/dreams/team"> 선수단 </a></li>
+							<li><a href="<c:url value="/team"/>"> 선수단 </a></li>
+							
 							<!-- Navbar - 굿즈 -->
-							<li><a href="/dreams/goods/main"> 굿즈</a></li>
+							<li><a href="<c:url value="/goods/main"/>"> 굿즈</a></li>
+							
 							<!-- Navbar - 커뮤니티 -->
-							<li><a href="#">커뮤니티 <i class="fa fa-angle-down"></i></a>
+							<li><a href="<c:url value="#"/>">커뮤니티 <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
-									<!-- <li><a href="#">응원의 한마디</a></li> -->
-									<li><a href="/dreams/community">꿈들의 모임</a></li>
+									<li><a href="<c:url value="#"/>">응원의 한마디</a></li>
+									<li><a href="<c:url value="/community"/>">꿈들의 모임</a></li>
 								</ul></li>
+								
 							<!-- Navbar - 고객센터 -->
-							<li><a href="/dreams/customer"> 고객센터</a></li>
+							<li><a href="<c:url value="/customer"/>"> 고객센터</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -96,14 +100,12 @@
 							</div>
 						</c:when>
 
-
 						<c:when test="${member.memberStatus == 9}">
 							<div class="same-style account-satting" onclick="location.href='<c:url value="/admin"/>'" style="cursor: pointer;">
 								<i class="pe-7s-user-female"></i>
 
 							</div>
 						</c:when>
-
 
 						<c:otherwise>
 							<div class="same-style account-satting" onclick="location.href='<c:url value="/login"/>'" style="cursor: pointer;">
@@ -113,15 +115,9 @@
 						</c:otherwise>
 					</c:choose>
 
-					<!--  강민경: 헤더 로그인 아이콘 누르면 리스트 뜨는 코드 주석 처리-->
-					<!-- <div class="account-dropdown">
-                                <button onclick="location.href='/dreams/mypage'"></button>
-                            </div>-->
-
 					<div class="same-style cart-wrap">
 						<button class="icon-cart" onclick="location.href='<c:url value="/cart"/>'">
 							<i class="pe-7s-shopbag"></i>
-							<!-- 강민경: 장바구니 아이콘 위 숫자 삭제 -->
 						</button>
 					</div>
 				</div>

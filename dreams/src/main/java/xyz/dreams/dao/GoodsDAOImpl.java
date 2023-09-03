@@ -25,8 +25,8 @@ public class GoodsDAOImpl implements GoodsDAO {
 //	굿즈 디테일 페이지
 
 	@Override
-	public List<GoodsDTO> selectGoodsDetailList(String goodsCode) {
-		return sqlSession.getMapper(GoodsMapper.class).selectGoodsDetailList(goodsCode);
+	public List<GoodsDTO> selectGoodsDetailList(String goodsName) {
+		return sqlSession.getMapper(GoodsMapper.class).selectGoodsDetailList(goodsName);
 	}
 
 //	관리자 페이지 굿즈 관리

@@ -24,8 +24,9 @@ public class OrderController {
     @RequestMapping(value = "/new", method = RequestMethod.GET) 
     public String orderNew(Model model, HttpSession session) { 
         MemberDTO member = (MemberDTO) session.getAttribute("member");
-        GoodsDTO goods = (GoodsDTO) session.getAttribute("goods"); 
-        System.out.println("Controller1" + goods); 
+        GoodsDTO goods = (GoodsDTO) model.getAttribute("goods"); 
+        System.out.println("model = " + model); 
+        System.out.println("goods = " + goods); 
         
         if (member != null) { 
             String memberId = member.getMemberId(); 
