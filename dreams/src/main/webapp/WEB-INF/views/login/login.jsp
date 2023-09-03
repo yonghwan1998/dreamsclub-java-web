@@ -4,12 +4,12 @@
      <script>
       function MemberLogin() {
       if ( login.memberId.value == "" ) {
-         alert("아이디를 입력하십시요.");
+         alert("아이디를 입력하십시오.");
          login.memberId.focus();
          return;
       } 
       if ( login.memberPw.value == "" ) {
-         alert("비밀번호를 입력하십시요.");
+         alert("비밀번호를 입력하십시오.");
          login.memberPw.focus();
          return;
       }   
@@ -44,7 +44,7 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="/dreams/login" method="post" name="login">
+                                    <form method="post" name="login">
                                         <input type="text" name="memberId" placeholder="아이디를 입력해 주세요."  />
                                         <input type="password" name="memberPw" placeholder="비밀번호를 입력해 주세요." />
                                         <div class="button-box">

@@ -2,21 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	$(function(){
-		$("#searchPwBtn").click(function(){
-			$.ajax({
-				type : "POST",
-				data : {
-					name: $("#name").val(),
-					id : $("#id").val(),
-					email : $("#email").val()
-				},
-				success : function(result) {
-					alert(result);
-				},
-			})
-		});
-	})
+	function SearchPw(){
+		if ( searchPw.memberName.value == "" ) {
+	         alert("이름을 입력하십시오.");
+	         searchPw.memberName.focus();
+	         return;
+	      }  
+		if(searchPw.memberId.value == ""){
+			alert("아이디를 입력하십시오.");
+			searchPw.memberId.focus();
+			return;
+		}
+		if ( searchPw.memberEmail.value == "" ) {
+	         alert("이메일을 입력하십시오.");
+	         searchPw.memberEmail.focus();
+	         return;
+	      }   
+		searchPw.action="<c:url value="/login"/>";
+		searchPw.submit();
+	}
 	
 	
 </script>
@@ -52,7 +56,11 @@
                                         <input type="text" name="memberId" id="id" name="id" placeholder="아이디를 입력해 주세요.">
                                         <input type="email" name="memberEmail" id="email" name="email" placeholder="이메일를 입력해 주세요."/>
                                         <div class="button-box">
-                                            <button type="submit" id="searchPwBtn"><span>찾기</span></button>
+                                            <button type="button" onclick="SearchPw();" ><span>찾기</span></button>
+                                        	<tr>
+			                                   <td width="20"></td>
+			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
+			                                </tr>
                                         </div>
                                     </form>
                                 </div>
