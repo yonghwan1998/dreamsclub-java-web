@@ -49,7 +49,7 @@ public class AdminController {
 
 		List<GoodsDTO> goodsList = goodsService.getAdminGoodsList();
 		model.addAttribute("goodsList", goodsList);
-
+		
 		return "admin/admin_goods";
 	}
 	

@@ -13,7 +13,7 @@ public interface GoodsMapper {
 
 //	굿즈 디테일 페이지
 
-	List<GoodsDTO> selectGoodsDetailList(String goodsCode);
+	List<GoodsDTO> selectGoodsDetailList(String goodsName);
 
 //	관리자 페이지 굿즈 관리
 
