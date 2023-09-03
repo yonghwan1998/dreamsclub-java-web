@@ -19,7 +19,7 @@
 
 <!-- 게시판 글 수정 -->
 <update id="modifyCommunity">
-	update community set comm_title=#{commTitle}, comm_cont=#{commCont} where comm_no
+	update community set comm_title=#{commTitle}, comm_cont=#{commCont} where comm_no=#{commNo}
 </update>
 
 <!-- 게시판 글 삭제 -->

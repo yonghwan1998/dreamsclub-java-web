@@ -41,15 +41,16 @@ public class CommunityController {
 	
 	/*게시판 수정 페이지 이동*/
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String communityModify(int commNo, Model model) {
+	public String communityModify(int commNo, Model model) throws Exception{
 		model.addAttribute("pageInfo", communityService.getPage(commNo));
 		
-		return null;
+		return "community/community_modify";
 	}
 	
-	/*페이지 수정*/
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String communityModifyPOST(CommunityDTO community, RedirectAttributes rttr) {
+	/*페이지 수정 POST*/
+	@RequestMapping(value = "/modify/add", method = RequestMethod.POST)
+	public String communityModifyPOST(@ModelAttribute CommunityDTO community, HttpSession session) throws Exception{
+
 		communityService.modifyCommunity(community);
 		
 		return "redirect:/community";
@@ -75,8 +76,7 @@ public class CommunityController {
 	/*게시판 글 하나 보는 페이지 (조회)*/
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String communityDetail(@RequestParam int commNo, Model model) {
-		CommunityDTO comm=communityService.getPage(commNo);
-		model.addAttribute("pageInfo", comm);
+		model.addAttribute("pageInfo",communityService.getPage(commNo));
 
 		return "community/community_detail";
 	}

@@ -24,17 +24,20 @@ public class CommunityServiceImpl implements CommunityService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
-		
 		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
 		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		communityDAO.enrollCommunity(community);
 	}
 
 	
-	/*게시판 글 수정*/
+	/*게시판 글 수정하기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
+		
+		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		communityDAO.modifyCommunity(community);
 	}
 	
 

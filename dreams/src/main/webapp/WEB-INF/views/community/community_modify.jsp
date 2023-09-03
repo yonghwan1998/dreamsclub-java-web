@@ -5,47 +5,74 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
 
-<form action="/community/write" method="post">
-<!--커뮤니티 글쓰기-->
-<div class="boardWriteMain">
-    <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
-        <h3 style="margin-bottom: 40px;">커뮤니티 글쓰기</h3>
+<!--커뮤니티 수정하기-->
+<div class="boardModifyMain">
+    <div class="boardModifyTitle" style="text-align: center; font-weight: bold; color: #003E00;">
+        <h3 style="margin-bottom: 40px;">커뮤니티 게시글 수정하기</h3>
     </div>
     
-    <div class="boardWriteContainer">
-        <table class="baordWriteTable">
-            <!--제목 입력-->
+    <div class="boardModifyContainer">
+        <!-- <form action=<c:url value="/communtiy/modify?commNo=${pageInfo.commNo }"/> id="communityModify_input" method="POST" > -->
+        <form action="<c:url value='/community/modify/add'/>" id="communityModify_input" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id="communityWriter" name="memberId" value="${member.memberId }">
+        <table class="baordModifyTable">
+         <!--제목 입력-->
             <tr>
                 <th>제목</th>
                 <td>
-                    <input type="text" id="communityWriteTitle" name="title" placeholder="제목을 입력해주세요.">
+                    <input type="text" id="communityModifyTitle" name="commTitle"
+                    	value="${pageInfo.commTitle }">
                 </td>
-            </tr>      
+            </tr>  
         <!--내용-->
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="communityWriteContent" name="content" class="communityWriteContent" placeholder="내용을 입력해주세요."></textarea>
+                    <textarea id="communityModifyContent" name="commCont" class="communityModifyContent">
+                    	<c:out value="${pageInfo.commCont }"/>
+                    </textarea>
                 </td>
             </tr>
         <!--이미지 추가-->
-            <tr>
+            <!--<tr>
                 <th>이미지 업로드</th>
                 <td>
                     <div class="communityImgUpload">
-                        <label for="communityWriteImg">이미지 업로드</label>
-                        <input type="file" id="communityWriteImg" name="Img" class="communityWriteImg">                           
+                        <label for="communityModifyImg">이미지 업로드</label>
+                        <input type="file" id="communityModifyImg" name="commImg" class="communityModifyImg"
+                        	value="multpartFile">                           
                     </div>
                 </td>
-            </tr>
+            </tr>-->
         </table>
+        </form>
 
         <!--작성 버튼(취소, 등록)-->
         <div class="communityWriteBtn">
-            <a href="/dreams/community">취소</a>
-            <a href="/dreams/community" class="upload">등록</a>
+            <a href=<c:url value="/community/detail?commNo=${pageInfo.commNo }"/>>취소</a>
+            <a href="javascript:modify_form();">등록</a>
         </div>
     </div>
+    
 </div>
-</form>
 
+
+<script type="text/javascript">
+
+
+function modify_form(){
+	if(document.getElementById("communityModifyTitle").value==''){
+		alert("제목을 입력해주십시오.");
+		return false;
+	}
+	if(document.getElementById("communityModifyContent").value==''){
+		alert("내용을 입력해주십시오.");
+		return false;
+	}
+	document.getElementById("communityModify_input").submit();
+	  alert("수정이 완료되었습니다.");
+}
+
+
+
+</script>
