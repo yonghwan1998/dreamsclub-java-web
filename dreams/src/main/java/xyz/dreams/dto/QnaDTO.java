@@ -1,5 +1,10 @@
 package xyz.dreams.dto;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
 
 /*
 이름          널?       유형             
@@ -16,11 +21,26 @@ QNA_RE_DATE          DATE           - 답변 날짜
 GOODS_CODE  NOT NULL VARCHAR2(30)	- 상품 코드
 */
 
-public class QnADTO {
+@Data
+public class QnaDTO {
 	
-	private int QnA_No;
-	private String Member_ID;
-	private String QnA_Title;
+	private int qnaNo;			//문의번호
+	private String memberID;	//회원 아이디
+	private String qnaTitle;	//문의 제목
+	private String qnaCont;		//문의 내용
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date qnaDate;		//문의 날짜
+	
+	// 0답변준비중 1답변완료 
+	private int qnaStatus;		//문의 상태
+	private String qnaYn;		//답변 여부
+	private String qnaReCont;	//답변 내용
+	
+	private Date qnaReDate;		//답변 날짜
+	private String goodsCode;	//상품 코드
+	
+	
 	
 	
 

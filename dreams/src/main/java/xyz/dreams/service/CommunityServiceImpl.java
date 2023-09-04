@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.CommunityDAO;
@@ -19,53 +20,55 @@ public class CommunityServiceImpl implements CommunityService{
 	private final CommunityDAO communityDAO;
 	private final SqlSession sqlsession;
 
-	/*게시판 등록*/
+	/*게시판 글 등록하기*/	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
 		
+		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		communityDAO.enrollCommunity(community);
 	}
 
-	/*게시판 목록 보기*/
-	/*
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public List<CommunityDTO> getList() {
-		List<CommunityDTO> communityList = communityDAO.getList();
-		
-		return communityDAO.getList();
-	}
-	*/
-
-	/*게시판 글 조회*/
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public CommunityDTO getPage(int communityNo) {
-		
-		return communityDAO.getPage(communityNo);
-	}
-
+	
 	/*게시판 글 수정*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
 	}
+	
 
 	/*게시판 글 삭제*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void deleteCommunity(int commNo) {
+		
 		communityDAO.deleteCommunity(commNo);
 	}
+	
 
+	/*게시판 글 조회(글 1개)*/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public CommunityDTO getPage(int communityNo) {
+		CommunityDTO comm = communityDAO.getPage(communityNo);
+		comm.setCommCont(comm.getCommCont().replace("\r\n", "<br>").replace("\n", "<br"));
+		
+		//조회수 +1
+		communityDAO.upCountCommunity(communityNo);
+		
+		return communityDAO.getPage(communityNo);
+	}
+
+	
 	/*게시글 조회수 증가*/
 	@Override
 	public void upCountCommunity(int commNo) {
 		communityDAO.upCountCommunity(commNo);
 	}
+	
 
-	/*페이징 처리*/
+	/*목록보기 + 페이징 처리*/
 	@Override
 	public Map<String, Object> getCommunityList(int pageNum) {
 		int totalBoard=communityDAO.selectCommunityCount();

@@ -38,7 +38,7 @@ public class JoinController {
 		
 		
 		
-		return "redirect:/"; //회원가입 성공시 http://localhost:8000/dreams/으로 리턴
+		return "redirect:/login"; //회원가입 성공시 http://localhost:8000/dreams/login으로 다시리턴
 	}
 	
 	

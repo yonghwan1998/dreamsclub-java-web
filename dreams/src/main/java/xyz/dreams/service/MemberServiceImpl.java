@@ -1,8 +1,6 @@
 package xyz.dreams.service;
 
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -52,6 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		// 매개변수로 전달받은 회원정보의 아이디로 검색된 회원정보 반환
 		return id;
 	}
+	
 	//비밀번호 찾기 이메일발송
 		@Override
 		public void sendEmail(MemberDTO member, String div) throws MemberNotFoundException {
