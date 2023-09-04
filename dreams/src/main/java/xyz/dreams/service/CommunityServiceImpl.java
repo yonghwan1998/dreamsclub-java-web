@@ -26,6 +26,7 @@ public class CommunityServiceImpl implements CommunityService{
 	public void enrollCommunity(CommunityDTO community) {
 		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
 		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommCont(community.getCommCont().replace("\r\n","<br>"));
 		communityDAO.enrollCommunity(community);
 	}
 

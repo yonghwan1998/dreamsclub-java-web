@@ -26,9 +26,7 @@
                
    
                <!--글 내용-->
-               <div class="communityDetailContainerBody">
-               		${pageInfo.commCont}
-               </div>
+               <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>
         </div>
 
             <!--버튼-->

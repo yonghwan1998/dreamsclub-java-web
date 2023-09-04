@@ -10,11 +10,10 @@
     <div class="boardModifyTitle" style="text-align: center; font-weight: bold; color: #003E00;">
         <h3 style="margin-bottom: 40px;">커뮤니티 게시글 수정하기</h3>
     </div>
-    
+    <form action="<c:url value='/community/modify/add'/>" id="communityModify_input" method="POST" enctype="multipart/form-data">
     <div class="boardModifyContainer">
-        <!-- <form action=<c:url value="/communtiy/modify?commNo=${pageInfo.commNo }"/> id="communityModify_input" method="POST" > -->
-        <form action="<c:url value='/community/modify/add'/>" id="communityModify_input" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="communityWriter" name="memberId" value="${member.memberId }">
+        <input type="hidden" name="commNo" value="${pageInfo.commNo }">
         <table class="baordModifyTable">
          <!--제목 입력-->
             <tr>
@@ -28,9 +27,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="communityModifyContent" name="commCont" class="communityModifyContent">
-                    	<c:out value="${pageInfo.commCont }"/>
-                    </textarea>
+                    <textarea id="communityModifyContent" name="commCont" class="communityModifyContent"><c:out value="${pageInfo.commCont }"/></textarea>
                 </td>
             </tr>
         <!--이미지 추가-->
@@ -45,7 +42,7 @@
                 </td>
             </tr>-->
         </table>
-        </form>
+
 
         <!--작성 버튼(취소, 등록)-->
         <div class="communityWriteBtn">
@@ -53,7 +50,7 @@
             <a href="javascript:modify_form();">등록</a>
         </div>
     </div>
-    
+    </form>
 </div>
 
 
@@ -70,7 +67,7 @@ function modify_form(){
 		return false;
 	}
 	document.getElementById("communityModify_input").submit();
-	  alert("수정이 완료되었습니다.");
+	alert("수정이 완료되었습니다.");
 }
 
 
