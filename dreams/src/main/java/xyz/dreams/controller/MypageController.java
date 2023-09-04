@@ -55,9 +55,14 @@ public class MypageController {
 	public String mypage4() {
 		return "mypage/mypage_myqna";
 	}
-	
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
 	public String mypage5() {
 		return "mypage/mypage_check";
 	}
+	//강민경
+	@RequestMapping(value = "/myreview", method = RequestMethod.GET)
+	public String mypage6() {
+		return "mypage/mypage_review";
+	}
+	
 }

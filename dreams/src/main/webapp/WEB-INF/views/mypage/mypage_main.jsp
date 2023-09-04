@@ -1,50 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
-    <!-- Layout wrapper -->
+
+  <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
  
-        <!-- Menu -->
-
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="/dreams/mypage" class="app-brand-link">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">My page</span>
-            </a>
+        <!-- 왼쪽 메뉴바  -->
+       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+         <div class="app-brand demo">
+           <a href="/dreams/mypage" class="app-brand-link">
+             <span class="app-brand-text demo menu-text fw-bolder ms-2">My page</span>
+           </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
-
+		<!-- 왼쪽 메뉴바 하단 -->
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
             <!-- 회원 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">회원 정보</span></li>
             <li class="menu-item">
-              <a 
-              	href="/dreams/mypage/modify" class="menu-link">                
+              <a href="/dreams/mypage/modify" class="menu-link">                
                 <div data-i18n="Authentications">회원정보 변경</div>                
               </a>
-              <a 
-              	href="/dreams/mypage/delete" class="menu-link">                
+              <a href="/dreams/mypage/delete" class="menu-link">                
                 <div data-i18n="Authentications">회원 탈퇴</div>                
               </a>
             </li>
 
-
             <!-- 나의 상품 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">나의 상품</span></li>
             <li class="menu-item">
-              <a 
-              	href="/dreams/mypage/myqna" class="menu-link ">
+              <a href="/dreams/mypage/myqna" class="menu-link ">
                 <div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
               </a>
-                <a 
-              	href="/dreams/mypage/check" class="menu-link ">
+              <a href="/dreams/mypage/check" class="menu-link ">
                 <div data-i18n="Authentications">주문목록/배송조회</div>
+              </a>
+              <a href="/dreams/mypage/myreview" class="menu-link">
+              	<div data-i18n="Authentications">My Review</div>
               </a>
             </li>
           </ul>
