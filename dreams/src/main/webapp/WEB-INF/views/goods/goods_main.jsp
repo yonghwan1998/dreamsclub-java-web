@@ -37,7 +37,8 @@ function selectChange(q){
 										<div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
 											<div class="product-wrap">
 												<div class="product-img">
-													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>"> <img class="default-img" src="${pageContext.request.contextPath }/img/product/${goods.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1">
+													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>">
+														<img class="default-img" src="${pageContext.request.contextPath }/img/goods-img/${goods.goodsImage }">
 													</a>
 												</div>
 											</div>

@@ -21,7 +21,7 @@
 					<div class="product-details-img">
 						<div class="tab-content jump">
 							<div id="shop-details-2" class="tab-pane active large-img-style">
-								<img src="${pageContext.request.contextPath }/img/product/${goodsDetail.goodsImage }" alt="${pageContext.request.contextPath }/img/product/uniform-1.jpg">
+								<img src="${pageContext.request.contextPath }/img/goods-img/${goodsDetail.goodsImage }">
 							</div>
 						</div>
 					</div>
@@ -54,6 +54,7 @@
 									<option value="L">L</option>
 									<option value="M">M</option>
 									<option value="S">S</option>
+									<option value="F">Free</option>
 								</select>
 							</div>
 						</div>
