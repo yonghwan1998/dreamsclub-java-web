@@ -26,23 +26,19 @@
                
    
                <!--글 내용-->
-               <div class="communityDetailContainerBody">
-               		${pageInfo.commCont}
-               </div>
+               <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>
         </div>
 
             <!--버튼-->
             <div class="communityDetailBtn">
-                <a href=<c:url value="/community"/>>목록으로</a>
+            	<a href=<c:url value="/community"/>>목록으로</a>
                 	<c:if test="${member.memberId == pageInfo.memberId }" >
+                		<a href=<c:url value="/community/modify?commNo=${pageInfo.commNo }"/> role="button" id="modify_btn" name="modify_btn">수정하기</a>
 						<a href="#" role="button" id="delete_btn" name="delete_btn" onclick="deleteCheck()">삭제하기</a>   
-					</c:if>       
+					</c:if>
 			</div>
-            <!-- 수정하기 버튼 나중에 추가
-            <div class="communityDetailBtn">
-                <a href="/dreams/community/modify">수정하기</a>
-            </div>
-            -->
+
+            
            	<form id="infoForm" action=<c:url value="/community/detail"/> method="get">
 				<input type="hidden" id="commNo" name="commNo" value='<c:out value="${pageInfo.commNo}"/>'>
 			</form>
@@ -129,7 +125,6 @@
 <!-- JS -->
 <script type="text/javascript">
 //삭제 확인하기
-
 function deleteCheck(){
    if(confirm("정말 삭제하시겠습니까?")==true){
       location.href="<c:url value='/community/delete?commNo=${pageInfo.commNo}'/> ";

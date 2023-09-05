@@ -14,12 +14,12 @@
     
     <div class="boardWriteContainer">
         <table class="baordWriteTable">
-            <!--제목 입력-->
+         <!--제목 입력-->
             <tr>
                 <th>제목</th>
                 <td>
                     <input type="text" id="communityWriteTitle" name="commTitle" placeholder="제목을 입력해주세요." 
-                    	value="${community.commTitle }">
+                    	value="${pageInfo.commTitle }">
                 </td>
             </tr>  
         <!--내용-->
@@ -27,7 +27,7 @@
                 <th>내용</th>
                 <td>
                     <textarea id="communityWriteContent" name="commCont" class="communityWriteContent" placeholder="내용을 입력해주세요."
-                    value="${community.commCont}"></textarea>
+                    value="${pageInfo.commCont}"></textarea>
                 </td>
             </tr>
         <!--이미지 추가-->
