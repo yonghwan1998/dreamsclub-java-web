@@ -46,7 +46,7 @@
 
         <!--작성 버튼(취소, 등록)-->
         <div class="communityWriteBtn">
-            <a href=<c:url value="/community/detail?commNo=${pageInfo.commNo }"/>>취소</a>
+			<a href="#" role="button" id="cancle_btn" name="cancle_btn" onclick="cancleCheck()">취소</a>   
             <a href="javascript:modify_form();">등록</a>
         </div>
     </div>
@@ -67,8 +67,18 @@ function modify_form(){
 		return false;
 	}
 	document.getElementById("communityModify_input").submit();
-	alert("수정이 완료되었습니다.");
+	alert("수정완료되었습니다.");
 }
+
+//수정 취소 확인하기
+function cancleCheck(){
+   if(confirm("정말 취소하시겠습니까?")==true){
+      location.href="<c:url value='/community/detail?commNo=${pageInfo.commNo }'/> ";
+      alert("취소되었습니다.");
+   }else if(confirm==false){
+   }
+}
+
 
 
 

@@ -106,7 +106,7 @@ text-align: center;
   margin: 30px 0 30px 0;
 }
 
-.boardWriteBtn a {
+.boardWriteBtn a,  .communityWriteBtn a{
   display: inline-block;
   background: #b5b5b5;
   border: 1px solid #b5b5b5;
@@ -139,20 +139,20 @@ text-align: center;
 }
 
 
-/*커뮤니티 글쓰기 페이지*/
-.boardWriteMain {
+/**커뮤니티 글쓰기 페이지**/
+.boardWriteMain, .boardModifyMain{
   margin: 50px auto 0px;
   padding: 0 0 50px 0;
   width: 1200px;
 }
 
-.baordWriteTable {
+.baordWriteTable, .baordModifyTable {
   margin: 0 auto;
   width: 85%;
   border-top: 2px solid #000;
 }
 
-.baordWriteTable th {
+.baordWriteTable th, .baordModifyTable th {
   background: #f5f5f5;
   position: relative;
   padding: 15px 25px;
@@ -165,7 +165,7 @@ text-align: center;
   font-weight: normal;
 }
 
-.baordWriteTable td{
+.baordWriteTable td, .baordModifyTable td{
   border-bottom: 1px solid #dedede;
   color: #555555;
   font-size: 14px;
@@ -175,7 +175,7 @@ text-align: center;
   line-height: 25px;
 }
 
-.communityWriteContent {
+.communityWriteContent, .communityModifyContent {
   height: 300px;
 }
 
@@ -189,7 +189,7 @@ text-align: center;
   display: flex;
 }
 
-.baordWriteTable label{
+.baordWriteTable label, .baordModifyTable label{
   background: #EAEAEA;
   border: 1px solid #000;
   border-radius: 5%;
@@ -201,17 +201,17 @@ text-align: center;
   margin: auto;
 }
 
-.communityWriteImg{
+.communityWriteImg, .communityModifyImg{
   visibility: hidden;
 }
 
-.communityWriteBtn{
+.communityWriteBtn, .communityModifyBtn{
   clear: both;
   margin: 30px 0 30px 0;
   text-align: center;
 }
 
-.communityWriteBtn a {
+.communityWriteBtn a,  .communityModifyBtn a,{
   display: inline-block;
   background: #b5b5b5;
   border: 1px solid #b5b5b5;
@@ -222,7 +222,7 @@ text-align: center;
   margin: 0 3px;
 }
 
-.communityWriteBtn .upload {
+.communityWriteBtn .upload, .communityModifyBtn .upload {
   background: #6c697c;
   border: 1px solid #6c697c;
 }

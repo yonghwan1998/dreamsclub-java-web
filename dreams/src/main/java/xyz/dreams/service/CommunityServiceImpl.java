@@ -56,7 +56,6 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public CommunityDTO getPage(int communityNo) {
 		CommunityDTO comm = communityDAO.getPage(communityNo);
-		comm.setCommCont(comm.getCommCont().replace("\r\n", "<br>").replace("\n", "<br"));
 		
 		//조회수 +1
 		communityDAO.upCountCommunity(communityNo);
