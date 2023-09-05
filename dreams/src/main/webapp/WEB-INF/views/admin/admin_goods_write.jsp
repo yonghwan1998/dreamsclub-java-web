@@ -96,7 +96,7 @@ td {
 }
 </style>
 
-<script language="JavaScript">
+<script>
 	function goodsCreate() {
 		f.action = "<c:url value="/admin/goods/write"/>";
 		f.submit();
@@ -117,57 +117,75 @@ td {
 				</tr>
 			</table> <br>
 
-			<form name="f" method="post">
+			<form name="f" method="post" enctype="multipart/form-data">
 				<table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 카테고리</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><select name="goodsCategory">
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsCategory">
 								<option value="U" selected>Uniform</option>
 								<option value="C">Cap</option>
 								<option value="F">Fan Goods</option>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 이름</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 150" name="goodsCode" value="${goods.goodsCode }"></td>
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 150" name="goodsCode" value="${goods.goodsCode }">
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 사이즈</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><select name="goodsSize">
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsSize">
 								<option value="L" selected>L</option>
 								<option value="M">M</option>
 								<option value="S">S</option>
-						</select></td>
+								<option value="F">Free</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">가격</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 150" name="goodsPrice" value="${goods.goodsPrice }"></td>
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 150" name="goodsPrice" value="${goods.goodsPrice }">
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 정보</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 240" name="goodsInfo" value="${goods.goodsInfo }"></td>
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsInfo" value="${goods.goodsInfo }">
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 판매여부</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><select name="goodsYn">
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsYn">
 								<option value="Y" selected>Y</option>
 								<option value="N">N</option>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 재고</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 240" name="goodsStock" value="${goods.goodsStock }"></td>
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsStock" value="${goods.goodsStock }">
+						</td>
 					</tr>
-					<%-- <tr>
+					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 이미지</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;"><input type="text" style="width: 240" name="goodsImage" value="${goods.goodsImage }"></td>
-					</tr> --%>
-					<input type="hidden" style="width: 240" name="goodsImage" value="uniform-1.jpg">
+						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="file" style="width: 240" name="uploadImage">
+						</td>
+					</tr>
 				</table>
 			</form> <br>
 			<table width=590 border=0 cellpadding=0 cellspacing=0>
 				<tr>
-					<td align=center><input type="button" value="굿즈등록" onClick="goodsCreate();"></td>
+					<td align=center>
+						<input type="submit" value="굿즈등록" onClick="goodsCreate();">
+					</td>
 				</tr>
 			</table>
 		</td>

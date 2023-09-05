@@ -1,6 +1,9 @@
 package xyz.dreams.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
@@ -24,6 +30,8 @@ public class AdminController {
 	private final MemberService memberService;
 	private final OrderDetailService orderDetailService;
 	private final GoodsService goodsService;
+	
+	private final WebApplicationContext context;
 
 //	관리자 회원 관리
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -60,8 +68,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/goods/write", method = RequestMethod.POST)
-	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods) {
+	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods, @RequestParam MultipartFile uploadImage) throws IllegalStateException, IOException {
+		
+		String uploadDirectory = context.getServletContext().getRealPath("/resources/img/goods-img");
+		String uploadName = UUID.randomUUID().toString() + "_" + uploadImage.getOriginalFilename();
+		uploadImage.transferTo(new File(uploadDirectory, uploadName));
+		
+		goods.setGoodsImage(uploadName);
 		goodsService.addGoods(goods);
+		
 		return "redirect:/admin/goods";
 	}
 }
