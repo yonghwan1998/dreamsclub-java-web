@@ -12,6 +12,36 @@ function searchBtn() {
 }
 </script>
 
+<style>
+.color .green {
+	background: #82c8a0;
+}
+
+.btn.green {
+	background-color: #9abf7f;
+	box-shadow: 0px 4px 0px #87a86f;
+}
+
+.btn {
+	margin-left: 9px;
+	position: relative;
+	border: 0;
+	display: inline-block;
+	text-align: center;
+	color: white;
+	font-size: 12px;
+}
+
+.btn:active {
+	top: 4px;
+}
+
+.btn.green:active {
+	box-shadow: 0 0 #87a86f;
+	background-color: #87a86f;
+}
+</style>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
 	<div class="layout-container">
@@ -97,7 +127,7 @@ function searchBtn() {
 					<div class="admin_card">
 						<h5 class="admin_card-header">굿즈 목록</h5>
 						<div class="table-responsive text-nowrap">
-						<span><a href="/dreams/admin/goods/write">굿즈 등록</a></span>
+							<a href="/dreams/admin/goods/write" class="btn green rounded">굿즈 등록</a>
 							<table class="table table-hover">
 								<thead>
 									<tr>
@@ -106,7 +136,7 @@ function searchBtn() {
 										<th>정보</th>
 										<th>판매 여부</th>
 										<th>재고</th>
-										<th>기능</th>
+										<th style="text-align: center;">기능</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
@@ -120,28 +150,14 @@ function searchBtn() {
 												<c:when test="${goods.goodsYn == 'Y'}">
 													<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
 												</c:when>
-						
+
 												<c:when test="${goods.goodsYn == 'N'}">
 													<td><span class="badge bg-label-danger me-1">${goods.goodsYn }</span></td>
 												</c:when>
 											</c:choose>
-											
+
 											<td>${goods.goodsStock }</td>
-									<td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> 삭제</a
-                              >
-                            </div>
-                          </div>
-                        </td>
+											<td style="text-align: center;"><a href="/dreams/admin/goods/write" class="btn green rounded"> 수정 </a></td>
 										</tr>
 									</c:forEach>
 

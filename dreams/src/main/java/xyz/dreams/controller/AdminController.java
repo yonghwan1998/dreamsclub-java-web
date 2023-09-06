@@ -51,7 +51,6 @@ public class AdminController {
 	}
 
 	/* 관리자 페이지 굿즈 관리 */
-
 //	관리자 굿즈 리스트 출력 
 	@RequestMapping(value = "/goods", method = RequestMethod.GET)
 	public String AdminGoodsView(Model model) {
