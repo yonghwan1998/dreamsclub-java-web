@@ -1,23 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false" %>
 
-<!doctype html>
-<html class="no-js" lang="zxx">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Flone - Minimal eCommerce HTML Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath }/img/favicon.png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css">
-</head>
-
-<body>
 <!--장바구니 메인-->
 <div class="cart-main-area pt-90 pb-100">
     <div class="container">
@@ -31,51 +17,37 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" style="width: 20px"></th><!--체크박스칸-->
-                                    <th></th><!--칸은 있지만 사진칸이라 목록은 빈칸-->
-                                    <th>상품 정보</th>
-                                    <th>수량</th>
-                                    <th>가격</th>
+                                    <th class="t1"><input type="checkbox" style="width: 20px"></th><!--체크박스칸-->
+                                    <th class="t2"></th><!--칸은 있지만 사진칸이라 목록은 빈칸-->
+                                    <th class="t3">상품 정보</th>
+                                    <th class="t4">수량</th>
+                                    <th class="t5">가격</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!--장바구니 목록1-->
-                                <c:forEach items=${cartInfo } var="ci">
+                                <c:forEach items="${cartInfo }" var="ci">
 	                                <tr>                                
 	                                	<!-- 체크박스 -->	
-	                                    <td><input class="cart_info_td" type="checkbox" style="width: 20px">
+	                                    <td class="t1"><input class="cart_info_td" type="checkbox" style="width: 20px">
 		                                    <input type="hidden" class="individual_goodsPrice_input" value="${ci.goodsPrice}">
 		                                    <input type="hidden" class="individual_cartQuantity_input" value="${ci.cartQuantity}">
 		                                    <input type="hidden" class="individual_totalPrice_input" value="${ci.goodsPrice*ci.cartQuantity}">
 	                                    </td>
-	                                    <td class="product-thumbnail">
+	                                    <td class="product-thumbnail t2">
 	                                        <a href="#"><img src="assets/img/cart/cart-1.png" alt=""></a>
 	                                    </td>
 	                                    <!-- split 필요=> 조장님 -->
-	                                    <td class="product-name"><a href="#">${ci.goodsCode }</a></td>
-	                                    <td class="product-quantity">
+	                                    <td class="product-name t3"><a href="#">${ci.goodsCode }</a></td>
+	                                    <td class="product-quantity t4">
 	                                    	<!-- 이것도 학원에 코드있음 -->
 	                                        <div class="cart-plus-minus">
 	                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
 	                                        </div>
 	                                    </td>
-	                                    <td class="product-subtotal"><fmt:formtNumber value="${ci.goodsPrice * ci.cartQuantity }"/></td>
+	                                    <td class="product-subtotal t5"><fmt:formatNumber value="${ci.goodsPrice * ci.cartQuantity }"/></td>
 	                                </tr>
                                 </c:forEach>
-                                <!--장바구니 목록2-->
-                                <!-- <tr>
-                                    <td><input type="checkbox" style="width: 20px"></td>
-                                    <td class="product-thumbnail">
-                                        <a href="#"><img src="assets/img/cart/cart-1.png" alt=""></a>
-                                    </td>
-                                    <td class="product-name"><a href="#">Product Name</a></td>
-                                    <td class="product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">$110.00</td>
-                                </tr>  -->
                             </tbody>
                         </table>
                     </div>
@@ -114,22 +86,5 @@
 </div>
 
 <script type="text/javascript">
-	let totalPrice = 0; //총 가격
-	let finalTotalPrice = 0; //최종가격(총 가격+배송비)
-	
-	$(".cart_info_td").each(function(index, element){
-		//총 가격
-		totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
-	})
-	
-	/*최종 가격*/
-	finalTotalPrice = totalPrice;
-	
-	/*값 삽입*/
-	$(".totalPrice_span").text(totalPrice.toLocaleString());
-	$(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+
 </script>
-
-</body>
-
-</html>

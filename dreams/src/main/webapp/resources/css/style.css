@@ -14292,13 +14292,17 @@ h3.cart-page-title {
 }
 
 /* 형섭: 3px로 수정 */
+/*예지 : width:100% 추가*/
 .cart-table-content table {
   border: 3px solid #ebebeb;
+  width: 100%;
 }
+
+/*예지 : border 삭제*/
 .cart-table-content table thead > tr {
   background-color: #f9f9f9;
-  border: 1px solid #ebebeb;
 }
+
 .cart-table-content table thead > tr th {
   border-top: medium none;
   color: #747474;
@@ -14315,6 +14319,29 @@ h3.cart-page-title {
 .cart-table-content table tbody > tr td {
   border: 1px solid #ebebeb;
 }
+
+/*예지 : .cart-table-content table t1~t5까지 추가*/
+.cart-table-content table .t1 {
+	width: 10%
+}
+
+.cart-table-content table .t2 {
+	width: 17%
+}
+
+.cart-table-content table .t3 {
+	width: 40%
+}
+
+.cart-table-content table .t4 {
+	width: 15%;
+}
+
+.cart-table-content table .t5 {
+	width: 18%;
+}
+
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .cart-table-content table thead > tr th {
     padding: 21px 35px 22px;

@@ -5,23 +5,23 @@ import java.util.List;
 import xyz.dreams.dto.CartDTO;
 
 public interface CartService{
-
-	/* 장바구니 추가 */
-	public int addCart(CartDTO cart);
 	
-	/* 장바구니 수정 */
-	public int modifyCart(CartDTO cart);
+	/* 장바구니 추가 */
+	int addCart(CartDTO cart) throws Exception;
 	
 	/* 장바구니 삭제 */
-	public int removeCart(CartDTO cart);
+	void deleteCart(String cartNo);
+
+	/* 장바구니 수량 수정 */
+	void modifyCart(CartDTO cart);
 	
 	/* 장바구니 목록 보기 */
-	List<CartDTO> getCartList();
-	
-	/*장바구니 목록 하나 보기*/
-	CartDTO selectCart(String memberId);
+	List<CartDTO> selectCartList(String memberId);
 	
 	/* 장바구니 확인 */
-	void checkCart(CartDTO cart);
+	CartDTO checkCart(CartDTO cart);
+	
+	/* 장바구니 제거(주문) */
+	void deleteOrderCart(CartDTO cartOrder);
 	
 }

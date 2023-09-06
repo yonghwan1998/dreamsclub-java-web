@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.CartDAO;
 import xyz.dreams.dto.CartDTO;
+import xyz.dreams.mapper.CartMapper;
 
 @Service
 @RequiredArgsConstructor
@@ -14,56 +15,38 @@ public class CartServiceImpl implements CartService{
 	private final CartDAO cartDAO;
 
 	@Override
-	public int addCart(CartDTO cart) {
-		//상품이 장바구니DB에 있는지 확인
-		CartDTO checkCart = cartDAO.checkCart(cart);
-		
-		if(checkCart != null) {
-			return 2;
-		}
-		
-		try {
-			return cartDAO.insertCart(cart);
-		}catch (Exception e) {
-			return 0;
-		}
-		
-	}
-
-	@Override
-	public int modifyCart(CartDTO cart) {
+	public int addCart(CartDTO cart) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int removeCart(CartDTO cart) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void deleteCart(String cartNo) {
+		cartDAO.deleteCart(cartNo);
 	}
 
 	@Override
-	public List<CartDTO> getCartList() {
+	public void modifyCart(CartDTO cart) {
+		// TODO Auto-generated method stub
 		
-		List<CartDTO> cart = cartDAO.selectCart(memberId);
-		
-		for(CartDTO dto : cart) {
-			dto.getTotalPrice();
-		}
-		
+	}
+
+	@Override
+	public List<CartDTO> selectCartList(String memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CartDTO checkCart(CartDTO cart) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void checkCart(CartDTO cart) {
+	public void deleteOrderCart(CartDTO cartOrder) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public CartDTO selectCart(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

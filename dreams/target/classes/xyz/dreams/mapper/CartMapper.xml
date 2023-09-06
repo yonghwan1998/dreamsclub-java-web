@@ -3,19 +3,18 @@
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 
 	<!-- 카트 추가 -->
-	<insert id="insertCart">
-		insert into cart(member_id, goods_code, cart_quantity, goods_price)
-			values(#{memberId}, #{goodsCode}, #{cartQuantity}, #{goodsPrice})
+	<insert id="addCart">
+		insert into cart(member_id, goods_code, cart_quantity)
+			values(#{memberId}, #{goodsCode}, #{cartQuantity})
 	</insert>
 	
-	<!-- 카트 삭제 -->
+	<!-- 카트 삭제(cartNo 삭제는 row 삭제임) -->
 	<delete id="deleteCart">
 		delete from cart where cart_no=#{cartNo}
-		<!-- 카트삭제가 아니라 카트 안의 상품 삭제인데 다시 생각해봐야할듯 -->
 	</delete>
 	
 	<!-- 카트 수량 수정 -->
-	<update id="updateCart">
+	<update id="modifyCart">
 		update cart set cart_quantity=#{cartQuantity} where cart_no=#{cartNo}
 	</update>
 	
@@ -27,10 +26,15 @@
 	</select>
 	
 	<!-- 카트 확인 -->
-	<select id="checkCart">
+	<select id="checkCart" resultType="CartDTO">
 		select * from cart
 		where member_id=#{memberId} and goods_code=#{goodsCode}
 	</select>
+	
+	<!-- 주문제거 -->
+	<delete id="deleteOrderCart">
+		delete from cart where member_id=#{memberId} and goods_Code=#{goodsCode}
+	</delete>
 
 
 

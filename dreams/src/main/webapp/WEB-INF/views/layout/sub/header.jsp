@@ -114,9 +114,10 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-
+					
+					<!-- 장바구니 -->
 					<div class="same-style cart-wrap">
-						<button class="icon-cart" onclick="location.href='<c:url value="/cart"/>'">
+						<button class="icon-cart" onclick="location.href='<c:url value="/cart/${member.memberId }"/>'">
 							<i class="pe-7s-shopbag"></i>
 						</button>
 					</div>
