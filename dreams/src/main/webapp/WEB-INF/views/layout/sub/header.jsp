@@ -83,7 +83,7 @@
 								</ul></li>
 								
 							<!-- Navbar - 고객센터 -->
-							<li><a href="<c:url value="/customer"/>"> 고객센터</a></li>
+							<li><a href="<c:url value="service"/>"> 고객센터</a></li>
 						</ul>
 					</nav>
 				</div>
