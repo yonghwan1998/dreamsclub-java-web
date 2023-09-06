@@ -15,27 +15,28 @@ import xyz.dreams.mapper.GoodsMapper;
 public class GoodsDAOImpl implements GoodsDAO {
 	private final SqlSession sqlSession;
 
-//	굿즈 메인 페이지
-
+	/* 굿즈 메인 페이지 */
+//	굿즈 리스트 출력
 	@Override
 	public List<GoodsDTO> selectGoodsList(Map<String, Object> map) {
 		return sqlSession.getMapper(GoodsMapper.class).selectGoodsList(map);
 	}
 
-//	굿즈 디테일 페이지
-
+	/* 굿즈 디테일 페이지 */
+//	굿즈 상세 정보 출력
 	@Override
 	public List<GoodsDTO> selectGoodsDetailList(String goodsName) {
 		return sqlSession.getMapper(GoodsMapper.class).selectGoodsDetailList(goodsName);
 	}
 
-//	관리자 페이지 굿즈 관리
-
+	/* 관리자 페이지 굿즈 관리 */
+//	관리자 굿즈 리스트 출력
 	@Override
 	public List<GoodsDTO> selectAdminGoodsList() {
 		return sqlSession.getMapper(GoodsMapper.class).selectAdminGoodsList();
 	}
 
+//	관리자 굿즈 등록
 	@Override
 	public int insertGoods(GoodsDTO goods) {
 		return sqlSession.getMapper(GoodsMapper.class).insertGoods(goods);

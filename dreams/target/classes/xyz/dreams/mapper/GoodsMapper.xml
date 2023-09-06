@@ -3,7 +3,7 @@
 <mapper namespace="xyz.dreams.mapper.GoodsMapper">
 
 	<!-- 굿즈 메인 페이지 -->
-
+	<!-- 굿즈 리스트 출력 -->
 	<select id="selectGoodsList" resultType="GoodsDTO">
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
 		<if test="q != null and q != ''"> 
@@ -19,7 +19,7 @@
 	</select>
 
 	<!-- 굿즈 디테일 페이지 -->
-
+	<!-- 굿즈 상세 정보 출력 -->
 	<select id="selectGoodsDetailList" resultType="GoodsDTO">
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
 		<bind name="goodsName" value="'%%'+goodsName+'-%%'"/>
@@ -27,10 +27,12 @@
 	</select>
 	
 	<!-- 관리자 페이지 굿즈 관리 -->
+	<!-- 관리자 굿즈 목록 출력 -->
 	<select id="selectAdminGoodsList" resultType="GoodsDTO">
 		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods order by GOODS_CODE
 	</select>
 	
+	<!-- 관리자 굿즈 등록 -->
 	<insert id="insertGoods">
 		insert into goods values (#{goodsCode}, #{goodsPrice}, #{goodsInfo}, #{goodsYn}, #{goodsStock}, #{goodsImage})
 	</insert>

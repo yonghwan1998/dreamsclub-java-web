@@ -30,19 +30,19 @@ public class AdminController {
 	private final MemberService memberService;
 	private final OrderDetailService orderDetailService;
 	private final GoodsService goodsService;
-	
+
 	private final WebApplicationContext context;
 
-//	관리자 회원 관리
+	/* 관리자 페이지 회원 관리 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String AdminMemberView(Model model) {
 		List<MemberDTO> getMemberList = memberService.getMemberList();
 		model.addAttribute("getMemberList", getMemberList);
-		System.out.println("getMemberList"+getMemberList);
+		System.out.println("getMemberList" + getMemberList);
 		return "admin/admin";
 	}
 
-//	관리자 주문 관리
+	/* 관리자 페이지 주문 관리 */
 	@GetMapping("/order")
 	public String AdminOrderView(Model model) {
 		List<OrderDetailDTO> getOrderList = orderDetailService.getOrderList();
@@ -50,33 +50,37 @@ public class AdminController {
 		return "admin/admin_order";
 	}
 
+	/* 관리자 페이지 굿즈 관리 */
 
-//    관리자 굿즈 관리
+//	관리자 굿즈 리스트 출력 
 	@RequestMapping(value = "/goods", method = RequestMethod.GET)
 	public String AdminGoodsView(Model model) {
 
 		List<GoodsDTO> goodsList = goodsService.getAdminGoodsList();
 		model.addAttribute("goodsList", goodsList);
-		
+
 		return "admin/admin_goods";
 	}
-	
+
+//	관리자 굿즈 등록 페이지로 이동
 	@RequestMapping(value = "/goods/write", method = RequestMethod.GET)
 	public String AdminGoodsWriteView() {
-		
+
 		return "admin/admin_goods_write";
 	}
-	
+
+//	관리자 굿즈 등록
 	@RequestMapping(value = "/goods/write", method = RequestMethod.POST)
-	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods, @RequestParam MultipartFile uploadImage) throws IllegalStateException, IOException {
-		
+	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods, @RequestParam MultipartFile uploadImage)
+			throws IllegalStateException, IOException {
+
 		String uploadDirectory = context.getServletContext().getRealPath("/resources/img/goods-img");
 		String uploadName = UUID.randomUUID().toString() + "_" + uploadImage.getOriginalFilename();
 		uploadImage.transferTo(new File(uploadDirectory, uploadName));
-		
+
 		goods.setGoodsImage(uploadName);
 		goodsService.addGoods(goods);
-		
+
 		return "redirect:/admin/goods";
 	}
 }

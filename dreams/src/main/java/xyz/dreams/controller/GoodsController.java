@@ -22,8 +22,8 @@ import xyz.dreams.service.GoodsService;
 public class GoodsController {
 	private final GoodsService goodsService;
 
-//	GET - 굿즈 메인 페이지
-
+	/* GET - 굿즈 메인 페이지 */
+//	굿즈 리스트 출력
 	@RequestMapping("/main")
 	public String view(String q, @RequestParam(defaultValue = "goods_code") String column, Model model) {
 
@@ -42,10 +42,10 @@ public class GoodsController {
 		return "goods/goods_main";
 	}
 
-//	POST - 굿즈 메인 페이지
+	/* POST - 굿즈 메인 페이지 */
 
-//	GET - 굿즈 상세 페이지
-
+	/* GET - 굿즈 상세 페이지 */
+//	굿즈 상세 정보 출력
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@RequestParam String goodsName, Model model) {
 
@@ -55,8 +55,8 @@ public class GoodsController {
 		return "goods/goods_detail";
 	}
 
-//	POST - 굿즈 상세 페이지
-
+	/* POST - 굿즈 상세 페이지 */
+//	장바구니로 굿즈 정보 넘기기
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	public String purchase(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {
 
