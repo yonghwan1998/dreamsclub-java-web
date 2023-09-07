@@ -34,6 +34,7 @@
 		                                    <input type="hidden" class="individual_cartQuantity_input" value="${ci.cartQuantity}">
 		                                    <input type="hidden" class="individual_totalPrice_input" value="${ci.goodsPrice*ci.cartQuantity}">
 	                                    </td>
+	                                    <!-- 이미지 추가 작업하기 -->
 	                                    <td class="product-thumbnail t2">
 	                                        <a href="#"><img src="assets/img/cart/cart-1.png" alt=""></a>
 	                                    </td>
