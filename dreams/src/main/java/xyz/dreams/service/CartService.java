@@ -17,11 +17,6 @@ public interface CartService{
 	
 	/* 장바구니 목록 보기 */
 	List<CartDTO> selectCartList(String memberId);
-	
-	/* 장바구니 확인 */
-	CartDTO checkCart(CartDTO cart);
-	
-	/* 장바구니 제거(주문) */
-	void deleteOrderCart(CartDTO cartOrder);
+
 	
 }

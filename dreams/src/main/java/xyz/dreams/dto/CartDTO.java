@@ -16,16 +16,14 @@ public class CartDTO {
 	private String cartNo; //장바구니 번호
 	private String memberId; //회원 아이디
 	private int cartQuantity; //굿즈 개수
-	private String goodsCode; //굿즈 코드
+	private String goodsCode; //굿즈 코드(이름-카테고리-사이즈)
 	
 	//Goods 속성 (조인필요)
 	private int goodsPrice; //굿즈 가격
 	private String goodsImage; //굿즈 이미지
-	private int goodsName; //굿즈 이름 (테이블에 없음)
 	
 	//추가(테이블에는 없음)
-	private int totalPrice; //굿즈 하나 가격
+	private int totalPrice; //총 상품금액
 	private int orderPrice; //총 주문금액
-	
 	
 }

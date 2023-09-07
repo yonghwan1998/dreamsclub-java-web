@@ -1,22 +1,15 @@
 package xyz.dreams.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartDTO;
-import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CartService;
 
 @Controller
@@ -36,27 +29,20 @@ public class CartController {
 	
 	/*장바구니 상품 추가하기*/
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addCartPOST(CartDTO cartDTO, HttpSession session){
+	public String addCartPOST(CartDTO cartDTO, HttpSession session) throws Exception{
 		//질문: HttpServletRequest request 이랑 HttpSession session이랑 뭐가 다른거?
 		
 		//로그인아이디 가져오기
 		CartDTO cartLogin = (CartDTO)session.getAttribute("member");
 		
-		//로그인 안되어있으면 로그인 필요 경고창 반환
+		//로그인 안되어있으면 로그인 필요 경고창 반환(jsp에서 js넣어주기)
 		if(cartLogin == null) {
 			return "5";
 		}
 		
-		//로그인 되어 있으면 장바구니에 굿즈 추가됨. 아니면 0(등록취소)됨
-		int result;
-		try {
-			result = cartService.addCart(cartDTO);
-		} catch (Exception e) {
-			return "0";
-		}
+		int result = cartService.addCart(cartDTO);
 		
-		return result+""; //문자열로 반환
-		
+		return result+"";
 		
 	}
 
@@ -69,8 +55,8 @@ public class CartController {
 		
 		return "cart/cart";
 	}
-	
-	
+
+
 	/*장바구니 수량 수정(추가)*/
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateCartPOST(CartDTO cartDTO) {
