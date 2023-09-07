@@ -13,20 +13,20 @@ import xyz.dreams.mapper.CartMapper;
 @RequiredArgsConstructor
 public class CartDAOImpl implements CartDAO {
 	private final SqlSession sqlSession;
-	
+
 	@Override
-	public int insertCart(CartDTO cart) {
-		return sqlSession.getMapper(CartMapper.class).insertCart(cart);
+	public int addCart(CartDTO cart) throws Exception {
+		return sqlSession.getMapper(CartMapper.class).addCart(cart);
 	}
 
 	@Override
-	public int deleteCart(CartDTO cart) {
-		return sqlSession.getMapper(CartMapper.class).deleteCart(cart);
+	public int deleteCart(String cartNo) {
+		return sqlSession.getMapper(CartMapper.class).deleteCart(cartNo);
 	}
 
 	@Override
-	public int updateCart(CartDTO cart) {
-		return sqlSession.getMapper(CartMapper.class).updateCart(cart);
+	public int modifyCart(CartDTO cart) {
+		return sqlSession.getMapper(CartMapper.class).modifyCart(cart);
 	}
 
 	@Override
@@ -38,12 +38,12 @@ public class CartDAOImpl implements CartDAO {
 	public CartDTO checkCart(CartDTO cart) {
 		return sqlSession.getMapper(CartMapper.class).checkCart(cart);
 	}
-	//강민경: 메소드 하나 정의된게 없어서 에러 뜨길래 만들었어용,,,,,,,,,,
+
 	@Override
-	public CartDTO selectCart(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+	public int deleteOrderCart(CartDTO cartOrder) {
+		return sqlSession.getMapper(CartMapper.class).deleteOrderCart(cartOrder);
 	}
+	
 
 
 	
