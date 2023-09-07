@@ -54,7 +54,6 @@ public class GoodsServiceImpl implements GoodsService {
 //	굿즈 상세 정보 출력
 	@Override
 	public GoodsDTO getGoodsDetail(String goodsName) {
-		System.out.println(goodsName);
 		List<GoodsDTO> goodsDetailList = goodsDAO.selectGoodsDetailList(goodsName);
 
 		GoodsDTO goodsDetail = goodsDetailList.get(0);
@@ -79,6 +78,23 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<GoodsDTO> getAdminGoodsList() {
 		List<GoodsDTO> goodsList = goodsDAO.selectAdminGoodsList();
+		String goodsName = null;
+		String goodsCategory = null;
+		String goodsSize = null;
+		GoodsDTO goodsChangedName=null;
+		
+		for (int i = 0; i < goodsList.size(); i++) {
+			goodsName = goodsList.get(i).getGoodsCode().split("-")[0];
+			goodsCategory = goodsList.get(i).getGoodsCode().split("-")[1];
+			goodsSize = goodsList.get(i).getGoodsCode().split("-")[2];
+			
+			goodsChangedName = goodsList.get(i);
+			goodsChangedName.setGoodsName(goodsName);
+			goodsChangedName.setGoodsCategory(goodsCategory);
+			goodsChangedName.setGoodsSize(goodsSize);
+			
+			goodsList.set(i, goodsChangedName);
+		}
 
 		return goodsList;
 	}

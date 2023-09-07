@@ -82,4 +82,10 @@ public class AdminController {
 
 		return "redirect:/admin/goods";
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public String test(@ModelAttribute GoodsDTO goods){
+		System.out.println(goods);
+		return "redirect:/admin/goods";
+	}
 }
