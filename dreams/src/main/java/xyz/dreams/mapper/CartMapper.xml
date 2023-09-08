@@ -3,9 +3,12 @@
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 
 	<!-- 카트 추가 -->
-	<insert id="addCart">
-		insert into cart(member_id, goods_code, cart_quantity)
-			values(#{memberId}, #{goodsCode}, #{cartQuantity})
+	<insert id="addCart" parameterType="cartDTO">
+		<!-- insert into cart(member_id, goods_code, cart_quantity)
+			values(#{memberId}, #{goodsCode}, #{cartQuantity}) -->
+		
+		insert into cart(CART_NO, MEMBER_ID, CART_QUANTITY, GOODS_CODE, GOODS_PRICE, GOODS_IMAGE, GOODS_COUNT)
+			values(#{cartNo), #{memberId}, #{cartQuantity}, #{goodsCode}, #{goodsPrice}, #{goodsImage}, #{goodsCount})
 	</insert>
 	
 	<!-- 카트 삭제(cartNo 삭제는 row 삭제임) -->
@@ -22,7 +25,7 @@
 	<select id="selectCartList" resultType="CartDTO">
 		select a.cart_no, a.member_id, a.cart_quantity, a.goods_code, b.goods_price
 		from cart a left outer join goods b on a.goods_code=b.goods_code
-		where a.member_id=#{memberId}
+		where a.member_id=#{memberId} order by a.cart_no desc
 	</select>
 	
 	<!-- 카트 확인 -->
@@ -35,7 +38,5 @@
 	<delete id="deleteOrderCart">
 		delete from cart where member_id=#{memberId} and goods_Code=#{goodsCode}
 	</delete>
-
-
 
 </mapper>

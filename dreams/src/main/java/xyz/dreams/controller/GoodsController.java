@@ -58,7 +58,16 @@ public class GoodsController {
 	/* POST - 굿즈 상세 페이지 */
 //	장바구니로 굿즈 정보 넘기기
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
-	public String purchase(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {
+	public String purchaseCart(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {
+
+		attributes.addFlashAttribute("goods", goods);
+		
+		return "redirect:/cart";
+	}
+	
+//	결제페이지로 굿즈 정보 바로 넘기기
+	@RequestMapping(value = "/detail/order", method = RequestMethod.POST)
+	public String purchaseOrder(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {
 
 		goods.setGoodsPrice(goods.getGoodsPrice() * goods.getGoodsCount());
 

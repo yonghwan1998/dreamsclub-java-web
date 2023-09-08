@@ -11,6 +11,33 @@
       	purchase.action = "<c:url value="/goods/detail"/>";
       	purchase.submit();
 	}
+	
+	/*장바구니*/
+	function purchaseCartGoods(){
+		if(result = '0'){
+			alert("상품이 장바구니에 담기지 못했습니다.");
+		} else if(result='1'){
+			alert("상품이 장바구니에 추가되었습니다.");
+			if(confirm("장바구니로 이동하시겠습니까?")==true){
+				location.href="<c:url value='/cart/${member.memberId}'/>"
+			} else if(confirm==false){
+				
+			}
+		} else if(result='2'){
+			alert("장바구니에 이미 동일한 상품이 존재합니다.")
+			//이때 수량만 증가하게 하고싶음.
+		} else if(result='5'){
+			alert("로그인이 필요합니다.");
+			if(confirm("로그인페이지로 이동하시겠습니까?")==true){
+				location.href="<c:out value='/login'/>"
+			} else if(confirm==false){
+				
+			}
+		}
+	}
+	
+	//장바구니 추가
+	
 </script>
 
 <div class="shop-area pt-100 pb-100">
@@ -63,7 +90,8 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-								<a onclick="purchaseGoods();">구매하기</a>
+								<a onclick="purchaseCartGoods();">장바구니 담기</a>
+								<a onclick="purchaseGoods();">바로 구매하기</a>
 							</div>
 						</div>
 					</form>

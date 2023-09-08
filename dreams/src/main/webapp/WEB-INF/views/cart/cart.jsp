@@ -37,7 +37,7 @@
 	                                    <!-- 이미지 추가 작업하기 -->
 	                                    <td class="product-thumbnail t2">
 	                                        <!-- <a href="#"><img src="assets/img/cart/cart-1.png" alt=""></a> -->
-	                                        <div class="image_wrap" data-goodsCode="${ci.goodsImage }" data-path>
+	                                        <div class="image_wrap" data-goodsCode="${ci.goodsImage }" data-path=<c:out value="/images/${ci.goodsImage }"/>>
 	                                        
 	                                        </div>
 	                                    </td>
