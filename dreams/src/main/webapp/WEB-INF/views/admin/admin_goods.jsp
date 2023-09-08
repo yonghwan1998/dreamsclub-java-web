@@ -10,12 +10,48 @@ function searchBtn() {
 	alert(searchInput);
 }
 
-$(".modifyBtn").click(function() {
-	/* var goodsInfo = $("goodsInfo").val(); */
-	/* var goodsInfo = document.getElementById("searchInput").value; */
-	var goodsInfo = document.getElementsByName("goodsInfo").value;
-	alert(goodsInfo);
-});
+// 수정 버튼 클릭시
+function clickChangeBtn(clicked_id) {
+	
+	// 기존 보여지던 값들 숨기기 	
+	$('#'+clicked_id+'_price').css("display","none");
+	$('#'+clicked_id+'_info').css("display","none");
+	$('#'+clicked_id+'_stock').css("display","none");
+	// 수정 버튼 숨기기
+	$('#'+clicked_id).css("display","none");
+	
+	// 새로운 값을 입력할 input 태그 보이기
+	$('#'+clicked_id+'_price_input').css("display","inline-block");
+	$('#'+clicked_id+'_info_input').css("display","inline-block");
+	$('#'+clicked_id+'_stock_input').css("display","inline-block");
+	// 제출 버튼 보이기
+	$('#'+clicked_id+'SubmitBtn').css("display","inline-block");
+	
+}
+
+function clickSubmitBtn() {
+	alert("submit");
+}
+
+// 취소 버튼 클릭시
+function clickResetBtn(clicked_id) {
+	
+	// 새로운 값을 입력한 input 태그 숨기기
+	$('#'+clicked_id+'_price_input').css("display","none");
+	$('#'+clicked_id+'_info_input').css("display","none");
+	$('#'+clicked_id+'_stock_input').css("display","none");
+	// 제출 버튼 숨기기	
+	$('#'+clicked_id+'SubmitBtn').css("display","none");
+	
+	// 보여질 값들 보이기
+	$('#'+clicked_id+'_price').css("display","inline-block");
+	$('#'+clicked_id+'_info').css("display","inline-block");
+	$('#'+clicked_id+'_stock').css("display","inline-block");
+	// 수정 버튼 보이기
+	$('#'+clicked_id).css("display","inline-block");
+	
+}
+
 </script>
 
 <style>
@@ -123,7 +159,6 @@ $(".modifyBtn").click(function() {
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
 				<!-- Content -->
-
 				<div class="container-xxl flex-grow-1 container-p-y">
 					<h4 class="fw-bold py-3 mb-4">
 						<span class="text-muted fw-light">관리자 /</span> 굿즈 관리
@@ -154,6 +189,7 @@ $(".modifyBtn").click(function() {
 											<td>
 												<strong>${goods.goodsName }</strong>
 												<input type="hidden" name="goodsCode" value="${goods.goodsCode }" />
+												<input type="hidden" name="noSpaceGoodsCode" value="${goods.noSpaceGoodsCode }" />
 											</td>
 											<td>
 												<c:if test ="${goods.goodsCategory eq 'U'}">Uniform</c:if>
@@ -167,13 +203,13 @@ $(".modifyBtn").click(function() {
 												<c:if test ="${goods.goodsSize eq 'F'}">Free</c:if>
 											</td>
 											<td>
-												<span class="changeStatus">${goods.goodsPrice }</span>
-												<input class="changeStatusInput" type="hidden" name="goodsPrice" value="${goods.goodsPrice }"/>
+												<span id="${goods.noSpaceGoodsCode }_price" style="display : inline-block;">${goods.goodsPrice }</span>
+												<input id="${goods.noSpaceGoodsCode }_price_input" style="display : none;" name="goodsPrice" value="${goods.goodsPrice }"/>
 												 원
 											</td>
 											<td>
-												<span class="changeStatus">${goods.goodsInfo }</span>
-												<input class="changeStatusInput" type="hidden" name="goodsInfo" value="${goods.goodsInfo }"/>
+												<span id="${goods.noSpaceGoodsCode }_info" style="display : inline-block;">${goods.goodsInfo }</span>
+												<input id="${goods.noSpaceGoodsCode }_info_input" style="display : none;" name="goodsInfo" value="${goods.goodsInfo }"/>
 											</td>
 											
 												<input type="hidden" name="goodsYn" value="${goods.goodsYn }" />
@@ -187,13 +223,13 @@ $(".modifyBtn").click(function() {
 												</c:when>
 											</c:choose>
 											<td>
-												<span class="changeStatus">${goods.goodsStock }</span>
-												<input class="changeStatusInput" type="hidden" name="goodsStock" value="${goods.goodsStock }"/>
+												<span id="${goods.noSpaceGoodsCode }_stock" style="display : inline-block;">${goods.goodsStock }</span>
+												<input id="${goods.noSpaceGoodsCode }_stock_input" style="display : none;" name="goodsStock" value="${goods.goodsStock }"/>
 											</td>
 											<td style="text-align: center;">
-												<button class="btn green rounded changeBtn" style="display : inline-block;"> 수정 </button>
-												<button class="btn green rounded submitBtn" style="display : none;"> 제출 </button>
-												<button class="btn green rounded resetBtn" style="display : inline-block;"> 취소 </button>
+												<button id="${goods.noSpaceGoodsCode }" type="button" class="btn green rounded" style="display : inline-block;" onclick="clickChangeBtn(this.id)"> 수정 </button>
+												<button id="${goods.noSpaceGoodsCode }SubmitBtn" type="submit" class="btn green rounded" style="display : none;" onclick="clickSubmitBtn()"> 제출 </button>
+												<button id="${goods.noSpaceGoodsCode }ResetBtn" type="reset" class="btn green rounded" style="display : inline-block;" onclick="clickResetBtn('${goods.noSpaceGoodsCode }')"> 취소 </button>
 											</td>
 										</tr>
 									</form>
@@ -206,9 +242,6 @@ $(".modifyBtn").click(function() {
 
 					<hr class="my-5" />
 					<!-- / Content -->
-
-					<!-- Footer -->
-					<!-- / Footer -->
 
 					<div class="content-backdrop fade"></div>
 				</div>
