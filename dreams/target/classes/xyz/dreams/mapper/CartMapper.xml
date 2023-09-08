@@ -8,7 +8,7 @@
 			values(#{memberId}, #{goodsCode}, #{cartQuantity}) -->
 		
 		insert into cart(CART_NO, MEMBER_ID, CART_QUANTITY, GOODS_CODE, GOODS_PRICE, GOODS_IMAGE, GOODS_COUNT)
-			values(#{cartNo), #{memberId}, #{cartQuantity}, #{goodsCode}, #{goodsPrice}, #{goodsImage}, #{goodsCount})
+			values(#{cartNo}, #{memberId}, #{cartQuantity}, #{goodsCode}, #{goodsPrice}, #{goodsImage}, #{goodsCount})
 	</insert>
 	
 	<!-- 카트 삭제(cartNo 삭제는 row 삭제임) -->
@@ -24,8 +24,10 @@
 	<!-- 카트 목록 보기 -->
 	<select id="selectCartList" resultType="CartDTO">
 		select a.cart_no, a.member_id, a.cart_quantity, a.goods_code, b.goods_price
-		from cart a left outer join goods b on a.goods_code=b.goods_code
-		where a.member_id=#{memberId} order by a.cart_no desc
+		from cart a 
+		left outer join goods b 
+		on a.goods_code=b.goods_code
+		where a.member_id=#{memberId} 
 	</select>
 	
 	<!-- 카트 확인 -->
