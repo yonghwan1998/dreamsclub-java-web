@@ -1,23 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-     <script>
-      function MemberLogin() {
-      if ( login.memberId.value == "" ) {
-         alert("아이디를 입력하십시오.");
-         login.memberId.focus();
-         return;
-      } 
-      if ( login.memberPw.value == "" ) {
-         alert("비밀번호를 입력하십시오.");
-         login.memberPw.focus();
-         return;
-      }   
-      
-      login.action = "<c:url value="/login"/>";
-      login.submit();
-      }
-   </script>
+ <script>
+ 
+  function MemberLogin() {
+   if ( login.memberId.value == "" ) {
+      alert("아이디를 입력하십시오.");
+      login.memberId.focus();
+      return;
+   } 
+   if ( login.memberPw.value == "" ) {
+      alert("비밀번호를 입력하십시오.");
+      login.memberPw.focus();
+      return;
+   }   
+   login.action = "<c:url value="/login"/>";
+   login.submit();
+  }  
+  
+  // 강민경(수정): 2023/09/09 Enter 이벤트 추가 
+  document.addEventListener("keyup", function(event) {
+    if (event.key === 'Enter') {
+        $(MemberLogin).click();
+    }
+});
+</script>
 
 
 <!-- 로그인 -->
@@ -44,7 +51,7 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form method="post" name="login">
+                                    <form method="post" name="login" id="login_form">
                                         <input type="text" name="memberId" placeholder="아이디를 입력해 주세요."  />
                                         <input type="password" name="memberPw" placeholder="비밀번호를 입력해 주세요." />
                                         <div class="button-box">
@@ -57,7 +64,7 @@
                                                 <div><a href="/dreams/join/check">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                                
                                             </div>
-                                            <button type="button" onclick="MemberLogin();"><span>로그인</span></button>
+                                            <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
                                             <tr>
 			                                   <td width="20"></td>
 			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
