@@ -154,12 +154,6 @@ td {
 						<td align=center bgcolor="ffffff" style="padding-left: 10px;">M</td>
 						<td align=center bgcolor="ffffff" style="padding-left: 10px;">S</td>
 						<td align=center bgcolor="ffffff" style="padding-left: 10px;">F</td>
-							<!-- <select name="goodsSize">
-								<option value="L" selected>L</option>
-								<option value="M">M</option>
-								<option value="S">S</option>
-								<option value="F">Free</option>
-							</select> -->
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 판매여부</td>
@@ -215,6 +209,11 @@ td {
 				<tr>
 					<td align=center>
 						<input type="submit" value="굿즈등록" onClick="goodsCreate();">
+					</td>
+				</tr>
+				<tr>
+					<td align=center>
+					<a href="<c:url value="/admin/goods"/>">뒤로 가기</a>
 					</td>
 				</tr>
 			</table>

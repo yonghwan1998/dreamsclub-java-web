@@ -21,6 +21,9 @@ public class GoodsDTO {
 	private int goodsStockS;
 	private int goodsStockF;
 	
+//	관리자 굿즈 변경 시 사용할 필드
+	private String noSpaceGoodsCode;
+	
 //	구매하기에서 사용할 필드
 	private String goodsName;
 	private int goodsCount;

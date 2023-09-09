@@ -8,8 +8,50 @@
 function searchBtn() {
 	var searchInput = document.getElementById("searchInput").value;
 	alert(searchInput);
+}
+
+// 수정 버튼 클릭시
+function clickChangeBtn(clicked_id) {
+	
+	// 기존 보여지던 값들 숨기기 	
+	$('#'+clicked_id+'_price').css("display","none");
+	$('#'+clicked_id+'_info').css("display","none");
+	$('#'+clicked_id+'_stock').css("display","none");
+	// 수정 버튼 숨기기
+	$('#'+clicked_id).css("display","none");
+	
+	// 새로운 값을 입력할 input 태그 보이기
+	$('#'+clicked_id+'_price_input').css("display","inline-block");
+	$('#'+clicked_id+'_info_input').css("display","inline-block");
+	$('#'+clicked_id+'_stock_input').css("display","inline-block");
+	// 제출 버튼 보이기
+	$('#'+clicked_id+'SubmitBtn').css("display","inline-block");
 	
 }
+
+function clickSubmitBtn() {
+	alert("submit");
+}
+
+// 취소 버튼 클릭시
+function clickResetBtn(clicked_id) {
+	
+	// 새로운 값을 입력한 input 태그 숨기기
+	$('#'+clicked_id+'_price_input').css("display","none");
+	$('#'+clicked_id+'_info_input').css("display","none");
+	$('#'+clicked_id+'_stock_input').css("display","none");
+	// 제출 버튼 숨기기	
+	$('#'+clicked_id+'SubmitBtn').css("display","none");
+	
+	// 보여질 값들 보이기
+	$('#'+clicked_id+'_price').css("display","inline-block");
+	$('#'+clicked_id+'_info').css("display","inline-block");
+	$('#'+clicked_id+'_stock').css("display","inline-block");
+	// 수정 버튼 보이기
+	$('#'+clicked_id).css("display","inline-block");
+	
+}
+
 </script>
 
 <style>
@@ -117,7 +159,6 @@ function searchBtn() {
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
 				<!-- Content -->
-
 				<div class="container-xxl flex-grow-1 container-p-y">
 					<h4 class="fw-bold py-3 mb-4">
 						<span class="text-muted fw-light">관리자 /</span> 굿즈 관리
@@ -127,11 +168,13 @@ function searchBtn() {
 					<div class="admin_card">
 						<h5 class="admin_card-header">굿즈 목록</h5>
 						<div class="table-responsive text-nowrap">
-							<a href="/dreams/admin/goods/write" class="btn green rounded">굿즈 등록</a>
+							<a href="<c:url value="/admin/goods/write"/>" class="btn green rounded" >굿즈 등록</a>
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th>굿즈 코드</th>
+										<th>이름</th>
+										<th>카테고리</th>
+										<th>사이즈</th>
 										<th>가격</th>
 										<th>정보</th>
 										<th>판매 여부</th>
@@ -140,12 +183,36 @@ function searchBtn() {
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
-
 									<c:forEach var="goods" items="${goodsList }">
+									<form action="<c:url value="/admin/test"/>" method="post" >
 										<tr>
-											<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${goods.goodsCode }</strong></td>
-											<td><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</td>
-											<td>${goods.goodsInfo }</td>
+											<td>
+												<strong>${goods.goodsName }</strong>
+												<input type="hidden" name="goodsCode" value="${goods.goodsCode }" />
+												<input type="hidden" name="noSpaceGoodsCode" value="${goods.noSpaceGoodsCode }" />
+											</td>
+											<td>
+												<c:if test ="${goods.goodsCategory eq 'U'}">Uniform</c:if>
+												<c:if test ="${goods.goodsCategory eq 'C'}">Cap</c:if>
+												<c:if test ="${goods.goodsCategory eq 'F'}">Fan Goods</c:if>
+											</td>
+											<td>
+												<c:if test ="${goods.goodsSize eq 'L'}">L</c:if>
+												<c:if test ="${goods.goodsSize eq 'M'}">M</c:if>
+												<c:if test ="${goods.goodsSize eq 'S'}">S</c:if>
+												<c:if test ="${goods.goodsSize eq 'F'}">Free</c:if>
+											</td>
+											<td>
+												<span id="${goods.noSpaceGoodsCode }_price" style="display : inline-block;">${goods.goodsPrice }</span>
+												<input id="${goods.noSpaceGoodsCode }_price_input" style="display : none;" name="goodsPrice" value="${goods.goodsPrice }"/>
+												 원
+											</td>
+											<td>
+												<span id="${goods.noSpaceGoodsCode }_info" style="display : inline-block;">${goods.goodsInfo }</span>
+												<input id="${goods.noSpaceGoodsCode }_info_input" style="display : none;" name="goodsInfo" value="${goods.goodsInfo }"/>
+											</td>
+											
+												<input type="hidden" name="goodsYn" value="${goods.goodsYn }" />
 											<c:choose>
 												<c:when test="${goods.goodsYn == 'Y'}">
 													<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
@@ -155,12 +222,18 @@ function searchBtn() {
 													<td><span class="badge bg-label-danger me-1">${goods.goodsYn }</span></td>
 												</c:when>
 											</c:choose>
-
-											<td>${goods.goodsStock }</td>
-											<td style="text-align: center;"><a href="/dreams/admin/goods/write" class="btn green rounded"> 수정 </a></td>
+											<td>
+												<span id="${goods.noSpaceGoodsCode }_stock" style="display : inline-block;">${goods.goodsStock }</span>
+												<input id="${goods.noSpaceGoodsCode }_stock_input" style="display : none;" name="goodsStock" value="${goods.goodsStock }"/>
+											</td>
+											<td style="text-align: center;">
+												<button id="${goods.noSpaceGoodsCode }" type="button" class="btn green rounded" style="display : inline-block;" onclick="clickChangeBtn(this.id)"> 수정 </button>
+												<button id="${goods.noSpaceGoodsCode }SubmitBtn" type="submit" class="btn green rounded" style="display : none;" onclick="clickSubmitBtn()"> 제출 </button>
+												<button id="${goods.noSpaceGoodsCode }ResetBtn" type="reset" class="btn green rounded" style="display : inline-block;" onclick="clickResetBtn('${goods.noSpaceGoodsCode }')"> 취소 </button>
+											</td>
 										</tr>
+									</form>
 									</c:forEach>
-
 								</tbody>
 							</table>
 						</div>
@@ -169,9 +242,6 @@ function searchBtn() {
 
 					<hr class="my-5" />
 					<!-- / Content -->
-
-					<!-- Footer -->
-					<!-- / Footer -->
 
 					<div class="content-backdrop fade"></div>
 				</div>
@@ -211,8 +281,7 @@ function searchBtn() {
 	dropdownMenu.addEventListener('mouseleave', () => {
 	  dropdownMenu.style.display = 'none';
 	});
-	  
-	</script>
+</script>
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
