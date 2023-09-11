@@ -1,28 +1,27 @@
 package xyz.dreams.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import xyz.dreams.dto.CartDTO;
-import xyz.dreams.dto.GoodsDTO;
-import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
-import xyz.dreams.dto.OrderDetailDTO;
 
 @Repository
 public interface OrderDAO {
-	//주문 정보 삽입
-	int insertOrder(OrderDTO orderDTO);
-	
-	//주문 정보 변경
-	int updateOrder(OrderDTO orderDTO);
-	
-	//회원 정보 조회
-	MemberDTO getMemberInfo(String memberId);
-	
-	//굿즈 조회
-	GoodsDTO getGoodsInfo(String goodsCode);
-	
-	
-	//
-//	public OrderDetailDTO getGoods(String goodsCode);
+	void insert(OrderDTO orderDTO);
+
+	List<OrderDTO> myOrderList(String memberId);
+
+	List<OrderDTO> list(int curPage);
+
+	List<OrderDTO> selectByOrderId(String orderId);
+
+	boolean updateOrderStatus(OrderDTO orderDTO);
+
+	boolean delFromCart(CartVO cartVO);
+
+	int orderCancel(OrderDTO orderDTO);
+
+	int getAmount();
 }

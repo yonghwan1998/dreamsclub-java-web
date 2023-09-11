@@ -2,43 +2,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-	function purchaseGoods() {
-		if ( purchase.goodsSize.value == "0" ) {
-	         alert("사이즈를 선택해주세요.");
-	         purchase.goodsSize.focus();
-	         return;
-	      } 
-      	purchase.action = "<c:url value="/goods/detail"/>";
-      	purchase.submit();
-	}
-	
-	/*장바구니*/
-	function purchaseCartGoods(){
-		if(result = '0'){
-			alert("상품이 장바구니에 담기지 못했습니다.");
-		} else if(result='1'){
-			alert("상품이 장바구니에 추가되었습니다.");
-			if(confirm("장바구니로 이동하시겠습니까?")==true){
-				location.href="<c:url value='/cart/${member.memberId}'/>"
-			} else if(confirm==false){
-				
-			}
-		} else if(result='2'){
-			alert("장바구니에 이미 동일한 상품이 존재합니다.")
-			//이때 수량만 증가하게 하고싶음.
-		} else if(result='5'){
-			alert("로그인이 필요합니다.");
-			if(confirm("로그인페이지로 이동하시겠습니까?")==true){
-				location.href="<c:out value='/login'/>"
-			} else if(confirm==false){
-				
-			}
-		}
-	}
-	
-	//장바구니 추가
-	
+  /* 장바구니 */
+  $(document).ready(function () {
+    // 주문하기 버튼 클릭
+    $(".btn-order").click(function () {
+      event.preventDefault();
+      $("form").submit();
+    });
+
+    // 장바구니 버튼 클릭
+    $(".btn-cart").click(function () {
+      event.preventDefault();
+      var qty = $("#select_count").val();
+      var price = $("#price").val();
+      var goodsCode = $(this).data("goods-code");
+
+      $.ajax({
+        type: "post",
+        url: "<c:url value='/cart/'/>" + goodsCode,
+        data: {
+          goodsCode: goodsCode
+        },
+        dataType: "text",
+        success: function (result) {
+          if (result.trim() == 'add_success') {
+            var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
+            if (check) {
+              location.assign("<c:url value='/cart/mycart/' />" + memberId);
+            }
+          } else if (result.trim() == 'already_existed') {
+            alert("이미 장바구니에 등록된 상품입니다.");
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+
 </script>
+
 
 <div class="shop-area pt-100 pb-100">
 	<div class="container">
@@ -58,9 +62,9 @@
 				<div class="product-details-content ml-70">
 					<form method="post" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
-						<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+						<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }" id="goodsCode">
 						<div class="product-details-price">
-							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }">
+							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }" id="price">
 							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
 						</div>
 						<div class="pro-details-rating-wrap">
@@ -76,7 +80,7 @@
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
 							<div class="pro-details-size">
-								<span>Size</span> <select name="goodsSize" style="border: 1px solid black;">
+								<span>Size</span> <select id="select_count" name="goodsSize" style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
 									<option value="L">L</option>
 									<option value="M">M</option>
@@ -90,8 +94,8 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-								<a onclick="purchaseCartGoods();">장바구니 담기</a>
-								<a onclick="purchaseGoods();">바로 구매하기</a>
+								<button class="btn btn-default btn-order">주문하기</button>
+								<button class="btn btn-default btn-cart" data-goods-code="${goodsDetail.goodsCode}">장바구니</button>
 							</div>
 						</div>
 					</form>

@@ -117,7 +117,7 @@
 					
 					<!-- 장바구니 -->
 					<div class="same-style cart-wrap">
-						<button class="icon-cart" onclick="location.href='<c:url value="/cart/${member.memberId }"/>'">
+						<button class="icon-cart" onclick="location.href='<c:url value="/cart/mycart/${member.memberId }"/>'">
 							<i class="pe-7s-shopbag"></i>
 						</button>
 					</div>

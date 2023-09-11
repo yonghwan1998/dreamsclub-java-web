@@ -2,51 +2,52 @@ package xyz.dreams.dto;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 /*
-------------------- -------- ------------- 
-ORDER_ID            NOT NULL VARCHAR2(30)  
-MEMBER_ID           NOT NULL VARCHAR2(30)  
-GOODS_CODE          NOT NULL VARCHAR2(30)  
-ORDER_PCODE         NOT NULL VARCHAR2(100) 
-ORDER_ADDRESS1      NOT NULL VARCHAR2(100) 
-ORDER_ADDRESS2               VARCHAR2(100) 
-ORDER_PHONE         NOT NULL VARCHAR2(50)  
-ORDER_MEMO                   VARCHAR2(100) 
-ORDER_DATE          NOT NULL DATE          
-ORDER_STATUS        NOT NULL NUMBER        
-ORDER_STATUS_CHANGE          DATE          
-ORDER_QUANTITY      NOT NULL NUMBER        
-ORDER_HOW                    NUMBER    	
+이름              널? 유형            
+--------------- -- ------------- 
+ORDER_ID           VARCHAR2(40)  
+ORDER_SEQ_NUM      NUMBER(8)     
+GOODS_CODE         VARCHAR2(100) 
+GOODS_PRICE        NUMBER(10)    
+ORDER_QTY          NUMBER(2)     
+GOODS_STOCK        NUMBER        
+GOODS_INFO         VARCHAR2(500) 
+SELECTED_OPT       VARCHAR2(100) 
+MEMEBER_ID         VARCHAR2(30)  
+MEMBER_NAME        VARCHAR2(30)  
+MEMBER_EMAIL       VARCHAR2(30)  
+MEMBER_PHONE       VARCHAR2(30)  
+MEMBER_PCODE       VARCHAR2(30)  
+MEMBER_ADDRESS1    VARCHAR2(100) 
+MEMBER_ADDRESS2    VARCHAR2(100) 
+ORDER_DATE         DATE          
+DELIVER_MSG        VARCHAR2(300) 
+ORDER_STATUS       NUMBER(2)     
+TOTAL_AMOUNT       NUMBER(8)     
+CAL_INFO           VARCHAR2(20)  
  */
 
 @Data
 public class OrderDTO {
-	private String orderId;			//주문 번호 PR
-	private String memberId;		//주문 회원
-	private String goodsCode;		//굿즈 정보
-	private String orderPcode;		//우편 번호
-	private String orderAddress1;	//기본 주소
-	private String orderAddress2;	//상세 주소
-	private String orderPhone;		//전화번호
-	private String orderMemo;		//배송 메모
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date orderDate;			//주문 날짜
-	
-	//관리자
-	private int orderStatus;		//주문상태
-	private Date orderStatusChange;	//주문상태 변경일 - 관리자
-	
-	//삭제 예정
-	//private int orderQuantity;		//주문 수량(안쓸듯)
-	//private int orderHow;			//결제 수단(final)
-	
-	//받아야 할 값
-	private int goodsCount;
-	private String goodsImage;
+	private int orderId;
+	private String goodsCode;
 	private int goodsPrice;
+	private int orderQty;
+	private int goodsStock;
+	private String goodsInfo;
+	private String selectedOpt;
+	private String memberId;
+	private String memberName;
+	private String memberEmail;
+	private String memberPhone;
+	private String memberPcode;
+	private String memberAddress1;
+	private String memberAddress2;
+	private Date orderDate;
+	private String deliverMsg;
+	private int orderStatus;
+	private int totalAmount;
+	private String calInfo;
 }
