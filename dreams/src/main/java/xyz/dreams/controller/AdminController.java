@@ -95,4 +95,22 @@ public class AdminController {
 		goodsService.modifyAdminGoods(goods);
 		return "success";
 	}
+	
+	/*
+	방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
+	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/goods/modifyYn", method = RequestMethod.POST)
+	public String AdminGoodsModifyYn(@RequestBody GoodsDTO goods) {
+		goodsService.modifyAdminGoodsYn(goods);
+
+		if (goods.getGoodsYn().equals("Y")) {
+			return "Y";
+		} else if (goods.getGoodsYn().equals("N")) {
+			return "N";
+		} else {
+			return "fail";
+		}
+	}
 }
