@@ -3,35 +3,42 @@
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 
 	<!-- 카트 추가 -->
-	<insert id="insertCart">
-		insert into cart(member_id, goods_code, cart_quantity, goods_price)
-			values(#{memberId}, #{goodsCode}, #{cartQuantity}, #{goodsPrice})
+	<insert id="addCart" parameterType="cartDTO">
+		<!-- insert into cart(member_id, goods_code, cart_quantity)
+			values(#{memberId}, #{goodsCode}, #{cartQuantity}) -->
+		
+		insert into cart(CART_NO, MEMBER_ID, CART_QUANTITY, GOODS_CODE, GOODS_PRICE, GOODS_IMAGE, GOODS_COUNT)
+			values(#{cartNo}, #{memberId}, #{cartQuantity}, #{goodsCode}, #{goodsPrice}, #{goodsImage}, #{goodsCount})
 	</insert>
 	
-	<!-- 카트 삭제 -->
+	<!-- 카트 삭제(cartNo 삭제는 row 삭제임) -->
 	<delete id="deleteCart">
 		delete from cart where cart_no=#{cartNo}
-		<!-- 카트삭제가 아니라 카트 안의 상품 삭제인데 다시 생각해봐야할듯 -->
 	</delete>
 	
 	<!-- 카트 수량 수정 -->
-	<update id="updateCart">
+	<update id="modifyCart">
 		update cart set cart_quantity=#{cartQuantity} where cart_no=#{cartNo}
 	</update>
 	
 	<!-- 카트 목록 보기 -->
 	<select id="selectCartList" resultType="CartDTO">
 		select a.cart_no, a.member_id, a.cart_quantity, a.goods_code, b.goods_price
-		from cart a left outer join goods b on a.goods_code=b.goods_code
-		where a.member_id=#{memberId}
+		from cart a 
+		left outer join goods b 
+		on a.goods_code=b.goods_code
+		where a.member_id=#{memberId} 
 	</select>
 	
 	<!-- 카트 확인 -->
-	<select id="checkCart">
+	<select id="checkCart" resultType="CartDTO">
 		select * from cart
 		where member_id=#{memberId} and goods_code=#{goodsCode}
 	</select>
-
-
+	
+	<!-- 주문제거 -->
+	<delete id="deleteOrderCart">
+		delete from cart where member_id=#{memberId} and goods_Code=#{goodsCode}
+	</delete>
 
 </mapper>

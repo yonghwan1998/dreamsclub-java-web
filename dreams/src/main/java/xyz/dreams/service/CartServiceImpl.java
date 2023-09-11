@@ -13,57 +13,43 @@ import xyz.dreams.dto.CartDTO;
 public class CartServiceImpl implements CartService{
 	private final CartDAO cartDAO;
 
+	/*장바구니 상품 추가*/
 	@Override
-	public int addCart(CartDTO cart) {
-		//상품이 장바구니DB에 있는지 확인
+	public int addCart(CartDTO cart) throws Exception {
+		//장바구니에 데이터 있는지 확인
 		CartDTO checkCart = cartDAO.checkCart(cart);
 		
 		if(checkCart != null) {
 			return 2;
 		}
 		
+		//로그인 되어 있으면 장바구니에 굿즈 추가됨. 아니면 0(등록취소)됨
 		try {
-			return cartDAO.insertCart(cart);
-		}catch (Exception e) {
+			return cartDAO.addCart(cart);
+		} catch (Exception e) {
 			return 0;
 		}
 		
 	}
 
+	/*장바구니 row 삭제*/
 	@Override
-	public int modifyCart(CartDTO cart) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void deleteCart(String cartNo) {
+		cartDAO.deleteCart(cartNo);
 	}
 
+	/*굿즈 수량 수정하기*/
 	@Override
-	public int removeCart(CartDTO cart) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void modifyCart(CartDTO cart) {
+		cartDAO.modifyCart(cart);
 	}
 
+	/*장바구니 목록 보기*/
 	@Override
-	public List<CartDTO> getCartList() {
-		
-		List<CartDTO> cart = cartDAO.selectCart(memberId);
-		
-		for(CartDTO dto : cart) {
-			dto.getTotalPrice();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public void checkCart(CartDTO cart) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public CartDTO selectCart(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CartDTO> selectCartList(String memberId) {
+		List<CartDTO> cart = cartDAO.selectCartList(memberId);
+			
+		return cart;
 	}
 
 }

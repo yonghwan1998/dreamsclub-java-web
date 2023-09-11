@@ -24,17 +24,21 @@ public class CommunityServiceImpl implements CommunityService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
-		
 		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
 		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommCont(community.getCommCont().replace("\r\n","<br>"));
 		communityDAO.enrollCommunity(community);
 	}
 
 	
-	/*게시판 글 수정*/
+	/*게시판 글 수정하기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
+		
+		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		communityDAO.modifyCommunity(community);
 	}
 	
 
@@ -52,7 +56,6 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public CommunityDTO getPage(int communityNo) {
 		CommunityDTO comm = communityDAO.getPage(communityNo);
-		comm.setCommCont(comm.getCommCont().replace("\r\n", "<br>").replace("\n", "<br"));
 		
 		//조회수 +1
 		communityDAO.upCountCommunity(communityNo);

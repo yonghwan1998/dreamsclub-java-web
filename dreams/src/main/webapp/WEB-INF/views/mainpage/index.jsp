@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- 메인 사진 슬라이더 -->
 <div class="slider-area">
@@ -161,7 +160,6 @@
 </div>
 
 <!-- 굿즈샵 -->
-<%-- 
 <div class="product-area pt-95 pb-70">
 	<div class="container">
 		<div class="section-title-5 text-center">
@@ -179,199 +177,35 @@
 		<div class="tab-content jump">
 			<div class="tab-pane active" id="product-2">
 				<div class="row item-wrapper">
+					<!--
+					방용환(생성) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
+					-->
+					<c:forEach var="goods" items="${goodsList }">
 					<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
 						<div class="product-wrap-2 mb-25">
 							<div class="product-img">
-								<a href="product-details.html"> <img class="default-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt=""> <img class="hover-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt="">
+								<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>">
+									<img class="product-img" src="${pageContext.request.contextPath }/img/goods-img/${goods.goodsImage }">
 								</a> <span class="pink">Best</span>
 							</div>
 							<div class="product-content-2">
 								<div class="title-price-wrap-2">
 									<h3>
-										<a href="product-details.html">Product Title Here</a>
+										<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName }"/>">${goods.goodsName }</a>
 									</h3>
 									<div class="price-2">
-										<span>$ 40.00</span>
+										<span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-						<div class="product-wrap-2 mb-25">
-							<div class="product-img">
-								<a href="product-details.html"> <img class="default-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt=""> <img class="hover-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt="">
-								</a> <span class="pink">Best</span>
-							</div>
-							<div class="product-content-2">
-								<div class="title-price-wrap-2">
-									<h3>
-										<a href="product-details.html">Product Title Here</a>
-									</h3>
-									<div class="price-2">
-										<span>$ 40.00</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-						<div class="product-wrap-2 mb-25">
-							<div class="product-img">
-								<a href="product-details.html"> <img class="default-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt=""> <img class="hover-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt="">
-								</a> <span class="pink">Best</span>
-							</div>
-							<div class="product-content-2">
-								<div class="title-price-wrap-2">
-									<h3>
-										<a href="product-details.html">Product Title Here</a>
-									</h3>
-									<div class="price-2">
-										<span>$ 40.00</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-						<div class="product-wrap-2 mb-25">
-							<div class="product-img">
-								<a href="product-details.html"> <img class="default-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt=""> <img class="hover-img"
-									src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-									alt="">
-								</a> <span class="pink">Best</span>
-							</div>
-							<div class="product-content-2">
-								<div class="title-price-wrap-2">
-									<h3>
-										<a href="product-details.html">Product Title Here</a>
-									</h3>
-									<div class="price-2">
-										<span>$ 40.00</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div
-			class="product-tab-list nav pt-35 pb-60 product-tab-cake text-center">
-			<a>
-				<h3 style="font-weight: bold;">금주의 신상품을 만나보세요!</h3>
-			</a>
-		</div>
-		<div class="tab-pane active" id="product-2">
-			<div class="row item-wrapper">
-				<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-					<div class="product-wrap-2 mb-25">
-						<div class="product-img">
-							<a href="product-details.html"> <img class="default-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt=""> <img class="hover-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt="">
-							</a> <span class="pink">New</span>
-						</div>
-						<div class="product-content-2">
-							<div class="title-price-wrap-2">
-								<h3>
-									<a href="product-details.html">Product Title Here</a>
-								</h3>
-								<div class="price-2">
-									<span>$ 40.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-					<div class="product-wrap-2 mb-25">
-						<div class="product-img">
-							<a href="product-details.html"> <img class="default-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt=""> <img class="hover-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt="">
-							</a> <span class="pink">New</span>
-						</div>
-						<div class="product-content-2">
-							<div class="title-price-wrap-2">
-								<h3>
-									<a href="product-details.html">Product Title Here</a>
-								</h3>
-								<div class="price-2">
-									<span>$ 40.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-					<div class="product-wrap-2 mb-25">
-						<div class="product-img">
-							<a href="product-details.html"> <img class="default-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt=""> <img class="hover-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt="">
-							</a> <span class="pink">New</span>
-						</div>
-						<div class="product-content-2">
-							<div class="title-price-wrap-2">
-								<h3>
-									<a href="product-details.html">Product Title Here</a>
-								</h3>
-								<div class="price-2">
-									<span>$ 40.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
-					<div class="product-wrap-2 mb-25">
-						<div class="product-img">
-							<a href="product-details.html"> <img class="default-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt=""> <img class="hover-img"
-								src="${pageContext.request.contextPath }/img/product/hm26-pro-2.jpg"
-								alt="">
-							</a> <span class="pink">New</span>
-						</div>
-						<div class="product-content-2">
-							<div class="title-price-wrap-2">
-								<h3>
-									<a href="product-details.html">Product Title Here</a>
-								</h3>
-								<div class="price-2">
-									<span>$ 40.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
- --%>
 
 
 <!-- Modal -->

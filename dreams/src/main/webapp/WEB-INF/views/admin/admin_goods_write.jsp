@@ -121,7 +121,7 @@ td {
 				<table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 카테고리</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 							<select name="goodsCategory">
 								<option value="U" selected>Uniform</option>
 								<option value="C">Cap</option>
@@ -131,51 +131,75 @@ td {
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 이름</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="text" style="width: 150" name="goodsCode" value="${goods.goodsCode }">
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 150" name="goodsName" value="${goods.goodsName }">
 						</td>
 					</tr>
-					<tr>
-						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 사이즈</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
-							<select name="goodsSize">
-								<option value="L" selected>L</option>
-								<option value="M">M</option>
-								<option value="S">S</option>
-								<option value="F">Free</option>
-							</select>
-						</td>
-					</tr>
+					
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">가격</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 							<input type="text" style="width: 150" name="goodsPrice" value="${goods.goodsPrice }">
 						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 정보</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 							<input type="text" style="width: 240" name="goodsInfo" value="${goods.goodsInfo }">
 						</td>
 					</tr>
 					<tr>
+						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 사이즈</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">L</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">M</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">S</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">F</td>
+					</tr>
+					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 판매여부</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
-							<select name="goodsYn">
-								<option value="Y" selected>Y</option>
-								<option value="N">N</option>
+						<td bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsYnL">
+								<option align=center value="Y" selected>Yes</option>
+								<option align=center value="N">No</option>
+							</select>
+						</td>
+						<td bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsYnM">
+								<option align=center value="Y" selected>Yes</option>
+								<option align=center value="N">No</option>
+							</select>
+						</td>
+						<td bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsYnS">
+								<option align=center value="Y" selected>Yes</option>
+								<option align=center value="N">No</option>
+							</select>
+						</td>
+						<td bgcolor="ffffff" style="padding-left: 10px;">
+							<select name="goodsYnF">
+								<option align=center value="Y" selected>Yes</option>
+								<option align=center value="N">No</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 재고</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="text" style="width: 240" name="goodsStock" value="${goods.goodsStock }">
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsStockL" value=0>
+						</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsStockM" value=0>
+						</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsStockS" value=0>
+						</td>
+						<td align=center bgcolor="ffffff" style="padding-left: 10px;">
+							<input type="text" style="width: 240" name="goodsStockF" value=0>
 						</td>
 					</tr>
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">굿즈 이미지</td>
-						<td width=490 bgcolor="ffffff" style="padding-left: 10px;">
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 							<input type="file" style="width: 240" name="uploadImage">
 						</td>
 					</tr>
@@ -185,6 +209,11 @@ td {
 				<tr>
 					<td align=center>
 						<input type="submit" value="굿즈등록" onClick="goodsCreate();">
+					</td>
+				</tr>
+				<tr>
+					<td align=center>
+					<a href="<c:url value="/admin/goods"/>">뒤로 가기</a>
 					</td>
 				</tr>
 			</table>

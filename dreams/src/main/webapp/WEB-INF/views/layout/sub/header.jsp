@@ -83,7 +83,7 @@
 								</ul></li>
 								
 							<!-- Navbar - 고객센터 -->
-							<li><a href="<c:url value="/customer"/>"> 고객센터</a></li>
+							<li><a href="<c:url value="service"/>"> 고객센터</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -114,9 +114,10 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-
+					
+					<!-- 장바구니 -->
 					<div class="same-style cart-wrap">
-						<button class="icon-cart" onclick="location.href='<c:url value="/cart"/>'">
+						<button class="icon-cart" onclick="location.href='<c:url value="/cart/${member.memberId }"/>'">
 							<i class="pe-7s-shopbag"></i>
 						</button>
 					</div>

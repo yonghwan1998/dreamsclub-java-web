@@ -46,6 +46,9 @@
               	href="/dreams/mypage/check" class="menu-link ">
                 <div data-i18n="Authentications">주문목록/배송조회</div>
               </a>
+              <a href="/dreams/mypage/myreview" class="menu-link">
+              	<div data-i18n="Authentications">My Review</div>
+              </a>
             </li>
           </ul>
         </aside>
