@@ -29,15 +29,14 @@ public class GoodsController {
 			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
 			Model model) {
 
-		System.out.println(maxPrice + " = maxPrice");
-		System.out.println(minPrice + " = minPrice");
-
 		if (q != null) {
 			q = q.replaceAll(" ", "");
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("q", q);
 		map.put("column", column);
+		map.put("maxPrice", maxPrice);
+		map.put("minPrice", minPrice);
 
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
 		model.addAttribute("map", map);

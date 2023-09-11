@@ -2,6 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+
 <script>
 function selectChange(q){
 	$("#searchColumn").val($("#selectFilter").val());
@@ -95,11 +103,19 @@ function selectChange(q){
 							<div class="price-slider-amount">
 								<hr />
 								<h4 class="pro-sidebar-title">Filter By Price</h4>
+								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" value="${map.minPrice }"/>
+								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
+								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" value="${map.maxPrice }"/>
+								<input type="submit" id="priceSearchBtn" value="검색" style="padding: 0px; margin-top: 15px;"/>
+							</div>
+<!-- 							<div class="price-slider-amount">
+								<hr />
+								<h4 class="pro-sidebar-title">Filter By Price</h4>
 								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" />
 								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
 								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" />
 							</div>
-							</form>
+ -->							</form>
 						</div>
 					</div>
 					<div class="sidebar-widget mt-40">
