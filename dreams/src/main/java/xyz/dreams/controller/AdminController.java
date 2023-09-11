@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,14 +80,19 @@ public class AdminController {
 		uploadImage.transferTo(new File(uploadDirectory, uploadName));
 
 		goods.setGoodsImage(uploadName);
-		goodsService.addGoods(goods);
+		goodsService.addAdminGoods(goods);
 
 		return "redirect:/admin/goods";
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public String test(@ModelAttribute GoodsDTO goods){
-		System.out.println(goods);
-		return "redirect:/admin/goods";
+	/*
+	방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
+	admin_goods.jsp에서 입력한 수정 값을 받아와 해당 굿즈 정보 UPDATE
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/goods/modify", method = RequestMethod.POST)
+	public String AdminGoodsModify(@RequestBody GoodsDTO goods){
+		goodsService.modifyAdminGoods(goods);
+		return "success";
 	}
 }

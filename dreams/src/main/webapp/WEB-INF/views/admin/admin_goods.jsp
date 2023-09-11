@@ -29,8 +29,54 @@ function clickChangeBtn(clicked_id) {
 	
 }
 
-function clickSubmitBtn() {
-	alert("submit");
+// 제출 버튼 틀릭시
+function clickSubmitBtn(clicked_id) {
+	
+	var goodsCode = $('#'+clicked_id+'_code').val();
+	var goodsPrice = $('#'+clicked_id+'_price_input').val();
+	var goodsInfo = $('#'+clicked_id+'_info_input').val();
+	var goodsStock = $('#'+clicked_id+'_stock_input').val();
+	
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/admin/goods/modify"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"goodsCode" : goodsCode,
+			"goodsPrice" : goodsPrice,
+			"goodsInfo" : goodsInfo,
+			"goodsStock" : goodsStock,
+		}),
+		dataType : "text",
+		success : function(result) {
+			if (result == "success") {
+				// 수정한 값 적용하기
+				$('#'+clicked_id+'_price').text(goodsPrice);
+				$('#'+clicked_id+'_info').text(goodsInfo);
+				$('#'+clicked_id+'_stock').text(goodsStock);
+				
+				alert("[" + goodsCode + "] 정보가 성공적으로 수정됐습니다!");
+				
+				// 새로운 값을 입력한 input 태그 숨기기
+				$('#'+clicked_id+'_price_input').css("display","none");
+				$('#'+clicked_id+'_info_input').css("display","none");
+				$('#'+clicked_id+'_stock_input').css("display","none");
+				// 제출 버튼 숨기기	
+				$('#'+clicked_id+'SubmitBtn').css("display","none");
+				
+				// 보여질 값들 보이기
+				$('#'+clicked_id+'_price').css("display","inline-block");
+				$('#'+clicked_id+'_info').css("display","inline-block");
+				$('#'+clicked_id+'_stock').css("display","inline-block");
+				// 수정 버튼 보이기
+				$('#'+clicked_id).css("display","inline-block");
+				
+			}
+		},
+		error : function(xhr) {
+			alert("[" + goodsCode + "] 정보 수정에 실패했습니다.\n에러코드 = " + xhr.stauts);
+		}
+	});
 }
 
 // 취소 버튼 클릭시
@@ -184,11 +230,12 @@ function clickResetBtn(clicked_id) {
 								</thead>
 								<tbody class="table-border-bottom-0">
 									<c:forEach var="goods" items="${goodsList }">
-									<form action="<c:url value="/admin/test"/>" method="post" >
+									<form>
+									<%-- <form action="<c:url value="/admin/goods/modify"/>" method="post" > --%>
 										<tr>
 											<td>
 												<strong>${goods.goodsName }</strong>
-												<input type="hidden" name="goodsCode" value="${goods.goodsCode }" />
+												<input id="${goods.noSpaceGoodsCode }_code" type="hidden" name="goodsCode" value="${goods.goodsCode }" />
 												<input type="hidden" name="noSpaceGoodsCode" value="${goods.noSpaceGoodsCode }" />
 											</td>
 											<td>
@@ -228,7 +275,7 @@ function clickResetBtn(clicked_id) {
 											</td>
 											<td style="text-align: center;">
 												<button id="${goods.noSpaceGoodsCode }" type="button" class="btn green rounded" style="display : inline-block;" onclick="clickChangeBtn(this.id)"> 수정 </button>
-												<button id="${goods.noSpaceGoodsCode }SubmitBtn" type="submit" class="btn green rounded" style="display : none;" onclick="clickSubmitBtn()"> 제출 </button>
+												<button id="${goods.noSpaceGoodsCode }SubmitBtn" type="button" class="btn green rounded" style="display : none;" onclick="clickSubmitBtn('${goods.noSpaceGoodsCode }')"> 제출 </button>
 												<button id="${goods.noSpaceGoodsCode }ResetBtn" type="reset" class="btn green rounded" style="display : inline-block;" onclick="clickResetBtn('${goods.noSpaceGoodsCode }')"> 취소 </button>
 											</td>
 										</tr>

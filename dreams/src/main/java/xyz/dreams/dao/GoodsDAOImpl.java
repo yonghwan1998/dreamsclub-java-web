@@ -38,7 +38,16 @@ public class GoodsDAOImpl implements GoodsDAO {
 
 //	관리자 굿즈 등록
 	@Override
-	public int insertGoods(GoodsDTO goods) {
-		return sqlSession.getMapper(GoodsMapper.class).insertGoods(goods);
+	public int insertAdminGoods(GoodsDTO goods) {
+		return sqlSession.getMapper(GoodsMapper.class).insertAdminGoods(goods);
+	}
+
+	/*
+	방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
+	admin_goods.jsp에서 입력한 수정 값을 받아와 해당 굿즈 정보 UPDATE
+	 */
+	@Override
+	public int updateAdminGoods(GoodsDTO goods) {
+		return sqlSession.getMapper(GoodsMapper.class).updateAdminGoods(goods);
 	}
 }

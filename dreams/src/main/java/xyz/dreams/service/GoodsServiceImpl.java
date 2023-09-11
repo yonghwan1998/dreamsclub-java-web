@@ -104,7 +104,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 // 관리자 굿즈 등록
 	@Override
-	public void addGoods(GoodsDTO goods) {
+	public void addAdminGoods(GoodsDTO goods) {
 		String goodsName = goods.getGoodsName();
 		String goodsCategory = goods.getGoodsCategory();
 
@@ -119,7 +119,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setGoodsYn(goodsYn);
 			goods.setGoodsStock(goodsStock);
 
-			goodsDAO.insertGoods(goods);
+			goodsDAO.insertAdminGoods(goods);
 		}
 
 //		M 사이즈가 있는 경우 insert
@@ -133,7 +133,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setGoodsYn(goodsYn);
 			goods.setGoodsStock(goodsStock);
 
-			goodsDAO.insertGoods(goods);
+			goodsDAO.insertAdminGoods(goods);
 		}
 
 //		S 사이즈가 있는 경우 insert
@@ -147,7 +147,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setGoodsYn(goodsYn);
 			goods.setGoodsStock(goodsStock);
 
-			goodsDAO.insertGoods(goods);
+			goodsDAO.insertAdminGoods(goods);
 		}
 
 //		F 사이즈가 있는 경우 insert
@@ -161,8 +161,18 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setGoodsYn(goodsYn);
 			goods.setGoodsStock(goodsStock);
 
-			goodsDAO.insertGoods(goods);
+			goodsDAO.insertAdminGoods(goods);
 		}
 
+	}
+
+	
+	/*
+	방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
+	admin_goods.jsp에서 입력한 수정 값을 받아와 해당 굿즈 정보 UPDATE
+	 */
+	@Override
+	public void modifyAdminGoods(GoodsDTO goods) {
+		goodsDAO.updateAdminGoods(goods);
 	}
 }
