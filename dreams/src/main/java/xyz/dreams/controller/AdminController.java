@@ -91,7 +91,7 @@ public class AdminController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/goods/modify", method = RequestMethod.POST)
-	public String AdminGoodsModify(@RequestBody GoodsDTO goods){
+	public String AdminGoodsModify(@RequestBody GoodsDTO goods) {
 		goodsService.modifyAdminGoods(goods);
 		return "success";
 	}
