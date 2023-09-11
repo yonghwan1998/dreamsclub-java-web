@@ -25,7 +25,12 @@ public class GoodsController {
 	/* GET - 굿즈 메인 페이지 */
 //	굿즈 리스트 출력
 	@RequestMapping("/main")
-	public String view(String q, @RequestParam(defaultValue = "goods_code") String column, Model model) {
+	public String view(String q, @RequestParam(defaultValue = "goods_code") String column,
+			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
+			Model model) {
+
+		System.out.println(maxPrice + " = maxPrice");
+		System.out.println(minPrice + " = minPrice");
 
 		if (q != null) {
 			q = q.replaceAll(" ", "");

@@ -86,22 +86,20 @@ function selectChange(q){
 					<div class="sidebar-widget">
 						<h4 class="pro-sidebar-title">Search</h4>
 						<div class="pro-sidebar-search mb-50 mt-25">
-							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
+							<form class="pro-sidebar-search-form" method="post" action="<c:url value="/goods/main"/>" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
 								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
 								</button>
-							</form>
-						</div>
-					</div>
-					<div class="sidebar-widget mt-45">
-						<h4 class="pro-sidebar-title">Filter By Price</h4>
-						<div class="price-filter mt-10">
 							<div class="price-slider-amount">
-								<input type="text" id="amount" name="price" placeholder="Add Your Price" />
+								<hr />
+								<h4 class="pro-sidebar-title">Filter By Price</h4>
+								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" />
+								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
+								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" />
 							</div>
-							<div id="slider-range"></div>
+							</form>
 						</div>
 					</div>
 					<div class="sidebar-widget mt-40">
@@ -110,17 +108,17 @@ function selectChange(q){
 							<ul>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Uniform</a> <span class="checkmark"></span>
+										<input type="checkbox" value="" checked> <a href="#">Uniform</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Cap</a> <span class="checkmark"></span>
+										<input type="checkbox" value="" checked> <a href="#">Cap</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Fan</a> <span class="checkmark"></span>
+										<input type="checkbox" value="" checked> <a href="#">Fan Goods</a> <span class="checkmark"></span>
 									</div>
 								</li>
 							</ul>

@@ -13388,7 +13388,7 @@ a.default-btn {
   padding: 0 15px;
   position: absolute;
   right: 0;
-  top: 50%;
+  top: 10%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   cursor: pointer;

@@ -5,16 +5,16 @@
 	<!-- 굿즈 메인 페이지 -->
 	<!-- 굿즈 리스트 출력 -->
 	<select id="selectGoodsList" resultType="GoodsDTO">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
+		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
 		<if test="q != null and q != ''"> 
 			<bind name="search" value="'%'+q+'%'"/>
-			where REPLACE(GOODS_CODE,' ', '') like #{search} 
+			WHERE REPLACE(GOODS_CODE,' ', '') LIKE #{search} 
 		</if>
 		<if test="column == 'goods_code'"> 
-			order by goods_code
+			ORDER BY GOODS_CODE
 		</if>
 		<if test="column == 'goods_price'"> 
-			order by goods_price, goods_code
+			ORDER BY GOODS_PRICE, GOODS_CODE
 		</if>
 	</select>
 
