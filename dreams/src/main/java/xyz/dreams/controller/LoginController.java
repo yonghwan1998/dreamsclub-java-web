@@ -21,7 +21,7 @@ import xyz.dreams.service.MemberService;
 @RequiredArgsConstructor
 public class LoginController {
 
-	// 정적 필드 대신 inject 어노테이션 사용 가능
+	// 정적 필드 대신 inject 어노테이션 사용 가능, 의존성 주입 
 	private final MemberService memberService;
 
 	// 1. 로그인 화면
@@ -51,6 +51,7 @@ public class LoginController {
 		model.addAttribute("searchId", id);
 		return "login/search_result_id";
 	}
+	
 
 	//3-1. 비밀번호 찾기
 	@RequestMapping(value = "/search_pw", method = RequestMethod.GET)
