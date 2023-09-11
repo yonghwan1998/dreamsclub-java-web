@@ -62,7 +62,7 @@ public class GoodsController {
 
 		attributes.addFlashAttribute("goods", goods);
 		
-		return "redirect:/cart";
+		return "redirect:/cart/purchase";
 	}
 	
 //	결제페이지로 굿즈 정보 바로 넘기기
