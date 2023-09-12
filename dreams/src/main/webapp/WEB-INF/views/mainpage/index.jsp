@@ -180,7 +180,7 @@
 					<!--
 					방용환(생성) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
 					-->
-					<%-- <c:forEach var="goods" items="${goodsList }">
+					<c:forEach var="goods" items="${goodsList }">
 					<div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 toggle-item-active">
 						<div class="product-wrap-2 mb-25">
 							<div class="product-img">
@@ -200,7 +200,7 @@
 							</div>
 						</div>
 					</div>
-					</c:forEach> --%>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

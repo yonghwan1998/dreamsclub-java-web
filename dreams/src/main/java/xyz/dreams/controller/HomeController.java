@@ -20,17 +20,23 @@ public class HomeController {
 
 	/*
 	방용환(수정) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
-	리뷰 or 별점순으로 출력 예정
+	- 리뷰 or 별점순으로 출력 예정
+	방용환(수정) : 2023/09/12, 메인 페이지 오류 수정
+	- minPrice, maxPrice 미설정으로 인한 IndexOutOfBounds 오류 수정
 	*/
 	@RequestMapping("/")
-	public String home(@RequestParam(defaultValue = "goods_code") String column, Model model) {
-		
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("column", column);
-//		
-//		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
-//		model.addAttribute("goodsList", goodsList);
-		
+	public String home(@RequestParam(defaultValue = "goods_code") String column,
+			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
+			Model model) {
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("column", column);
+		map.put("maxPrice", maxPrice);
+		map.put("minPrice", minPrice);
+
+		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
+		model.addAttribute("goodsList", goodsList);
+
 		return "mainpage/index";
 	}
 
