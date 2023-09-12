@@ -25,11 +25,11 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(@RequestParam(defaultValue = "goods_code") String column, Model model) {
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("column", column);
-		
-		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
-		model.addAttribute("goodsList", goodsList);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("column", column);
+//		
+//		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
+//		model.addAttribute("goodsList", goodsList);
 		
 		return "mainpage/index";
 	}
