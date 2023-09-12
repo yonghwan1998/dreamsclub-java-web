@@ -98,6 +98,45 @@ function clickResetBtn(clicked_id) {
 	
 }
 
+// 굿즈 판매여부 관리
+function clickYnBtn(clicked_id) {
+	
+	// 버튼 클릭시 페이지 이동 막기
+	event.preventDefault();
+	
+	var goodsCode = $('#'+clicked_id+'_code').val();
+	var goodsYn = $('#'+clicked_id+'_yn').text();
+	
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/admin/goods/modifyYn"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"goodsCode" : goodsCode,
+			"goodsYn" : goodsYn,
+		}),
+		dataType : "text",
+		success : function(result) {
+			// 판매여부 'Y'에서 'N'으로 바뀌었을 때
+			if(goodsYn == "Y") {
+				$('#'+clicked_id+'_yn').removeClass("bg-label-primary").addClass("bg-label-danger");
+				$('#'+clicked_id+'_yn').html("N");
+			}
+			
+			// 판매여부 'N'에서 'Y'로 바뀌었을 때
+			if(goodsYn == "N") {
+				$('#'+clicked_id+'_yn').removeClass("bg-label-danger").addClass("bg-label-primary");
+				$('#'+clicked_id+'_yn').html("Y");
+			}
+				alert("[" + goodsCode + "] 정보가 성공적으로 수정됐습니다!");
+		},
+		error : function(xhr) {
+			alert("[" + goodsCode + "] 정보 수정에 실패했습니다.\n에러코드 = " + xhr.stauts);
+		}
+	});
+	
+}
+
 </script>
 
 <style>
@@ -158,21 +197,21 @@ function clickResetBtn(clicked_id) {
 			<ul class="menu-inner py-1">
 				<!-- 회원 관리 -->
 				<li class="menu-header small text-uppercase"><span class="menu-header-text">회원 관리</span></li>
-				<li class="menu-item"><a href="/dreams/admin" class="menu-link"> <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+				<li class="menu-item"><a href="<c:url value="/admin"/>" class="menu-link"> <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
 						<div data-i18n="Tables">회원 관리</div>
 				</a></li>
 
 
 				<!-- 굿즈 관리 -->
 				<li class="menu-header small text-uppercase"><span class="menu-header-text">굿즈 관리</span></li>
-				<li class="menu-item active"><a href="/dreams/admin/goods" class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
+				<li class="menu-item active"><a href="<c:url value="/admin/goods"/>" class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
 						<div data-i18n="Authentications">굿즈 관리</div>
 				</a></li>
 
 
 				<!-- 주문 관리 -->
 				<li class="menu-header small text-uppercase"><span class="menu-header-text">주문 관리</span></li>
-				<li class="menu-item"><a href="/dreams/admin/order" class="menu-link"> <i class="menu-icon tf-icons bx bx-support"></i>
+				<li class="menu-item"><a href="<c:url value="/admin/order"/>" class="menu-link"> <i class="menu-icon tf-icons bx bx-support"></i>
 						<div data-i18n="Support">주문 관리</div>
 				</a></li>
 			</ul>
@@ -231,7 +270,6 @@ function clickResetBtn(clicked_id) {
 								<tbody class="table-border-bottom-0">
 									<c:forEach var="goods" items="${goodsList }">
 									<form>
-									<%-- <form action="<c:url value="/admin/goods/modify"/>" method="post" > --%>
 										<tr>
 											<td>
 												<strong>${goods.goodsName }</strong>
@@ -262,11 +300,11 @@ function clickResetBtn(clicked_id) {
 												<input type="hidden" name="goodsYn" value="${goods.goodsYn }" />
 											<c:choose>
 												<c:when test="${goods.goodsYn == 'Y'}">
-													<td><span class="badge bg-label-primary me-1">${goods.goodsYn }</span></td>
+													<td><button id="${goods.noSpaceGoodsCode }_yn" class="badge bg-label-primary me-1" style="border: 1px solid grey" onclick="clickYnBtn('${goods.noSpaceGoodsCode }')">${goods.goodsYn }</button></td>
 												</c:when>
 
 												<c:when test="${goods.goodsYn == 'N'}">
-													<td><span class="badge bg-label-danger me-1">${goods.goodsYn }</span></td>
+													<td><button id="${goods.noSpaceGoodsCode }_yn" class="badge bg-label-danger me-1"style="border: 1px solid grey" onclick="clickYnBtn('${goods.noSpaceGoodsCode }')">${goods.goodsYn }</button></td>
 												</c:when>
 											</c:choose>
 											<td>

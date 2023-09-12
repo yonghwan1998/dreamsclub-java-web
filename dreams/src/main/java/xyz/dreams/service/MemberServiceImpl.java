@@ -126,39 +126,18 @@ public class MemberServiceImpl implements MemberService {
 				sendEmail(member, "searchPwBtn");
 			}
 		}
-			
 	
 	
-	/*
-	 * // 오진서 2 ▼ public void addMember(MemberDTO member) throws
-	 * ExistsMemberException { // 매개변수로 전달받은 회원정보의 아이디가 기존 회원정보의 아이디와 중복될 경우 if
-	 * (memberDAO.selectMember(member.getMemberId()) != null) { // 예외를 명확하기 구분하고
-	 * 예외처리시 필요한 값을 제공하기 위해 직접 생성한 예외 // 클래스를 사용하여 인위적인 예외 발생 throw new
-	 * ExistsMemberException("이미 사용중인 아이디를 입력 하였습니다.", member); }
-	 * 
-	 * // 매개변수로 전달받은 회원정보의 비밀번호를 암호화 처리하여 필드값으로 다시 저장 String hashedPassword =
-	 * BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
-	 * member.setMemberPw(hashedPassword);
-	 * 
-	 * memberDAO.insertMember(member);
-	 * 
-	 * }
-	 */
-	
-	
-	// 진서 암호화▼
-	@Override
-	public void addMember(MemberDTO member) {
-		String hashedPassword = BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
-		member.setMemberPw(hashedPassword);
+		// 진서 암호화▼
+		@Override
+		public void addMember(MemberDTO member) { //(MemberDTO member)member 여기서만 사용하는 지역변수라 다른곳에 이름바뀌어도됨
+			String hashedPassword = BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
+			member.setMemberPw(hashedPassword);
 
-		memberDAO.insertMember(member);
-	}
-	
-//	// 진서 자가 아이디체크,, 어캐했
-//	public String member_id_check (String memberId) {
-//		Optional <MemberEntity> optionMemberEntity = memberRepository.finByMemberId(memberId);
-//	}
+			memberDAO.insertMember(member); 
+			// memberDAO 의 insertMember함수를 호출하는데
+			// member를 매개변수로 전달한다
+		}
 	
 	
 	// 소영 ▼

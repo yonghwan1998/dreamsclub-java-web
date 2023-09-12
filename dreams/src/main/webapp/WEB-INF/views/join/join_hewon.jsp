@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-
-
+<html>
+<head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 
@@ -41,9 +40,6 @@ legend {
 	left: 160px;
 	display: none;
 }
-.errors{
-	color: red;
-}
 
 #idCheck, #postSearch {
 	font-size: 12px;
@@ -58,96 +54,92 @@ legend {
 	background: black;
 	color: white;
 }
-
 </style>
-<!-- 강민경(수정): 2023/9/9, 밸리데이션을 사용한 메세지 적용 -->
-<c:url value="/join/hewon" var="url"/>
-<form:form id="join" action="${url }" method="post" modelAttribute="memberDTO">
+
+</head>
+
+<body>
+	<form id="join" action="<c:url value="/join/hewon"/>" method="post">
 	<%-- 아이디 중복 검사 결과를 저장하기 위한 입력태그 --%>
 	<%-- => 0 : 아이디 중복 검사 미실행 또는 아이디 중복 - 아이디 사용 불가능 --%>
 	<%-- => 1 : 아이디 중복 검사 실행 및 아이디 미중복 - 아이디 사용 가능 --%>
-	<input type="hidden" id="idCheckResult" value="0"/>
+	<input type="hidden" id="idCheckResult" value="0">
 	
-		<fieldset>
-			<legend>회원가입 정보</legend>
-			<ul>
-				<li>
-					<label for="id">아이디</label>
-					<form:input type="text" path="memberId"/>
-					 <form:errors path="memberId" cssClass="errors" element="div" delimiter=" "/>
-					 <div id="idMsg" class="error">아이디를 입력해 주세요.</div>
-					<span id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</span>
-					<span id="idDuplMsg" class="error">이미 사용중인 아이디입니다.</span>
+	<fieldset>
+		<legend>회원가입 정보</legend>
+		<ul>
+			<li>
+				<label for="id">아이디</label>
+				<input type="text" name="memberId" id="id" placeholder="4 ~12자의 영문 대소문자의 숫자로 작성해주세요."> 
+				<div id="idMsg" class="error">아이디를 입력해 주세요.</div>
+						
+				<span id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</span>
+				<span id="idDuplMsg" class="error">이미 사용중인 아이디입니다.</span>
+
+			</li>
+			
+			<li>
+				<label for="passwd">비밀번호</label>
+				<input type="password" name="memberPw" id="passwd"  placeholder="영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로 작성해주세요.">
+				<div id="passwdMsg" class="error">비밀번호를 입력해 주세요.</div>
+				<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
+			</li>
+			<li>
+				<label for="passwd">비밀번호 확인</label>
+				<input type="password" name="memberPw2" id="repasswd" placeholder="같은 비밀번호를 작성해주세요."> 
+				<%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
+				<div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
+				<div id="repasswdMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
+			</li>
+			<li>
+				<label for="name">이름</label>
+				<input type="text" name="memberName" id="name"  placeholder="홍길동">
+				<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
+			</li>
+				
+			<li>
+				<label for="email">이메일</label>
+				<input type="text" name="memberEmail" id="email" placeholder="email@email.com">
+				<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
+				<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
+			</li>
+			
+
+			<!-- 전화번호2222222 -->
+			<li>
+			<label for="memberPhone">전화번호</label>
+			<input type="text" name="memberPhone" id="memberPhone" placeholder="010-0000-0000">
+			<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
+			<div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div> 
+			
+			</li>
+			 
 	
-				</li>
-				
-				<li>
-					<label for="passwd">비밀번호</label>
-					<form:input type="password" path="memberPw" id="passwd"/>
-					<form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
-					<div id="passwdMsg" class="error">비밀번호를 입력해 주세요.</div>
-					<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
-				</li>
-				<li>
-					<label for="passwd">비밀번호 확인</label>
-					<form:input type="password" name="memberPw2" path="memberPw" />
-					<form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
-					 <%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
-					<div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
-					<div id="repasswdMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
-				</li>
-				<li>
-					<label for="name">이름</label>
-					<form:input type="text" name="memberName" path="memberName" id="name"/>
-					<form:errors path="memberName" cssClass="errors" element="div" delimiter=" "/>
-					<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
-				</li>
-					
-				<li>
-					<label for="email">이메일</label>
-					<form:input type="text" name="memberEmail" id="email" path="memberEmail"/>
-					<form:errors path="memberEmail" cssClass="errors" element="div" delimiter=" "/>
-					<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
-					<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
-				</li>
-				
-	
-				<!-- 전화번호2222222 -->
-				<li>
-				<label for="memberPhone">전화번호</label>
-				<form:input type="text" name="memberPhone" id="memberPhone" path="memberPhone"/>
-				<form:errors path="memberPhone" cssClass="errors" element="div" delimiter=" "/>
-				<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-				<div id="mobileRegMsg" class="error">전화번호는 -를 포함한 전화번호형식으로 숫자로만 입력해 주세요.</div> 
-				
-				</li>
-				 
-		
-				<li>
-					<label>우편번호</label>
-					<input type="text" name="memberPcode" id="zipcode" size="7" readonly="readonly"/>
-					<span id="postSearch">우편번호 검색</span>
-					<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
-				</li>
-				<li>
-					<label for="address1">주소</label>
-					<form:input type="text" name="memberAddress1" id="address1" size="50" readonly="readonly" path="memberAddress1"/>
-					<form:errors path="memberAddress1" cssClass="errors" element="div" delimiter=" "/>
-					<div id="address1Msg" class="error">주소를 입력해 주세요.</div>
-				</li>
-				<li>
-					<label for="address2">상세주소</label>
-					<form:input type="text" name="memberAddress2" id="address2" size="50" path="memberAddress2"/>
-					<form:errors path="memberAddress2" cssClass="errors" element="div" delimiter=" "/>
-					<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
-				</li>
-			</ul>
-		</fieldset>
+			<li>
+				<label>우편번호</label>
+				<input type="text" name="memberPcode" id="zipcode" size="7" readonly="readonly">
+				<span id="postSearch">우편번호 검색</span>
+				<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
+			</li>
+			<li>
+				<label for="address1">주소</label>
+				<input type="text" name="memberAddress1" id="address1" size="50" readonly="readonly">
+				<div id="address1Msg" class="error">주소를 입력해 주세요.</div>
+			</li>
+			<li>
+				<label for="address2">상세주소</label>
+				<input type="text" name="memberAddress2" id="address2" size="50">
+				<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
+			</li>
+			
+
+		</ul>
+	</fieldset>
 	<div id="fs">
-		<form:button type="submit">회원가입</form:button>
-		<form:button type="reset">다시입력</form:button>
+		<button type="submit">회원가입</button>
+		<button type="reset">다시입력</button>
 	</div>
-</form:form>	
+	</form>
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -160,9 +152,9 @@ $("#id").focus();
 
 $("#join").submit(function() {
 	var submitResult=true;
-
 	
 	$(".error").css("display","none");
+
 	// 아이디 조건문
  	var idReg=/^[a-zA-Z0-9]{4,12}$/;
 	if($("#id").val()=="") {
@@ -175,7 +167,7 @@ $("#join").submit(function() {
 		$("#idDuplMsg").css("display","block");
 		submitResult=false;
 	} 
-	//비밀번호 조건문
+	//비밀번호 조건문 6자리~ 20자리
 	var passwdReg=/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g;
 	if($("#passwd").val()=="") {
 		$("#passwdMsg").css("display","block");
@@ -219,13 +211,13 @@ $("#join").submit(function() {
 		submitResult=false; 
 	} 
 
-	// 주소
+	// 우편번호
 	if($("#zipcode").val()=="") {
 		$("#zipcodeMsg").css("display","block");
 		submitResult=false;
 	}
 	
-	
+	// 주소
 	if($("#address1").val()=="") {
 		$("#address1Msg").css("display","block");
 		submitResult=false;
@@ -236,11 +228,9 @@ $("#join").submit(function() {
 		submitResult=false;
 	}
 	
-	*/
 	
 	return submitResult;
 });
-
 
 // 아이디 중복체크 에이젝스 ▽
 $("#id").change(function() {
@@ -249,26 +239,30 @@ $("#id").change(function() {
     var memberid =  $("#id").val(); 
     
     $.ajax({
-        type : 'get',
-        url : "<c:url value="/join/member_id_check"/>",
-        data : {"memberId":memberid},
-        dataType : "text", // text 인가????
-        success : function(result) {
+        type : 'get', // http 전송방식
+        url : "<c:url value="/join/member_id_check"/>", //요청전송될 주소
+        data : {"memberId":memberid}, // 요청시 전달할 데이터
+        dataType : "text", 				// 응답 데이터 형식
+        success : function(result) {// 결과를통해 정상적으로 요청받을경우
             if (result=="ok") {
             	idck = 1;
             	// 사용가능한 아이디
+
+
             
             } else {
             	idck = 0;
                 // 이미 사용중인 아이디
             }
         },
-        error : function(error) {
+        error : function(error) { // 응답받지 못할경우
             alert("error : " + error.status);
 
         }
     });
 });
+
+
 
 // 주소검색
 $("#postSearch").click(function() {
@@ -279,5 +273,8 @@ $("#postSearch").click(function() {
         }
     }).open();
 });
-</script>
 
+
+</script>
+</body>
+</html>

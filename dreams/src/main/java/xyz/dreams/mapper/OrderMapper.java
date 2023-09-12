@@ -1,17 +1,24 @@
 package xyz.dreams.mapper;
 
-import xyz.dreams.dto.GoodsDTO;
-import xyz.dreams.dto.MemberDTO;
+import java.util.List;
+
+import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
-import xyz.dreams.dto.OrderDetailDTO;
 
 public interface OrderMapper {
-	int insertOrder(OrderDTO orderDTO);
-	int updateOrder(OrderDTO orderDTO);
-	MemberDTO getMemberInfo(String memberId);
-	GoodsDTO getGoodsInfo(String goodsCode);
-	
-	
-	//
-	public OrderDetailDTO getGoods(String goodsCode);
+	void insert(OrderDTO orderDTO);
+
+	List<OrderDTO> myOrderList(String memberId);
+
+	List<OrderDTO> list(int curPage);
+
+	List<OrderDTO> selectByOrderId(String orderId);
+
+	boolean updateOrderStatus(OrderDTO orderDTO);
+
+	boolean delFromCart(CartVO cartVO);
+
+	int orderCancel(OrderDTO orderDTO);
+
+	int getAmount();
 }

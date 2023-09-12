@@ -11,33 +11,6 @@
       	purchase.action = "<c:url value="/goods/detail"/>";
       	purchase.submit();
 	}
-	
-	/*장바구니*/
-	function purchaseCartGoods(){
-		if(result = '0'){
-			alert("상품이 장바구니에 담기지 못했습니다.");
-		} else if(result='1'){
-			alert("상품이 장바구니에 추가되었습니다.");
-			if(confirm("장바구니로 이동하시겠습니까?")==true){
-				location.href="<c:url value='/cart/${member.memberId}'/>"
-			} else if(confirm==false){
-				
-			}
-		} else if(result='2'){
-			alert("장바구니에 이미 동일한 상품이 존재합니다.")
-			//이때 수량만 증가하게 하고싶음.
-		} else if(result='5'){
-			alert("로그인이 필요합니다.");
-			if(confirm("로그인페이지로 이동하시겠습니까?")==true){
-				location.href="<c:out value='/login'/>"
-			} else if(confirm==false){
-				
-			}
-		}
-	}
-	
-	//장바구니 추가
-	
 </script>
 
 <div class="shop-area pt-100 pb-100">
@@ -90,8 +63,7 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-								<a onclick="purchaseCartGoods();">장바구니 담기</a>
-								<a onclick="purchaseGoods();">바로 구매하기</a>
+								<a onclick="purchaseGoods();">구매하기</a>
 							</div>
 						</div>
 					</form>
@@ -118,23 +90,87 @@
                 <!-- 강민경: 리뷰 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
             </div>     
+            
+            
+            
                 
                 <!-- ▼ QnA -->
+                
             <div class="tab-content description-review-bottom">
                 <div id="des-details2" class="tab-pane active">
                     <div class="product-description-wrapper">
                     
-                    <details>
-					  <summary>사이즈 문의 드립니다!!</summary>
-					  <ul>
-					    <li> 178cm에 70kg 는 사이즈 몇을 입나요?</li>
-					  </ul>
-					  
-					</details>
-					
-                    </div>
+                    
+                    	<!-- QnA 전체? -->
+						<div class = "QnaContainer" >
+							<div class = "QnaTitle">
+								<h2 style = "color: gray;">Q&A</h2>
+								<h4 style = "color: gray;">구매하는 상품에 대해 궁금한점이 있으신 경우 문의해주세요</h4>
+							</div>
+							
+						<!-- 문의 테이블 -->
+						<div class = "qnaTable" style = "margin: 0 auto">
+							<table class = "qnaTableMain" width = "1200px">
+								<thead>	
+									<tr>
+										<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
+										<th class="t2" style="width: 100px">답변상태</th>
+			                            <th class="t3" style="width: 700px">제목</th>
+			                            <th class="t4" style="width: 150px">작성자</th>
+			                            <th class="t5" style="width: 150px">작성일</th>
+									</tr>
+								</thead>
+								
+								<!-- 정보 받아옴 -->
+								<tbody>
+									<c:forEach items ="${qnaList}" var ="qna"> <!-- qna리스트받아옴 -->
+										<tr class = "boardTableList">
+											<td class="t1"><c:out value="${qna.qnaNo }"/></td>  <!-- 번호불러옴 -->
+											<td class = "t2"> <c:out value = "${qna.qnaYn}"/> </td> <!--  답변여부 -->
+	                            			<td class="t3 text-left"> </td> <!-- 제목 우측 -->
+											<td class = "t3"> <c:out value= "${qna.qnaTitle}"/> </td> <!-- 제목받아옴 -->
+											<td class = "content" id= "qnacontent">
+											
+											<td class = "t4"> <c:out value= "${qna.memberId}"/> </td> <!-- 회원id 받아옴 -->
+											<td class = "t5"> <c:out value="${qna.qnaDare}"/> </td> <!-- 날짜받아옴 -->
+											<td class="t6" style="display: none;"> <c:out value="${qna.qnaContent}" /> </td> <!-- 추가 열: 내용 -->
+											
+											
+										</tr>
+										</c:forEach>			
+								</tbody>
+							</table>
+						</div>
+					</div>
+                  </div>
                 </div>
                 
+		             <!-- 로그인한 사람만 생기는 q&a 글쓰기 버튼-->
+		            <div class="writeBtnContainer">
+		                <div class="boardWriteBtn" style="text-align: right;">
+		                	<c:if test="${!empty(member)}">
+		                    	<a href=<c:url value="/goods/qna/write"/>>문의하기</a> <!-- 페이지 이동 -->
+		                    </c:if>
+		                </div>
+		            </div>
+                
+                
+                <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
+                $(document).ready(function() {
+                    $(".t3").click(function() { // 질문 제목을 클릭했을 때
+                        $(this).closest("tr").find(".t6").toggle(); // 클릭한 행에서 다음 열(.t6)을 토글(show/hide)합니다.
+                    });
+                });
+                
+                
+                
+                
+                </script>
+                
+                
+                
+                
+                <!-- 상품디테일설명 ▼ -->
                 
                 <div id="des-details1" class="tab-pane ">
                     <div class="product-anotherinfo-wrapper">

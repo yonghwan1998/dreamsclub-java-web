@@ -2,20 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.GoodsMapper">
 
-	<!-- 굿즈 메인 페이지 -->
+	<!-- 
+	방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
+	q:검색 키워드, column:정렬순서, minPrice:최소 금액. maxPrice:최대 금액
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력 
+	-->
 	<!-- 굿즈 리스트 출력 -->
 	<select id="selectGoodsList" resultType="GoodsDTO">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
-		<if test="q != null and q != ''"> 
-			<bind name="search" value="'%'+q+'%'"/>
-			where REPLACE(GOODS_CODE,' ', '') like #{search} 
-		</if>
-		<if test="column == 'goods_code'"> 
-			order by goods_code
-		</if>
-		<if test="column == 'goods_price'"> 
-			order by goods_price, goods_code
-		</if>
+		SELECT * FROM (
+			SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			<if test="q != null and q != ''"> 
+				<bind name="search" value="'%'+q+'%'"/>
+				WHERE REPLACE(GOODS_CODE,' ', '') LIKE #{search} 
+			</if>
+			<if test="column == 'goods_code'"> 
+				ORDER BY GOODS_CODE)
+			</if>
+			<if test="column == 'goods_price'"> 
+				ORDER BY GOODS_PRICE, GOODS_CODE)
+			</if>
+		WHERE GOODS_PRICE BETWEEN #{minPrice} AND #{maxPrice}
 	</select>
 
 	<!-- 굿즈 디테일 페이지 -->
@@ -54,6 +60,21 @@
 	 		GOODS_INFO = #{goodsInfo},
 	 		GOODS_STOCK = #{goodsStock}
 	 	WHERE GOODS_CODE = #{goodsCode}
+	 </update>
+	 
+	<!-- 
+	방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
+	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
+	 -->
+	 <update id="updateAdminGoodsYn">
+	 	UPDATE GOODS SET
+	 		<if test="goodsYn eq 'Y'.toString()"> 
+			GOODS_YN = 'N'
+			</if>
+	 		<if test="goodsYn eq 'N'.toString()">
+			GOODS_YN = 'Y'
+			</if>
+	 	where GOODS_CODE = #{goodsCode}
 	 </update>
 	
 </mapper>

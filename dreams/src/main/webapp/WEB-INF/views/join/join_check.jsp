@@ -56,12 +56,12 @@
 </div>
 
 <script>
-	function nextGo() {
+/* 	function nextGo() {
 		if (document.f.agree.checked)
 			location.href = "regist.html"
 		else
 			window.alert("이용약관에 동의해주세요")
-	}
+	} */
 
 	/*
 	  1. 단일항목 체크상자의 객체접근
