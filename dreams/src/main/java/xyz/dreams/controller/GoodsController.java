@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,13 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
+import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
+import xyz.dreams.service.QnaService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/goods")
 public class GoodsController {
 	private final GoodsService goodsService;
+	
+	// 오진서 - 9/10 추가 ▼
+	private final QnaService qnaService;
 
 	/* GET - 굿즈 메인 페이지 */
 //	굿즈 리스트 출력
@@ -79,5 +86,64 @@ public class GoodsController {
 		
 		return "redirect:/order/new";
 	}
+	
+	
+//	// 오진서 - 9/10 ▼ 댓글쓰기
+//	// POST - 댓글 작성 처리
+//    @PostMapping("/addQna")
+//    @ResponseBody
+//    public Map<String, Object> addComment(@RequestBody QnaDTO qnaDTO) {
+//        Map<String, Object> result = new HashMap<>();
+//
+//        try {
+//        	
+//            // 여기에 댓글을 저장하고 DB에 추가하는 로직을 추가
+//            // QnaDTO 객체에는 goodsName과 content가 포함됨
+//
+//            // 저장이 성공하면 success 값을 true로 설정
+//            result.put("success", true);
+//        } catch (Exception e) {
+//            // 저장에 실패하면 success 값을 false로 설정
+//            result.put("success", false);
+//            result.put("errorMessage", "문의글 작성에 실패했습니다.");
+//            e.printStackTrace();
+//        }
+//
+//        return result;
+//    }
+    
+    
+//	// 오진서 - 09/11 Q&A 작성 페이지 이동 1
+//	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+//	public String QnaWrite() {
+//
+//		return "goods/goods_qna_write";
+//	}
+//	
+//	
+//	
+//	
+	// 오진서 - 09/11 Q&A 작성 하기 1
+	@RequestMapping(value = "write/add", method = RequestMethod.POST)
+	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
+		qnaService.enrollQna(qna);
+		
+		return "redirect:/goods"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
+	}
+	
+	
+	
+    // 오진서 - 9/12 // Q&A 작성 페이지로 이동 2
+	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+    public String showQnaWriteForm() {
+        return "goods_qna_write"; // JSP 페이지 이름
+    }
+	
+//    // 오진서 - 9/12 //  Q&A 작성 처리2
+//    @PostMapping("/qna/write")
+//    public String submitQna(@ModelAttribute QnaDTO qna) {
+//        // qnaService를 사용하여 Q&A 데이터를 저장하는 로직을 수행
+//        qnaService.enrollQna(qna);
+//        return "redirect:/goods"; // 작업 완료 후 이동할 경로
 
 }
