@@ -2,20 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.GoodsMapper">
 
-	<!-- 굿즈 메인 페이지 -->
-	<!-- 굿즈 리스트 출력 -->
+	<!-- 
+	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
+	q:검색 키워드, column:정렬순서, minPrice:최소 금액. maxPrice:최대 금액
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력 
+	
+	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
+	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	-->
 	<select id="selectGoodsList" resultType="GoodsDTO">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
-		<if test="q != null and q != ''"> 
-			<bind name="search" value="'%'+q+'%'"/>
-			where REPLACE(GOODS_CODE,' ', '') like #{search} 
-		</if>
-		<if test="column == 'goods_code'"> 
-			order by goods_code
-		</if>
-		<if test="column == 'goods_price'"> 
-			order by goods_price, goods_code
-		</if>
+		SELECT * FROM (
+			SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			<!-- 검색 키워드(q)가 존재한다면 bind -->
+			<if test="q != null and q != ''"> 
+				<bind name="search" value="'%'+q+'%'"/>
+				WHERE REPLACE(GOODS_CODE,' ', '') LIKE #{search} 
+				<!-- 띄어쓰기 무시하고 검색하기 위한 REPLACE -->
+			</if>
+			<!-- 정렬순서(colmun)이 '이름순'일 때 -->
+			<if test="column == 'goods_code'"> 
+				ORDER BY GOODS_CODE)
+			</if>
+			<!-- 정렬순서(colmun)이 '가격순'일 때 -->
+			<if test="column == 'goods_price'"> 
+				ORDER BY GOODS_PRICE, GOODS_CODE)
+			</if>
+		<!-- minPrice ~ maxPrice 가격 범위 설정 -->
+		WHERE GOODS_PRICE BETWEEN #{minPrice} AND #{maxPrice}
 	</select>
 
 	<!-- 굿즈 디테일 페이지 -->
