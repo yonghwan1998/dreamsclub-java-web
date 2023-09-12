@@ -1,5 +1,8 @@
 package xyz.dreams.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
@@ -67,10 +72,39 @@ public class OrderController {
 	 * return "order/order_detail"; }
 	 */
     
+    @RequestMapping(value = "/cartOrder", method = RequestMethod.POST)
+    public String orderAllCartGoods(HttpSession session,
+    		@RequestParam(value = "chd[]") List<String> myCartList, Model model,
+    		@ModelAttribute("selected_opt") String selectedOpt,
+    		@ModelAttribute("goods_count") int goodsCount) {
+    	
+    	List<GoodsDTO> goodsInfo = new ArrayList<GoodsDTO>();
+    	
+    	for(int i = 0; i < myCartList.size(); i++) {
+    		String goodsCode = myCartList.get(i);
+    		
+    		GoodsDTO dto = goodsService.getGoodsDetail(goodsCode);
+    		
+    		if(dto.getGoodsStock() == 0) {
+    			continue;
+    		} else {
+    			goodsInfo.add(dto);
+    		}
+    	}
+    	
+    	MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+    	model.addAttribute("memberInfo", memberDTO);
+    	model.addAttribute("goodsInfoList", goodsInfo);
+    	model.addAttribute("selected_opt", selectedOpt);
+    	model.addAttribute("goodsCount", goodsCount);
+    	
+    	return "cart/cart";
+    }
+    
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public String order(GoodsDTO goodsDTO, MemberDTO memberDTO, Model model,
     		@ModelAttribute("selected_opt") String selectedOpt,
-    		@ModelAttribute("order_qty") int orderQty,
+    		@ModelAttribute("goods_count") int goodsCount,
     		@ModelAttribute("deliver_msg") String deliverMsg,
     		@ModelAttribute("total_amount") String totalAmount,
     		@ModelAttribute("cal_info") String calInfo) {
@@ -93,7 +127,7 @@ public class OrderController {
     	orderDTO.setGoodsInfo(goodsDTO.getGoodsInfo());
     	
     	orderDTO.setSelectedOpt(selectedOpt);
-    	orderDTO.setOrderQty(orderQty);
+    	orderDTO.setGoodsCount(goodsCount);
     	orderDTO.setDeliverMsg(deliverMsg);
     	orderDTO.setOrderStatus(0);
     	orderDTO.setCalInfo(calInfo);
@@ -110,17 +144,17 @@ public class OrderController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String orderInsert(GoodsDTO goodsDTO, HttpSession session, Model model,
     		@ModelAttribute("selected_Opt") String selectedOpt, 
-    		@ModelAttribute("order_qty") String orderQty) {
+    		@ModelAttribute("goods_count") String goodsCount) {
     	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
     	memberInfo = memberService.getMember(memberInfo.getMemberId());
     	goodsDTO = goodsService.getGoodsDetail(goodsDTO.getGoodsCode());
     	
     	model.addAttribute("memberInfo", memberInfo);
     	model.addAttribute("goodsInfo", goodsDTO);
-    	model.addAttribute("order_Qty", orderQty);
+    	model.addAttribute("goods_count", goodsCount);
     	model.addAttribute("selected_Opt", selectedOpt);
     	
-    	return "order/order";
+    	return "order/order_confirm";
     }
     
     @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
@@ -133,6 +167,26 @@ public class OrderController {
     	model.addAttribute("memberInfo", memberInfo);
     	model.addAttribute("goodsInfo", goodsDTO);
     	
-    	return "order/order";
+    	return "order/order_confirm";
     }
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    public int orderCancel(OrderDTO orderDTO) {
+    	int result = orderService.orderCancel(orderDTO);
+    	return result;
+    }
+    
+    @ResponseBody
+	@RequestMapping(value = "/delFromCart", method = RequestMethod.POST)
+	public String delFromCart(CartVO cartVO) {
+		
+		boolean result = orderService.delFromCart(cartVO);
+		if(result) {
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
 }

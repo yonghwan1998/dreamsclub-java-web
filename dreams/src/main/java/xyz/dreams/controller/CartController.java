@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.CartService;
 import xyz.dreams.service.OrderService;
 
@@ -35,7 +36,7 @@ public class CartController {
 	    
 	    model.addAttribute("goods", goods);
 	    
-	    return "order/order";
+	    return "order/order_confirm";
 	}
 	
 	
@@ -88,6 +89,15 @@ public class CartController {
 			return "no";
 		}
 	}
+	
+	@RequestMapping(value = "/result", method = RequestMethod.POST)
+    public void cartOrderResult(OrderDTO[] arr) {
+    	
+    	for(int i=0; i<arr.length; i++) {
+    		OrderDTO orderDTO = arr[i];
+    		System.out.println(orderDTO);
+    	}
+    }
 
 }
 
