@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -154,6 +155,7 @@ public class GoodsController {
     public String showQnaWriteForm() {
         return "goods_qna_write"; // JSP 페이지 이름
     }
+
 	
 //    // 오진서 - 9/12 //  Q&A 작성 처리2
 //    @PostMapping("/qna/write")
@@ -161,5 +163,6 @@ public class GoodsController {
 //        // qnaService를 사용하여 Q&A 데이터를 저장하는 로직을 수행
 //        qnaService.enrollQna(qna);
 //        return "redirect:/goods"; // 작업 완료 후 이동할 경로
-
+//    }
+    
 }
