@@ -28,7 +28,7 @@
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             if (check) {
-              location.assign("<c:url value='/cart/mycart/' />" + memberId);
+              location.assign("<c:url value='/order/mycart/' />" + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
