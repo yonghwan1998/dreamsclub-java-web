@@ -31,7 +31,7 @@ public class MemberDTO {
 	@NotEmpty(message = "아이디를 반드시 입력해 주세요.")
 	private String memberId;
 	@NotEmpty(message = "비밀번호를 입력해 주세요.")
-	@Pattern(regexp = "/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/", message = "비밀번호를 형식에 맞게 입력해 주세요.")
+	@Pattern(regexp = "/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g", message = "비밀번호를 형식에 맞게 입력해 주세요.")
 	private String memberPw;
 	@NotEmpty(message = "이메일을 입력해 주세요.")
 	@Email(message = "이메일을 형식에 맞게 입력해 주세요.")

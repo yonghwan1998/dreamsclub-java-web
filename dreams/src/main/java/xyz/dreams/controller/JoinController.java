@@ -37,7 +37,6 @@ public class JoinController {
 	@RequestMapping(value = "/hewon", method = RequestMethod.POST)
 	public String add(@ModelAttribute @Valid MemberDTO memberDTO, Errors errors) {
 		if(errors.hasErrors()) {
-			System.out.println("error");
 			return "join/join_hewon";
 		}
 		memberService.addMember(memberDTO);

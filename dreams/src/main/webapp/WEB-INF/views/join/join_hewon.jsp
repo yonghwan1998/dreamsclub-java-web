@@ -83,14 +83,14 @@ legend {
 				
 				<li>
 					<label for="passwd">비밀번호</label>
-					<form:input type="password" path="memberPw" id="passwd"/>
+					<form:password path="memberPw" id="passwd"/>
 					<form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
 					<div id="passwdMsg" class="error">비밀번호를 입력해 주세요.</div>
 					<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
 				</li>
 				<li>
 					<label for="passwd">비밀번호 확인</label>
-					<form:input type="password" name="memberPw2" path="memberPw" />
+					<form:password name="memberPw2" path="memberPw" />
 					<form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
 					 <%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
 					<div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
@@ -209,7 +209,7 @@ $("#join").submit(function() {
 	}
 	
  	// 핸드폰 조건문222
-	var memberPhoneReg=/^\d{3}-\d{3,4}-\d{4}$/g;
+	var memberPhoneReg=/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 	var result=memberPhoneReg.test($("#memberPhone").val());
 	if($("#memberPhone").val()=="") {
 		$("#mobileMsg").css("display","block");
@@ -236,7 +236,6 @@ $("#join").submit(function() {
 		submitResult=false;
 	}
 	
-	*/
 	
 	return submitResult;
 });
