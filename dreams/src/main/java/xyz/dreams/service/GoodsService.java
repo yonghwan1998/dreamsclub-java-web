@@ -7,8 +7,15 @@ import xyz.dreams.dto.GoodsDTO;
 
 public interface GoodsService {
 
-	/* 굿즈 메인 페이지 */
-//	굿즈 리스트 출력
+	/*
+	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
+	q:검색 키워드, column:정렬순서, minPrice:최소 금액. maxPrice:최대 금액
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력 
+	
+	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
+	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	*/
 	List<GoodsDTO> getGoodsList(Map<String, Object> map);
 
 	/* 굿즈 디테일 페이지 */

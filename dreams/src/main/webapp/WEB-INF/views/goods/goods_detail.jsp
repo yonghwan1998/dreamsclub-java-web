@@ -2,6 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
+  /* 
+    function purchaseGoods() {
+      if ( purchase.goodsSize.value == "0" ) {
+            alert("사이즈를 선택해주세요.");
+            purchase.goodsSize.focus();
+            return;
+         } 
+         purchase.action = "<c:url value="/goods/detail"/>";
+         purchase.submit();
+   }  
+   */
+
   /* 장바구니 */
   $(document).ready(function () {
     // 주문하기 버튼 클릭
@@ -28,7 +40,7 @@
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             if (check) {
-              location.assign("<c:url value='/cart/mycart/' />" + memberId);
+              location.assign("<c:url value='/order/mycart/' />" + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
@@ -110,6 +122,8 @@
 		</div>
 	</div>
 </div>
+
+
 <div class="description-review-area pb-90">
     <div class="container">
         <div class="description-review-wrapper">
@@ -122,41 +136,104 @@
                 <!-- 강민경: 리뷰 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
             </div>     
-                
-                <!-- ▼ QnA -->
-            <div class="tab-content description-review-bottom">
-                <div id="des-details2" class="tab-pane active">
-                    <div class="product-description-wrapper">
-                    
-                    <details>
-					  <summary>사이즈 문의 드립니다!!</summary>
-					  <ul>
-					    <li> 178cm에 70kg 는 사이즈 몇을 입나요?</li>
-					  </ul>
-					  
-					</details>
-					
-                    </div>
-                </div>
-                
-                
-                <div id="des-details1" class="tab-pane ">
-                    <div class="product-anotherinfo-wrapper">
-                        <ul>
-                            <li><span>Weight</span> 400 g</li>
-                            <li><span>Dimensions</span>10 x 10 x 15 cm </li>
-                            <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                            <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- 강민경: 상품 리뷰 작성 부분  -->
-                <div id="des-details3" class="tab-pane">
-                    <div class="row">
-                        <div class="col-lg-11">
-                            <div class="review-wrapper">
-                                 <!-- 리뷰 작성 칸인데 크기가 이상해서 밑에 있는 대댓글 사용할 예정 
+
+			<!--
+			- 방용환(수정) : 2023/09/13, 전체 태그 위치 및 tabs 수정, script 작성 완료시 최상단 혹은 최하단 이동 요망
+			 -->
+			<div class="tab-content description-review-bottom">
+
+				<!-- 제품 상세 정보 출력 div -->
+				<div id="des-details1" class="tab-pane ">
+					<div class="product-anotherinfo-wrapper">
+						<ul>
+							<li><span>Weight</span> 400 g</li>
+							<li><span>Dimensions</span>10 x 10 x 15 cm</li>
+							<li><span>Materials</span> 60% cotton, 40% polyester</li>
+							<li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- QnA 출력 div-->
+				<div id="des-details2" class="tab-pane active">
+					<div class="product-description-wrapper">
+
+						<!-- QnA 전체? -->
+						<div class="QnaContainer">
+							<div class="QnaTitle">
+								<h2 style="color: gray;">Q&A</h2>
+								<h4 style="color: gray;">구매하는 상품에 대해 궁금한점이 있으신 경우 문의해주세요</h4>
+							</div>
+
+							<!-- 문의 테이블 -->
+							<div class="qnaTable" style="margin: 0 auto">
+								<table class="qnaTableMain" width="1200px">
+									<thead>
+										<tr>
+											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
+											<th class="t2" style="width: 100px">답변상태</th>
+											<th class="t3" style="width: 700px">제목</th>
+											<th class="t4" style="width: 150px">작성자</th>
+											<th class="t5" style="width: 150px">작성일</th>
+										</tr>
+									</thead>
+
+									<!-- 정보 받아옴 -->
+									<tbody>
+										<c:forEach items="${qnaList}" var="qna">
+											<!-- qna리스트받아옴 -->
+											<tr class="boardTableList">
+												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
+												<!-- 번호불러옴 -->
+												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
+												<!--  답변여부 -->
+												<td class="t3 text-left"></td>
+												<!-- 제목 우측 -->
+												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
+												<!-- 제목받아옴 -->
+												<td class="content" id="qnacontent">
+												<td class="t4"><c:out value="${qna.memberId}" /></td>
+												<!-- 회원id 받아옴 -->
+												<td class="t5"><c:out value="${qna.qnaDare}" /></td>
+												<!-- 날짜받아옴 -->
+												<td class="t6" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
+												<!-- 추가 열: 내용 -->
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!--
+                   로그인한 사람만 생기는 q&a 글쓰기 버튼
+                   - 방용환(수정) : 2023/09/13, 'des-details2' id를 가진 태그 내부로 이동 
+                   -->
+					<div class="writeBtnContainer">
+						<div class="boardWriteBtn" style="text-align: right;">
+							<c:if test="${!empty(member)}">
+								<a href=<c:url value="/goods/qna/write"/>>문의하기</a>
+								<!-- 페이지 이동 -->
+							</c:if>
+						</div>
+					</div>
+				</div>
+
+				<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
+					$(document).ready(function() {
+						$(".t3").click(function() { // 질문 제목을 클릭했을 때
+							$(this).closest("tr").find(".t6").toggle(); // 클릭한 행에서 다음 열(.t6)을 토글(show/hide)합니다.
+						});
+					});
+				</script>
+
+
+				<!-- 강민경: 상품 리뷰 작성 부분  -->
+				<div id="des-details3" class="tab-pane">
+					<div class="row">
+						<div class="col-lg-11">
+							<div class="review-wrapper">
+								<!-- 리뷰 작성 칸인데 크기가 이상해서 밑에 있는 대댓글 사용할 예정 
                                 <div class="single-review">
                                     <div class="review-img">
                                         <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
@@ -184,41 +261,37 @@
                                         </div>
                                     </div>
                                 </div>-->
-                                
-                                <!-- 강민경: 리뷰 답글 부분 주석처리 (추후 사용할 가능성 있음) -->
-                                <div class="single-review child-review">
-                                    <div class="review-img">
-                                        <img src="${pageContext.request.contextPath }/img/testimonial/2.jpg" alt="">
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-top-wrap">
-                                            <div class="review-left">
-                                                <div class="review-name">
-                                                    <h4>강민*</h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-left">
-                                                <a href="#">삭제</a>
-                                            </div>
-                                        </div>
-                                        <div class="review-bottom">
-                                            <p>너무 예뻐요~</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+								<!-- 강민경: 리뷰 답글 부분 주석처리 (추후 사용할 가능성 있음) -->
+								<div class="single-review child-review">
+									<div class="review-img">
+										<img src="${pageContext.request.contextPath }/img/testimonial/2.jpg" alt="">
+									</div>
+									<div class="review-content">
+										<div class="review-top-wrap">
+											<div class="review-left">
+												<div class="review-name">
+													<h4>강민*</h4>
+												</div>
+												<div class="review-rating">
+													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+												</div>
+											</div>
+											<div class="review-left">
+												<a href="#">삭제</a>
+											</div>
+										</div>
+										<div class="review-bottom">
+											<p>너무 예뻐요~</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 </div>
 

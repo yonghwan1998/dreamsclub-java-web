@@ -12,9 +12,22 @@ input::-webkit-inner-spin-button {
 
 <script>
 function selectChange(q){
+	var uniformChecked = $('#uniformCheck').is(':checked');
+	var capChecked = $('#capCheck').is(':checked');
+	var fanChecked = $('#fanCheck').is(':checked');
+	
+	$("#searchUniform").val(uniformChecked);
+	$("#searchCap").val(capChecked);
+	$("#searchFan").val(fanChecked);
+	
 	$("#searchColumn").val($("#selectFilter").val());
+	
 	$("#searchText").val(q);
+	
 	$("#searchForm").submit();
+}
+
+function selectCategory(){
 }
 </script>
 
@@ -96,6 +109,9 @@ function selectChange(q){
 						<div class="pro-sidebar-search mb-50 mt-25">
 							<form class="pro-sidebar-search-form" method="post" action="<c:url value="/goods/main"/>" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
+								<input type="hidden" name="uniform" id="searchUniform" value="${map.uniform }">
+								<input type="hidden" name="cap" id="searchCap" value="${map.cap }">
+								<input type="hidden" name="fan" id="searchFan" value="${map.fan }">
 								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
@@ -124,17 +140,17 @@ function selectChange(q){
 							<ul>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value="" checked> <a href="#">Uniform</a> <span class="checkmark"></span>
+										<input type="checkbox" id="uniformCheck" onclick="selectChange('${map.q }');" ${map.uniform == 'True' ? 'checked="checked"' : '' }> <a href="#">Uniform</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value="" checked> <a href="#">Cap</a> <span class="checkmark"></span>
+										<input type="checkbox" id="capCheck" value="" onclick="selectChange('${map.q }');" ${map.cap == 'True' ? 'checked="checked"' : '' }> <a href="#">Cap</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value="" checked> <a href="#">Fan Goods</a> <span class="checkmark"></span>
+										<input type="checkbox" id="fanCheck" value="" onclick="selectChange('${map.q }');" ${map.fan == 'True' ? 'checked="checked"' : '' }> <a href="#">Fan Goods</a> <span class="checkmark"></span>
 									</div>
 								</li>
 							</ul>
@@ -272,31 +288,3 @@ function selectChange(q){
 	</div>
 </div>
 <!-- Modal end -->
-<script type="text/javascript">
-
-	// 장바구니 버튼 클릭시
-	$("#addCartBtn").click(function() {
-		var goodsCode = $(".goodsCode").text();
-
-		alert(goodsCode);
-		
-		$.ajax({
-			type : "post",
-			url : "<c:url value="/goods/rest_test"/>",
-			contentType : "application/json",
-			data : JSON.stringify({
-				"goodsCode" : goodsCode
-			}),
-			dateType : "text",
-			success : function(result) {
-				if (result == "success") {
-					alert("jsp");
-				}
-			},
-			error : function(xhr) {
-				alert("에러코드(게시글 삽입) = " + xhr.stauts);
-			}
-		});
-	});
-	
-</script>

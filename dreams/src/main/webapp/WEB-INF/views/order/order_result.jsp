@@ -74,22 +74,22 @@
 		<a href="/">Hello World</a>
 		<div  class="text-right" >
 			<c:choose>
-				<c:when test="${login.userid != null}">
+				<c:when test="${member.memberId != null}">
 					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
-					<span id="login_log" style="border-bottom: 1px solid white;">${login.userid} 님, 환영합니다.</span>
+					<span id="login_log" style="border-bottom: 1px solid white;">${member.memberId} 님, 환영합니다.</span>
 					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<c:if test="${login.userid == 'admin'}">
+					<c:if test="${member.memberId == 'admin'}">
 						<button id="go_to_adminPage">관리자 페이지</button>
 					</c:if>
 					<button class="mycart_btn">장바구니</button>
 					<button id="mypage_btn">마이페이지</button>
 					<button id="logout_btn">로그아웃</button>
-					<input type="hidden" value="${login.userid}" id="login_userid">
+					<input type="hidden" value="${member.memberId}" id="login_memberId">
 				</c:when>
 				
 				<c:otherwise>
-					<button onclick="location.href='/member/login'">로그인</button><button onclick="location.href='/member/insert'">회원가입</button>
+					<button onclick="location.href='#'">로그인</button><button onclick="location.href='#'">회원가입</button>
 				</c:otherwise>
 			</c:choose>	
 			
@@ -132,13 +132,14 @@
 				</thead>
 				<tbody style="text-align: left; vertical-align: middle;">
 						<tr>
-							<td style="text-align: center;"><img alt="thumbnail" src="/resources/upload${dto.fullname}" width="30%">
-							<input type="hidden" value="${dto.productId}" name="productId" id="productId">
+							<td style="text-align: center;"><img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${dto.goodsImage }"
+								style="max-width: 100px; max-height: 100px;">
+							<input type="hidden" value="${dto.goodsCode}" name="goodsCode" id="goodsCode">
 							</td>
-							<td>${dto.productName}<br>${dto.productInfo}</td>
-							<td><fmt:formatNumber type="number" value="${dto.price}"/>&nbsp;원</td>
-							<td>${dto.order_Qty}</td>
-							<td>${dto.selected_Opt}</td>
+							<td>${dto.goodsCode}<br>${dto.goodsInfo}</td>
+							<td><fmt:formatNumber type="number" value="${dto.goodsPrice}"/>&nbsp;원</td>
+							<td>${dto.orderQty}</td>
+							<td>${dto.selectedOpt}</td>
 							<td><fmt:formatNumber type="number" value="${dto.totalAmount}"/>&nbsp;원</td>
 						</tr>
 				</tbody>
@@ -161,11 +162,11 @@
 				</thead>
 				<tbody style="text-align: left;">
 						<tr>
-							<td>${dto.username}</td>
-							<td>${dto.postcode}<br>${dto.useraddress}</td>
-							<td>${dto.tel}</td>
-							<td id="del_situ"></td>
-							<td>${dto.deliver_msg}</td>
+							<td>${dto.memberName}</td>
+							<td>${dto.memberPcode}<br>${dto.memberAddress1}<br>${dto.memberAddress2}</td>
+							<td>${dto.memberPhone}</td>
+							<td id="order_status"></td>
+							<td>${dto.deliverMsg}</td>
 						</tr>
 				</tbody>
 			</table>
@@ -181,10 +182,10 @@
 	
 	$(document).ready(function() {
 		
-		var userid = $("#login_userid").val();
-		var productId = $("#productId").val();
+		var memberId = $("#login_memberId").val();
+		var goodsCode = $("#goodsCode").val();
 		
-		del_situ();
+		order_status();
 		
 		
 		$(".back_btn").click(function(event) {
@@ -194,18 +195,8 @@
 
 		$(".mycart_btn").click(function(event) {
 			event.preventDefault();
-			location.assign("/order/mycart/" + userid);
+			location.assign("/cart/mycart/" + memberId);
 			
-		});
-		
-		$("li").on('click', function() {
-			var productDist = $(this).attr("value");
-			
-			if (productDist == 'qna') {
-				location.assign("/board/qna");
-			} else {
-				location.assign("/product/" + productDist);
-			}		
 		});
 		
 		$("#go_to_member_insert").click(function(event) {
@@ -216,9 +207,9 @@
 		
 		$("#mypage_btn").click(function(event) {
 			event.preventDefault();
-			var userid = $("#login_userid").val();
+			var memberId = $("#login_memberId").val();
 			
-			location.assign("/member/read/" + userid);
+			location.assign("/member/read/" + memberId);
 		})
 		
 		$("#logout_btn").click(function(event) {
@@ -244,17 +235,17 @@
 
 		});
 	    
-	    function del_situ() {
-	    	var situ = "<c:out value='${dto.deliver_situ}'/>";
-	    	if (situ == '0') {
-				situ = "배송 준비중";
-			} else if (situ == '1') {
-				situ = "배송중";
-			} else if (situ == '2') {
-				situ = "배송 완료";
+	    function order_status() {
+	    	var status = "<c:out value='${dto.orderStatus}'/>";
+	    	if (status == '0') {
+				status = "배송 준비중";
+			} else if (status == '1') {
+				status = "배송중";
+			} else if (status == '2') {
+				status = "배송 완료";
 			}
 	    	
-	    	$("#del_situ").html(situ);
+	    	$("#order_status").html(status);
 		}
 	
 	});
