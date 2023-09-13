@@ -73,8 +73,12 @@ public class CommunityServiceImpl implements CommunityService{
 
 	/*목록보기 + 페이징 처리*/
 	@Override
-	public Map<String, Object> getCommunityList(int pageNum) {
-		int totalBoard=communityDAO.selectCommunityCount();
+	public Map<String, Object> getCommunityList(Map<String, Object> map) {
+		int pageNum=1; //요청 페이지번호의 선언초기화 (무조건 1부터 시작)
+		if(map.get("pageNum") != null && !map.get("pageNum").equals("")) {
+			pageNum=Integer.parseInt((String)map.get("pageNum"));	//pageNum 타입을 Int로 변환
+		}
+		int totalBoard=communityDAO.selectCommunityCount(map);
 		int pageSize=10;//하나의 페이지에 출력될 게시글의 갯수 저장
 		int blockSize=10;//하나의 블럭에 출력될 페이지의 갯수 저장
 		
@@ -84,10 +88,9 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		//FileBoardDAO 클래스의 selectFileBoardList() 메소드를 호출하기 위해 매개변수에 전달하여
 		//저장될 Map 객체(시작 행번호, 종료 행번호) 생성
-		Map<String, Object> pageMap=new HashMap<String, Object>();
-		pageMap.put("startRow", pager.getStartRow());
-		pageMap.put("endRow", pager.getEndRow());
-		List<CommunityDTO> communityList=communityDAO.selectCommunityList(pageMap);
+		map.put("startRow", pager.getStartRow());
+		map.put("endRow", pager.getEndRow());
+		List<CommunityDTO> communityList=communityDAO.selectCommunityList(map);
 		
 		//Controller 클래스에게 제공되는 데이타 처리 결과값을 반환하기 위한 Map 객체 생성
 		Map<String, Object> resultMap=new HashMap<String, Object>();

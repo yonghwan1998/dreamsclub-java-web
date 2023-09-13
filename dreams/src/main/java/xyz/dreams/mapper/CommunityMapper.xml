@@ -4,43 +4,81 @@
 
 <!-- 게시판 등록 -->
 <insert id="enrollCommunity">
-	insert into Community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
+	insert into Community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) 
+	values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
 </insert>
 
 <!-- 게시판 전체 목록보기 -->
 <select id="getList" resultType="xyz.dreams.dto.CommunityDTO">
-	select * from community order by comm_no desc
+	select * 
+	from community 
+	order by comm_no desc
 </select>
 
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
-	select * from community where COMM_NO=#{commNo}
+	select * 
+	from community 
+	where COMM_NO=#{commNo}
 </select>
 
 <!-- 게시판 글 수정 -->
 <update id="modifyCommunity" parameterType="CommunityDTO">
-	update community set comm_title=#{commTitle}, comm_cont=#{commCont} where comm_no=#{commNo}
+	update community 
+	set comm_title=#{commTitle}, comm_cont=#{commCont} 
+	where comm_no=#{commNo}
 </update>
 
 <!-- 게시판 글 삭제 -->
 <delete id="deleteCommunity">
-	delete from community where COMM_NO=#{commNo}
+	delete from community 
+	where COMM_NO=#{commNo}
 </delete>
 
 <!-- 게시글 조회수 증가 -->
 <update id="upCountCommunity" parameterType="int">
-	update community set comm_hit = comm_hit+1 where comm_no=#{commNo}
+	update community 
+	set comm_hit = comm_hit+1 
+	where comm_no=#{commNo}
 </update>
 
-<!-- 페이징 처리 --> 
+<!-- 게시글 목록 보기 + 페이징처리 + 검색 --> 
 <select id="selectCommunityList" resultType="CommunityDTO">
-	select * from (select rownum as rn, comm_no, member_id, comm_title, comm_cont, comm_date, comm_hit 
-		from (select comm_no, member_id, comm_title, comm_cont, comm_date, comm_hit from community order by comm_no desc) community)
-		where rn between #{startRow} and #{endRow}
+	select * 
+	from (
+		select rownum rn, 
+			comm_no, 
+			member_id, 
+			comm_title, 
+			comm_cont, 
+			comm_date, 
+			comm_hit 
+		from (
+			select comm_no, 
+				member_id, 
+				comm_title, 
+				comm_cont, 
+				comm_date, 
+				comm_hit 
+			from community 
+			<if test = "keyword !=null and keyword !=''">
+				<bind name="word" value="'%'+keyword+'%'"/>
+				where ${column} like #{word}
+			</if>
+			order by comm_no desc
+		) community
+	)
+	where rn between #{startRow} and #{endRow}
 </select>
 
 <!-- 게시글 총 개수(페이징처리) -->
 <select id="selectCommunityCount" resultType="int">
-	select count(*) from community
+	select count(*) 
+	from community
+	<if test = "keyword !=null and keyword !=''">
+		<bind name="word" value="'%'+keyword+'%'"/>
+		where ${column} like #{word}
+	</if>
 </select>
+
 </mapper>

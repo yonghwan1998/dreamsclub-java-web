@@ -87,14 +87,26 @@ public class CommunityController {
 	
 	
 	/*게시판 목록 페이지 접속*/
+	/*
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String community(@RequestParam(defaultValue = "1") int pageNum, Model model) {
 		
-		Map<String, Object> map = communityService.getCommunityList(pageNum);
+		Map<String, Object> map = communityService.getCommunityList(null);
 		
 		model.addAttribute("pager", map.get("pager"));
 		model.addAttribute("communityList", map.get("communityList"));
 		
+		return "community/community_main";
+		
+		, method = RequestMethod.GET
+		*/
+	
+	@RequestMapping(value = "")
+	 public String community(@RequestParam Map<String, Object> map, Model model) {
+			
+		model.addAttribute("result", communityService.getCommunityList(map));
+		model.addAttribute("search", map);
+			
 		return "community/community_main";
 	}
 

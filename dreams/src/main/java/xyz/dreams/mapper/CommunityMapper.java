@@ -24,8 +24,8 @@ public interface CommunityMapper {
 	/*게시판 목록*/
 	//List<CommunityDTO> getList();
 	
-	/*페이징 처리*/
+	/*게시판 목록 + 페이징 처리*/
 	List<CommunityDTO> selectCommunityList(Map<String, Object> map);
-	int selectCommunityCount(); 
+	int selectCommunityCount(Map<String, Object> map); 
 
 }

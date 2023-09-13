@@ -26,6 +26,6 @@ public interface CommunityDAO {
 	
 	/*페이징 처리*/
 	List<CommunityDTO> selectCommunityList(Map<String, Object> map);
-	int selectCommunityCount(); //게시글 총 개수
+	int selectCommunityCount(Map<String, Object> map);  //게시글 총 개수
 	
 }
