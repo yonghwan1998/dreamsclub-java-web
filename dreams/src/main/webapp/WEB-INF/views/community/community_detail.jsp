@@ -44,8 +44,6 @@
            	<form id="infoForm" action=<c:url value="/community/detail"/> method="get">
 				<input type="hidden" id="commNo" name="commNo" value='<c:out value="${pageInfo.commNo}"/>'>
 			</form>
-            
-        
     </div>
     
     <!--[댓글]-->
