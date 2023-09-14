@@ -31,12 +31,13 @@ public class MemberServiceImpl implements MemberService {
 			throw new LoginAuthFailException("회원정보가 존재하지 않습니다.", member.getMemberId());
 		}
 
+		System.out.println(BCrypt.checkpw(member.getMemberPw(), authMember.getMemberPw()));
 		// 매개변수로 전달받은 회원정보의 비밀번호와 검색된 회원정보의 비밀번호를 비교하여
 		// 같지 않은 경우 - 비밀번호 인증 실패
 		if (!BCrypt.checkpw(member.getMemberPw(), authMember.getMemberPw())) {
 			throw new LoginAuthFailException("아이디가 없거나 비밀번호가 맞지 않습니다.", member.getMemberId());
 		}
-
+		
 		// 매개변수로 전달받은 회원정보의 아이디로 검색된 회원정보 반환
 		return authMember;
 	}
@@ -129,8 +130,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 		// 진서 암호화▼
+		//오진서:(MemberDTO member)member 여기서만 사용하는 지역변수라 다른곳에 이름바뀌어도됨
 		@Override
-		public void addMember(MemberDTO member) { //(MemberDTO member)member 여기서만 사용하는 지역변수라 다른곳에 이름바뀌어도됨
+		public void addMember(MemberDTO member) { 
 			String hashedPassword = BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt());
 			member.setMemberPw(hashedPassword);
 

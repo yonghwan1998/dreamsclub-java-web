@@ -66,9 +66,9 @@
                                             </div>
                                             <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
                                             <tr>
-			                                   <td width="20"></td>
-			                                   <td style=" text-align: center;"><font color= "red">${message }</font></td>         
-			                                </tr>
+                                            <td width="20"></td>
+                                            <td style=" text-align: center;"><font color= "red">${message }</font></td>         
+                                         </tr>
                                             <!--틀린 경우 정보와 다르다는 메세지를 띄우고 3번 이상 틀릴 시 휴면 계정으로 변환-->
                                         </div>
                                     </form>
