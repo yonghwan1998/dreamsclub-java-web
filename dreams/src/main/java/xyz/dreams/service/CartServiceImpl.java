@@ -42,6 +42,15 @@ public class CartServiceImpl implements CartService{
 		//=> 결과가 1개 이상이므로 list 사용.
 		List<GoodsDTO> goodsList = cartDAO.getMyCartList(cartList);
 		
+		//형섭(23/09/13): goodsCode에서 굿즈명 분리 작업
+		for(GoodsDTO goods : goodsList) {
+			String goodsCode = goods.getGoodsCode();
+			String[] parts = goodsCode.split("-");
+			if(parts.length > 0) {
+				goods.setGoodsCode(parts[0]);
+			}
+		}
+		
 		cartMap.put("cartList", cartList);
 		cartMap.put("goodsList", goodsList);
 		

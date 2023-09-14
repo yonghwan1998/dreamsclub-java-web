@@ -72,6 +72,14 @@ public class OrderController {
 	 * return "order/order_detail"; }
 	 */
     
+    @ResponseBody
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    public int orderCancel(OrderDTO orderDTO) {
+    	int result = orderService.orderCancel(orderDTO);
+    	return result;
+    }
+    
+    
     @RequestMapping(value = "/cartOrder", method = RequestMethod.POST)
     public String orderAllCartGoods(HttpSession session,
     		@RequestParam(value = "chd[]") List<String> myCartList, Model model,
@@ -98,7 +106,7 @@ public class OrderController {
     	model.addAttribute("selected_opt", selectedOpt);
     	model.addAttribute("goodsCount", goodsCount);
     	
-    	return "cart/cart";
+    	return "order/cartOrder";
     }
     
     @RequestMapping(value = "/result", method = RequestMethod.POST)
@@ -160,33 +168,15 @@ public class OrderController {
     @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
     public String orderInsert(@PathVariable("goodsCode") String goodsCode, 
     		HttpSession session, Model model) {
+    	
     	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
     	memberInfo = memberService.getMember(memberInfo.getMemberId());
-    	GoodsDTO goodsDTO = goodsService.getGoodsDetail(goodsCode);
+    	goodsCode = "-" + goodsCode + "-";
+        GoodsDTO goodsDTO = goodsService.getGoodsDetail(goodsCode);
     	
     	model.addAttribute("memberInfo", memberInfo);
     	model.addAttribute("goodsInfo", goodsDTO);
     	
     	return "order/order_confirm";
     }
-    
-    
-    @ResponseBody
-    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
-    public int orderCancel(OrderDTO orderDTO) {
-    	int result = orderService.orderCancel(orderDTO);
-    	return result;
-    }
-    
-    @ResponseBody
-	@RequestMapping(value = "/delFromCart", method = RequestMethod.POST)
-	public String delFromCart(CartVO cartVO) {
-		
-		boolean result = orderService.delFromCart(cartVO);
-		if(result) {
-			return "ok";
-		} else {
-			return "no";
-		}
-	}
 }
