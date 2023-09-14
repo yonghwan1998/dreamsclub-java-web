@@ -53,18 +53,26 @@
     <!--댓글 입력폼-->
     <form id="communityReplyFrom" name=register> 
         <div class="communityReply">
-            <div class="onekan" style="display: flex; width: 100%;">
-            <input type="hidden" id="memberId" value="${member.memberId }">
-            <!--댓글 입력칸-->
-            <textarea class="communityReplyText" id="commReCont"></textarea>
-            <!--댓글 입력 버튼-->
-            <button type="button" class="onekanBtn" id="addBtn">댓글쓰기</button>
-            </div>
-            <!--글자수 카운팅(최대 400자로 이거 나중에 메소드 걸어주기)-->
-            <div class="countwritten"><strong>0자</strong>/400자</div>
+            <div class="onekan" >
+	            <input type="hidden" id="memberId" value="${member.memberId }">
+	            <!--댓글 입력칸-->
+	            <textarea class="communityReplyText" id="commReCont"></textarea>
+				<div class="count_btn">
+		            <!--글자수 카운팅(최대 400자로 이거 나중에 메소드 걸어주기)-->
+		            <div class="countwritten"><strong>0자</strong>/400자</div>
+		            <!--댓글 입력 버튼-->
+		            <div><button type="button" class="onekanBtn" id="addBtn">댓글쓰기</button></div>
+	            </div>
+        	</div>
         </div>
     </form>
-    <div id="replyList"></div>
+    <div>
+        <div class="communityReplyCount">
+            <!-- ((여기에 개수 세는 기능 넣어야함)) -->
+            <strong style="color: green;">0개</strong>의 댓글이 등록되었습니다.
+        </div>
+    	<div id="replyList"></div>
+	</div>
 
     <!--댓글 목록-->
     <!--댓글 개수 알려줌-->
@@ -98,17 +106,6 @@
                         </p>
                     </div>
                 </div>
-            <div class="addReplyWrite" id=""></div>
-            <li>
-                <p class="txt">우승까지 가보자 화이팅!</p>
-                <div>
-                    <p>아이디</p>
-                    <p>작성날짜</p>
-                    <p>
-                        <a href="답글 링크" class="commentReRely">답글</a>
-                    </p>
-                </div>
-            </li>
             <div class="addReplyWrite" id=""></div>
             대댓글 작성폼(답글 누르지 않을때는 div에 style="display: none" 전부 설정해놓으면 된다.)
             <div class="communityReReplyForm">
@@ -158,13 +155,13 @@ function replyDisplay() {
 			
 			var html="";
 			$(result).each(function() {
-				html+="<div style='border-top: none'>";
-				html+="<div>";
+				html+="<div class='commentList' style='border-top: none'>";
+				//html+="<div>";
 				html+="<p><strong>"+this.memberId+"</strong></p>";
 				html+="<p class='txt'>"+this.commReCont+"</p>";
-				html+="<p>"+this.commReDate+"</p>";
-				html+="<p><a href='#' class='commentReRely'>답글</a></p>";
-				html+="</div>";
+				html+="<p class='commentList_date'>"+this.commReDate+"</p>";
+				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
+				//html+="</div>";
 				html+="</div>";
 			})
 			$("#replyList").html(html);
