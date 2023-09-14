@@ -87,10 +87,10 @@ legend {
                <div id="passwdMsg" class="error">비밀번호를 입력해 주세요.</div>
                <div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
             </li>
+            
             <li>
                <label for="passwd">비밀번호 확인</label>
-               <form:input type="password" name="memberPw2" path="memberPw" />
-               <form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
+               <input type="password" id="replassword">
                 <%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
                <div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
                <div id="repasswdMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
@@ -187,7 +187,7 @@ $("#join").submit(function() {
    if($("#repasswd").val()=="") {
       $("#repasswdMsg").css("display","block");
       submitResult=false;
-   } else if($("#passwd").val()!=$("#repasswd").val()) {
+   } else if($("#passwd").val()!=$("#replassword").val()) {
       $("#repasswdMatchMsg").css("display","block");
       submitResult=false;
    }

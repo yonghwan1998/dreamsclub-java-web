@@ -2,20 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.ReviewMapper">
 
-	<!-- 강민경: 댓글 등록 -->
-	<insert id="enrollReply">
+	<!-- 강민경(2023/09/13): setorder테이블에서 상품 정보 받아옴 -->
+	<select id="selectGoods" resultType="ReviewDTO">
+		select member_id, goods_code from setorder
+	</select>
+	<!-- 강민경: 리뷰 등록 -->
+	<insert id="enrollReview">
 		insert into Review(
+			REV_NO
 			REV_CONT,
 			GOODS_STAR,
-			MEMBER_ID
+			MEMBER_ID,
 			REV_DATE
 		)values(
+			REVIEW_SEQ.NEXTVAL,
 			#{revCont},
 			#{goodsStar},			
 			#{memberId},
 			SYSDATE
 		)
-		
 	</insert>
+
 	
+	<!-- 강민경: 리뷰 글 수정-->
+	<update id="modifyReview" parameterType="ReviewDTO">
+		update review set REV_CONT=#{revCont} where REV_NO=#{revNo}
+	</update>
+	
+	<!-- 강민경: 리뷰 글 삭제 -->
+	<delete id="deleteReview">
+		delete from review where REV_NO=#{revNo}
+	</delete>
+	
+	<!-- 강민경: 페이징 처리 -->
+	<select id="selectReviewList" resultType="ReviewDTO">
+		select * from (select rownum as rn, REV_NO, MEMBER_ID, REV_CONT, REV_DATE 
+		from (select REV_NO, MEMBER_ID, REV_CONT, REV_DATE from REVIEW order by REV_NO desc) REVIEW)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	<!-- 강민경: 게시글 총 개수(페이징처리) -->
+	<select id="selectReviewCount" resultType="int">
+		select count(*) from review
+	</select>
 </mapper>
