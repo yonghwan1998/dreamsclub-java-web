@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.service.MemberService;
 import xyz.dreams.service.ReviewService;
@@ -71,7 +72,7 @@ public class MypageController {
 	
 	//강민경(2023/09/11): 리뷰 작성 등록
 	@RequestMapping(value="/review/write", method = RequestMethod.POST)
-	public String ReviewWriter(@ModelAttribute ReviewDTO review) {
+	public String ReviewWriter(@ModelAttribute ReviewDTO review, @ModelAttribute OrderDTO order) {
 		reviewService.enrollReview(review);
 		
 		//다 작성한 후 마이페이지로 페이지 바뀜
