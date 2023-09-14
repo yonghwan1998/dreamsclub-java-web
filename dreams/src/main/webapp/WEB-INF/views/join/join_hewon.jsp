@@ -241,7 +241,7 @@ $("#join").submit(function() {
 });
 
 
-// 아이디 중복체크 에이젝스 ▽
+// 아이디 중복체크 에이 젝스 ▽
 $("#id").change(function() {
    idck = 0;
     //userid 를 param.
