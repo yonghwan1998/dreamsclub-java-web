@@ -21,9 +21,6 @@ public interface CommunityService {
 	/*게시글 조회수 증가*/
 	void upCountCommunity(int commNo);
 	
-	/*게시판 목록*/
-	//List<CommunityDTO> getList();
-	
-	/*페이징 처리*/
-	Map<String, Object> getCommunityList(int pageNum);
+	/*게시글 목록 + 페이징 처리*/
+	Map<String, Object> getCommunityList(Map<String, Object> map);
 }
