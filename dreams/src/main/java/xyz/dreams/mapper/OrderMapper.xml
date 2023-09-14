@@ -1,62 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.OrderMapper">
+	<insert id="insert">
+    INSERT INTO setOrder (
+      order_id, 
+      order_seq_num, 
+      goods_code, 
+      goods_price, 
+      goods_count, 
+      goods_stock, 
+      goods_info, 
+      goods_image,
+      selected_Opt, 
+      member_id, 
+      member_name, 
+      member_email, 
+      member_phone, 
+      member_pcode, 
+      member_address1, 
+      member_address2,
+      deliver_msg, 
+      order_status, 
+      totalAmount, 
+      cal_info
+      ) VALUES (
+      #{orderId}, 
+      order_seq_num.nextval, 
+      #{goodsCode}, 
+      #{goodsPrice}, 
+      #{goodsCount}, 
+      #{goodsStock}, 
+      #{goodsInfo}, 
+      #{goodsImage},
+      #{selectedOpt}, 
+      #{memberId}, 
+      #{memberName}, 
+      #{memberEmail}, 
+      #{memberPhone}, 
+      #{memberPcode}, 
+      #{memberAddress1}, 
+      #{memberAddress2}, 
+      #{deliverMsg}, 
+      #{orderStatus}, 
+      #{totalAmount}, 
+      #{calInfo}
+    <selectKey resultType="integer" keyProperty="order_seq_num" order="BEFORE">
+      SELECT order_seq_num.nextval FROM dual
+    </selectKey>
+  </insert>
+  
+  <select id="countOrderId" resultType="integer">
+    SELECT NVL2(MAX(orderId), MAX(orderId)+1, 1) FROM setOrder
+  </select>
+  
+  <select id="myOrderList" resultType="xyz.dreams.dto.OrderDTO">
+    SELECT * FROM setOrder WHERE member_id = #{memberId}
+  </select>
+  
+  <select id="list" resultType="xyz.dreams.dto.OrderDTO">
+    SELECT * FROM setOrder ORDER BY orderDate DESC
+  </select>
+  
+  <select id="selectByOrderId" resultType="xyz.dreams.dto.OrderDTO">
+    SELECT * FROM setOrder WHERE order_id = #{orderId} ORDER BY order_date DESC
+  </select>
+  
+  <update id="updateOrderStatus">
+    UPDATE setOrder SET order_status = #{orderStatus} 
+    WHERE orderId = #{orderId} AND order_seq_num = #{order_seq_num}
+  </update>
+  
+  <delete id="delFromCart">
+    DELETE FROM tbl_cart WHERE member_id = #{memberId} AND goods_code = #{goodsCode}
+  </delete>
+  
+  <delete id="orderCancel">
+    DELETE FROM setOrder WHERE order_id = #{orderId} AND order_seq_num = #{order_seq_num}
+  </delete>
+  
+  <select id="getAmount" resultType="integer">
+    SELECT COUNT(order_id) FROM setOrder
+  </select>
 	
-	<insert id="insertOrder" parameterType="xyz.dreams.dto.OrderDTO">
-		INSERT INTO ORDER_NEW (
-			ORDER_ID, MEMBER_ID, GOODS_CODE,ORDER_PCODE, 
-            ORDER_ADDRESS1, ORDER_ADDRESS2, ORDER_PHONE,
-            ORDER_MEMO, ORDER_DATE, ORDER_STATUS,
-            ORDER_STATUS_CHANGE, ORDER_QUANTITY, ORDER_HOW
-        ) VALUES (
-            #{orderId}, #{memberId}, #{goodsCode}, #{orderPCode},
-            #{orderAddress1}, #{orderAddress2}, #{orderPhone},
-            #{orderMemo}, #{orderDate}, #{orderStatus},
-            #{orderStatusChange}, #{orderQuantity}, #{orderHow}
-		)
-	</insert>
-	
-	<update id="updateOrder" >
-		UPDATE ORDER_NEW SET
-			ORDER_PCODE = #{orderPcode},
-			ORDER_ADDRESS1 = #{orderAddress1},
-			ORDER_ADDRESS2 = #{orderAddress2}
-		WHERE
-			ORDER_ID = #{orderId}
-	</update>
-	
-	<select id="getMemberInfo" resultType="MemberDTO">
-		SELECT
-			M.MEMBER_ID,
-			M.MEMBER_NAME,
-			M.MEMBER_PHONE,
-			M.MEMBER_EMAIL,
-			M.MEMBER_PCODE,
-			M.MEMBER_ADDRESS1,
-			M.MEMBER_ADDRESS2
-		FROM
-			MEMBER M
-		LEFT JOIN
-			ORDER_NEW O ON M.MEMBER_ID = O.MEMBER_ID
-		WHERE
-			M.MEMBER_ID = #{memberId}
-	</select>
-	
-	<select id="getGoodsInfo" resultType="GoodsDTO">
-		SELECT
-			G.GOODS_CODE,
-			<!-- GOODS_COUNT, -->
-			G.GOODS_IMAGE,
-			G.GOODS_PRICE
-		FROM
-			GOODS G
-		LEFT JOIN		
-			ORDER_NEW O ON O.GOODS_CODE = G.GOODS_CODE
-		WHERE
-			G.GOODS_CODE = #{goodsCode}
-	</select>
-	
-	<select id="getGoods" resultType="OrderDetailDTO">
-		select goodsCode, goodsPrice, goodsImage from order_new where goodsCode = #{goodsCode}
-	</select>
 </mapper>

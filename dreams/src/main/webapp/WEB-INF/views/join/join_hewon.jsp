@@ -5,58 +5,57 @@
 
 
 <meta charset="UTF-8">
-<title>회원가입</title>
 
 <style type="text/css">
 
 fieldset {
-	text-align: left;
-	margin: 10px auto;
-	width: 1100px;
+   text-align: left;
+   margin: 10px auto;
+   width: 1100px;
 }
 
 legend {
-	font-size: 1.2em;
+   font-size: 1.2em;
 }
 
 #join label {
-	width: 150px;
-	text-align: right;
-	float: left;
-	margin-right: 10px;
+   width: 150px;
+   text-align: right;
+   float: left;
+   margin-right: 10px;
 }
 
 #join ul li {
-	list-style-type: none;
-	margin: 15px 0;
+   list-style-type: none;
+   margin: 15px 0;
 }
 
 #fs {
-	text-align: center;
+   text-align: center;
 }
 
 .error {
-	color: red;
-	position: relative;
-	left: 160px;
-	display: none;
+   color: red;
+   position: relative;
+   left: 160px;
+   display: none;
 }
 .errors{
-	color: red;
+   color: red;
 }
 
 #idCheck, #postSearch {
-	font-size: 12px;
-	font-weight: bold;
-	cursor: pointer;
-	margin-left: 10px;
-	padding: 2px 10px;
-	border: 1px solid black;
+   font-size: 12px;
+   font-weight: bold;
+   cursor: pointer;
+   margin-left: 10px;
+   padding: 2px 10px;
+   border: 1px solid black;
 }
 
 #idCheck:hover, #postSearch:hover {
-	background: black;
-	color: white;
+   background: black;
+   color: white;
 }
 
 </style>
@@ -148,6 +147,7 @@ legend {
 		<form:button type="reset">다시입력</form:button>
 	</div>
 </form:form>	
+   
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -159,8 +159,7 @@ var idch=0;
 $("#id").focus();
 
 $("#join").submit(function() {
-	var submitResult=true;
-
+   var submitResult=true;
 	
 	$(".error").css("display","none");
 	// 아이디 조건문
@@ -218,7 +217,64 @@ $("#join").submit(function() {
 		$("#mobileRegMsg").css("display","block");
 		submitResult=false; 
 	} 
-
+   
+   $(".error").css("display","none");
+   // 아이디 조건문
+    var idReg=/^[a-zA-Z0-9]{4,12}$/;
+   if($("#id").val()=="") {
+      $("#idMsg").css("display","block");
+      submitResult=false;
+   } else if(!idReg.test($("#id").val())) {
+      $("#idRegMsg").css("display","block");
+      submitResult=false;
+   } else if(idck==0) {
+      $("#idDuplMsg").css("display","block");
+      submitResult=false;
+   } 
+   //비밀번호 조건문
+   var passwdReg=/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g;
+   if($("#passwd").val()=="") {
+      $("#passwdMsg").css("display","block");
+      submitResult=false;
+   } else if(!passwdReg.test($("#passwd").val())) {
+      $("#passwdRegMsg").css("display","block");
+      submitResult=false;
+   } 
+   // 비밀번호 확인
+   if($("#repasswd").val()=="") {
+      $("#repasswdMsg").css("display","block");
+      submitResult=false;
+   } else if($("#passwd").val()!=$("#repasswd").val()) {
+      $("#repasswdMatchMsg").css("display","block");
+      submitResult=false;
+   }
+   // 이름 조건문
+   if($("#name").val()=="") {
+      $("#nameMsg").css("display","block");
+      submitResult=false;
+   }
+   
+   // 이메일 조건문
+   var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
+   if($("#email").val()=="") {
+      $("#emailMsg").css("display","block");
+      submitResult=false;
+   } else if(!emailReg.test($("#email").val())) {
+      $("#emailRegMsg").css("display","block");
+      submitResult=false;
+   }
+   
+    // 핸드폰 조건문222
+   var memberPhoneReg=/^\d{3}-\d{3,4}-\d{4}$/g;
+   var result=memberPhoneReg.test($("#memberPhone").val());
+   if($("#memberPhone").val()=="") {
+      $("#mobileMsg").css("display","block");
+      submitResult=false;
+    } else if(!result) {
+      $("#mobileRegMsg").css("display","block");
+      submitResult=false; 
+   } 
+   
 	// 주소
 	if($("#zipcode").val()=="") {
 		$("#zipcodeMsg").css("display","block");
@@ -243,7 +299,7 @@ $("#join").submit(function() {
 
 // 아이디 중복체크 에이젝스 ▽
 $("#id").change(function() {
-	idck = 0;
+   idck = 0;
     //userid 를 param.
     var memberid =  $("#id").val(); 
     
@@ -254,11 +310,11 @@ $("#id").change(function() {
         dataType : "text", // text 인가????
         success : function(result) {
             if (result=="ok") {
-            	idck = 1;
-            	// 사용가능한 아이디
+               idck = 1;
+               // 사용가능한 아이디
             
             } else {
-            	idck = 0;
+               idck = 0;
                 // 이미 사용중인 아이디
             }
         },
@@ -273,10 +329,9 @@ $("#id").change(function() {
 $("#postSearch").click(function() {
     new daum.Postcode({
         oncomplete: function(data) {
-        	$("#zipcode").val(data.zonecode);
-        	$("#address1").val(data.address);
+           $("#zipcode").val(data.zonecode);
+           $("#address1").val(data.address);
         }
     }).open();
 });
 </script>
-

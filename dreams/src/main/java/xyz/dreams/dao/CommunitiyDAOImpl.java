@@ -49,16 +49,18 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 	}
 	
 	
-	/*페이징 처리*/
+	/*페이징 처리+목록보기+검색*/
 	@Override
 	public List<CommunityDTO> selectCommunityList(Map<String, Object> map) {
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityList(map);
 	}
 
+	/*게시글 전체수 카운팅*/
 	@Override
-	public int selectCommunityCount() {
-		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount();
+	public int selectCommunityCount(Map<String, Object> map) {
+		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount(map);
 	}
+
 
 
 

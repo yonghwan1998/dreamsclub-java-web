@@ -2,11 +2,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+
 <script>
 function selectChange(q){
+	var uniformChecked = $('#uniformCheck').is(':checked');
+	var capChecked = $('#capCheck').is(':checked');
+	var fanChecked = $('#fanCheck').is(':checked');
+	
+	$("#searchUniform").val(uniformChecked);
+	$("#searchCap").val(capChecked);
+	$("#searchFan").val(fanChecked);
+	
 	$("#searchColumn").val($("#selectFilter").val());
+	
 	$("#searchText").val(q);
+	
 	$("#searchForm").submit();
+}
+
+function selectCategory(){
 }
 </script>
 
@@ -86,22 +107,31 @@ function selectChange(q){
 					<div class="sidebar-widget">
 						<h4 class="pro-sidebar-title">Search</h4>
 						<div class="pro-sidebar-search mb-50 mt-25">
-							<form class="pro-sidebar-search-form" method="post" action="/dreams/goods/main" id="searchForm">
+							<form class="pro-sidebar-search-form" method="post" action="<c:url value="/goods/main"/>" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
+								<input type="hidden" name="uniform" id="searchUniform" value="${map.uniform }">
+								<input type="hidden" name="cap" id="searchCap" value="${map.cap }">
+								<input type="hidden" name="fan" id="searchFan" value="${map.fan }">
 								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
 								</button>
-							</form>
-						</div>
-					</div>
-					<div class="sidebar-widget mt-45">
-						<h4 class="pro-sidebar-title">Filter By Price</h4>
-						<div class="price-filter mt-10">
 							<div class="price-slider-amount">
-								<input type="text" id="amount" name="price" placeholder="Add Your Price" />
+								<hr />
+								<h4 class="pro-sidebar-title">Filter By Price</h4>
+								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" value="${map.minPrice }"/>
+								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
+								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" value="${map.maxPrice }"/>
+								<input type="submit" id="priceSearchBtn" value="검색" style="padding: 0px; margin-top: 15px;"/>
 							</div>
-							<div id="slider-range"></div>
+<!-- 							<div class="price-slider-amount">
+								<hr />
+								<h4 class="pro-sidebar-title">Filter By Price</h4>
+								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" />
+								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
+								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" />
+							</div>
+ -->							</form>
 						</div>
 					</div>
 					<div class="sidebar-widget mt-40">
@@ -110,17 +140,17 @@ function selectChange(q){
 							<ul>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Uniform</a> <span class="checkmark"></span>
+										<input type="checkbox" id="uniformCheck" onclick="selectChange('${map.q }');" ${map.uniform == 'True' ? 'checked="checked"' : '' }> <a href="#">Uniform</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Cap</a> <span class="checkmark"></span>
+										<input type="checkbox" id="capCheck" value="" onclick="selectChange('${map.q }');" ${map.cap == 'True' ? 'checked="checked"' : '' }> <a href="#">Cap</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" value=""> <a href="#">Fan</a> <span class="checkmark"></span>
+										<input type="checkbox" id="fanCheck" value="" onclick="selectChange('${map.q }');" ${map.fan == 'True' ? 'checked="checked"' : '' }> <a href="#">Fan Goods</a> <span class="checkmark"></span>
 									</div>
 								</li>
 							</ul>
@@ -258,31 +288,3 @@ function selectChange(q){
 	</div>
 </div>
 <!-- Modal end -->
-<script type="text/javascript">
-
-	// 장바구니 버튼 클릭시
-	$("#addCartBtn").click(function() {
-		var goodsCode = $(".goodsCode").text();
-
-		alert(goodsCode);
-		
-		$.ajax({
-			type : "post",
-			url : "<c:url value="/goods/rest_test"/>",
-			contentType : "application/json",
-			data : JSON.stringify({
-				"goodsCode" : goodsCode
-			}),
-			dateType : "text",
-			success : function(result) {
-				if (result == "success") {
-					alert("jsp");
-				}
-			},
-			error : function(xhr) {
-				alert("에러코드(게시글 삽입) = " + xhr.stauts);
-			}
-		});
-	});
-	
-</script>

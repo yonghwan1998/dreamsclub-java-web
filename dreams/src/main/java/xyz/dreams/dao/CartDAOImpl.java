@@ -6,46 +6,35 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.dto.CartDTO;
-import xyz.dreams.mapper.CartMapper;
+import xyz.dreams.dto.CartVO;
+import xyz.dreams.dto.GoodsDTO;
 
 @Repository
 @RequiredArgsConstructor
 public class CartDAOImpl implements CartDAO {
 	private final SqlSession sqlSession;
-
-	@Override
-	public int addCart(CartDTO cart) throws Exception {
-		return sqlSession.getMapper(CartMapper.class).addCart(cart);
-	}
-
-	@Override
-	public int deleteCart(String cartNo) {
-		return sqlSession.getMapper(CartMapper.class).deleteCart(cartNo);
-	}
-
-	@Override
-	public int modifyCart(CartDTO cart) {
-		return sqlSession.getMapper(CartMapper.class).modifyCart(cart);
-	}
-
-	@Override
-	public List<CartDTO> selectCartList(String memberId) {
-		return sqlSession.getMapper(CartMapper.class).selectCartList(memberId);
-	}
-
-	@Override
-	public CartDTO checkCart(CartDTO cart) {
-		return sqlSession.getMapper(CartMapper.class).checkCart(cart);
-	}
-
-	@Override
-	public int deleteOrderCart(CartDTO cartOrder) {
-		return sqlSession.getMapper(CartMapper.class).deleteOrderCart(cartOrder);
-	}
+	private final String NS = "xyz.dreams.mapper.CartMapper";
 	
+	@Override
+	public boolean findCartGoods(CartVO cartVO) {
+		String result = sqlSession.selectOne(NS+".findCartGoods", cartVO);
+		return Boolean.parseBoolean(result);
+	}
 
+	@Override
+	public void addGoodsInCart(CartVO cartVO) {
+		sqlSession.insert(NS+".addGoodsInCart", cartVO);
+	}
 
-	
+	@Override
+	public List<CartVO> getMyCartGoodsCode(String memberId) {
+		return sqlSession.selectList(NS+".getMyCartGoodsCode", memberId);
+	}
+
+	@Override
+	public List<GoodsDTO> getMyCartList(List<CartVO> cartList) {
+		return sqlSession.selectList(NS+".getMyCartList", cartList);
+	}
+
 
 }

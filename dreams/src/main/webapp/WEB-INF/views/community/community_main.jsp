@@ -15,16 +15,23 @@
     <div class="boardMain">
         <!--검색창-->
         <div class="boardSerchBig">
-            <div class="boardSearch">
-                <select class="selectBox" id="selectBox" style="width:13%;   border: 1px solid #000;  background-color: #fff;">
-                    <option class="search_option" value="searchTitle">제목</option>
-                    <option class="search_option" value="searchId">아이디</option>
-                    <option class="search_option" value="searchContent">내용</option>
-                </select>
-                <!--돋보기 이미지-->
-                <div class="searchTalk" style="width: 70%; padding: 0 10px" ><input type="text" id="searchTalk" placeholder="검색어를 입력해주세요."></div>
-                <div class="searchBtn"><button type="button">검색</button></div>
-            </div>
+        	<form action="<c:url value='/community'/>" method="post" style="width: 100%">
+	            <div class="boardSearch">
+	                <select class="selectBox" name="column" id="column" style="width:13%; border: 1px solid #000;  background-color: #fff;">
+	                    <option class="search_option" value="comm_title">제목</option>
+	                    <option class="search_option" value="comm_cont">내용</option>
+	                    <!-- <option class="search_option" value="comm_title,comm_cont">제목+내용</option> -->
+	                    <option class="search_option" value="member_Id">아이디</option>
+	                </select>
+	                <!--돋보기 이미지-->
+	                <div class="searchTalk" style="width: 70%; padding: 0 10px;" >
+	                	<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." style="	background-color: white; border: 1px solid #000;">
+	                </div>
+	                <div class="searchBtn">
+	                	<button type="submit">검색</button>
+	                </div>
+	            </div>
+            </form>
         </div>
 
         <!--테이블-->
@@ -42,6 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <!-- 
                         <c:forEach items="${communityList }" var="community" >
 	                        <tr class="boardTableList">
 	                            <td class="t1"><c:out value="${community.commNo }"/></td>
@@ -54,7 +62,31 @@
 	                            <td class="t4"><c:out value="${community.commDate }"/></td>
 	                            <td class="t5"><c:out value="${community.commHit }"/></td>
 	                        </tr>
-	                    </c:forEach>                      
+	                    </c:forEach>  
+	                    -->      
+	                    <c:choose>
+                    		<c:when test="${result.communityList == null }">
+                    			<tr class="boardTableList">
+                    				<td>검색된 게시글이 없습니다.</td>
+                    			</tr>
+                    		</c:when>
+                    		<c:otherwise>
+		                        <c:forEach items="${result.communityList }" var="community" >
+			                        <tr class="boardTableList">
+			                            <td class="t1"><c:out value="${community.commNo }"/></td>
+			                            <td class="t2 text-left">
+			                            	<!-- <a class="move" href="<c:url value="/community/detail?commNo=${community.commNo}"/>"> -->
+			                            		<a class="move" href="<c:url value='/community/detail'/>?commNo=${community.commNo }&pageNum=${search.pageNum }&column=${search.column }&keyword=${search.keyword }">${communtiy.commTitle }
+			                            		<c:out value="${community.commTitle }"/>
+			                            	</a>
+			                           	</td>
+			                            <td class="t3"><c:out value="${community.memberId }"/></td>
+			                            <td class="t4"><c:out value="${community.commDate }"/></td>
+			                            <td class="t5"><c:out value="${community.commHit }"/></td>
+			                        </tr>
+			                    </c:forEach> 
+		                    </c:otherwise>    
+	                    </c:choose>                      
                     </tbody>
                 </table>
                 <form id="moveForm" method="get">
@@ -75,17 +107,17 @@
                 <div class="boardPage">
 					<c:choose>
 						<c:when test="${pager.startPage > pager.blockSize }">
-							<a href="<c:url value="/community"/>?pageNum=${pager.prevPage}">《</a>
+							<a href="<c:url value="/community"/>?pageNum=${result.pager.prevPage}&column=${search.column}&keyword=${search.keyword}">《</a>
 						</c:when>
 						<c:otherwise>
 							《
 						</c:otherwise>
 					</c:choose>	
 					
-					<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+					<c:forEach var="i" begin="${result.pager.startPage }" end="${result.pager.endPage }" step="1">
 						<c:choose>
-							<c:when test="${pager.pageNum != i  }">
-								<a href="<c:url value="/community"/>?pageNum=${i}">${i}</a>
+							<c:when test="${result.pager.pageNum != i  }">
+								<a href="<c:url value="/community"/>?pageNum=${i}&column=${search.column}&keyword=${search.keyword}">[${i }]</a>
 							</c:when>
 							<c:otherwise>
 								${i }
@@ -94,8 +126,8 @@
 					</c:forEach>
 				
 					<c:choose>
-						<c:when test="${pager.endPage != pager.totalPage }">
-							<a href="<c:url value="/community"/>?pageNum=${pager.nextPage}">》</a>
+						<c:when test="${result.pager.endPage != result.pager.totalPage }">
+							<a href="<c:url value="/community"/>?pageNum=${result.pager.nextPage}&column=${search.column}&keyword=${search.keyword}">》</a>
 						</c:when>
 						<c:otherwise>
 							》
@@ -104,6 +136,8 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 <script type="text/javascript"
   src="https://code.jquery.com/jquery-3.4.1.js"
@@ -136,7 +170,3 @@ $(".move").on("click", funtion(e){
 }
 
 </script>
-
-    </div>
-</div>
-
