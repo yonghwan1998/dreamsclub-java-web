@@ -161,63 +161,7 @@ $("#id").focus();
 $("#join").submit(function() {
    var submitResult=true;
 	
-	$(".error").css("display","none");
-	// 아이디 조건문
- 	var idReg=/^[a-zA-Z0-9]{4,12}$/;
-	if($("#id").val()=="") {
-		$("#idMsg").css("display","block");
-		submitResult=false;
-	} else if(!idReg.test($("#id").val())) {
-		$("#idRegMsg").css("display","block");
-		submitResult=false;
-	} else if(idck==0) {
-		$("#idDuplMsg").css("display","block");
-		submitResult=false;
-	} 
-	//비밀번호 조건문
-	var passwdReg=/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g;
-	if($("#passwd").val()=="") {
-		$("#passwdMsg").css("display","block");
-		submitResult=false;
-	} else if(!passwdReg.test($("#passwd").val())) {
-		$("#passwdRegMsg").css("display","block");
-		submitResult=false;
-	} 
-	// 비밀번호 확인
-	if($("#repasswd").val()=="") {
-		$("#repasswdMsg").css("display","block");
-		submitResult=false;
-	} else if($("#passwd").val()!=$("#repasswd").val()) {
-		$("#repasswdMatchMsg").css("display","block");
-		submitResult=false;
-	}
-	// 이름 조건문
-	if($("#name").val()=="") {
-		$("#nameMsg").css("display","block");
-		submitResult=false;
-	}
 	
-	// 이메일 조건문
-	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
-	if($("#email").val()=="") {
-		$("#emailMsg").css("display","block");
-		submitResult=false;
-	} else if(!emailReg.test($("#email").val())) {
-		$("#emailRegMsg").css("display","block");
-		submitResult=false;
-	}
-	
- 	// 핸드폰 조건문222
-	var memberPhoneReg=/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-	var result=memberPhoneReg.test($("#memberPhone").val());
-	if($("#memberPhone").val()=="") {
-		$("#mobileMsg").css("display","block");
-		submitResult=false;
- 	} else if(!result) {
-		$("#mobileRegMsg").css("display","block");
-		submitResult=false; 
-	} 
-   
    $(".error").css("display","none");
    // 아이디 조건문
     var idReg=/^[a-zA-Z0-9]{4,12}$/;
