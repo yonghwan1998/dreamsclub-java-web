@@ -32,13 +32,13 @@ public class MemberDTO {
 	private String memberId;
 	@NotEmpty(message = "비밀번호를 입력해 주세요.")
 	//오진서 -  9/14 자꾸비번 틀리대서 주석처리함 ▼ ++ 회원가입하면 에러 405 뜸
-//	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$", message = "비밀번호를 형식에 맞게 입력해 주세요.")
+	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$", message = "비밀번호를 형식에 맞게 입력해 주세요.")
 	private String memberPw;
 	@NotEmpty(message = "이메일을 입력해 주세요.")
 	@Email(message = "이메일을 형식에 맞게 입력해 주세요.")
 	private String memberEmail;
 	// 오진서 - 9/12 형식에 맞게 수정함 ▼
-//	@Pattern(regexp="//^\d{3}-\d{3,4}-\d{4}$/g", message="전화번호를 형식에 맞게 입력해 주세요.")
+	@Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$", message="전화번호를 형식에 맞게 입력해 주세요.")
 	private String memberPhone;
 	@NotEmpty(message = "이름을 입력해 주세요.")
 	private String memberName;
