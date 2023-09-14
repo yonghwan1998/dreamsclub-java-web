@@ -81,4 +81,12 @@
 	</if>
 </select>
 
+<select id="selectCommunityByCommNo">
+    select * 
+	from community a
+	join member b
+	on a.member_id=b.member_id
+	where a.comm_No=#{commNo}
+</select>
+
 </mapper>

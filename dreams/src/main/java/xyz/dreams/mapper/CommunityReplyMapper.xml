@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.dreams.mapper.CommunityReplyMapper">
+
+<!-- 댓글 등록 -->
+<insert id="insertCommunityReply">
+	INSERT INTO COMMUNITY_REPLY (
+		COMM_RE_NO,
+		COMM_RE_CONT,
+		COMM_RE_DATE,
+		MEMBER_ID,
+		COMM_NO
+	) VALUES (
+		COMMUNITY_REPLY_SEQ.NEXTVAL,
+		#{commReCont},
+		SYSDATE,
+		#{memberId},
+		#{commNo}
+	)
+</insert>
+
+
+<!-- 댓글 목록 -->
+<select id="selectCommunityReply" resultType="CommunityReplyDTO">
+	SELECT
+		COMM_RE_NO,
+		COMM_RE_CONT,
+		COMM_RE_DATE,
+		MEMBER_ID,
+		COMM_NO
+	FROM COMMUNITY_REPLY
+	WHERE COMM_NO=#{commNo}
+	ORDER BY COMM_RE_NO ASC
+</select>
+
+</mapper>

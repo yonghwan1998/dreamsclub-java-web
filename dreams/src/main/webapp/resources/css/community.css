@@ -229,7 +229,7 @@ text-align: center;
 
 
 
-/*커뮤니티 글 뷰 페이지*/
+/*커뮤니티 글 디테일 뷰 페이지*/
 .communityDetail {
   margin: 50px auto 0px;
   padding: 0 0 50px 0;
@@ -309,6 +309,16 @@ border-bottom: 3px solid #4a4a4a;
   height: 80px;
 }
 
+.communityReplyText .onekan{
+	display: flex; 
+	width: 100%;
+	border: 1px solid #8C8C8C;
+}
+
+.communityReplyFrom .count_btn{
+	display: flex;
+}
+
 .onekanBtn{
   cursor: pointer;
   width: 10%;
@@ -317,13 +327,23 @@ border-bottom: 3px solid #4a4a4a;
 
 .countwritten{
 text-align: right;
-padding: 20px 20px 10px 0;
+padding: 1px 5px 5px 0;
 }
 
 .communityReplyCount {
   color: #444444;
   font-size: 14px;
   line-height: 37px;
+  border-bottom: 2px solid #7A7A7A;
+}
+
+.commentList{
+	padding: 15px 20px;
+    border-bottom: 1px solid #7A7A7A;
+}
+
+.commentList_date{
+	color: #B0B0B0;
 }
 
 .communityReplyView ul {
