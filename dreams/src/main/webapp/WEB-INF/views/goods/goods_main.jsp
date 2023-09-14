@@ -11,6 +11,12 @@ input::-webkit-inner-spin-button {
 </style>
 
 <script>
+<!--
+- 방용환(수정) : 2023/08/28, 정렬순서 변경 기능 (이름순(초기값), 가격순)
+onchange를 통해 selectChange()호출 'map.q'는 GoodsController에서 저장한 검색 키워드,
+페이지 최초 호출 시에는 검색어(q) 없음
+- 방용환(수정) : 2023/09/12, 카테고리 정렬 체크 되어 있는지 확인하여 submit하는 기능
+-->
 function selectChange(q){
 	var uniformChecked = $('#uniformCheck').is(':checked');
 	var capChecked = $('#capCheck').is(':checked');
@@ -20,15 +26,15 @@ function selectChange(q){
 	$("#searchCap").val(capChecked);
 	$("#searchFan").val(fanChecked);
 	
+	// 정렬 순서 값 가져오기, 이름순 (goods_code), 가격순 (goods_price)
 	$("#searchColumn").val($("#selectFilter").val());
 	
+	// 검색어(q) 가져오기
 	$("#searchText").val(q);
 	
 	$("#searchForm").submit();
 }
 
-function selectCategory(){
-}
 </script>
 
 <div class="shop-area pt-95 pb-100">
@@ -38,6 +44,14 @@ function selectCategory(){
 				<div class="shop-top-bar">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
+							<!--
+							- 방용환(수정) : 2023/08/28, 정렬순서 변경 기능 (이름순(초기값), 가격순)
+							onchange를 통해 selectChange()호출 'map.q'는 GoodsController에서 저장한 검색 키워드,
+							페이지 최초 호출 시에는 검색어(q) 없음
+							- 방용환(수정) : 2023/09/01, 선택된 정렬순서가 selected 되어 있게 변경
+							GoodsController에서 'map.cloumn'에 이름순일 때는 'goods_code' 저장
+							가격순일 때는 'goods_price'를 저장해서 삼항 연산자를 통해 selected 되어 있게 설정 
+							-->
 							<select id="selectFilter" onchange="selectChange('${map.q }');">
 								<option value="goods_code" ${map.column == 'goods_code' ? 'selected="selected"' : '' }>이름순</option>
 								<%-- <option value="star">별점순</option> --%>
@@ -48,7 +62,12 @@ function selectCategory(){
 						<p>${goodsCount }개 검색 결과</p>
 					</div>
 				</div>
-
+				<!-- 
+				방용환(수정) : 2023/08/21, 굿즈 리스트 출력
+				c태그를 이용해 전체 굿즈 리스트 출력
+				방용환(수정) : 2023/08/31, 굿즈 이미지 출력
+				굿즈 등록시 저장한 이미지를 출력
+				 -->
 				<c:forEach var="goods" items="${goodsList }">
 					<div class="shop-bottom-area mt-35">
 						<div class="tab-content jump">
@@ -90,16 +109,6 @@ function selectCategory(){
 						</div>
 					</div>
 				</c:forEach>
-				<!-- 
-				<div class="pro-pagination-style text-center mt-30">
-					<ul>
-						<li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
-						<li><a class="active" href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
-					</ul>
-				</div>
-				-->
 
 			</div>
 			<div class="col-lg-3">
@@ -107,50 +116,56 @@ function selectCategory(){
 					<div class="sidebar-widget">
 						<h4 class="pro-sidebar-title">Search</h4>
 						<div class="pro-sidebar-search mb-50 mt-25">
+							<!-- 
+							- 방용환(수정) : 2023/08/28, 검색어(q)를 통한 검색 기능 추가
+							'#searchBtn' 클릭시 검색어(q) submit, 정렬순서(column)는 hidden으로 submit
+							 -->
 							<form class="pro-sidebar-search-form" method="post" action="<c:url value="/goods/main"/>" id="searchForm">
 								<input type="hidden" name="column" id="searchColumn" value="${map.column }">
 								<input type="hidden" name="uniform" id="searchUniform" value="${map.uniform }">
 								<input type="hidden" name="cap" id="searchCap" value="${map.cap }">
 								<input type="hidden" name="fan" id="searchFan" value="${map.fan }">
-								<input  type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
+								<input type="text" name="q" id="searchText" placeholder="Search here..." value="${map.q }">
 								<button id="searchBtn">
 									<i class="pe-7s-search"></i>
 								</button>
-							<div class="price-slider-amount">
-								<hr />
-								<h4 class="pro-sidebar-title">Filter By Price</h4>
-								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" value="${map.minPrice }"/>
-								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
-								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" value="${map.maxPrice }"/>
-								<input type="submit" id="priceSearchBtn" value="검색" style="padding: 0px; margin-top: 15px;"/>
-							</div>
-<!-- 							<div class="price-slider-amount">
-								<hr />
-								<h4 class="pro-sidebar-title">Filter By Price</h4>
-								<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" />
-								<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
-								<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" />
-							</div>
- -->							</form>
+								<div class="price-slider-amount">
+									<hr />
+									<!-- 
+									- 방용환(수정) : 2023/09/09, 가격 범위 검색 기능 추가
+									'#priceSearchBtn' 클릭시 가격 범위 submit
+									hidden 되어 있는 값들 동시 submit 
+									 -->
+									<h4 class="pro-sidebar-title">Filter By Price</h4>
+									<input type="number" id="minAmount" name="minPrice" placeholder="Add Your Min Price" value="${map.minPrice }"/>
+									<h3 class="pro-sidebar-title" align="left" style="margin-left: 10px;"> ~ </h3>
+									<input type="number" id="maxAmount" name="maxPrice" placeholder="Add Your Max Price" value="${map.maxPrice }"/>
+									<input type="submit" id="priceSearchBtn" value="검색" style="padding: 0px; margin-top: 15px;"/>
+								</div>
+							</form>
 						</div>
 					</div>
 					<div class="sidebar-widget mt-40">
 						<h4 class="pro-sidebar-title">Category</h4>
+						<!-- 
+						- 방용환(수정) : 2023/09/11, 체크박스 클릭시 해당 카테고리 출력 or 미출력
+						- 방용환(수정) : 2023/09/14, 체크박스 옆 이름 클릭시 .trigger()를 통해 체크박스 클릭되는 이벤트 생성
+						 -->
 						<div class="sidebar-widget-list mt-20">
 							<ul>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" id="uniformCheck" onclick="selectChange('${map.q }');" ${map.uniform == 'True' ? 'checked="checked"' : '' }> <a href="#">Uniform</a> <span class="checkmark"></span>
+										<input type="checkbox" id="uniformCheck" onclick="selectChange('${map.q }');" ${map.uniform == 'True' ? 'checked="checked"' : '' }> <a onclick="$('#uniformCheck').trigger('click')">Uniform</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" id="capCheck" value="" onclick="selectChange('${map.q }');" ${map.cap == 'True' ? 'checked="checked"' : '' }> <a href="#">Cap</a> <span class="checkmark"></span>
+										<input type="checkbox" id="capCheck" value="" onclick="selectChange('${map.q }');" ${map.cap == 'True' ? 'checked="checked"' : '' }> <a onclick="$('#capCheck').trigger('click')">Cap</a> <span class="checkmark"></span>
 									</div>
 								</li>
 								<li>
 									<div class="sidebar-widget-list-left">
-										<input type="checkbox" id="fanCheck" value="" onclick="selectChange('${map.q }');" ${map.fan == 'True' ? 'checked="checked"' : '' }> <a href="#">Fan Goods</a> <span class="checkmark"></span>
+										<input type="checkbox" id="fanCheck" value="" onclick="selectChange('${map.q }');" ${map.fan == 'True' ? 'checked="checked"' : '' }> <a onclick="$('#fanCheck').trigger('click')">Fan Goods</a> <span class="checkmark"></span>
 									</div>
 								</li>
 							</ul>
@@ -161,130 +176,3 @@ function selectCategory(){
 		</div>
 	</div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-5 col-sm-12 col-xs-12">
-						<div class="tab-content quickview-big-img">
-							<div id="pro-1" class="tab-pane fade show active">
-								<img src="${pageContext.request.contextPath }/img/product/quickview-l1.jpg" alt="">
-							</div>
-							<div id="pro-2" class="tab-pane fade">
-								<img src="${pageContext.request.contextPath }/img/product/quickview-l2.jpg" alt="">
-							</div>
-							<div id="pro-3" class="tab-pane fade">
-								<img src="${pageContext.request.contextPath }/img/product/quickview-l3.jpg" alt="">
-							</div>
-							<div id="pro-4" class="tab-pane fade">
-								<img src="${pageContext.request.contextPath }/img/product/quickview-l2.jpg" alt="">
-							</div>
-						</div>
-						<!-- Thumbnail Large Image End -->
-						<!-- Thumbnail Image End -->
-						<div class="quickview-wrap mt-15">
-							<div class="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
-								<a class="active" data-bs-toggle="tab" href="#pro-1"><img src="${pageContext.request.contextPath }/img/product/quickview-s1.jpg" alt=""></a> <a data-bs-toggle="tab" href="#pro-2"><img src="${pageContext.request.contextPath }/img/product/quickview-s2.jpg" alt=""></a> <a data-bs-toggle="tab" href="#pro-3"><img src="${pageContext.request.contextPath }/img/product/quickview-s3.jpg" alt=""></a> <a data-bs-toggle="tab" href="#pro-4"><img src="${pageContext.request.contextPath }/img/product/quickview-s2.jpg" alt=""></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-7 col-sm-12 col-xs-12">
-						<div class="product-details-content quickview-content">
-							<h2>Products Name Here</h2>
-							<div class="product-details-price">
-								<span>$18.00 </span> <span class="old">$20.00 </span>
-							</div>
-							<div class="pro-details-rating-wrap">
-								<div class="pro-details-rating">
-									<i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-								</div>
-								<span>3 Reviews</span>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
-							<div class="pro-details-list">
-								<ul>
-									<li>- 0.5 mm Dail</li>
-									<li>- Inspired vector icons</li>
-									<li>- Very modern style</li>
-								</ul>
-							</div>
-							<div class="pro-details-size-color">
-								<div class="pro-details-color-wrap">
-									<span>Color</span>
-									<div class="pro-details-color-content">
-										<ul>
-											<li class="blue"></li>
-											<li class="maroon active"></li>
-											<li class="gray"></li>
-											<li class="green"></li>
-											<li class="yellow"></li>
-											<li class="white"></li>
-										</ul>
-									</div>
-								</div>
-								<div class="pro-details-size">
-									<span>Size</span>
-									<div class="pro-details-size-content">
-										<ul>
-											<li><a href="#">s</a></li>
-											<li><a href="#">m</a></li>
-											<li><a href="#">l</a></li>
-											<li><a href="#">xl</a></li>
-											<li><a href="#">xxl</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="pro-details-quality">
-								<div class="cart-plus-minus">
-									<input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-								</div>
-								<div class="pro-details-cart btn-hover">
-									<a href="#">Add To Cart</a>
-								</div>
-								<div class="pro-details-wishlist">
-									<a href="#"><i class="fa fa-heart-o"></i></a>
-								</div>
-								<div class="pro-details-compare">
-									<a href="#"><i class="pe-7s-shuffle"></i></a>
-								</div>
-							</div>
-							<div class="pro-details-meta">
-								<span>Categories :</span>
-								<ul>
-									<li><a href="#">Minimal,</a></li>
-									<li><a href="#">Furniture,</a></li>
-									<li><a href="#">Electronic</a></li>
-								</ul>
-							</div>
-							<div class="pro-details-meta">
-								<span>Tag :</span>
-								<ul>
-									<li><a href="#">Fashion, </a></li>
-									<li><a href="#">Furniture,</a></li>
-									<li><a href="#">Electronic</a></li>
-								</ul>
-							</div>
-							<div class="pro-details-social">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Modal end -->
