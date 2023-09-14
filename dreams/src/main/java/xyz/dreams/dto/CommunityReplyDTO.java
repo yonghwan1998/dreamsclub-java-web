@@ -1,9 +1,5 @@
 package xyz.dreams.dto;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 /*
@@ -22,8 +18,8 @@ public class CommunityReplyDTO {
 	private int commReNo;
 	private int commNo;
 	private String commReCont;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date commReDate;
-	private String memeberId;
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String commReDate;
+	private String memberId;
 	private String commReDel;
 }

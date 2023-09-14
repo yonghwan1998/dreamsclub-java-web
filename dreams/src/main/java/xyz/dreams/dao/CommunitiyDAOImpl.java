@@ -61,7 +61,10 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount(map);
 	}
 
-
+	@Override
+	public CommunityDTO selectCommunityByCommNo(int commNo) {
+		return sqlSession.getMapper(CommunityMapper.class).selectCommunityByCommNo(commNo);
+	}
 
 
 }

@@ -28,4 +28,6 @@ public interface CommunityMapper {
 	List<CommunityDTO> selectCommunityList(Map<String, Object> map);
 	int selectCommunityCount(Map<String, Object> map); 
 
+	/*게시글 넘버 => 댓글이용시사용*/
+	CommunityDTO selectCommunityByCommNo(int commNo);
 }
