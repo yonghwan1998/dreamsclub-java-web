@@ -32,7 +32,7 @@ public class MemberDTO {
 	private String memberId;
 	@NotEmpty(message = "비밀번호를 입력해 주세요.")
 
-	@Pattern(regexp = "/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g", message = "비밀번호를 형식에 맞게 입력해 주세요.")
+	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$", message = "비밀번호를 형식에 맞게 입력해 주세요.")
 	// 오진서 9/12 형식에 맞게 수정함 ▼
 //	@Pattern(regexp = "/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$/g", message = "비밀번호를 형식에 맞게 입력해 주세요.")
 	private String memberPw;
