@@ -136,15 +136,13 @@
 																										target="_blank"
 																										class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
 																										<span color="#111111"
-																										class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">크록스
-																											[크록스][크록스 정품] 클래식 클로그 아동샌들 206991-100,
-																											J6(250mm) </span>
+																										class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">${order.goodsCode }</span>
 																									</a> <a class="sc-gnmni8-10 yma-DD"> </a> <a
 																										class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
 																										<div class="sc-8q24ha-3 gFbjJh">
 																											<div class="sc-uaa4l4-0 jxRaeI">
 																												<span font-weight="normal"
-																													class="sc-755zt3-0 kftgZM">33,410 원
+																													class="sc-755zt3-0 kftgZM">${order.goodsPrice }
 																												</span> <span class="sc-13xhsmd-0 kYtEGM"> <span
 																													class="sc-13xhsmd-1 joIhoV"> </span>
 																												</span> <span class="sc-755zt3-0 jtWNEg">1 개
