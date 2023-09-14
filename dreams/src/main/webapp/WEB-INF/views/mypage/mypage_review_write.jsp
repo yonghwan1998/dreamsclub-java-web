@@ -127,6 +127,7 @@ td {
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">별점</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
+						<!-- value 부분이 저장할 테이블에 컬럼명을 적는건지 아니면 가져올 정보에 대한 테이블의 컬럼명을 적는건지 -->
 							<input type="text" style="width: 150" name="goodsName" value="${review.goodsStar }">
 						</td>
 					</tr>
