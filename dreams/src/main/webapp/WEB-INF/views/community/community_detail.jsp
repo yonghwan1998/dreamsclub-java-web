@@ -144,22 +144,26 @@ function replyDisplay() {
 		dataType: "json",
 		success: function(result) {
 			if(result.length == 0) {
+				/*
 				var html="<div style='width: 600px; border-bottom: 1px solid black;'>";
 				html+="댓글이 하나도 없습니다.";
 				html+="</div>";
 				$("#replyList").html(html);
+				*/
 				return;
 			}
 			
 			var html="";
 			$(result).each(function() {
 				html+="<div class='commentList' style='border-top: none'>";
-				//html+="<div>";
 				html+="<p><strong>"+this.memberId+"</strong></p>";
 				html+="<p class='txt'>"+this.commReCont+"</p>";
 				html+="<p class='commentList_date'>"+this.commReDate+"</p>";
 				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
-				//html+="</div>";
+				html+="<p>";
+				html+="<a href='#' class='commentReRely'>수정</a>";
+				html+="<a href='#' class='commentReRely'>삭제</a>";
+				html+="</p>";
 				html+="</div>";
 			})
 			$("#replyList").html(html);
