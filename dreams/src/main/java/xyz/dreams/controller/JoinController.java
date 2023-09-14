@@ -33,11 +33,10 @@ public class JoinController {
 		return "join/join_hewon"; // join파일안에 join_check 불러옴
 	}
 	
-	//강민경(수정): 2023/9/9, 밸리데이션을 사용한 메세지 적용 
+	//강민경(수정): 2023/9/9, 밸리데이션을 사용한 메세지 적용  // 이거때문에 회원가입에러 뜬다네.....
 	@RequestMapping(value = "/hewon", method = RequestMethod.POST)
 	public String add(@ModelAttribute @Valid MemberDTO memberDTO, Errors errors) {
 		if(errors.hasErrors()) {
-			System.out.println("error");
 			return "join/join_hewon";
 		}
 		memberService.addMember(memberDTO);

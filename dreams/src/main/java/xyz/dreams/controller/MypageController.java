@@ -2,23 +2,24 @@ package xyz.dreams.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.service.MemberService;
+import xyz.dreams.service.ReviewService;
 
 @Controller
 @RequestMapping(value = "/mypage" )
 @RequiredArgsConstructor
 public class MypageController {
 	private final MemberService memberService;
+	private final ReviewService reviewService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String mypage() {
@@ -55,11 +56,30 @@ public class MypageController {
 	public String mypage4() {
 		return "mypage/mypage_myqna";
 	}
+	
+	
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
 	public String mypage5() {
 		return "mypage/mypage_check";
 	}
-	//강민경: 
+	
+	
+	//강민경(2023/09/11): '리뷰 작성'버튼 누르면 리뷰 작성 페이지로 이동
+	@RequestMapping(value = "/review/write", method = RequestMethod.GET)
+	public String ReviewWriterView() {
+		return "mypage/mypage_review_write";
+	}
+	
+	//강민경(2023/09/11): 리뷰 작성 등록
+	@RequestMapping(value="/review/write", method = RequestMethod.POST)
+	public String ReviewWriter(@ModelAttribute ReviewDTO review, @ModelAttribute OrderDTO order) {
+		reviewService.enrollReview(review);
+		
+		//다 작성한 후 마이페이지로 페이지 바뀜
+		return "redirect:/mypage/mypage_check";
+	}
+	
+	//강민경: 리뷰 
 	@RequestMapping(value = "/myreview", method = RequestMethod.GET)
 	public String mypage6() {
 		return "mypage/mypage_review";

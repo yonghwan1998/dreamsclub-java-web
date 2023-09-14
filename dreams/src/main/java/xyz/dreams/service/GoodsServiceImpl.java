@@ -13,35 +13,91 @@ import xyz.dreams.dto.GoodsDTO;
 @Service
 @RequiredArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
-
 	private final GoodsDAO goodsDAO;
 
-//	굿즈 리스트 출력
+	/*
+	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
+	q:검색 키워드, column:정렬순서, minPrice:최소 금액. maxPrice:최대 금액
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력 
+	
+	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
+	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
+	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	*/
 	@Override
 	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
+		// 검색 조건들을 Map에 담아서 goodsDAO.selectGoodsList(Map<String, Object> map)의 인자로 넘기고
+		// 굿즈 전체 리스트를 goodsList에 저장
 		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList(map);
 		String goodsName = null;
 		GoodsDTO goodsChangedName = null;
 
-		List<GoodsDTO> goodsResult = new ArrayList<GoodsDTO>();
-		int temp = 0;
+		// jsp에서 선택된 카테고리만 저장하기 위한 goodsCategoryList 변수
+		List<GoodsDTO> goodsCategoryList = new ArrayList<GoodsDTO>();
+		boolean uniform = (Boolean) map.get("uniform");
+		boolean cap = (Boolean) map.get("cap");
+		boolean fan = (Boolean) map.get("fan");
 
-//		goodsCode에서 split()으로 goodsName만 남기기
+		// 검색된 전체 굿즈 리스트 사이즈만큼 for문 반복
 		for (int i = 0; i < goodsList.size(); i++) {
-			goodsName = goodsList.get(i).getGoodsCode().split("-")[0];
+			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해
+			// 카테고리만 가져옴
+			String goodsCategory = goodsList.get(i).getGoodsCode().split("-")[1];
 
-			goodsChangedName = goodsList.get(i);
-			goodsChangedName.setGoodsName(goodsName);
-
-			goodsList.set(i, goodsChangedName);
+			// jsp에서 Uniform이 선택 되어 있고
+			// DB에서 가져온 리스트의 카테고리가 'U'라면
+			// goodsCategoryList 변수에 저장함
+			if (uniform == true && goodsCategory.equals("U")) {
+				goodsCategoryList.add(goodsList.get(i));
+			}
+			
+			// jsp에서 Cap이 선택 되어 있고
+			// DB에서 가져온 리스트의 카테고리가 'C'라면
+			// goodsCategoryList 변수에 저장함
+			if (cap == true && goodsCategory.equals("C")) {
+				goodsCategoryList.add(goodsList.get(i));
+			}
+			
+			// jsp에서 Fan Goods가 선택 되어 있고
+			// DB에서 가져온 리스트의 카테고리가 'F'라면
+			// goodsCategoryList 변수에 저장함
+			if (fan == true && goodsCategory.equals("F")) {
+				goodsCategoryList.add(goodsList.get(i));
+			}
 		}
 
-//		중복되는 goodsName 제거하기
-		goodsResult.add(goodsList.get(0));
+		// goodsCategoryList 사이즈만큼 for문 반복
+		for (int i = 0; i < goodsCategoryList.size(); i++) {
+			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해
+			// 이름만 goodsName에 저장
+			goodsName = goodsCategoryList.get(i).getGoodsCode().split("-")[0];
 
-		for (int i = 0; i < goodsList.size() - 1; i++) {
-			if (!goodsResult.get(0 + temp).getGoodsName().equals(goodsList.get(i + 1).getGoodsName())) {
-				goodsResult.add(goodsList.get(i + 1));
+			// setter를 통해 이름만 추출한 goodsName을
+			// goodsChangedName에 저장하고 변경된 값을 goodsCategoryList에 저장 
+			goodsChangedName = goodsCategoryList.get(i);
+			goodsChangedName.setGoodsName(goodsName);
+
+			goodsCategoryList.set(i, goodsChangedName);
+		}
+		
+		// 실제 페이지에 출력하기 위한 굿즈 리스트를 저장하기 위한 goodsResult 변수
+		List<GoodsDTO> goodsResult = new ArrayList<GoodsDTO>();
+
+		// goodsCode가 '이름-카테고리-사이즈'에서 '이름'으로 바뀌어 저장되었지만
+		// 다른 사이즈의 같은 제품은 이름이 곂치기 때문에 중복제거를 해야함
+		// 최초에 비교할 값 저장
+		goodsResult.add(goodsCategoryList.get(0));
+		// goodsResult의 가장 끝값을 비교하기 위한 임시 변수
+		int temp = 0;
+		
+		// goodsCategoryList 사이즈-1 만큼(윗 줄에 최초에 비교할 값을 저장했기 때문에) for문 반복
+		for (int i = 0; i < goodsCategoryList.size() - 1; i++) {
+			// goodsResult의 가장 끝에 있는 goodsName과
+			// goodsCategoryList의 가장 처음에 있는 goodsName이 다르면
+			// goodsResult에 goodsCategoryList의 가장 처음값 저장 후
+			// 임시 변수(temp) 증가
+			if (!goodsResult.get(0 + temp).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
+				goodsResult.add(goodsCategoryList.get(i + 1));
 				temp += 1;
 			}
 		}

@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.CartService;
 import xyz.dreams.service.OrderService;
 
@@ -28,15 +29,15 @@ public class CartController {
 	private final OrderService orderService;
 	
 	//형섭(23/09/11): 세션에서 굿즈 정보를 가져온 후 굿즈 정보를 모델에 추가하여 뷰로 전달하는 handler.
-	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
-	public String purchaseGoods(HttpSession session, Model model) {
-		
-	    GoodsDTO goods = (GoodsDTO) session.getAttribute("goods");
-	    
-	    model.addAttribute("goods", goods);
-	    
-	    return "order/order";
-	}
+//	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
+//	public String purchaseGoods(HttpSession session, Model model) {
+//		
+//	    GoodsDTO goods = (GoodsDTO) session.getAttribute("goods");
+//	    
+//	    model.addAttribute("goods", goods);
+//	    
+//	    return "order/order";
+//	}
 	
 	
 	//형섭(23/09/11): 세션에 저장된 로그인 정보를 이용해 굿즈를 장바구니에 담는 handler.
@@ -55,7 +56,6 @@ public class CartController {
 		
 		//해당 상품이 카트에 존재하는지 여부를 판별해주는 메서드
 		boolean isAlreadyExisted = cartService.findCartGoods(cartVO);
-		
 		System.out.println("isAlreadyExisted : "+ isAlreadyExisted);
 		
 		if(isAlreadyExisted) {
@@ -74,7 +74,7 @@ public class CartController {
 	public String myCart(@PathVariable("memberId") String memberId, Model model) {
 		Map<String, List> cartMap = cartService.getMyCart(memberId);		
 		model.addAttribute("cartMap", cartMap);
-		return "order/mycart";
+		return "cart/mycart";
 	}
 	
 	@ResponseBody
@@ -88,6 +88,15 @@ public class CartController {
 			return "no";
 		}
 	}
+	
+	@RequestMapping(value = "/result", method = RequestMethod.POST)
+    public void cartOrderResult(OrderDTO[] arr) {
+    	
+    	for(int i=0; i<arr.length; i++) {
+    		OrderDTO orderDTO = arr[i];
+    		System.out.println(orderDTO);
+    	}
+    }
 
 }
 
