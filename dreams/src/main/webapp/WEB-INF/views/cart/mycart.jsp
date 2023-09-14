@@ -118,8 +118,8 @@ if(chk) {
 								<input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
 							</td>
 							<td><fmt:formatNumber type="number" value="${vo.goodsPrice}"/>&nbsp;원<br>
-								<span><fmt:parseNumber var="test" value="${vo.goodsPrice / 100}" integerOnly="true"/> ${test}&nbsp;원
-										<input value="${test}" type="hidden" name="getPoint" id="point"></span></td>
+								<%-- <span><fmt:parseNumber var="test" value="${vo.goodsPrice / 100}" integerOnly="true"/> ${test}&nbsp;원 --%>
+										<%-- <input value="${test}" type="hidden" name="getPoint" id="point"></span> --%></td>
 								<td><c:choose>
 										<c:when test="${vo.goodsStock == 0}">
 											<span>품절된 상품입니다.</span>
@@ -200,7 +200,7 @@ if(chk) {
           
           if (result == 'ok') {
             alert("장바구니에서 삭제되었습니다.");
-            location.assign("<c:url value='/order/mycart/' />" + memberId);
+            location.assign("<c:url value='/cart/mycart/' />" + memberId);
           } else {
             alert("이미 삭제 된 상품입니다.");
           }
@@ -209,8 +209,6 @@ if(chk) {
           console.error(xhr.responseText);
         }
       });
-      
-      
     });
     
     
@@ -226,8 +224,6 @@ if(chk) {
         alert("로그인이 필요합니다.");
         location.assign("/member/login");
       }
-
-      
     });
     
      $("#orderSuccess").click(function () {
@@ -257,7 +253,7 @@ if(chk) {
     
     $("#mycart_btn").click(function(event) {
       event.preventDefault();
-      location.assign("<c:url value='/order/mycart'/>" + memberId);
+      location.assign("<c:url value='/cart/mycart'/>" + memberId);
       
     }); 
     

@@ -16,6 +16,8 @@
 
   /* 장바구니 */
   $(document).ready(function () {
+    var contextPath = "${pageContext.request.contextPath}";
+
     // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
       event.preventDefault();
@@ -28,19 +30,21 @@
       var qty = $("#select_count").val();
       var price = $("#price").val();
       var goodsCode = $(this).data("goods-code");
+      var addToCartUrl = contextPath + "/cart/" + goodsCode;
 
       $.ajax({
         type: "post",
-        url: "<c:url value='/cart/'/>" + goodsCode,
+        url: addToCartUrl,
         data: {
-          goodsCode: goodsCode
+          goodsCode: goodsCode,
         },
         dataType: "text",
         success: function (result) {
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             if (check) {
-              location.assign("<c:url value='/order/mycart/' />" + memberId);
+              var myCartUrl = contextPath + "/cart/mycart/" + memberId;
+              location.assign(myCartUrl);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
@@ -52,8 +56,8 @@
       });
     });
   });
-
 </script>
+
 
 
 <div class="shop-area pt-100 pb-100">
@@ -72,7 +76,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product-details-content ml-70">
-					<form method="post" name="purchase">
+					<form method="post" action="<c:url value='/order/insert'/>" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
 						<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }" id="goodsCode">
 						<div class="product-details-price">
@@ -106,7 +110,7 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-								<button class="btn btn-default btn-order">주문하기</button>
+								<button class="btn btn-default btn-order" type="submit">주문하기</button>
 								<button class="btn btn-default btn-cart" data-goods-code="${goodsDetail.goodsCode}">장바구니</button>
 							</div>
 						</div>
