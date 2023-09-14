@@ -78,7 +78,7 @@
 				<div class="product-details-content ml-70">
 					<form method="post" action="<c:url value='/order/insert'/>" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
-						<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }" id="goodsCode">
+						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsName }" id="goodsCode">
 						<div class="product-details-price">
 							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }" id="price">
 							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
