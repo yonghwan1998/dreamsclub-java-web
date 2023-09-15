@@ -95,7 +95,7 @@ function selectChange(q){
 													<div class="product-list-rating">
 														<i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
 													</div>
-													<a href="#">3 Reviews</a>
+													<a href="#">${goods.reviewCount } Reviews</a>
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
