@@ -1,5 +1,7 @@
 package xyz.dreams.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,44 +35,7 @@ public class OrderController {
     private final MemberService memberService;
     private final GoodsService goodsService;
 
-	/*
-	 * @RequestMapping(value = "/new", method = RequestMethod.GET) public String
-	 * orderNew(Model model, HttpSession session) { MemberDTO member = (MemberDTO)
-	 * session.getAttribute("member"); GoodsDTO goods = (GoodsDTO)
-	 * model.getAttribute("goods"); System.out.println("model = " + model);
-	 * System.out.println("goods = " + goods);
-	 * 
-	 * if (member != null) { String memberId = member.getMemberId(); MemberDTO
-	 * memberInfo = orderService.getMemberInfo(memberId);
-	 * model.addAttribute("memberInfo", memberInfo); model.addAttribute("goods",
-	 * goods); model.addAttribute("memberId", memberId); } else { return
-	 * "redirect:/login"; }
-	 * 
-	 * return "order/order"; }
-	 * 
-	 * @RequestMapping(value = "/detail", method = RequestMethod.POST) public String
-	 * submitOrder(@RequestParam("orderMemo") String orderMemo, RedirectAttributes
-	 * redirectAttributes) { redirectAttributes.addAttribute("orderMemo",
-	 * orderMemo); // 배송 요청사항을 쿼리 파라미터로 추가하여 리다이렉트 return "redirect:/order/detail";
-	 * }
-	 * 
-	 * @RequestMapping(value = "/detail", method = RequestMethod.GET) public String
-	 * viewOrder(HttpSession session, HttpServletRequest request, Model model) {
-	 * MemberDTO member = (MemberDTO) session.getAttribute("member"); GoodsDTO goods
-	 * = (GoodsDTO) session.getAttribute("goods"); System.out.println("Controller1"
-	 * + goods);
-	 * 
-	 * if (member != null) { String memberId = member.getMemberId(); MemberDTO
-	 * memberInfo = orderService.getMemberInfo(memberId);
-	 * model.addAttribute("memberId", memberId); model.addAttribute("goods", goods);
-	 * model.addAttribute("memberInfo", memberInfo);
-	 * 
-	 * // 배송 요청사항 추출 String orderMemo = request.getParameter("orderMemo"); if
-	 * (orderMemo != null && !orderMemo.isEmpty()) { model.addAttribute("orderMemo",
-	 * orderMemo); } }
-	 * 
-	 * return "order/order_detail"; }
-	 */
+	
     
     @ResponseBody
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
@@ -162,7 +127,7 @@ public class OrderController {
     	model.addAttribute("goods_count", goodsCount);
     	model.addAttribute("selected_Opt", selectedOpt);
     	
-    	return "order/order_confirm";
+    	return "order/order";
     }
     
     @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
@@ -171,12 +136,21 @@ public class OrderController {
     	
     	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
     	memberInfo = memberService.getMember(memberInfo.getMemberId());
-    	goodsCode = "-" + goodsCode + "-";
+
+    	// URL 인코딩
+        try {
+            goodsCode = URLEncoder.encode(goodsCode, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // 인코딩 실패 시 예외 처리 필요
+        }
+        
+        goodsCode = "-" + goodsCode + "-";
         GoodsDTO goodsDTO = goodsService.getGoodsDetail(goodsCode);
-    	
-    	model.addAttribute("memberInfo", memberInfo);
-    	model.addAttribute("goodsInfo", goodsDTO);
-    	
-    	return "order/order_confirm";
+        
+        model.addAttribute("memberInfo", memberInfo);
+        model.addAttribute("goodsInfo", goodsDTO);
+        
+        return "order/order";
     }
 }

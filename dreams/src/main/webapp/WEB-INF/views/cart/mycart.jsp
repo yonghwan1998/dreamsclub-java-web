@@ -120,19 +120,7 @@ if(chk) {
 							<td><fmt:formatNumber type="number" value="${vo.goodsPrice}"/>&nbsp;원<br>
 								<%-- <span><fmt:parseNumber var="test" value="${vo.goodsPrice / 100}" integerOnly="true"/> ${test}&nbsp;원 --%>
 										<%-- <input value="${test}" type="hidden" name="getPoint" id="point"></span> --%></td>
-								<td><c:choose>
-										<c:when test="${vo.goodsStock == 0}">
-											<span>품절된 상품입니다.</span>
-										</c:when>
-										<c:otherwise>
-											<select class="form-control" name="goods_count">
-												<c:forEach var="count" begin="1" end="${vo.goodsStock > 5 ? 5 : vo.goodsStock}">
-													<option>${goodsCount}</option>
-												</c:forEach>
-											</select>
-										</c:otherwise>
-									</c:choose>
-									</td>
+								<td>${vo.goodsCount }</td>
                     <td>
 												<div class="form-horizontal" style="text-align: left;">
 													<select class="form-control opt_select" name="selected_Opt">

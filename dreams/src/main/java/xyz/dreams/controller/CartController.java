@@ -29,15 +29,15 @@ public class CartController {
 	private final OrderService orderService;
 	
 	//형섭(23/09/11): 세션에서 굿즈 정보를 가져온 후 굿즈 정보를 모델에 추가하여 뷰로 전달하는 handler.
-//	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
-//	public String purchaseGoods(HttpSession session, Model model) {
-//		
-//	    GoodsDTO goods = (GoodsDTO) session.getAttribute("goods");
-//	    
-//	    model.addAttribute("goods", goods);
-//	    
-//	    return "order/order";
-//	}
+	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
+	public String purchaseGoods(HttpSession session, Model model) {
+		
+	    GoodsDTO goods = (GoodsDTO) session.getAttribute("goods");
+	    
+	    model.addAttribute("goods", goods);
+	    
+	    return "order/order";
+	}
 	
 	
 	//형섭(23/09/11): 세션에 저장된 로그인 정보를 이용해 굿즈를 장바구니에 담는 handler.

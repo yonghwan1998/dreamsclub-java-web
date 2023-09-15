@@ -76,8 +76,7 @@
 							<input type="hidden" value="${dto.goodsCode}" name="goodsCode" id="goodsCode">
 							</td>
 							<td>${dto.goodsCode}<br>${dto.goodsInfo}</td>
-							<td><label id="totalPrice"></label>&nbsp;원<br>
-								적립금 : <label id="point"></label>원								
+							<td><label id="totalPrice"></label>&nbsp;원
 							<td><select name="order_Qty" class="form-control order_Qty">
 								<c:forEach begin="1" end="${dto.goodsStock > 5 ? 5 : dto.goodsStock}" var="stock">
 									<option value="${stock}">${stock}</option>
@@ -107,7 +106,6 @@
 		<c:set value="${memberInfo}" var="vo"/>
 			<h1 class="page-header">주문정보 확인</h1>
 			<h4 style="color: red;">주문자 정보와 배송지가 다른 경우 직접 입력해주세요.</h4>
-			<input type="hidden" value="${vo.getPoint}" name="getPoint" id="getPoint">
 		</div>
 		<div class="row">
 			<div class="form-horizontal">
@@ -190,15 +188,12 @@
 		
 		$(".confirm").click(function(event) {
 			event.preventDefault();
-			var point = "<c:out value='${getPoint}'/>";
 			var price = "<c:out value='${dto.goodsPrice}'/>";
 			var qty = $(".order_Qty").val();
 			
 			var totalPrice = price * qty;
-			var totalPoint = point * qty;
 			
 			$("#totalPrice").html(totalPrice);
-			$("#point").html(totalPoint);
 			
 		});
 		
@@ -207,14 +202,8 @@
 			var qty = $(".order_Qty").val();
 			var price = "<c:out value='${dto.goodsPrice}'/>";
 			var del_fee = "<c:out value='${del_fee}'/>";
-			var point = $("#point").html();
-			var bPoint = $("#getPoint").val();
-			
-			var p = parseInt(point);
-			var b = parseInt(bPoint);
 
 			var amount = price * qty;
-			var totalPoint = p + b;
 
    			if (amount < 30000) {	
 				totalAmount = Number(amount) + Number(del_fee);
@@ -230,7 +219,6 @@
 				$("#amount").val(totalAmount);
 			}
 			
-   			$("#getPoint").val(totalPoint);
 
 		});
 		

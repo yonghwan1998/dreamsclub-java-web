@@ -29,6 +29,9 @@ public class GoodsServiceImpl implements GoodsService {
 		// 검색 조건들을 Map에 담아서 goodsDAO.selectGoodsList(Map<String, Object> map)의 인자로 넘기고
 		// 굿즈 전체 리스트를 goodsList에 저장
 		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList(map);
+//		System.out.println("*********");
+//		System.out.println(goodsList);
+//		System.out.println("*********");
 		String goodsName = null;
 		GoodsDTO goodsChangedName = null;
 
@@ -115,10 +118,29 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsCodeSplit = goodsDetail.getGoodsCode().split("-");
 		if (goodsCodeSplit[1].equals("U")) {
 			goodsDetail.setGoodsCategory("Uniform");
+			
+			for (GoodsDTO goods : goodsDetailList) {
+				String[] goodsCodeSplitTemp = goods.getGoodsCode().split("-");
+				if (goodsCodeSplitTemp[2].equals("L")) {
+					goodsDetail.setGoodsStockL(goods.getGoodsStock());
+					goodsDetail.setGoodsYnL(goods.getGoodsYn());
+				} else if(goodsCodeSplitTemp[2].equals("M")) {
+					goodsDetail.setGoodsStockM(goods.getGoodsStock());
+					goodsDetail.setGoodsYnM(goods.getGoodsYn());
+				} else if(goodsCodeSplitTemp[2].equals("S")) {
+					goodsDetail.setGoodsStockS(goods.getGoodsStock());
+					goodsDetail.setGoodsYnS(goods.getGoodsYn());
+				}
+			}
+			
 		} else if (goodsCodeSplit[1].equals("C")) {
 			goodsDetail.setGoodsCategory("Cap");
+			goodsDetail.setGoodsStockF(goodsDetail.getGoodsStock());
+			goodsDetail.setGoodsYnF(goodsDetail.getGoodsYn());
 		} else if (goodsCodeSplit[1].equals("F")) {
 			goodsDetail.setGoodsCategory("Fan Goods");
+			goodsDetail.setGoodsStockF(goodsDetail.getGoodsStock());
+			goodsDetail.setGoodsYnF(goodsDetail.getGoodsYn());
 		}
 
 		goodsDetail.setGoodsName(goodsName);

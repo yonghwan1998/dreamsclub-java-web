@@ -49,6 +49,8 @@
     </selectKey>
   </insert>
   
+  <!-- 형섭: setOrder 테이블에서 orderId 필드의 최대값을 조회하고, 최대값이 없을 경우 1을 반환, 
+  따라서 orderId는 테이블의 주문 수를 기반으로 자동 증가하는 값 -->
   <select id="countOrderId" resultType="integer">
     SELECT NVL2(MAX(orderId), MAX(orderId)+1, 1) FROM setOrder
   </select>
