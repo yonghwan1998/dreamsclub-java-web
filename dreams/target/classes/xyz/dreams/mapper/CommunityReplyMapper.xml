@@ -34,4 +34,11 @@
 	ORDER BY COMM_RE_NO ASC
 </select>
 
+
+<!-- 댓글 삭제 -->
+<delete id="deleteCommunityReply" parameterType="CommunityReplyDTO">
+	DELETE FROM COMMUNITY_REPLY
+	WHERE COMM_RE_NO=#{commReNo}
+</delete>
+
 </mapper>

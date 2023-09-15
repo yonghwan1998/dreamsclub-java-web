@@ -338,28 +338,30 @@ padding: 1px 5px 5px 0;
 }
 
 .commentList{
-	padding: 15px 20px;
+	padding: 15px 20px 5px 20px;
     border-bottom: 1px solid #7A7A7A;
 }
 
 .commentList_date{
 	color: #B0B0B0;
+	font-size: 12px;
+	margin: 0 15px;
 }
 
-.commentReRely {
-    margin: 0 7px 0 0;
-}
 
-/*대댓글*/
+/*수정,삭제 버튼*/
 .commentReRely {
   color: #999999;
-  font-size: 15px;
+  font-size: 12px;
   height: 40px;
   width: 40px;
   border: 1px solid #dedede;
-  padding: 3px 10px;
+  padding: 3px 5px;
+  margin: 0 7px 0 0;
+  
 }
 
+/*대댓글*/
 .communityReReplyView div{
   display: flex;
 }

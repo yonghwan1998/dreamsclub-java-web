@@ -46,7 +46,8 @@
 <select id="selectCommunityList" resultType="CommunityDTO">
 	select * 
 	from (
-		select rownum rn, 
+		select 
+			rownum rn, 
 			comm_no, 
 			member_id, 
 			comm_title, 
@@ -54,7 +55,8 @@
 			comm_date, 
 			comm_hit 
 		from (
-			select comm_no, 
+			select 
+				comm_no, 
 				member_id, 
 				comm_title, 
 				comm_cont, 

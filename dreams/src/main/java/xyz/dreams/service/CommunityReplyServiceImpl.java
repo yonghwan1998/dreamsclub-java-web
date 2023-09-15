@@ -2,6 +2,8 @@ package xyz.dreams.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -37,12 +39,14 @@ public class CommunityReplyServiceImpl implements CommunityReplyService{
 		return communityReplyDAO.selectCommunityReply(commNo);
 	}
 
+	/*댓글 삭제*/
 	@Override
-	public void deleteCommunityReply(CommunityReplyDTO reply) {
-		// TODO Auto-generated method stub
-		
+	public int deleteCommunityReply(int commReNo) {
+		int result = communityReplyDAO.deleteCommunityReply(commReNo);
+		return result;
 	}
 
+	/*댓글 수정*/
 	@Override
 	public void modifyCommunityReply(CommunityReplyDTO reply) {
 		// TODO Auto-generated method stub

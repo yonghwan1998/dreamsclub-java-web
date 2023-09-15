@@ -12,7 +12,7 @@ public interface CommunityReplyService {
 	List<CommunityReplyDTO> getCommunityReplyList(int commNo);
 	
 	/*댓글 삭제*/
-	void deleteCommunityReply(CommunityReplyDTO reply);
+	int deleteCommunityReply(int commReNo);
 	
 	/*댓글 수정*/
 	void modifyCommunityReply(CommunityReplyDTO reply);

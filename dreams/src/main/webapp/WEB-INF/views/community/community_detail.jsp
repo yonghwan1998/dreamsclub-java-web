@@ -25,7 +25,6 @@
                    <div class="writer" style="width: 15%; text-align: right;">작성자 : <c:out value="${pageInfo.memberId }"/></div>
                    <div class="wrtieDate" style="width: 15%; text-align: right;">작성일자 : <c:out value="${pageInfo.commDate }"/></div>
                </div>
-               
    
                <!--글 내용-->
                <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>
@@ -35,8 +34,8 @@
             <div class="communityDetailBtn">
             	<a href=<c:url value="/community"/>>목록으로</a>
                 	<c:if test="${member.memberId == pageInfo.memberId }" >
-                		<a href=<c:url value="/community/modify?commNo=${pageInfo.commNo }"/> role="button" id="modify_btn" name="modify_btn">수정하기</a>
-						<a href="#" role="button" id="delete_btn" name="delete_btn" onclick="deleteCheck()">삭제하기</a>   
+                		<a href=<c:url value="/community/modify?commNo=${pageInfo.commNo }"/> role="button" id="modify_btn">수정하기</a>
+						<a href="#" role="button" id="delete_btn" onclick="deleteCheck()">삭제하기</a>   
 					</c:if>
 			</div>
 
@@ -144,28 +143,30 @@ function replyDisplay() {
 		dataType: "json",
 		success: function(result) {
 			if(result.length == 0) {
-				/*
 				var html="<div style='width: 600px; border-bottom: 1px solid black;'>";
 				html+="댓글이 하나도 없습니다.";
 				html+="</div>";
 				$("#replyList").html(html);
-				*/
 				return;
 			}
 			
 			var html="";
 			$(result).each(function() {
 				html+="<div class='commentList' style='border-top: none'>";
+				html+="<div style='display: flex;'>";
 				html+="<p><strong>"+this.memberId+"</strong></p>";
-				html+="<p class='txt'>"+this.commReCont+"</p>";
 				html+="<p class='commentList_date'>"+this.commReDate+"</p>";
-				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
-				html+="<p>";
-				html+="<a href='#' class='commentReRely'>수정</a>";
-				html+="<a href='#' class='commentReRely'>삭제</a>";
-				html+="</p>";
 				html+="</div>";
-			})
+				html+="<p class='txt'>"+this.commReCont+"</p>";
+				html+="<div style='display: flex;'>";
+				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
+				if("${member.memberId}"==this.memberId){
+					html+="<p><a href='#' class='commentReRely' id='modify_reply_btn'>수정</a></p>";
+					html+="<p><a href='#' class='commentReRely' id='delete_reply_btn' onclick='delete_reply("+this.commReNo+")'>삭제</a></p>";
+				}
+				html+="</div>";
+				html+="</div>";
+			});
 			$("#replyList").html(html);
 		},
 		error: function(xhr) {
@@ -189,7 +190,7 @@ $("#addBtn").click(function() {
 	$("#content").val("");
 	$.ajax({
 		type: "post",
-		url: "<c:url value="/reply/register"/>",
+		url: "<c:url value='/reply/register'/>",
 		contentType: "application/json",
  		data: JSON.stringify({"memberId": writer, "commReCont": content, "commNo": ${pageInfo.commNo}}),
 		
@@ -208,5 +209,29 @@ $("#addBtn").click(function() {
 		}
 	});
 });
+
+
+//댓글 삭제
+function delete_reply(commReNo){
+
+	if(!confirm("정말 삭제하시겠습니까?")){
+		return false;
+	}
+	//삭제 ajax
+	$.ajax({
+		type: "delete",
+		url: "<c:url value='/reply/delete/"+commReNo+"'/>",
+		dataType:"text",
+		success: function(result){
+
+			if(result=="success"){
+				replyDisplay();
+			}
+		},
+		error: function(xhr){
+			alert("에러="+xhr.status);
+		}
+	});
+}
 
 </script>

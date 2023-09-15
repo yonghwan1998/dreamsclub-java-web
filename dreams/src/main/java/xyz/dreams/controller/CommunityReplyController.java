@@ -3,7 +3,11 @@ package xyz.dreams.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +38,22 @@ public class CommunityReplyController {
 	
 	/*댓글 출력 목록*/
 	@GetMapping("/list/{commNo}")
-	public List<CommunityReplyDTO> list(@PathVariable int commNo) throws Exception{
+	public List<CommunityReplyDTO> list(@PathVariable int commNo, HttpSession session) throws Exception{
+
 		return communityReplyService.getCommunityReplyList(commNo);
+		
 	}
 	
-	/*댓글 수정*/
-	
-	
+		
 	/*댓글 삭제*/
+	@DeleteMapping("/delete/{commReNo}")
+	public String deleteReply(@PathVariable int commReNo) {
+		communityReplyService.deleteCommunityReply(commReNo);
+		return "success";
+	}
+	
+	
+	/*댓글 수정*/
 	
 	
 }
