@@ -107,44 +107,65 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsResult;
 	}
 
-//	굿즈 상세 정보 출력
+	/*
+	- 방용환(수정) : 2023/08/23, 굿즈 디테일 페이지에서 해당 굿즈 정보 출력
+	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
+	
+	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
+	 */
 	@Override
 	public GoodsDTO getGoodsDetail(String goodsName) {
+		// 해당 goodsName을 가진 굿즈 리스트 가져옴
+		// Uniform 상품은 3개, Cap & Fan 상품은 1개의 리스트
 		List<GoodsDTO> goodsDetailList = goodsDAO.selectGoodsDetailList(goodsName);
 
+		// jsp로 넘겨 줄 임시 저장소
 		GoodsDTO goodsDetail = goodsDetailList.get(0);
 
+		// split()을 사용하여 goodsCodeSplit의 0번 index는 이름, 1번 index는 카테고리, 2번 index는 사이즈를 나누어 저장
 		String[] goodsCodeSplit = null;
 		goodsCodeSplit = goodsDetail.getGoodsCode().split("-");
+
+		// 카테고리가 'U'라면 goodsDetail의 goodsCategory에 'Uniform'을 저장
 		if (goodsCodeSplit[1].equals("U")) {
 			goodsDetail.setGoodsCategory("Uniform");
 			
+			// 'Uniform' 카테고리는 같은 상품이 사이즈가 3개 존재하기 때문에 for문으로 사이즈마다 재고와 판매 여부를 저장
 			for (GoodsDTO goods : goodsDetailList) {
-				String[] goodsCodeSplitTemp = goods.getGoodsCode().split("-");
-				if (goodsCodeSplitTemp[2].equals("L")) {
+				// 'Uniform'은 split()으로 나눈 goodsCode를 goodsCodeSplitUniform에 따로 저장 
+				String[] goodsCodeSplitUniform = goods.getGoodsCode().split("-");
+				
+				// 사이즈가 'L'이라면 goodsStockL과 goodsYnL에 각각 재고와 판매 여부 저장
+				if (goodsCodeSplitUniform[2].equals("L")) {
 					goodsDetail.setGoodsStockL(goods.getGoodsStock());
 					goodsDetail.setGoodsYnL(goods.getGoodsYn());
-				} else if(goodsCodeSplitTemp[2].equals("M")) {
+				// 사이즈가 'M'이라면 goodsStockM과 goodsYnM에 각각 재고와 판매 여부 저장
+				} else if (goodsCodeSplitUniform[2].equals("M")) {
 					goodsDetail.setGoodsStockM(goods.getGoodsStock());
 					goodsDetail.setGoodsYnM(goods.getGoodsYn());
-				} else if(goodsCodeSplitTemp[2].equals("S")) {
+				// 사이즈가 'S'라면 goodsStockS과 goodsYnS에 각각 재고와 판매 여부 저장
+				} else if (goodsCodeSplitUniform[2].equals("S")) {
 					goodsDetail.setGoodsStockS(goods.getGoodsStock());
 					goodsDetail.setGoodsYnS(goods.getGoodsYn());
 				}
 			}
-			
+
+		// 카테고리가 'C'라면 goodsDetail의 goodsCategory에 'Cap'을 저장, goodsStockF와 goodsYnF에 각각 재고와 판매 여부 저장
 		} else if (goodsCodeSplit[1].equals("C")) {
 			goodsDetail.setGoodsCategory("Cap");
 			goodsDetail.setGoodsStockF(goodsDetail.getGoodsStock());
 			goodsDetail.setGoodsYnF(goodsDetail.getGoodsYn());
+		// 카테고리가 'F'라면 goodsDetail의 goodsCategory에 'Fan Goods'를 저장, goodsStockF와 goodsYnF에 각각 재고와 판매 여부 저장
 		} else if (goodsCodeSplit[1].equals("F")) {
 			goodsDetail.setGoodsCategory("Fan Goods");
 			goodsDetail.setGoodsStockF(goodsDetail.getGoodsStock());
 			goodsDetail.setGoodsYnF(goodsDetail.getGoodsYn());
 		}
 
+		// goodsName에 jsp에서 전달 받은 goodsName을 다시 저장
 		goodsDetail.setGoodsName(goodsName);
-
+		
+		// goodsDetail을 GoodsController로 전달
 		return goodsDetail;
 	}
 

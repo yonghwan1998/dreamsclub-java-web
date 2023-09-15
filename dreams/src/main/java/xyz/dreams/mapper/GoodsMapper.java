@@ -18,8 +18,12 @@ public interface GoodsMapper {
 	*/
 	List<GoodsDTO> selectGoodsList(Map<String, Object> map);
 
-	/* 굿즈 디테일 페이지 */
-//	굿즈 상세 정보 출력
+	/*
+	- 방용환(수정) : 2023/08/23, 굿즈 디테일 페이지에서 해당 굿즈 정보 출력
+	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
+	
+	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
+	 */
 	List<GoodsDTO> selectGoodsDetailList(String goodsName);
 
 	/* 관리자 페이지 굿즈 관리 */
