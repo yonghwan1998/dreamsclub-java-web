@@ -98,10 +98,10 @@
 							<div class="pro-details-size">
 								<span>Size</span> <select id="select_count" name="goodsSize" style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
-									<option value="L">L</option>
-									<option value="M">M</option>
-									<option value="S">S</option>
-									<option value="F">Free</option>
+									<option value="L">L&nbsp;${goodsDetail.goodsStockL }개 (${goodsDetail.goodsYnL })</option>
+									<option value="M">M&nbsp;${goodsDetail.goodsStockM }개 (${goodsDetail.goodsYnM })</option>
+									<option value="S">S&nbsp;${goodsDetail.goodsStockS }개 (${goodsDetail.goodsYnS })</option>
+									<option value="F">Free&nbsp;${goodsDetail.goodsStockF }개 (${goodsDetail.goodsYnF })</option>
 								</select>
 							</div>
 						</div>
