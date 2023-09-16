@@ -169,7 +169,9 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDetail;
 	}
 
-//	관리자 굿즈 리스트 출력
+	/*
+	- 방용환(생성) : 2023/08/28, 관리자 페이지 굿즈 출력 기능
+	 */
 	@Override
 	public List<GoodsDTO> getAdminGoodsList() {
 		List<GoodsDTO> goodsList = goodsDAO.selectAdminGoodsList();
@@ -177,21 +179,26 @@ public class GoodsServiceImpl implements GoodsService {
 		String goodsCategory = null;
 		String goodsSize = null;
 		String noSpaceGoodsCode = null;
+		// admin_goods.jsp 페이지에 출력할 값들을 저장한 객체
 		GoodsDTO goodsChangedName = null;
 
 		for (int i = 0; i < goodsList.size(); i++) {
+			// split()으로 나눈 값들을 goodsName, goodsCategory, goodsSize에 각각 나누어 저장
 			goodsName = goodsList.get(i).getGoodsCode().split("-")[0];
 			goodsCategory = goodsList.get(i).getGoodsCode().split("-")[1];
 			goodsSize = goodsList.get(i).getGoodsCode().split("-")[2];
 
+			// 위에서 저장한 값들을 goodsChangedName 객체에 set
 			goodsChangedName = goodsList.get(i);
 			goodsChangedName.setGoodsName(goodsName);
 			goodsChangedName.setGoodsCategory(goodsCategory);
 			goodsChangedName.setGoodsSize(goodsSize);
 
+			// jsp에서 태그 아이디로 사용할 때 공백이 없어야 하기 때문에 공백 제거한 값 set
 			noSpaceGoodsCode = goodsList.get(i).getGoodsCode().replaceAll(" ", "");
 			goodsChangedName.setNoSpaceGoodsCode(noSpaceGoodsCode);
 
+			// 바뀐 객체를 goodsList에 다시 set
 			goodsList.set(i, goodsChangedName);
 		}
 
@@ -264,7 +271,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 	
 	/*
-	방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
+	- 방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
 	admin_goods.jsp에서 입력한 수정 값을 받아와 해당 굿즈 정보 UPDATE
 	 */
 	@Override
@@ -273,7 +280,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	/*
-	방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
+	- 방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
 	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
 	 */
 	@Override
