@@ -9,6 +9,6 @@ public class CartVO {
 	private String memberId;
 	private String goodsCode;
 	private int cartId;
-	private int goodsCount;
-	private Date regDate;
+	private int cartGoodsQty;
+	private Date cartRegDate;
 }

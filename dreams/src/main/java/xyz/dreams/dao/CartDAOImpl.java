@@ -16,6 +16,19 @@ public class CartDAOImpl implements CartDAO {
 	private final String NS = "xyz.dreams.mapper.CartMapper";
 	
 	@Override
+	public List<CartVO> selectCartList(CartVO cartVO) {
+		List<CartVO> cartList = (List)sqlSession.selectList(NS+".selectCartList", cartVO);
+		return cartList;
+	}
+
+	@Override
+	public List<GoodsDTO> selectGoodsList(List<CartVO> cartList) {
+		List<GoodsDTO> myGoodsList;
+		myGoodsList = sqlSession.selectList(NS+".selectGoodsList", cartList);
+		return myGoodsList;
+	}
+	
+	@Override
 	public boolean findCartGoods(CartVO cartVO) {
 		String result = sqlSession.selectOne(NS+".findCartGoods", cartVO);
 		return Boolean.parseBoolean(result);
@@ -23,17 +36,24 @@ public class CartDAOImpl implements CartDAO {
 
 	@Override
 	public void addGoodsInCart(CartVO cartVO) {
+		int cartId = selectMaxCartId();
+		cartVO.setCartId(cartId);
 		sqlSession.insert(NS+".addGoodsInCart", cartVO);
 	}
 
 	@Override
-	public List<CartVO> getMyCartGoodsCode(String memberId) {
-		return sqlSession.selectList(NS+".getMyCartGoodsCode", memberId);
+	public void updateCartGoodsQty(CartVO cartVO) {
+		sqlSession.insert(NS+".updateCartGoodsQty", cartVO);
 	}
 
 	@Override
-	public List<GoodsDTO> getMyCartList(List<CartVO> cartList) {
-		return sqlSession.selectList(NS+".getMyCartList", cartList);
+	public void deleteCartGoods(int cartId) {
+		sqlSession.delete(NS+".deleteCartGoods", cartId);
+	}
+
+	private int selectMaxCartId() {
+		int cartId = sqlSession.selectOne(NS+".selectMaxCartId");
+		return cartId;
 	}
 
 
