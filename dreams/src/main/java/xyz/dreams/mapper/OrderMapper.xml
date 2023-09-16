@@ -25,7 +25,7 @@
       cal_info
       ) VALUES (
       #{orderId}, 
-      order_seq_num.nextval, 
+      #{order_seq_num}, 
       #{goodsCode}, 
       #{goodsPrice}, 
       #{goodsCount}, 
@@ -44,7 +44,7 @@
       #{orderStatus}, 
       #{totalAmount}, 
       #{calInfo}
-    <selectKey resultType="integer" keyProperty="order_seq_num" order="BEFORE">
+    <selectKey resultType="int" keyProperty="order_seq_num" order="BEFORE">
       SELECT order_seq_num.nextval FROM dual
     </selectKey>
   </insert>

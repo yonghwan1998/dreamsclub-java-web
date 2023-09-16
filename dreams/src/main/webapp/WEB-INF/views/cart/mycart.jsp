@@ -86,9 +86,11 @@ if(chk) {
 
 	<c:set value="${cartMap.cartList}" var="cartList"/>
 	<c:set value="${cartMap.goodsList}" var="goodsList"/>
-	
-	<c:forEach items="${cartList}" var="cList">
-		<input type="hidden" value="${cList.cartId}" name="cartId">
+  <c:set value="0" var="totalGoodsNum"/>
+  <c:set value="0" var="totalPrice"/>
+  	
+	<c:forEach items="${cartList}" var="cartList">
+		<input type="hidden" value="${cartList.cartId}" name="cartId">
 	</c:forEach>
 		
 		<div class="row qnas" style="text-align: center;">
