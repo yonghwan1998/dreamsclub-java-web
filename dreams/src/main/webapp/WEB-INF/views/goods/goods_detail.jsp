@@ -20,23 +20,54 @@
 
     // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
-      event.preventDefault();
-      $("form").submit();
+      var goodsCode = $("#goodsCode").val();
+      var goodsSize = $("#cartGoodsQty").val();
+      var goodsCount = $("#goodsCount").val();
+      var memberId = $("#isLogOn").val();
+      
+      if (memberId === "false" || memberId === '') {
+          alert("로그인 후 주문이 가능합니다!");
+          window.location.href = contextPath + "/login";
+          event.preventDefault();
+      } else {
+          $.ajax({
+          type: "post",
+          //url: "",//orderController로 받을 메서드 작성 후 추가할 것
+          data: {
+            goodsCode: goodsCode,
+            goodsSize: goodsSize,
+            goodsCount: goodsCount,
+            memberId: memberId
+          },
+          success: function (response) {
+            if(response.success) {
+              alert("주문을 완료 하였습니다.");
+              //주문 확인 페이지 이동
+            } else {
+              alert("주문을 실패 하였습니다.");
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+          }
+        });
+      }
     });
 
     // 장바구니 버튼 클릭
     $(".btn-cart").click(function () {
       event.preventDefault();
-      var qty = $("#select_count").val();
+      var qty = $("#cartGoodsQty").val();
       var price = $("#price").val();
       var goodsCode = $(this).data("goods-code");
-      var addToCartUrl = contextPath + "/cart/" + goodsCode;
+      var addToCartUrl = contextPath + "/cart/addGoodsInCart";
 
       $.ajax({
         type: "post",
+        async: false,
         url: addToCartUrl,
         data: {
-          goodsCode: goodsCode,
+          goods_code: goodsCode,
         },
         dataType: "text",
         success: function (result) {
@@ -44,7 +75,7 @@
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             if (check) {
               var myCartUrl = contextPath + "/cart/mycart/" + memberId;
-              location.assign(myCartUrl);
+              window.location.replace(myCartUrl);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
@@ -96,7 +127,7 @@
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
 							<div class="pro-details-size">
-								<span>Size</span> <select id="select_count" name="goodsSize" style="border: 1px solid black;">
+								<span>Size</span> <select id="cartGoodsQty" name="cartGoodsQty" style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
 									<c:choose>
 										<c:when test="${goodsDetail.goodsCategory eq 'Uniform' }">
@@ -128,6 +159,7 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
+                <input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
 								<button class="btn btn-default btn-order" type="submit">주문하기</button>
 								<button class="btn btn-default btn-cart" data-goods-code="${goodsDetail.goodsCode}">장바구니</button>
 							</div>
