@@ -40,7 +40,6 @@ public class AdminController {
 	public String AdminMemberView(Model model) {
 		List<MemberDTO> getMemberList = memberService.getMemberList();
 		model.addAttribute("getMemberList", getMemberList);
-		System.out.println("getMemberList" + getMemberList);
 		return "admin/admin";
 	}
 
@@ -64,14 +63,17 @@ public class AdminController {
 		return "admin/admin_goods";
 	}
 
-//	관리자 굿즈 등록 페이지로 이동
+	/*
+	- 방용환(생성) : 2023/09/01, 관리자 페이지 굿즈 등록 페이지 이동
+	 */
 	@RequestMapping(value = "/goods/write", method = RequestMethod.GET)
 	public String AdminGoodsWriteView() {
-
 		return "admin/admin_goods_write";
 	}
 
-//	관리자 굿즈 등록
+	/*
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	 */
 	@RequestMapping(value = "/goods/write", method = RequestMethod.POST)
 	public String AdminGoodsWrite(@ModelAttribute GoodsDTO goods, @RequestParam MultipartFile uploadImage)
 			throws IllegalStateException, IOException {

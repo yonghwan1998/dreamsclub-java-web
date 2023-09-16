@@ -31,7 +31,9 @@ public interface GoodsService {
 	 */
 	List<GoodsDTO> getAdminGoodsList();
 
-//	관리자 굿즈 등록
+	/*
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	 */
 	void addAdminGoods(GoodsDTO goods);
 	
 	/*

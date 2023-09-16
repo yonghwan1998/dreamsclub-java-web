@@ -205,13 +205,15 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsList;
 	}
 
-// 관리자 굿즈 등록
+	/*
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	 */
 	@Override
 	public void addAdminGoods(GoodsDTO goods) {
 		String goodsName = goods.getGoodsName();
 		String goodsCategory = goods.getGoodsCategory();
 
-//		L 사이즈가 있는 경우 insert
+		// 'L' 사이즈의 재고가 0이 아니면 'L' 사이즈 INSERT
 		if (goods.getGoodsStockL() != 0) {
 			String goodsYn = goods.getGoodsYnL();
 			int goodsStock = goods.getGoodsStockL();
@@ -225,7 +227,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goodsDAO.insertAdminGoods(goods);
 		}
 
-//		M 사이즈가 있는 경우 insert
+		// 'M' 사이즈의 재고가 0이 아니면 'M' 사이즈 INSERT
 		if (goods.getGoodsStockM() != 0) {
 			String goodsYn = goods.getGoodsYnM();
 			int goodsStock = goods.getGoodsStockM();
@@ -239,7 +241,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goodsDAO.insertAdminGoods(goods);
 		}
 
-//		S 사이즈가 있는 경우 insert
+		// 'S' 사이즈의 재고가 0이 아니면 'S' 사이즈 INSERT
 		if (goods.getGoodsStockS() != 0) {
 			String goodsYn = goods.getGoodsYnS();
 			int goodsStock = goods.getGoodsStockS();
@@ -253,7 +255,7 @@ public class GoodsServiceImpl implements GoodsService {
 			goodsDAO.insertAdminGoods(goods);
 		}
 
-//		F 사이즈가 있는 경우 insert
+		// 'F' 사이즈의 재고가 0이 아니면 'F' 사이즈 INSERT
 		if (goods.getGoodsStockF() != 0) {
 			String goodsYn = goods.getGoodsYnF();
 			int goodsStock = goods.getGoodsStockF();

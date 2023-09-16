@@ -31,7 +31,9 @@ public interface GoodsDAO {
 	 */
 	List<GoodsDTO> selectAdminGoodsList();
 
-//	관리자 굿즈 등록
+	/*
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	 */
 	int insertAdminGoods(GoodsDTO goods);
 	
 	/*

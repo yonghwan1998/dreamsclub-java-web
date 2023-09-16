@@ -54,7 +54,9 @@
 			ORDER BY GOODS_CODE
 	</select>
 	
-	<!-- 관리자 굿즈 등록 -->
+	<!--
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	-->
 	<insert id="insertAdminGoods">
 		INSERT INTO GOODS VALUES(
 			#{goodsCode},

@@ -48,7 +48,9 @@ public class GoodsDAOImpl implements GoodsDAO {
 		return sqlSession.getMapper(GoodsMapper.class).selectAdminGoodsList();
 	}
 
-//	관리자 굿즈 등록
+	/*
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	 */
 	@Override
 	public int insertAdminGoods(GoodsDTO goods) {
 		return sqlSession.getMapper(GoodsMapper.class).insertAdminGoods(goods);
