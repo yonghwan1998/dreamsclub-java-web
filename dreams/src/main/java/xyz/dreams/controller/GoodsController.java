@@ -1,5 +1,6 @@
 package xyz.dreams.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.QnaService;
+import xyz.dreams.util.GoodsReviewComparator;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,6 +69,7 @@ public class GoodsController {
 
 		// 검색 조건들을 goodsService.getGoodsList(Map<String, Object> map)에 인자로 넘김
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
+		Collections.sort(goodsList, new GoodsReviewComparator());
 		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());

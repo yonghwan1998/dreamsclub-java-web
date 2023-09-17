@@ -15,6 +15,7 @@ input::-webkit-inner-spin-button {
 - 방용환(수정) : 2023/08/28, 정렬순서 변경 기능 (이름순(초기값), 가격순)
 onchange를 통해 selectChange()호출 'map.q'는 GoodsController에서 저장한 검색 키워드,
 페이지 최초 호출 시에는 검색어(q) 없음
+
 - 방용환(수정) : 2023/09/12, 카테고리 정렬 체크 되어 있는지 확인하여 submit하는 기능
 -->
 function selectChange(q){
@@ -63,9 +64,10 @@ function selectChange(q){
 					</div>
 				</div>
 				<!-- 
-				방용환(수정) : 2023/08/21, 굿즈 리스트 출력
+				- 방용환(수정) : 2023/08/21, 굿즈 리스트 출력
 				c태그를 이용해 전체 굿즈 리스트 출력
-				방용환(수정) : 2023/08/31, 굿즈 이미지 출력
+				
+				- 방용환(수정) : 2023/08/31, 굿즈 이미지 출력
 				굿즈 등록시 저장한 이미지를 출력
 				 -->
 				<c:forEach var="goods" items="${goodsList }">
@@ -149,6 +151,7 @@ function selectChange(q){
 						<h4 class="pro-sidebar-title">Category</h4>
 						<!-- 
 						- 방용환(수정) : 2023/09/11, 체크박스 클릭시 해당 카테고리 출력 or 미출력
+						
 						- 방용환(수정) : 2023/09/14, 체크박스 옆 이름 클릭시 .trigger()를 통해 체크박스 클릭되는 이벤트 생성
 						 -->
 						<div class="sidebar-widget-list mt-20">

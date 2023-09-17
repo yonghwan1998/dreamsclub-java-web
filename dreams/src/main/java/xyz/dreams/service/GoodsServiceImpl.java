@@ -1,6 +1,7 @@
 package xyz.dreams.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.GoodsDAO;
 import xyz.dreams.dto.GoodsDTO;
+import xyz.dreams.util.GoodsReviewComparator;
+import xyz.dreams.util.GoodsStarComparator;
 
 @Service
 @RequiredArgsConstructor
@@ -104,6 +107,13 @@ public class GoodsServiceImpl implements GoodsService {
 				temp += 1;
 			}
 		}
+		
+		// 리뷰순 출력시 아래 주석 제거
+		// Collections.sort(goodsResult, new GoodsReviewComparator().reversed());
+		
+		// 별점순 출력시 아래 주석 제거
+		// Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+		
 		return goodsResult;
 	}
 
