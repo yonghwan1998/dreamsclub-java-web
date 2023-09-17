@@ -8,13 +8,6 @@
 	values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
 </insert>
 
-<!-- 게시판 전체 목록보기 -->
-<select id="getList" resultType="xyz.dreams.dto.CommunityDTO">
-	select * 
-	from community 
-	order by comm_no desc
-</select>
-
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
 	select * 
