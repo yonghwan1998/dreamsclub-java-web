@@ -114,7 +114,7 @@ function replyDisplay() {
 				html+="<div style='display: flex;'>";
 				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
 				if("${member.memberId}"==this.memberId){
-					html+="<p><a href='#' class='commentReRely' id='modify_reply_btn' onclick='UpdateCommentBtn'>수정</a></p>";
+					html+="<p><a href='#' class='commentReRely' id='modify_reply_btn' onclick='UpdateCommentBtn(" + this.commReNo + ", \"" + this.memberId + "\", \"" + this.commReCont + "\")'>수정</a></p>";
 					html+="<p><a href='#' class='commentReRely' id='delete_reply_btn' onclick='delete_reply("+this.commReNo+")'>삭제</a></p>";
 				}
 				html+="</div>";
@@ -190,7 +190,7 @@ function delete_reply(commReNo){
 
 /*댓글 수정*/
 //댓글 수정 폼 - 폼만바꾸면 되는거라서 ajax 안씀
-function UpdateCommentBtn(commReNo, commReCont, memberId){
+function UpdateCommentBtn(commReNo, memberId, commReCont){
 	console.log("값 나오나?");
 	
 	var html="";
