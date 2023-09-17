@@ -32,7 +32,7 @@
             <!--버튼-->
             <div class="communityDetailBtn">
             	<a href=<c:url value="/community"/>>목록으로</a>
-                	<c:if test="${member.memberId == pageInfo.memberId }" >
+                	<c:if test="${member.memberId == pageInfo.memberId }" > <!-- 로그인세션 아이디와 글쓴 유저의 아이디가 같다면 수정하기와 삭제하기 버튼이 보임 -->
                 		<a href=<c:url value="/community/modify?commNo=${pageInfo.commNo }"/> role="button" id="modify_btn">수정하기</a>
 						<a href="#" role="button" id="delete_btn" onclick="deleteCheck()">삭제하기</a>   
 					</c:if>
@@ -70,53 +70,6 @@
         </div>
     	<div id="replyList"></div>
 	</div>
-
-    <!--댓글 목록-->
-    <!--댓글 개수 알려줌-->
-    <!-- <div class="communityReplyView">
-        <div class="communityReplyCount">
-            ((여기에 개수 세는 기능 넣어야함))
-            <strong style="color: green;">0개</strong>의 댓글이 등록되었습니다.
-        </div>
-        댓글 목록뷰
-        <ul>
-            <li style="border-top: none">
-                <p class="txt">제작년에 반짝하고 끝날 줄 알았는데 계속 상위권ㄷㄷㄷ 꼴림즈한테 이런날이 오다니</p>
-                <div>
-                    <p>아이디</p>
-                    <p>작성날짜</p>
-                    <p>
-                        <a href="답글 링크" class="commentReRely">답글</a>
-                    </p>
-                </div>
-            </li>
-            <div class="addReplyWrite" id=""></div>
-                대댓글
-                <div class="communityReReplyView"  
-                        style="background:#f9f9f9;padding:20px 35px; margin-left:30px;">
-                    <p class="text">제 생애 이런날이 다시올 줄 몰랐습니다ㅠㅠㅠ</p>
-                    <div>
-                        <p>아이디</p>
-                        <p>작성날짜</p>
-                        <p>
-                            <a href="답글 링크" class="commentReRely">답글</a>
-                        </p>
-                    </div>
-                </div>
-            <div class="addReplyWrite" id=""></div>
-            대댓글 작성폼(답글 누르지 않을때는 div에 style="display: none" 전부 설정해놓으면 된다.)
-            <div class="communityReReplyForm">
-                <div class="communityReReplyWrite">
-                    <textarea></textarea>
-                    <a href="#">답글 달기</a>
-                    <a href="#">답글 취소</a>
-                </div>
-                글자수 카운팅(최대 400자로 이거 나중에 메소드 걸어주기)
-                <div class="countwritten"><strong>0자</strong>/400자</div>
-            </div>
-        </ul>
-    </div>
-     -->
 </div>
 
 
@@ -152,7 +105,7 @@ function replyDisplay() {
 			
 			var html="";
 			$(result).each(function() {
-				html+="<div class='commentList' style='border-top: none'>";
+				html+="<div class='commentList' style='border-top: none' id='commReNo"+this.commReNo+"'>";
 				html+="<div style='display: flex;'>";
 				html+="<p><strong>"+this.memberId+"</strong></p>";
 				html+="<p class='commentList_date'>"+this.commReDate+"</p>";
@@ -161,7 +114,7 @@ function replyDisplay() {
 				html+="<div style='display: flex;'>";
 				//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
 				if("${member.memberId}"==this.memberId){
-					html+="<p><a href='#' class='commentReRely' id='modify_reply_btn'>수정</a></p>";
+					html+="<p><a href='#' class='commentReRely' id='modify_reply_btn' onclick='UpdateCommentBtn'>수정</a></p>";
 					html+="<p><a href='#' class='commentReRely' id='delete_reply_btn' onclick='delete_reply("+this.commReNo+")'>삭제</a></p>";
 				}
 				html+="</div>";
@@ -233,6 +186,53 @@ function delete_reply(commReNo){
 		}
 	});
 }
+
+
+/*댓글 수정*/
+//댓글 수정 폼 - 폼만바꾸면 되는거라서 ajax 안씀
+function UpdateCommentBtn(commReNo, commReCont, memberId){
+	console.log("값 나오나?");
+	
+	var html="";
+	html+="<div class='commentList' style='border-top: none' id='commReNo"+commReNo+"'>";
+	html+="<div style='display: flex;'>";
+	html+="<p><strong>"+memberId+"</strong></p>";
+	html+="<p><textarea class='form-control' id='reply_edit_content'>"+commReDate+"</textarea></p>";
+	html+="</div>";
+	html+="<p class='txt' id='commReCont'>"+commReCont+"</p>";
+	html+="<div style='display: flex;'>";
+	//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
+	html+="<button type='button' onclick='updateBtn("+commReNo+",\""+memberId+"\"'>저장</button>
+	html+="<button type='button' onclick='replyDisplay()'>취소</button>";
+	html+="</div>";
+	html+="</div>";
+	
+	$("#commReNo"+commReNo).replaceWith(htmls);
+	$("#commReNo"+commReNo+"#reply_edit_content").focus();
+}
+
+
+//댓글 수정 버튼시 작동하는 ajax
+function updateBtn(commReNo, memberId){
+	
+	var replyContent = $("#reply_edit_content").val(); //수정폼의 textarea값 읽어오기
+	
+	$.ajax({
+		url: "<c:url value='/reply/update/"+commReNo+"'/>",
+		type: "PUT",
+		data: JSON.stringify({"commReCont": replyContent, "commReNo": commReNo});
+		dataType: "text",
+		success: function(result){
+			console.log(result);
+			replyDisplay();
+		},
+		error: function(xhr) {
+			console.log("에러="+xhr.status);
+		}
+	});
+});
+
+
 
 
 /*댓글 글자수 카운트*/

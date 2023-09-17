@@ -41,4 +41,13 @@
 	WHERE COMM_RE_NO=#{commReNo}
 </delete>
 
+
+<!-- 댓글수정 - 김예지(2023.09.17) -->
+<update id="updateCommunityReply" parameterType="CommunityReplyDTO">
+	update COMMUNITY_REPLY
+	set COMM_RE_CONT=#{commReCont}
+	where COMM_RE_NO=#{commReNo}
+</update>
+
+
 </mapper>

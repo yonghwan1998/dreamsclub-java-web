@@ -39,18 +39,18 @@ public class CommunityReplyServiceImpl implements CommunityReplyService{
 		return communityReplyDAO.selectCommunityReply(commNo);
 	}
 
-	/*댓글 삭제*/
+	/*댓글 삭제 - 김예지(2023.09.15): commReNo만 맞으면 데이터값 모두 삭제*/
 	@Override
 	public int deleteCommunityReply(int commReNo) {
 		int result = communityReplyDAO.deleteCommunityReply(commReNo);
 		return result;
 	}
 
-	/*댓글 수정*/
+	/*댓글 수정 - 김예지(2023.09.17)*/
 	@Override
 	public void modifyCommunityReply(CommunityReplyDTO reply) {
-		// TODO Auto-generated method stub
-		
+		reply.setCommReCont(HtmlUtils.htmlEscape(reply.getCommReCont()));
+		communityReplyDAO.updateCommunityReply(reply);
 	}
 
 }
