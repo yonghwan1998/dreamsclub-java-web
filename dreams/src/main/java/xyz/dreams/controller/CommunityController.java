@@ -76,11 +76,16 @@ public class CommunityController {
 	}
 	
 	
-	/*게시판 글 하나 보는 페이지 (조회)*/
+	/*김예지(2023.08.30)게시판 글 하나 보는 페이지 (조회)*/
+	/*김예지(2023.09.17)- 게시글 당 댓글 수 카운팅 추가*/
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String communityDetail(@RequestParam int commNo, Model model) {
+
+		communityService.updateReplyCount(commNo); //댓글 수 카운팅
+
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);
+		
 
 		return "community/community_detail";
 	}
@@ -108,6 +113,6 @@ public class CommunityController {
 		model.addAttribute("search", map);
 			
 		return "community/community_main";
-	}
+	}	
 
 }

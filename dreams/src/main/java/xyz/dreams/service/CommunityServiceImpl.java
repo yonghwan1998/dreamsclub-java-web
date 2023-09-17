@@ -99,6 +99,14 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		return resultMap;
 	}
+
+
+	
+	/*김예지(2023.09.17)- 게시글 당 댓글 수 카운팅*/
+	@Override
+	public void updateReplyCount(int commNo) {
+		communityDAO.updateReplyCount(commNo);
+	}
 	
 
 	

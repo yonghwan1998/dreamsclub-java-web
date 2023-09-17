@@ -84,4 +84,12 @@
 	where a.comm_No=#{commNo}
 </select>
 
+
+<!-- 김예지(2023.09.17) 게시글 당 댓글 개수 카운팅 -->
+<update id="updateReplyCount">
+	update community c
+	set c.REPLY_COUNT = (select count(COMM_RE_NO) from community_reply where COMM_NO=#{commNo}) 
+	where c.COMM_NO=#{commNo}
+</update>
+
 </mapper>

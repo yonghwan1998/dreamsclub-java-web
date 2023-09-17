@@ -23,4 +23,7 @@ public interface CommunityService {
 	
 	/*게시글 목록 + 페이징 처리*/
 	Map<String, Object> getCommunityList(Map<String, Object> map);
+	
+	/*김예지(2023.09.17): 댓글 수 카운팅*/
+	void updateReplyCount(int commNo);
 }
