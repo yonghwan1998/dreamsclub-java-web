@@ -67,4 +67,13 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 	}
 
 
+	@Override
+	public int updateReplyCount(int commNo) {
+		return sqlSession.getMapper(CommunityMapper.class).updateReplyCount(commNo);
+	}
+
+
+
+
+
 }

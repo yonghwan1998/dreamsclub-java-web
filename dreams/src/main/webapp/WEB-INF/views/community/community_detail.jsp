@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-
 <!-- 커뮤니티 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
@@ -53,10 +52,11 @@
             <div class="onekan" >
 	            <input type="hidden" id="memberId" value="${member.memberId }">
 	            <!--댓글 입력칸-->
-	            <textarea class="communityReplyText" id="commReCont"></textarea>
+	            <textarea class="communityReplyText" id="commReCont" name="commReCont"></textarea>
 				<div class="count_btn">
-		            <!--글자수 카운팅(최대 400자로 이거 나중에 메소드 걸어주기)-->
-		            <div class="countwritten"><strong>0자</strong>/400자</div>
+		            <!--글자수 카운팅(최대 300자로 이거 나중에 메소드 걸어주기)-->
+		            <!-- <div id="commentCount"><strong>0자</strong></div><div>/400자</div> -->
+		            <span id="textLengthCheck">(0/300자)</span>
 		            <!--댓글 입력 버튼-->
 		            <div><button type="button" class="onekanBtn" id="addBtn">댓글쓰기</button></div>
 	            </div>
@@ -66,7 +66,7 @@
     <div>
         <div class="communityReplyCount">
             <!-- ((여기에 개수 세는 기능 넣어야함)) -->
-            <strong style="color: green;">0개</strong>의 댓글이 등록되었습니다.
+            <strong style="color: green;"><c:out value="${pageInfo.replyCount }"/>개</strong>의 댓글이 등록되었습니다.
         </div>
     	<div id="replyList"></div>
 	</div>
@@ -233,5 +233,32 @@ function delete_reply(commReNo){
 		}
 	});
 }
+
+
+/*댓글 글자수 카운트*/
+$('#commReCont').keyup(function (e){
+	console.log("키업!");
+	var content = $(this).val();
+	$("#textLengthCheck").html("("+content.length +"/300자)"); //실시간 글자수 카운팅(최대300자)
+	if(content.length > 300){
+		alert("최대 300자까지 입력 가능합니다.");
+		$(this).val(content.substring(0, 300));
+		$("#textLengthCheck").html("(300/300자)");
+	}
+});
+
+ /*
+ $(document).ready(function(){
+	$("#commReCont").on("keyup", function(){
+		$("#textLengthCheck").html("("+$(this).val().length+"/300자)");
+		
+		if($(this).val().length>300){
+			alert("최대 300자까지 입력 가능합니다.");
+			$(this).val($(this).val().substring(0, 300));
+			$("#textLengthCheck".html("(300/300자)"));
+		}
+	});
+ });
+*/
 
 </script>

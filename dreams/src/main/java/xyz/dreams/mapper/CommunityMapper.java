@@ -27,4 +27,7 @@ public interface CommunityMapper {
 
 	/*게시글 넘버 => 댓글이용시사용*/
 	CommunityDTO selectCommunityByCommNo(int commNo);
+	
+	/*김예지(2023.09.17): 댓글 수 카운팅*/
+	int updateReplyCount(int commNo);
 }
