@@ -78,21 +78,35 @@ public class GoodsServiceImpl implements GoodsService {
 		List<GoodsDTO> goodsResult = new ArrayList<GoodsDTO>();
 
 		// goodsCode가 '이름-카테고리-사이즈'에서 '이름'으로 바뀌어 저장되었지만
-		// 다른 사이즈의 같은 제품은 이름이 곂치기 때문에 중복제거를 해야함
-		// 최초에 비교할 값 저장
-		goodsResult.add(goodsCategoryList.get(0));
+		// 다른 사이즈의 같은 제품은 이름이 겹치기 때문에 중복제거를 해야함
+		
 		// goodsResult의 가장 끝값을 비교하기 위한 임시 변수
 		int temp = 0;
-		
+		// goodsResult에 중복을 제거한 객체를 저장할 때 사용할 변수 
+		int index = 0;
+		// 같은 이름의 굿즈의 리뷰 개수를 저장할 변수
+		int reviewCount = 1;
+		// 최초에 비교할 값 저장
+		goodsResult.add(goodsCategoryList.get(0));
 		// goodsCategoryList 사이즈-1 만큼(윗 줄에 최초에 비교할 값을 저장했기 때문에) for문 반복
 		for (int i = 0; i < goodsCategoryList.size() - 1; i++) {
-			// goodsResult의 가장 끝에 있는 goodsName과
-			// goodsCategoryList의 가장 처음에 있는 goodsName이 다르면
-			// goodsResult에 goodsCategoryList의 가장 처음값 저장 후
-			// 임시 변수(temp) 증가
-			if (!goodsResult.get(0 + temp).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
+			// goodsResult의 가장 끝에 있는 goodsName과 goodsCategoryList의 가장 처음에 있는 goodsName이 같으면
+			if (goodsResult.get(0 + index).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
+				// reviewCount 값 증가
+				reviewCount++;
+			} else {
+				// goodsResult 리스트의 index번째 객체에 reviewCount(리뷰 개수) 값 저장
+				GoodsDTO goods = goodsResult.get(index);
+				goods.setReviewCount(reviewCount);
+				goodsResult.set(index, goods);
+				
+				// goodsResult에서 사용할 변수(index)값 증가
+				index += 1;
+
+				// goodsResult에 goodsCategoryList의 가장 처음값 저장 후
+				// 새로운 값의 위치를 저장할 index 변수에 i+1 저장, reviewCount 값 1로 변겅
 				goodsResult.add(goodsCategoryList.get(i + 1));
-				temp += 1;
+				reviewCount = 1;
 			}
 		}
 		
