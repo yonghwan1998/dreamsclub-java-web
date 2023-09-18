@@ -50,15 +50,20 @@ function selectChange(q){
 							- 방용환(수정) : 2023/08/28, 정렬순서 변경 기능 (이름순(초기값), 가격순)
 							onchange를 통해 selectChange()호출 'map.q'는 GoodsController에서 저장한 검색 키워드,
 							페이지 최초 호출 시에는 검색어(q) 없음
+							
 							- 방용환(수정) : 2023/09/01, 선택된 정렬순서가 selected 되어 있게 변경
 							GoodsController에서 'map.cloumn'에 이름순일 때는 'goods_code' 저장
 							가격순일 때는 'goods_price'를 저장해서 삼항 연산자를 통해 selected 되어 있게 설정 
+							
+							- 방용환(수정) : 2023/09/18, 별점순 및 리뷰순 정렬 기능 추가
+							GoodsController에서 'map.cloumn'에 별점순일 때는 'goods_star' 저장
+							리뷰순일 때는 'goods_reviewCount'를 저장해서 삼항 연산자를 통해 selected 되어 있게 설정 
 							-->
 							<select id="selectFilter" onchange="selectChange('${map.q }');">
 								<option value="goods_code" ${map.column == 'goods_code' ? 'selected="selected"' : '' }>이름순</option>
-								<%-- <option value="star">별점순</option> --%>
 								<option value="goods_price" ${map.column == 'goods_price' ? 'selected="selected"' : '' }>가격순</option>
-								<%-- <option value="review">리뷰순</option> --%>
+								<option value="goods_star" ${map.column == 'goods_star' ? 'selected="selected"' : '' }>별점순</option>
+								<option value="goods_reviewCount" ${map.column == 'goods_reviewCount' ? 'selected="selected"' : '' }>리뷰순</option>
 							</select>
 						</div>
 						<p>${goodsCount }개 검색 결과</p>
