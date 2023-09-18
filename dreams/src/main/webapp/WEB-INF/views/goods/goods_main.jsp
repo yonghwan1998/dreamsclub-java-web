@@ -11,13 +11,14 @@ input::-webkit-inner-spin-button {
 </style>
 
 <script>
-<!--
+
+/*
 - 방용환(수정) : 2023/08/28, 정렬순서 변경 기능 (이름순(초기값), 가격순)
 onchange를 통해 selectChange()호출 'map.q'는 GoodsController에서 저장한 검색 키워드,
 페이지 최초 호출 시에는 검색어(q) 없음
 
 - 방용환(수정) : 2023/09/12, 카테고리 정렬 체크 되어 있는지 확인하여 submit하는 기능
--->
+ */
 function selectChange(q){
 	var uniformChecked = $('#uniformCheck').is(':checked');
 	var capChecked = $('#capCheck').is(':checked');
