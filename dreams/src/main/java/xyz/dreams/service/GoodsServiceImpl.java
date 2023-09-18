@@ -27,7 +27,7 @@ public class GoodsServiceImpl implements GoodsService {
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
 	
-	- 방용환(수정) : 2023/09/18, 별점순 및 리뷰순 정렬 기능 추가
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
 	*/
 	@Override
 	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
@@ -80,8 +80,6 @@ public class GoodsServiceImpl implements GoodsService {
 		// goodsCode가 '이름-카테고리-사이즈'에서 '이름'으로 바뀌어 저장되었지만
 		// 다른 사이즈의 같은 제품은 이름이 겹치기 때문에 중복제거를 해야함
 		
-		// goodsResult의 가장 끝값을 비교하기 위한 임시 변수
-		int temp = 0;
 		// goodsResult에 중복을 제거한 객체를 저장할 때 사용할 변수 
 		int index = 0;
 		// 같은 이름의 굿즈의 리뷰 개수를 저장할 변수
@@ -94,6 +92,13 @@ public class GoodsServiceImpl implements GoodsService {
 			if (goodsResult.get(0 + index).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
 				// reviewCount 값 증가
 				reviewCount++;
+				
+				if (i==goodsCategoryList.size() - 2) {
+					GoodsDTO goods = goodsResult.get(index);
+					goods.setReviewCount(reviewCount);
+					goodsResult.set(index, goods);
+				}
+				
 			} else {
 				// goodsResult 리스트의 index번째 객체에 reviewCount(리뷰 개수) 값 저장
 				GoodsDTO goods = goodsResult.get(index);
@@ -110,11 +115,15 @@ public class GoodsServiceImpl implements GoodsService {
 			}
 		}
 		
-		// 리뷰순 출력시 아래 주석 제거
-		// Collections.sort(goodsResult, new GoodsReviewComparator().reversed());
+		// 리뷰순 출력시
+		if (map.get("column").equals("goods_reviewCount")) {
+			Collections.sort(goodsResult, new GoodsReviewComparator().reversed());
+		}
 		
-		// 별점순 출력시 아래 주석 제거
-		// Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+		// 별점순 출력시
+//		if (map.get("column").equals("goods_star")) {
+//			 Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+//		}
 		
 		return goodsResult;
 	}

@@ -17,7 +17,7 @@
 	<select id="selectGoodsList" resultType="GoodsDTO">
 		SELECT * FROM (
 			SELECT g.GOODS_CODE, g.GOODS_PRICE, g.GOODS_INFO, g.GOODS_YN, g.GOODS_STOCK, g.GOODS_IMAGE, r.GOODS_STAR
-				FROM GOODS g JOIN REVIEW_TEST r ON g.GOODS_CODE = r.GOODS_CODE
+				FROM GOODS g LEFT OUTER JOIN REVIEW_TEST r ON g.GOODS_CODE = r.GOODS_CODE
 			<!-- 검색 키워드(q)가 존재한다면 bind -->
 			<if test="q != null and q != ''"> 
 				<bind name="search" value="'%'+q+'%'"/>
