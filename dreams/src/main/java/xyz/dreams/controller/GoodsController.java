@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -138,22 +137,12 @@ public class GoodsController {
 //    }
     
     
-//	// 오진서 - 09/11 Q&A 작성 페이지 이동 1
-//	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-//	public String QnaWrite() {
-//
-//		return "goods/goods_qna_write";
-//	}
-//	
-//	
-//	
-//	
 	// 오진서 - 09/11 Q&A 작성 하기 1
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
 		qnaService.enrollQna(qna);
 		
-		return "redirect:/goods"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
+		return "redirect:/goods/main"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
 	}
 	
 	
@@ -161,16 +150,11 @@ public class GoodsController {
     // 오진서 - 9/12 // Q&A 작성 페이지로 이동 2
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
     public String showQnaWriteForm() {
-        return "goods_qna_write"; // JSP 페이지 이름
+        return "goods/goods_qna_write"; // JSP 페이지 이름
     }
 
+
+
 	
-//    // 오진서 - 9/12 //  Q&A 작성 처리2
-//    @PostMapping("/qna/write")
-//    public String submitQna(@ModelAttribute QnaDTO qna) {
-//        // qnaService를 사용하여 Q&A 데이터를 저장하는 로직을 수행
-//        qnaService.enrollQna(qna);
-//        return "redirect:/goods"; // 작업 완료 후 이동할 경로
-//    }
     
 }

@@ -3,7 +3,7 @@
 
 
 <!--문의하기-->
-<form id="qnaWrite_input" action="<c:url value='/goods'/>" method="post" enctype="multipart/form-data"> <!-- 제출시 이동됨 -->
+<form id="qnaWrite_input" action="<c:url value='/goods/main'/>" method="post" enctype="multipart/form-data"> <!-- 제출시 이동됨 -->
 <input type="hidden" id="qnaWriter" name="memberId" value="${member.memberId }">
 <div class="boardWriteMain">
     <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
