@@ -78,6 +78,8 @@
 	</if>
 </select>
 
+<!-- 김예지(2023.09.14) - 댓글 목록 구현시 필요한 정보를 얻기위해 게시글의 번호가 일치할때 
+	memberId를 fk로 community 테이블과 member 테이블을 조인 -->
 <select id="selectCommunityByCommNo">
     select * 
 	from community a

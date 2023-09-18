@@ -27,12 +27,10 @@ public class CommunityReplyController {
 	/*댓글 등록*/
 	@PostMapping("/register")
 	public String register(@RequestBody CommunityReplyDTO reply) {
-		System.out.println("****************************");
-		System.out.println(reply);
-		System.out.println("****************************");
 		communityReplyService.addCommunityReply(reply);
 		return "success";
 	}
+	
 	
 	/*댓글 출력 목록*/
 	@GetMapping("/list/{commNo}")
@@ -52,27 +50,8 @@ public class CommunityReplyController {
 	
 	
 	/*댓글 수정*/
-	@PutMapping("/update/{commReNo}")
-	/*
-	public Map<String, Object> updateReply(@PathVariable int commReNo, @PathVariable String commReCont){
-		Map<String, Object> map = new HashMap<String, Object>();
-		try{
-			CommunityReplyDTO reply = new CommunityReplyDTO();
-			reply.setCommNo(commReNo);
-			reply.setCommReCont(commReCont);
-			communityReplyService.modifyCommunityReply(reply);
-			map.put("result", "success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			map.put("result", "fail");
-		}
-		return map;
-	}
-	*/
+	@PutMapping("/update")
 	public String updateReply(@RequestBody CommunityReplyDTO reply) {
-		System.out.println("****************************");
-		System.out.println(reply);
-		System.out.println("****************************");
 		communityReplyService.modifyCommunityReply(reply);
 		return "success";
 	}

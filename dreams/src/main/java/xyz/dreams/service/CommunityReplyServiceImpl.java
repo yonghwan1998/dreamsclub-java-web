@@ -20,17 +20,20 @@ public class CommunityReplyServiceImpl implements CommunityReplyService{
 	private final CommunityDAO communityDAO;
 	private final MemberDAO memberDAO;
 
-	/*댓글 등록*/
+	/*댓글 등록 - 김예지(2023.09.14)*/
 	@Override
 	public void addCommunityReply(CommunityReplyDTO reply) {
 		if(memberDAO.selectMember(reply.getMemberId())==null) {
 			new IllegalArgumentException("로그인 후 댓글을 작성할 수 있습니다.");
 		}
+		//사용자로부터 입력 받은 데이터를 HTML 문서에 표시할 때, 
+		//입력 데이터에 포함된 HTML 태그나 특수 문자를 이스케이프하여 보안 문제나 렌더링 문제를 방지하기 위해 사용
+		//한마디로 사용자가 입력한 문자 그대로(특수문자포함) db에저장했다가 다시 그대로 가져나오기 위해 사용.
 		reply.setCommReCont(HtmlUtils.htmlEscape(reply.getCommReCont()));
 		communityReplyDAO.insertCommunityReply(reply);
 	}
 
-	/*댓글 목록 출력*/
+	/*댓글 목록 출력 - 김예지(2023.09.14)*/
 	@Override
 	public List<CommunityReplyDTO> getCommunityReplyList(int commNo) {
 		if(communityDAO.selectCommunityByCommNo(commNo)==null) {
