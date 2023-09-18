@@ -58,7 +58,7 @@
 		            <!-- <div id="commentCount"><strong>0자</strong></div><div>/400자</div> -->
 		            <span id="textLengthCheck">(0/300자)</span>
 		            <!--댓글 입력 버튼-->
-		            <div><button type="button" class="onekanBtn" id="addBtn">댓글쓰기</button></div>
+		            <div><button type="button" class="onekanBtn" id="addBtn" >댓글쓰기</button></div>
 	            </div>
         	</div>
         </div>
@@ -205,7 +205,8 @@ function UpdateCommentBtn(commReNo, memberId, commReDate, commReCont){
 	html+="<p class='commentList_date'>"+commReDate+"</p>";
 	html+="</div>";
 	//id='commReCont"+commReNo+"'는 내용의 넘버를 같이 id명으로 지정해서 수정 버튼 중복 작동하는 일이 없도록 만듦
-	html+="<p><textarea class='form-control' id='commReCont"+commReNo+"'>"+commReCont+"</textarea></p>";
+	html+="<p><textarea class='form-control' name='commReCont2' id='commReCont"+commReNo+"' style='max-height: 100px; max-width: 1000px;'>"+commReCont+"</textarea></p>";
+	html+="<span id='textLengthCheck2" + commReNo + "'>(" + commReCont.length + "/300자)</span>"
 	html+="<div style='display: flex;'>";
 		//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
 	html+="<button type='button' onclick='updateBtn("+commReNo+",\""+memberId+"\")'>저장</button>"
@@ -217,6 +218,10 @@ function UpdateCommentBtn(commReNo, memberId, commReDate, commReCont){
 	$("#commReNo"+commReNo).replaceWith(html);
 	$("#commReCont"+commReNo).focus();	//수정폼 열릴때 textarea로 포커스 맞춤
 	
+	//수정시 textarea에 있는 글자수 실시간 카운팅
+    $("#commReCont" + commReNo).on("input", function () {
+        updateTextLength(commReNo);
+    });
 }
 
 
@@ -246,7 +251,9 @@ function updateBtn(commReNo, memberId){
 
 
 /*댓글 글자수 카운트*/
-$('#commReCont').keyup(function (e){
+ 
+/*//아래 코드는 jQuery를 사용한 댓글 글자수 카운트 예제
+$("#commReCont").keyup(function (e){
 	console.log("키업!");
 	var content = $(this).val();
 	$("#textLengthCheck").html("("+content.length +"/300자)"); //실시간 글자수 카운팅(최대300자)
@@ -256,19 +263,36 @@ $('#commReCont').keyup(function (e){
 		$("#textLengthCheck").html("(300/300자)");
 	}
 });
-
- /*
- $(document).ready(function(){
-	$("#commReCont").on("keyup", function(){
-		$("#textLengthCheck").html("("+$(this).val().length+"/300자)");
-		
-		if($(this).val().length>300){
-			alert("최대 300자까지 입력 가능합니다.");
-			$(this).val($(this).val().substring(0, 300));
-			$("#textLengthCheck".html("(300/300자)"));
-		}
-	});
- });
 */
+
+// jQuery를 사용하지 않고 순수 JavaScript를 사용하여 댓글 글자 수를 셀 수 있는 코드 예제
+document.getElementById("commReCont").addEventListener("input", function () {
+    console.log("키업!");
+    var content = this.value;
+    var textLengthCheck = document.getElementById("textLengthCheck");
+    textLengthCheck.textContent = "(" + content.length + "/300자)"; // 실시간 글자수 카운팅(최대300자)
+    if (content.length > 300) {
+        alert("최대 300자까지 입력 가능합니다.");
+        this.value = content.substring(0, 300);
+        textLengthCheck.textContent = "(300/300자)";
+    }
+});
+
+
+
+//댓글 수정시 댓글 수 카운트
+function updateTextLength(commReNo) {
+    var textarea = $("#commReCont" + commReNo);
+    var lengthSpan = $("#textLengthCheck2" + commReNo);
+    var currentLength = textarea.val().length;
+    lengthSpan.text("(" + currentLength + "/300자)");
+    
+    //300자 이상 입력될 경우 경고창이 뜨고 300자로 제한됨.
+    if (currentLength > 300) {
+        alert("최대 300자까지 입력 가능합니다.");
+        textarea.val(textarea.val().substring(0,300));
+        lengthSpan.text("(300/300자)");
+    }
+}
 
 </script>
