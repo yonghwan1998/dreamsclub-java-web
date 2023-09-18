@@ -27,7 +27,7 @@ public class GoodsServiceImpl implements GoodsService {
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
 	
-	- 방용환(수정) : 2023/09/18, 별점순 및 리뷰순 정렬 기능 추가
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
 	*/
 	@Override
 	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
@@ -78,29 +78,64 @@ public class GoodsServiceImpl implements GoodsService {
 		List<GoodsDTO> goodsResult = new ArrayList<GoodsDTO>();
 
 		// goodsCode가 '이름-카테고리-사이즈'에서 '이름'으로 바뀌어 저장되었지만
-		// 다른 사이즈의 같은 제품은 이름이 곂치기 때문에 중복제거를 해야함
+		// 다른 사이즈의 같은 제품은 이름이 겹치기 때문에 중복제거를 해야함
+		
+		// goodsResult에 중복을 제거한 객체를 저장할 때 사용할 변수 
+		int index = 0;
+		// 같은 이름의 굿즈의 리뷰 개수를 저장할 변수
+		int reviewCount = 1;
+		// 굿즈 별점을 저장할 변수
+		double goodsStar = 0;
 		// 최초에 비교할 값 저장
 		goodsResult.add(goodsCategoryList.get(0));
-		// goodsResult의 가장 끝값을 비교하기 위한 임시 변수
-		int temp = 0;
-		
 		// goodsCategoryList 사이즈-1 만큼(윗 줄에 최초에 비교할 값을 저장했기 때문에) for문 반복
 		for (int i = 0; i < goodsCategoryList.size() - 1; i++) {
-			// goodsResult의 가장 끝에 있는 goodsName과
-			// goodsCategoryList의 가장 처음에 있는 goodsName이 다르면
-			// goodsResult에 goodsCategoryList의 가장 처음값 저장 후
-			// 임시 변수(temp) 증가
-			if (!goodsResult.get(0 + temp).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
+			// goodsResult의 가장 끝에 있는 goodsName과 goodsCategoryList의 가장 처음에 있는 goodsName이 같으면
+			if (goodsResult.get(0 + index).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
+				// reviewCount 값 증가
+				reviewCount++;
+				// goodsStar에 별점 합치기
+				goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+
+				if (i == goodsCategoryList.size() - 2) {
+					GoodsDTO goods = goodsResult.get(index);
+					goods.setReviewCount(reviewCount);
+					goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+					goods.setGoodsStar(Math.round(goodsStar/reviewCount*10.0)/10.0);
+					goodsResult.set(index, goods);
+				}
+
+			} else {
+				GoodsDTO goods = goodsResult.get(index);
+				// goodsResult 리스트의 index번째 객체에 reviewCount(리뷰 개수) 값 저장
+				goods.setReviewCount(reviewCount);
+				// goodsStar에 별점 합치기
+				goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+				// goodsResult 리스트의 index번째 객체에 goodsStar/reviewCount(별점 평균) 값 저장
+				goods.setGoodsStar(Math.round(goodsStar/reviewCount*10.0)/10.0);
+				goodsResult.set(index, goods);
+
+				// goodsResult에서 사용할 변수(index)값 증가
+				index += 1;
+
+				// goodsResult에 goodsCategoryList의 가장 처음값 저장 후
+				// 새로운 값의 위치를 저장할 index 변수에 i+1 저장, reviewCount 값 1로 변겅
 				goodsResult.add(goodsCategoryList.get(i + 1));
-				temp += 1;
+				reviewCount = 1;
+				goodsStar=0;
+				
 			}
 		}
 		
-		// 리뷰순 출력시 아래 주석 제거
-		// Collections.sort(goodsResult, new GoodsReviewComparator().reversed());
+		// 리뷰순 출력시
+		if (map.get("column").equals("goods_reviewCount")) {
+			Collections.sort(goodsResult, new GoodsReviewComparator().reversed());
+		}
 		
-		// 별점순 출력시 아래 주석 제거
-		// Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+		// 별점순 출력시
+		if (map.get("column").equals("goods_star")) {
+			 Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+		}
 		
 		return goodsResult;
 	}

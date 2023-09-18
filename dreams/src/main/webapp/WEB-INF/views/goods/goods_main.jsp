@@ -101,9 +101,28 @@ function selectChange(q){
 												</div>
 												<div class="rating-review">
 													<div class="product-list-rating">
-														<i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
+														<c:set var="star" value="${goods.goodsStar }" />
+														<span>${star }</span>
+														<c:if test="${star >= 0 and star < 1}">
+															<i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+														</c:if>
+														<c:if test="${star >= 1 and star < 2}">
+															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+														</c:if>
+														<c:if test="${star >= 2 and star < 3}">
+															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+														</c:if>
+														<c:if test="${star >= 3 and star < 4}">
+															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+														</c:if>
+														<c:if test="${star >= 4 and star < 5}">
+															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o"></i>
+														</c:if>
+														<c:if test="${star eq 5}">
+															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i>
+														</c:if>
 													</div>
-													<a href="#">${goods.reviewCount } Reviews</a>
+													<a href="javascript:void(0);" style="pointer-events : none;">${goods.reviewCount } Reviews</a>
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">

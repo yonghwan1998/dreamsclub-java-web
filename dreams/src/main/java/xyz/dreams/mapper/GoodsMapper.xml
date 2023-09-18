@@ -11,13 +11,16 @@
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
 	
-	- 방용환(수정) : 2023/09/18, 별점순 및 리뷰순 정렬 기능 추가
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+	service에서 정렬할 것이기 때문에 goodsCode 순으로 출력
+	
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
 	service에서 정렬할 것이기 때문에 goodsCode 순으로 출력
 	-->
 	<select id="selectGoodsList" resultType="GoodsDTO">
 		SELECT * FROM (
 			SELECT g.GOODS_CODE, g.GOODS_PRICE, g.GOODS_INFO, g.GOODS_YN, g.GOODS_STOCK, g.GOODS_IMAGE, r.GOODS_STAR
-				FROM GOODS g JOIN REVIEW_TEST r ON g.GOODS_CODE = r.GOODS_CODE
+				FROM GOODS g LEFT OUTER JOIN REVIEW_TEST r ON g.GOODS_CODE = r.GOODS_CODE
 			<!-- 검색 키워드(q)가 존재한다면 bind -->
 			<if test="q != null and q != ''"> 
 				<bind name="search" value="'%'+q+'%'"/>
