@@ -84,6 +84,8 @@ public class GoodsServiceImpl implements GoodsService {
 		int index = 0;
 		// 같은 이름의 굿즈의 리뷰 개수를 저장할 변수
 		int reviewCount = 1;
+		// 굿즈 별점을 저장할 변수
+		double goodsStar = 0;
 		// 최초에 비교할 값 저장
 		goodsResult.add(goodsCategoryList.get(0));
 		// goodsCategoryList 사이즈-1 만큼(윗 줄에 최초에 비교할 값을 저장했기 때문에) for문 반복
@@ -92,19 +94,27 @@ public class GoodsServiceImpl implements GoodsService {
 			if (goodsResult.get(0 + index).getGoodsName().equals(goodsCategoryList.get(i + 1).getGoodsName())) {
 				// reviewCount 값 증가
 				reviewCount++;
-				
-				if (i==goodsCategoryList.size() - 2) {
+				// goodsStar에 별점 합치기
+				goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+
+				if (i == goodsCategoryList.size() - 2) {
 					GoodsDTO goods = goodsResult.get(index);
 					goods.setReviewCount(reviewCount);
+					goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+					goods.setGoodsStar(Math.round(goodsStar/reviewCount*10.0)/10.0);
 					goodsResult.set(index, goods);
 				}
-				
+
 			} else {
-				// goodsResult 리스트의 index번째 객체에 reviewCount(리뷰 개수) 값 저장
 				GoodsDTO goods = goodsResult.get(index);
+				// goodsResult 리스트의 index번째 객체에 reviewCount(리뷰 개수) 값 저장
 				goods.setReviewCount(reviewCount);
+				// goodsStar에 별점 합치기
+				goodsStar+=goodsCategoryList.get(i).getGoodsStar();
+				// goodsResult 리스트의 index번째 객체에 goodsStar/reviewCount(별점 평균) 값 저장
+				goods.setGoodsStar(Math.round(goodsStar/reviewCount*10.0)/10.0);
 				goodsResult.set(index, goods);
-				
+
 				// goodsResult에서 사용할 변수(index)값 증가
 				index += 1;
 
@@ -112,6 +122,8 @@ public class GoodsServiceImpl implements GoodsService {
 				// 새로운 값의 위치를 저장할 index 변수에 i+1 저장, reviewCount 값 1로 변겅
 				goodsResult.add(goodsCategoryList.get(i + 1));
 				reviewCount = 1;
+				goodsStar=0;
+				
 			}
 		}
 		
@@ -121,9 +133,9 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		
 		// 별점순 출력시
-//		if (map.get("column").equals("goods_star")) {
-//			 Collections.sort(goodsResult, new GoodsStarComparator().reversed());
-//		}
+		if (map.get("column").equals("goods_star")) {
+			 Collections.sort(goodsResult, new GoodsStarComparator().reversed());
+		}
 		
 		return goodsResult;
 	}
