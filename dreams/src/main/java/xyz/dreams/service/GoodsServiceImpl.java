@@ -34,58 +34,44 @@ public class GoodsServiceImpl implements GoodsService {
 		// 검색 조건들을 Map에 담아서 goodsDAO.selectGoodsList(Map<String, Object> map)의 인자로 넘기고
 		// 굿즈 전체 리스트를 goodsList에 저장
 		List<GoodsDTO> goodsList = goodsDAO.selectGoodsList(map);
-//		System.out.println("*********");
-//		System.out.println(goodsList);
-//		System.out.println("*********");
-		String goodsName = null;
-		GoodsDTO goodsChangedName = null;
 
-		// jsp에서 선택된 카테고리만 저장하기 위한 goodsCategoryList 변수
+		// jsp에서 선택된 카테고리의 굿즈리스트를 저장하기 위한 goodsCategoryList 변수
 		List<GoodsDTO> goodsCategoryList = new ArrayList<GoodsDTO>();
 		boolean uniform = (Boolean) map.get("uniform");
 		boolean cap = (Boolean) map.get("cap");
 		boolean fan = (Boolean) map.get("fan");
 
-		// 검색된 전체 굿즈 리스트 사이즈만큼 for문 반복
-		for (int i = 0; i < goodsList.size(); i++) {
-			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해
-			// 카테고리만 가져옴
-			String goodsCategory = goodsList.get(i).getGoodsCode().split("-")[1];
-
+		// 검색된 전체 굿즈 리스트 for문
+		for (GoodsDTO goods : goodsList) {
+			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해 카테고리만 가져옴
+			String goodsCategory = goods.getGoodsCode().split("-")[1];
+			
 			// jsp에서 Uniform이 선택 되어 있고
 			// DB에서 가져온 리스트의 카테고리가 'U'라면
 			// goodsCategoryList 변수에 저장함
 			if (uniform == true && goodsCategory.equals("U")) {
-				goodsCategoryList.add(goodsList.get(i));
+				goodsCategoryList.add(goods);
 			}
 			
 			// jsp에서 Cap이 선택 되어 있고
 			// DB에서 가져온 리스트의 카테고리가 'C'라면
 			// goodsCategoryList 변수에 저장함
 			if (cap == true && goodsCategory.equals("C")) {
-				goodsCategoryList.add(goodsList.get(i));
+				goodsCategoryList.add(goods);
 			}
 			
 			// jsp에서 Fan Goods가 선택 되어 있고
 			// DB에서 가져온 리스트의 카테고리가 'F'라면
 			// goodsCategoryList 변수에 저장함
 			if (fan == true && goodsCategory.equals("F")) {
-				goodsCategoryList.add(goodsList.get(i));
+				goodsCategoryList.add(goods);
 			}
 		}
 
-		// goodsCategoryList 사이즈만큼 for문 반복
-		for (int i = 0; i < goodsCategoryList.size(); i++) {
-			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해
-			// 이름만 goodsName에 저장
-			goodsName = goodsCategoryList.get(i).getGoodsCode().split("-")[0];
-
-			// setter를 통해 이름만 추출한 goodsName을
-			// goodsChangedName에 저장하고 변경된 값을 goodsCategoryList에 저장 
-			goodsChangedName = goodsCategoryList.get(i);
-			goodsChangedName.setGoodsName(goodsName);
-
-			goodsCategoryList.set(i, goodsChangedName);
+		// goodsCategoryList for문 반복
+		for (GoodsDTO goods : goodsCategoryList) {
+			// '이름-카테고리-사이즈'로 저장 되어 있는 goodsCode를 split()을 통해 이름만 setter로 goodsName에 저장
+			goods.setGoodsName(goods.getGoodsCode().split("-")[0]);
 		}
 		
 		// 실제 페이지에 출력하기 위한 굿즈 리스트를 저장하기 위한 goodsResult 변수
