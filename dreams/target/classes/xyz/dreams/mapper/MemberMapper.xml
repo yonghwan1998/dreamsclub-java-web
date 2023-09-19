@@ -1,80 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace ="xyz.dreams.mapper.MemberMapper">
-	
-	<!-- 오진서 -->  
-	<insert id = "insertMember" >
-		insert into member (
-			MEMBER_ID,
-			MEMBER_PW,
-			MEMBER_EMAIL,
-			MEMBER_PHONE,
-			MEMBER_NAME,
-			MEMBER_PCODE,
-			MEMBER_ADDRESS1,
-			MEMBER_ADDRESS2,
-			MEMBER_STATUS,
-			MEMBER_REG_DATE,
-			MEMBER_LAST_LOGIN
+<mapper namespace="xyz.dreams.mapper.MemberMapper">
 
-			
-		) values (
-			#{memberId},
-			#{memberPw},
-			#{memberEmail},
-			#{memberPhone},
-			#{memberName},
-			#{memberPcode},
-			#{memberAddress1},
-			#{memberAddress2},
-		
-			1,<!-- 일반적인 회원가입은 일반회원이므로 임의로 지정 -->
-			SYSDATE, <!-- 지정한값이 아니라서 컴퓨터에서 자동으로 지정 -->
-			#{memberLastLogin} <!-- 컨트롤러에서 설정해줘야함-->
-
-		)
-	</insert>
-
-	<update id="updateMember">
-		update member set MEMBER_PW=#{memberPw}, MEMBER_EMAIL=#{memberEmail}, MEMBER_PHONE=#{memberPhone}, MEMBER_NAME=#{memberName}, MEMBER_ADDRESS1=#{memberAddress1}, MEMBER_ADDRESS2=#{memberAddress2} where member_id=#{memberId}
-		
-	</update>
-
-	<delete id ="deleteMember">
-		delete from Member where member_id=#{memberId}
-	</delete>
+   <!-- 오진서 -->
+   <insert id="insertMember">
+      insert into member (
+      MEMBER_ID,
+      MEMBER_PW,
+      MEMBER_EMAIL,
+      MEMBER_PHONE,
+      MEMBER_NAME,
+      MEMBER_PCODE,
+      MEMBER_ADDRESS1,
+      MEMBER_ADDRESS2,
+      MEMBER_STATUS,
+      MEMBER_REG_DATE,
+      MEMBER_LAST_LOGIN
 
 
-<!--  수정  -->
-	<select id="selectMember" resultType="MemberDTO">
-		select member_id, member_pw, member_email, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE, MEMBER_LAST_LOGIN  
-		from member where member_id = #{memberId}
-	</select>
+      ) values (
+      #{memberId},
+      #{memberPw},
+      #{memberEmail},
+      #{memberPhone},
+      #{memberName},
+      #{memberPcode},
+      #{memberAddress1},
+      #{memberAddress2},
 
-	<select id="selectMemberList" resultType="MemberDTO">
-		select member_id, member_pw, member_email, member_phone, member_name,
-		 member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE
-		  from member
-		order by member_id
-	</select>
-	
-	
-	<!-- 강민경: 로그인 시 사용  -->
-	<select id="selectLoginCheck" resultType="MemberDTO">
-	select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ADDRESS1, MEMBER_ADDRESS2, MEMBER_PCODE
-	 from member where MEMBER_ID=#{memberId} 
-	</select>
-	<!-- 강민경: 아이디 찾기 시 사용  -->
-	<select id="selectSearch" resultType="string">
-	select MEMBER_ID from member where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
-	</select>
-	
-	<!-- 강민경: 비밀번호 변경-->
-	<update id="updatePw" >
-	 update member set MEMBER_PW = #{memberPw} where MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
-	</update>
-	 
-	
-	
+      1,<!-- 일반적인 회원가입은 일반회원이므로 임의로 지정 -->
+      SYSDATE, <!-- 지정한값이 아니라서 컴퓨터에서 자동으로 지정 -->
+      #{memberLastLogin} <!-- 컨트롤러에서 설정해줘야함 -->
+
+      )
+   </insert>
+
+   <update id="updateMember">
+      update member set MEMBER_PW=#{memberPw},
+      MEMBER_EMAIL=#{memberEmail}, MEMBER_PHONE=#{memberPhone},
+      MEMBER_NAME=#{memberName}, MEMBER_ADDRESS1=#{memberAddress1},
+      MEMBER_ADDRESS2=#{memberAddress2} where member_id=#{memberId}
+
+   </update>
+
+
+
+
+   <!-- 수정 -->
+   <select id="selectMember" resultType="MemberDTO">
+      select member_id,
+      member_pw, member_email, member_phone, member_name,
+      member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE,
+      MEMBER_LAST_LOGIN
+      from member where member_id = #{memberId}
+   </select>
+
+   <select id="selectMemberList" resultType="MemberDTO">
+      select member_id,
+      member_pw, member_email, member_phone, member_name,
+      member_pcode, member_address1, member_address2, member_status, MEMBER_REG_DATE
+      from member
+      order by member_id
+   </select>
+
+
+   <!-- 강민경: 로그인 시 사용 -->
+   <select id="selectLoginCheck" resultType="MemberDTO">
+      select MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_STATUS, MEMBER_EMAIL,
+      MEMBER_PHONE, MEMBER_ADDRESS1, MEMBER_ADDRESS2, MEMBER_PCODE
+      from member where MEMBER_ID=#{memberId}
+   </select>
+   <!-- 강민경: 아이디 찾기 시 사용 -->
+   <select id="selectSearch" resultType="string">
+      select MEMBER_ID from member where MEMBER_NAME=#{memberName} and
+      MEMBER_EMAIL=#{memberEmail}
+   </select>
+
+   <!-- 강민경: 비밀번호 변경 -->
+   <update id="updatePw">
+      update member set MEMBER_PW = #{memberPw} where MEMBER_NAME=#{memberName}
+      and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+   </update>
+
+	 <!-- 이소영(추가) : 2023-09-18 회원정보 변경에서 주어진 값과 일치하는 회원의 비밀번호 가져오기  -->
+   <select id="getPassword" parameterType="string"
+      resultType="string">
+      SELECT member_pw FROM MEMBER WHERE member_id = #{memberId}
+   </select>
+
+	<!-- 이소영(수정) : 2023-09-18 회원탈퇴 STATUS = 0 으로 변경 -->
+   <update id="deleteMember" parameterType="string">
+      update member set MEMBER_STATUS = 0 WHERE member_id = #{memberId}
+   </update>
+
+
+
+
 </mapper>
