@@ -16,20 +16,21 @@
 
   /* 장바구니 */
   $(document).ready(function () {
-    var contextPath = "${pageContext.request.contextPath}";
-
-    // 주문하기 버튼 클릭
-    $(".btn-order").click(function () {
       var goodsCode = $("#goodsCode").val();
-      var goodsSize = $("#cartGoodsQty").val();
       var goodsCount = $("#goodsCount").val();
       var memberId = $("#isLogOn").val();
-      
+      var qty = $("#cartGoodsQty").val();
+      var price = $("#price").val();
+
+      // 주문하기 버튼 클릭
+    $(".btn-order").click(function () {
+    	
       if (memberId === "false" || memberId === '') {
           alert("로그인 후 주문이 가능합니다!");
-          window.location.href = contextPath + "/login";
+          window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
+    	  alert(goodsCode);
           $.ajax({
           type: "post",
           //url: "",//orderController로 받을 메서드 작성 후 추가할 것
@@ -47,8 +48,8 @@
               alert("주문을 실패 하였습니다.");
             }
           },
-          error: function(xhr, status, error) {
-            console.error(xhr.responseText);
+          error: function(xhr) {
+            alert(xhr.status);
           }
         });
       }
@@ -57,32 +58,26 @@
     // 장바구니 버튼 클릭
     $(".btn-cart").click(function () {
       event.preventDefault();
-      var qty = $("#cartGoodsQty").val();
-      var price = $("#price").val();
-      var goodsCode = $(this).data("goods-code");
-      var addToCartUrl = contextPath + "/cart/addGoodsInCart";
-
+			
       $.ajax({
         type: "post",
-        async: false,
-        url: addToCartUrl,
+        url: "<c:url value='/cart/addGoodsInCart/' />",
         data: {
-          goods_code: goodsCode,
+          goodsCode: goodsCode,
         },
         dataType: "text",
         success: function (result) {
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             if (check) {
-              var myCartUrl = contextPath + "/cart/mycart/" + memberId;
-              window.location.replace(myCartUrl);
+              location.href("<c:url value='/cart/mycart/' />" + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
           }
         },
-        error: function (xhr, status, error) {
-          console.error(xhr.responseText);
+        error: function(xhr) {
+            alert(xhr.status);
         }
       });
     });
@@ -109,7 +104,7 @@
 				<div class="product-details-content ml-70">
 					<form method="post" action="<c:url value='/order/insert'/>" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
-						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsName }" id="goodsCode">
+						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
 							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }" id="price">
 							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
@@ -161,7 +156,7 @@
 							<div class="pro-details-cart btn-hover">
                 <input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
 								<button class="btn btn-default btn-order" type="submit">주문하기</button>
-								<button class="btn btn-default btn-cart" data-goods-code="${goodsDetail.goodsCode}">장바구니</button>
+								<button class="btn btn-default btn-cart">장바구니</button>
 							</div>
 						</div>
 					</form>

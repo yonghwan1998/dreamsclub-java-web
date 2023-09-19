@@ -1,5 +1,6 @@
 package xyz.dreams.controller;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -32,19 +33,17 @@ import xyz.dreams.service.OrderService;
 @RequiredArgsConstructor
 public class CartController {
 	private final CartService cartService;
-	private final MemberService memberService;
-	private final GoodsService goodsService;
 	
 	@RequestMapping(value="/mycart/{memberId}" ,method = RequestMethod.GET)
-	public String myCart(CartVO cartVO, Model model)  throws Exception {
-		Map<String, List> cartMap = cartService.myCartList(cartVO);
+	public String myCart(@PathVariable("memberId") String memberId, Model model) {
+		Map<String, List> cartMap = cartService.myCartList(memberId);
 		model.addAttribute("cartMap", cartMap);
 		return "cart/mycart";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{goodsCode}" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	public String addGoodsInCart(@RequestParam("goods_code") String goodsCode,
+	@RequestMapping(value="/{goodsCode}" ,method = RequestMethod.POST)
+	public String addGoodsInCart(@PathVariable("goods_code") String goodsCode,
 			                    HttpSession session)  throws Exception{
 		
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
@@ -57,7 +56,7 @@ public class CartController {
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		
-		if(isAreadyExisted==true){
+		if(isAreadyExisted){
 			return "already_existed";
 		}else{
 			cartService.addGoodsInCart(cartVO);
@@ -88,10 +87,16 @@ public class CartController {
 		
 	}
 	
-	@RequestMapping(value="/removeCartGoods" ,method = RequestMethod.POST)
-	public String removeCartGoods(@RequestParam("cart_id") int cartId)  throws Exception{
-		cartService.removeCartGoods(cartId);
+	@ResponseBody
+	@RequestMapping(value = "/delFromCart", method = RequestMethod.POST)
+	public String delFromCart(CartVO cartVO) {
+		System.out.println("cartVO = "+cartVO);
 		
-		return "redirect:/cart/mycart/{memberId}";
+	    boolean result = cartService.delFromCart(cartVO);
+	    if (result) {
+	        return "ok";
+	    } else {
+	        return "no";
+	    }
 	}
 }

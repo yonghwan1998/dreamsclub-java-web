@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 	
-  <resultMap id="cartResult" type="CartVO">
+  <!-- <resultMap id="cartResult" type="CartVO">
     <result property="memberId" column="member_id"/>
     <result property="goodsCode" column="goods_code"/>
     <result property="cartId" column="cart_id"/>
@@ -32,16 +32,12 @@
     <result property="goodsCount" column="goods_count"/>
     <result property="goodsCategory" column="goods_category"/>
     <result property="goodsSize" column="goods_size"/>
-</resultMap>
+</resultMap> -->
 
 
-    <!-- 형섭(수정): 2023/09/11, 'member_id' 조건에 따라 tbl_cart에서 데이터를 검색하는 쿼리 -->
-    <select id="selectCartList" parameterType="cartVO" resultMap="cartResult">
-      <![CDATA[
-          SELECT cart_id, goods_code, member_id, cart_goods_qty, cart_reg_date
-          FROM tbl_cart
-          WHERE member_id = #{memberId}
-      ]]>
+    <!-- 형섭(수정): 2023/09/11, 회원 아이디로 장바구니 정보 조회 -->
+    <select id="selectCartList" resultType="cartVO">
+          SELECT * FROM tbl_cart WHERE member_id = #{memberId}
     </select>
     
     
@@ -51,14 +47,12 @@
     => 'getMyCartGoodsCode'로 가져온 굿즈 id들의 list를 변수로 받아와서 결과값을
     'getMyCartList'에 하나씩 저장 >> "(item1,item2...)"의 형태.  
    -->
-  <select id="selectGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
-    <![CDATA[
+  <select id="selectGoodsList" resultType="GoodsDTO">
       SELECT * FROM goods WHERE goods_code IN
-    ]]>
       <foreach collection="list" item="item" open="(" separator="," close=")">
         #{item.goodsCode}
       </foreach>
-      ORDER BY goods_code
+      ORDER BY goods_code 
   </select>
     
   
@@ -68,12 +62,10 @@
 		tbl_cart 테이블에서 'goods_code'와 'member_id' 조건으로 검색하여 
 		행의 수가 0이면 'false' 반환, 아니면 'true' 반환 
 	-->
-	<select id="findCartGoods" resultType="String" parameterType="CartVO">
-		<![CDATA[
+	<select id="findCartGoods" resultType="String" parameterType="cartVO">
       SELECT decode(count(*), 0, 'false', 'true') FROM tbl_cart 
   		WHERE goods_code = #{goodsCode}
   		AND member_id = #{memberId}
-    ]]>
 	</select>
 	
 	
@@ -83,47 +75,24 @@
 		order 속성을 BEFORE로 변경하여 시퀀스 값을 가져오는 SELECT 문이 INSERT 문 실행 전에 실행.
     INSERT INTO 문에서 cart_id_seq.NEXTVAL을 직접 사용하여 cart_id 값을 설정.
 	 -->
-	<!-- <insert id="addGoodsInCart" useGeneratedKeys="true" keyProperty="cartId">
+  <insert id="addGoodsInCart" useGeneratedKeys="true" keyProperty="cartId">
     <selectKey keyProperty="cartId" resultType="java.lang.Integer" order="BEFORE">
-        SELECT cart_id_seq.NEXTVAL FROM dual
-    </selectKey>
-    INSERT INTO tbl_cart(cart_id, member_id, goods_code, goods_count)
-    VALUES (#{cartId}, #{memberId}, #{goodsCode}, ${goodsCount})
-	</insert> -->
-  
-  <insert id="addGoodsInCart" parameterType="CartVO">
-    <![CDATA[
-      INSERT INTO tbl_cart(cart_id, 
-                           member_id, 
-                           goods_code)
-                   VALUES (#{cartId}, 
-                           #{memberId}, 
-                           #{goodsCode})
-    ]]>
+          SELECT cart_id_seq.NEXTVAL FROM dual
+      </selectKey>
+      INSERT INTO tbl_cart(cart_id, member_id, goods_code)
+      VALUES (#{cartId}, #{memberId}, #{goodsCode})
   </insert>
   
   
   <update id="updateCartGoodsQty" parameterType="cartVO">
-    <![CDATA[
         UPDATE tbl_cart
           SET cart_goods_qty = #{cartGoodsQty}
           WHERE member_id = #{memberId}
           AND goods_code = #{goodsCode}
-    ]]>
   </update>
-	
   
-  <delete id="deleteCartGoods" parameterType="int">
-       <![CDATA[
-          DELETE FROM tbl_cart
-          WHERE cart_id = #{cartId}
-       ]]>
+  <delete id="delFromCart">
+    DELETE FROM tbl_cart WHERE member_id = #{memberId} AND goods_code = #{goodsCode}
   </delete>
 	
-  
-  <select id="selectMaxCartId" resultType="int">
-      <![CDATA[
-          SELECT NVL(MAX(cart_id), 0) + 1 FROM tbl_cart
-      ]]>
-  </select>
 </mapper>
