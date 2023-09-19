@@ -76,15 +76,15 @@ public class OrderController {
     
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public String order(GoodsDTO goodsDTO, MemberDTO memberDTO, Model model,
-    		@ModelAttribute("selected_opt") String selectedOpt,
-    		@ModelAttribute("goods_count") int goodsCount,
+    		@ModelAttribute("goodsSize") String goodsSize,
+    		@ModelAttribute("goodsCount") int goodsCount,
     		@ModelAttribute("deliver_msg") String deliverMsg,
     		@ModelAttribute("total_amount") String totalAmount,
     		@ModelAttribute("cal_info") String calInfo) {
     		
     	OrderDTO orderDTO = new OrderDTO();
     	
-    	goodsDTO = goodsService.getGoodsDetail(goodsDTO.getGoodsCode());
+    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
     	
     	orderDTO.setMemberId(memberDTO.getMemberId());
     	orderDTO.setMemberName(memberDTO.getMemberName());
@@ -98,9 +98,9 @@ public class OrderController {
     	orderDTO.setGoodsPrice(goodsDTO.getGoodsPrice());
     	orderDTO.setGoodsStock(goodsDTO.getGoodsStock());
     	orderDTO.setGoodsInfo(goodsDTO.getGoodsInfo());
-    	
-    	orderDTO.setSelectedOpt(selectedOpt);
+    	orderDTO.setGoodsSize(goodsSize);
     	orderDTO.setGoodsCount(goodsCount);
+    	
     	orderDTO.setDeliverMsg(deliverMsg);
     	orderDTO.setOrderStatus(0);
     	orderDTO.setCalInfo(calInfo);
@@ -116,16 +116,16 @@ public class OrderController {
     
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String orderInsert(GoodsDTO goodsDTO, HttpSession session, Model model,
-    		@ModelAttribute("selected_Opt") String selectedOpt, 
-    		@ModelAttribute("goods_count") String goodsCount) {
+    		@ModelAttribute("goodsSize") String goodsSize, 
+    		@ModelAttribute("goodsCount") int goodsCount) {
     	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
     	memberInfo = memberService.getMember(memberInfo.getMemberId());
-    	goodsDTO = goodsService.getGoodsDetail(goodsDTO.getGoodsCode());
+    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
     	
     	model.addAttribute("memberInfo", memberInfo);
     	model.addAttribute("goodsInfo", goodsDTO);
-    	model.addAttribute("goods_count", goodsCount);
-    	model.addAttribute("selected_Opt", selectedOpt);
+    	model.addAttribute("goodsCount", goodsCount);
+    	model.addAttribute("goodsSize", goodsSize);
     	
     	return "order/order";
     }
@@ -141,6 +141,7 @@ public class OrderController {
         
         model.addAttribute("memberInfo", memberInfo);
         model.addAttribute("goodsInfo", goodsDTO);
+        
         
         return "order/order";
     }

@@ -109,6 +109,7 @@ if(chk) {
 					<c:choose>
             <c:when test="${goodsList != null}">
   					<c:forEach items="${goodsList}" var="goods" varStatus="status">
+            <c:out value="${goodsList }"/><br><br>
             <%-- <c:set var="cart_id" value="${cartList.cartId}"/> --%>
   						<tr>
                 <!-- 체크박스, 이미지 -->
@@ -121,7 +122,6 @@ if(chk) {
                 <!-- 이름 -->
   							<td><a href="/goods/goods_detail/${cartList[status.index].goodsCode}">${goods.goodsCode}</a>
   								  <input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
-                    
   							</td>
                 <!-- 가격 -->
   							<td>
@@ -142,14 +142,15 @@ if(chk) {
                 </td>
                 <!-- 사이즈 -->
                 <td>
-										<div class="form-horizontal" style="text-align: left;">
+										<!-- <div class="form-horizontal" style="text-align: left;">
 											<select class="form-control opt_select" name="goodsSize">
 												<option value="S">S</option>
 												<option value="M">M</option>
 												<option value="L">L</option>
                         <option value="F">Free</option>
 											</select>
-										</div>
+										</div> -->
+                    
                 </td>
                 <!-- 정보 -->
 								<td>${goods.goodsInfo}</td>
