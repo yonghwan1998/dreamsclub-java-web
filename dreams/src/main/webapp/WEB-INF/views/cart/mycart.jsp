@@ -109,7 +109,6 @@ if(chk) {
 					<c:choose>
             <c:when test="${goodsList != null}">
   					<c:forEach items="${goodsList}" var="goods" varStatus="status">
-            <c:out value="${cartList[status.index].goodsCode}"/><br>
             <%-- <c:set var="cart_id" value="${cartList.cartId}"/> --%>
   						<tr>
                 <!-- 체크박스, 이미지 -->
@@ -228,9 +227,10 @@ if(chk) {
       
       if (memberId != null) {
         var item = $(this);
-        var goodsCode = item.attr("data-pId");
-        
-        location.assign("<c:url value='/order/insert'/>" + goodsCode);
+      	var goodsCode = document.getElementById("myHiddenGoods").value;
+        //var goodsCode = item.attr("data-pId");
+        alert(goodsCode);
+        location.assign("<c:url value='/order/insert/'/>" + goodsCode);
       } else {
         alert("로그인이 필요합니다.");
         location.assign("/member/login");

@@ -329,4 +329,9 @@ public class GoodsServiceImpl implements GoodsService {
 	public void modifyAdminGoodsYn(GoodsDTO goods) {
 		goodsDAO.updateAdminGoodsYn(goods);
 	}
+
+	@Override
+	public GoodsDTO getOrderGoods(String goodsCode) {
+		return goodsDAO.selectOrderGoods(goodsCode);
+	}
 }

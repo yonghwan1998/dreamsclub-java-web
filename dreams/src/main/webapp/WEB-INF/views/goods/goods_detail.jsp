@@ -30,7 +30,7 @@
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
-    	  alert(goodsCode);
+    	  
           $.ajax({
           type: "post",
           //url: "",//orderController로 받을 메서드 작성 후 추가할 것
@@ -56,12 +56,16 @@
     });
 
     // 장바구니 버튼 클릭
-    $(".btn-cart").click(function () {
+    $(".btn-cart").click(function (event) {
       event.preventDefault();
+			var goodsCode = $('#goodsCode').val();
+      alert(goodsCode);
+      var memberId = $('#isLogOn').val();
+      alert(memberId);
 			
       $.ajax({
         type: "post",
-        url: "<c:url value='/cart/addGoodsInCart/' />",
+        url: "<c:url value='/cart/addGoodsInCart/' />" + goodsCode,
         data: {
           goodsCode: goodsCode,
         },
@@ -69,8 +73,9 @@
         success: function (result) {
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
+            var goMyCart = "<c:url value='/cart/mycart/' />";
             if (check) {
-              location.href("<c:url value='/cart/mycart/' />" + memberId);
+              location.href("" + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");

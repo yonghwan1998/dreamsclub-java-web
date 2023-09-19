@@ -42,8 +42,8 @@ public class CartController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{goodsCode}" ,method = RequestMethod.POST)
-	public String addGoodsInCart(@PathVariable("goods_code") String goodsCode,
+	@RequestMapping(value="addGoodsInCart/{goodsCode}" ,method = RequestMethod.POST)
+	public String addGoodsInCart(@PathVariable("goodsCode") String goodsCode,
 			                    HttpSession session)  throws Exception{
 		
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
