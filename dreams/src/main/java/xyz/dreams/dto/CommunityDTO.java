@@ -30,5 +30,8 @@ public class CommunityDTO {
 	private String commImg; //첨가 이미지
 	private String commDel; //삭제유무
 	private int commHit; //조회수
+	
+	//[김예지 2023.09.17 추가]댓글 수 카운팅
+	private int replyCount;
 }
 

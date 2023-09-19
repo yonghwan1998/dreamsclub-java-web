@@ -21,13 +21,13 @@ public interface CommunityMapper {
 	/*게시글 조회수 증가*/
 	void upCountCommunity(int commNo);
 	
-	/*게시판 목록*/
-	//List<CommunityDTO> getList();
-	
 	/*게시판 목록 + 페이징 처리*/
 	List<CommunityDTO> selectCommunityList(Map<String, Object> map);
 	int selectCommunityCount(Map<String, Object> map); 
 
 	/*게시글 넘버 => 댓글이용시사용*/
 	CommunityDTO selectCommunityByCommNo(int commNo);
+	
+	/*김예지(2023.09.17): 댓글 수 카운팅*/
+	int updateReplyCount(int commNo);
 }

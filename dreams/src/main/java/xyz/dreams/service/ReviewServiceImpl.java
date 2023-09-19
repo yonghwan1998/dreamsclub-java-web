@@ -16,7 +16,7 @@ import xyz.dreams.util.Pager;
  
 @Service
 @RequiredArgsConstructor
-public class ReviewServiewImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService{
 	private final ReviewDAO reviewDAO;
 	private final SqlSession sqlsession;
 	

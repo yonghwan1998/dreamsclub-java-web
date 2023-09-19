@@ -11,9 +11,9 @@ public interface CommunityReplyService {
 	/*댓글 목록 보기*/
 	List<CommunityReplyDTO> getCommunityReplyList(int commNo);
 	
-	/*댓글 삭제*/
+	/*댓글 삭제 - 김예지(2023.09.15)*/
 	int deleteCommunityReply(int commReNo);
 	
-	/*댓글 수정*/
+	/*댓글 수정 - 김예지(2023.09.17)*/
 	void modifyCommunityReply(CommunityReplyDTO reply);
 }

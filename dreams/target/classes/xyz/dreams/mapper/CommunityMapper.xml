@@ -8,13 +8,6 @@
 	values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
 </insert>
 
-<!-- 게시판 전체 목록보기 -->
-<select id="getList" resultType="xyz.dreams.dto.CommunityDTO">
-	select * 
-	from community 
-	order by comm_no desc
-</select>
-
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
 	select * 
@@ -53,7 +46,8 @@
 			comm_title, 
 			comm_cont, 
 			comm_date, 
-			comm_hit 
+			comm_hit,
+			reply_count 
 		from (
 			select 
 				comm_no, 
@@ -61,7 +55,8 @@
 				comm_title, 
 				comm_cont, 
 				comm_date, 
-				comm_hit 
+				comm_hit,
+				reply_count 
 			from community 
 			<if test = "keyword !=null and keyword !=''">
 				<bind name="word" value="'%'+keyword+'%'"/>
@@ -83,6 +78,8 @@
 	</if>
 </select>
 
+<!-- 김예지(2023.09.14) - 댓글 목록 구현시 필요한 정보를 얻기위해 게시글의 번호가 일치할때 
+	memberId를 fk로 community 테이블과 member 테이블을 조인 -->
 <select id="selectCommunityByCommNo">
     select * 
 	from community a
@@ -90,5 +87,13 @@
 	on a.member_id=b.member_id
 	where a.comm_No=#{commNo}
 </select>
+
+
+<!-- 김예지(2023.09.17) 게시글 당 댓글 개수 카운팅 -->
+<update id="updateReplyCount">
+	update community c
+	set c.REPLY_COUNT = (select count(COMM_RE_NO) from community_reply where COMM_NO=#{commNo}) 
+	where c.COMM_NO=#{commNo}
+</update>
 
 </mapper>
