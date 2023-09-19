@@ -227,8 +227,8 @@
 											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
 											<th class="t2" style="width: 100px">답변상태</th>
 											<th class="t3" style="width: 700px">제목</th>
-											<th class="t4" style="width: 150px">작성자</th>
-											<th class="t5" style="width: 150px">작성일</th>
+											<th class="t5" style="width: 150px">작성자</th>
+											<th class="t6" style="width: 150px">작성일</th>
 										</tr>
 									</thead>
 
@@ -239,19 +239,24 @@
 											<tr class="boardTableList">
 												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
 												<!-- 번호불러옴 -->
+												
 												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
 												<!--  답변여부 -->
+												
 												<td class="t3 text-left"></td>
 												<!-- 제목 우측 -->
 												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
 												<!-- 제목받아옴 -->
-												<td class="content" id="qnacontent">
-												<td class="t4"><c:out value="${qna.memberId}" /></td>
+												
+												<td class="t4" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
+												<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+												
+												<td class="t5"><c:out value="${qna.memberId}" /></td>
 												<!-- 회원id 받아옴 -->
-												<td class="t5"><c:out value="${qna.qnaDare}" /></td>
+												
+												<td class="t6"><c:out value="${qna.qnaDare}" /></td>
 												<!-- 날짜받아옴 -->
-												<td class="t6" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
-												<!-- 추가 열: 내용 -->
+												
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -266,17 +271,21 @@
 					<div class="writeBtnContainer">
 						<div class="boardWriteBtn" style="text-align: right;">
 							<c:if test="${!empty(member)}">
-								<a href=<c:url value="/goods/qna/write"/>>문의하기</a>
+								<form action="<c:url value="/goods/qna/write"/>" method="get">
+									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >
+									<button type="submit">문의하기</button>
+								</form>
 								<!-- 페이지 이동 -->
 							</c:if>
 						</div>
 					</div>
+					
 				</div>
 
 				<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
 					$(document).ready(function() {
 						$(".t3").click(function() { // 질문 제목을 클릭했을 때
-							$(this).closest("tr").find(".t6").toggle(); // 클릭한 행에서 다음 열(.t6)을 토글(show/hide)합니다.
+							$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
 						});
 					});
 				</script>

@@ -12,16 +12,17 @@
 	QNA_DATE,
 	QNA_STATUS,
 	QNA_YN,
+	GOODS_CODE
 	)
 	values 
 	(QNA_SEQ.NEXTVAL, <!-- 시퀀스의 값을 증가 시키고싶대 -->
-	#{qnaNo},
 	#{memberId},
 	#{qnaTitle},
 	#{qnaCont},
 	SYSDATE, <!-- 근데 수정 마지막일도 변경해줘야하나? 어케하는거임? -->
-	#{qnaStatus} <!-- 변경할수있게 할거임 -->
-	#{qnaYn}
+	1, <!-- 변경할수있게 할거임 -->
+	'N',
+	#{goodsCode}
 	) 
 	</insert>
 	
