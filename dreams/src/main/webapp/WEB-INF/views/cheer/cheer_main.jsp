@@ -14,6 +14,24 @@
     <!--게시판테이블-->
     <div class="boardMain">
         <!--테이블-->
+		<form action="<c:url value="/cheer"/>" method="post">
+           	<c:if test="${empty member }">
+           		<div style="text-align: center; color: red; font-weight: bold;">로그인 후 메모를 남길 수 있습니다.</div>
+           	</c:if>
+           	<c:if test="${not empty member }">
+				<input type="hidden" name="memberId" value="${member.memberId }"/>
+				<textarea name="cheerContent" id="textBox" cols="30" rows="4" placeholder="글을 입력해 주세요." maxlength="200" style="resize: none;"></textarea>
+				<!--글쓰기 버튼-->
+	            <div class="writeBtnContainer" style="margin-top: 10px">
+	                <div style="text-align: right;">
+		                <span class="textCount">0자</span>
+			    		<span class="textTotal">/ 100자</span>
+	                   	<button type="submit">메모</button>
+	                </div>
+	            </div>
+           	</c:if>
+		</form>
+
         <div class="commnunityTable">
             <!--테이블 본체-->
             <div class="boardTable" style="margin: 0 auto">
@@ -21,8 +39,8 @@
                     <thead>
                         <tr>
                             <th class="t1" scope="col" style="width: 100px">번호</th>
-                            <th class="t2" style="width: 700px">내용</th>
-                            <th class="t3" style="width: 150px">작성자</th>
+                            <th class="t2" style="width: 150px">작성자</th>
+                            <th class="t3" style="width: 700px">내용</th>
                             <th class="t4" style="width: 150px">작성일</th>
                         </tr>
                     </thead>
@@ -39,16 +57,6 @@
                 </table>
                 <form id="moveForm" method="get">
                 </form>
-            </div>
-
-            <!--글쓰기 버튼-->
-            <div class="writeBtnContainer">
-                <div class="boardWriteBtn" style="text-align: right;">
-                	<%-- <c:if test="${!empty(member)}">
-                    	<a href=<c:url value="/community/write"/>>글쓰기</a>
-                    </c:if> --%>
-                   	<a href=<c:url value="/community/write"/>>글쓰기</a>
-                </div>
             </div>
 
             <!--페이징-->
@@ -88,34 +96,29 @@
     </div>
 </div>
 
-<script type="text/javascript"
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous">
+<script>
 
-//글 등록 성공 경고창
-$(document).ready(function(){
-	let result = '<c:out value="${result}"/>';
-	checkAlert(result);
-	function checkAlert(result){
-		if(result==""){
-			return;
-		} else if(result=="enroll success"){
-			alert("글이 등록되었습니다.")
-		}
-	}
-});
-  
+	$('#textBox').keyup(function (e) {
+		let content = $(this).val();
+	    
+	    // 글자수 세기
+	    if (content.length == 0 || content == '') {
+	    	$('.textCount').text('0자');
+	    } else {
+	    	$('.textCount').text(content.length + '자');
+	    }
+	    
+	    // 글자수 제한
+	    if (content.length > 100) {
+	    	// 100자 부터는 타이핑 되지 않도록
+	        $(this).val($(this).val().substring(0, 100));
+	        // 100자 넘으면 알림창 뜨도록
+	        alert('글자수는 100자까지 입력 가능합니다.');
+	    };
+	});
+</script>
 
-//<a>태그 동작코드
-let moveForm=$("#moveForm");
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
 
-$(".move").on("click", funtion(e){
-	e.preventDefault();
-	
-	moveForm.append("<input type='hidden' name='commNo' value='"+$(this).attr("href")+"'>");
-	moveForm.attr("action", "/community/detail");
-	moveForm.submit();
-}
 
 </script>
