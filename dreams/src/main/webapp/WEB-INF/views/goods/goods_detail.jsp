@@ -233,7 +233,7 @@
 							<!-- 문의 테이블 -->
 							<div class="qnaTable" style="margin: 0 auto">
 								<table class="qnaTableMain" width="1200px">
-									<thead>
+									<thead>									
 										<tr>
 											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
 											<th class="t2" style="width: 100px">답변상태</th>
@@ -245,7 +245,7 @@
 
 									<!-- 정보 받아옴 -->
 									<tbody>
-										<c:forEach items="${qnaList}" var="qna">
+										<c:forEach items="${qnaList.qnaList}" var="qna"> <!-- controller 에서 받아옴 -->
 											<!-- qna리스트받아옴 -->
 											<tr class="boardTableList">
 												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
@@ -286,10 +286,53 @@
 									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >
 									<button type="submit">문의하기</button>
 								</form>
-								<!-- 페이지 이동 -->
 							</c:if>
 						</div>
 					</div>
+					
+			<!-- 9/19 오진서 - 페이징 -->
+            <div class="boardPageContainer">
+                <div class="boardPage">
+					<c:choose>
+						<c:when test="${pager.startPage > pager.blockSize }">
+						<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+						<from>
+						
+						</from>
+							<a href="<c:url value="/goods/{}"/>?pageNum=${qnaList.pager.prevPage}">《</a>
+						</c:when>
+						<c:otherwise>
+							《
+						</c:otherwise>
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${result.pager.startPage }" end="${qnaList.pager.endPage }" step="1">
+						<c:choose>
+							<c:when test="${result.pager.pageNum != i  }">
+								<a href="<c:url value="/goods/{}"/>?pageNum=${i}">[${i }]</a>
+								<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+							</c:when>
+							<c:otherwise>
+								${i } <!-- 목록페이지 -->
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+				
+					<c:choose>
+						<c:when test="${result.pager.endPage != result.pager.totalPage }">
+							<a href="<c:url value="/goods/"/>?pageNum=${qnaList.pager.nextPage}">》</a>
+							<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+						</c:when>
+						<c:otherwise>
+							》
+						</c:otherwise>
+					</c:choose>	
+                </div>
+            </div>
+        </div>
+    </div>
+					
+					
 					
 				</div>
 
