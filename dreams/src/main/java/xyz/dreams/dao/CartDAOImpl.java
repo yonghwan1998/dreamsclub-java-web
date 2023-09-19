@@ -37,8 +37,8 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public void updateCartGoodsQty(CartVO cartVO) {
-		sqlSession.insert(NS+".updateCartGoodsQty", cartVO);
+	public void updateGoodsCount(CartVO cartVO) {
+		sqlSession.insert(NS+".modifyGoodsQty", cartVO);
 	}
 
 	@Override

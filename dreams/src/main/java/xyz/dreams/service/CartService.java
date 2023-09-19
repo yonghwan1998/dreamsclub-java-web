@@ -9,6 +9,6 @@ public interface CartService{
 	Map<String, List> myCartList(String memberId);
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
-	public boolean modifyCartQty(CartVO cartVO);
+	public boolean updateGoodsCount(CartVO cartVO);
 	boolean delFromCart(CartVO cartVO);
 }
