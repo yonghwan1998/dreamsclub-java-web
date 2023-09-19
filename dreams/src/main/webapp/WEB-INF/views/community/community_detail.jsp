@@ -250,9 +250,9 @@ function updateBtn(commReNo, memberId){
 
 
 
-/*댓글 글자수 카운트*/
+/*댓글 글자수 카운트 - 김예지(2023.09.19)*/
  
-/*//아래 코드는 jQuery를 사용한 댓글 글자수 카운트 예제
+/*//아래 코드는 jQuery를 사용한 댓글 글자수 카운트 예제 >> 제대로 안되어서 아래의 코드로 사용함.
 $("#commReCont").keyup(function (e){
 	console.log("키업!");
 	var content = $(this).val();

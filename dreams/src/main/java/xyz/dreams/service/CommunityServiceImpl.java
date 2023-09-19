@@ -24,6 +24,7 @@ public class CommunityServiceImpl implements CommunityService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
+		//사용자가 html코드를 적어도 적용되지 못하도록 escape 걸어둔것.
 		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
 		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		//community.setCommCont(community.getCommCont().replace("\r\n","<br>"));
