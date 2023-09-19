@@ -59,6 +59,7 @@ public class QnaServiceImpl implements QnaService {
 	
 	
 	/* 오진서 9/19 - 목록보기 + 페이징 처리 */
+	/*
 	@Override
 	public Map<String, Object> getQnaList(Map<String, Object> map) {
 		int pageNum=1; //요청 페이지번호의 선언초기화 (무조건 1부터 시작)
@@ -86,6 +87,20 @@ public class QnaServiceImpl implements QnaService {
 		
 		return resultMap;
 	}
+	*/
+	
+	// 9/20 오진서 - 용안선생님께서 만들래
+	public List<QnaDTO> getQnaList() {
+		
+		return null; //뭘 리턴받아야할깝쇼
+		
+	}
+
+@Override
+public Map<String, Object> getQnaList(Map<String, Object> map) {
+	// TODO Auto-generated method stub
+	return null;
+}
 	
 
 }

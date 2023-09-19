@@ -45,7 +45,9 @@ public class QnaDAOImpl implements QnaDAO {
 	// Q&A  목록을 반환
 	@Override
 	public List<QnaDTO> selectQnaList(Map<String, Object> map) {
-		return sqlSession.getMapper(QnaMapper.class).selectQnaList(map);
+		//return sqlSession.getMapper(QnaMapper.class).selectQnaList(map); // 원본
+		return sqlSession.getMapper.selectQnaList(map); // 9/20 - 인자 제거1 잘못제거했나봐요
+		//return sqlSession.getMapper(QnaMapper.class).selectQnaList(); // 9/20 - 인자 제거 2
 	} 
 	//selectQnaList 는 Map<String, Object>의 map 을 받아와 Q&A 목록을 반환
 	// sqlSession 을 통해 QnaMapper 라는 매퍼인터페이스의 selectQnaList 호출해 Q&A 목록을 가져옴

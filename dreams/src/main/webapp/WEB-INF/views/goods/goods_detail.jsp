@@ -290,12 +290,13 @@
 						</div>
 					</div>
 					
-			<!-- 9/19 오진서 - 페이징 -->
+			<!-- 9/19 오진서 - 페이징 --> 
+			<!-- 
             <div class="boardPageContainer">
                 <div class="boardPage">
 					<c:choose>
 						<c:when test="${pager.startPage > pager.blockSize }">
-						<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+						<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 
 						<from>
 						
 						</from>
@@ -310,10 +311,10 @@
 						<c:choose>
 							<c:when test="${result.pager.pageNum != i  }">
 								<a href="<c:url value="/goods/{}"/>?pageNum=${i}">[${i }]</a>
-								<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+								<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 
 							</c:when>
 							<c:otherwise>
-								${i } <!-- 목록페이지 -->
+								${i } <!-- 목록페이지 
 							</c:otherwise>
 						</c:choose>	
 					</c:forEach>
@@ -321,13 +322,15 @@
 					<c:choose>
 						<c:when test="${result.pager.endPage != result.pager.totalPage }">
 							<a href="<c:url value="/goods/"/>?pageNum=${qnaList.pager.nextPage}">》</a>
-							<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 -->
+							<!-- 굿즈 코드 현페이지 어캐하냐고요 엉엉 
 						</c:when>
 						<c:otherwise>
 							》
 						</c:otherwise>
 					</c:choose>	
                 </div>
+                 -->
+                
             </div>
         </div>
     </div>

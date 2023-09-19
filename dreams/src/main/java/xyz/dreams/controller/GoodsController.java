@@ -95,7 +95,9 @@ public class GoodsController {
 		model.addAttribute("goodsDetail", goodsDetail);
 		
 		// 9/19 오진서 - qna 목록리스트 추가
-		model.addAttribute("qnaList", qnaService.getQnaList(map)); 
+		// model.addAttribute("qnaList", qnaService.getQnaList(map)); 
+		model.addAttribute(map); // 9/20 - 인자 제거 1
+		// model.addAttribute("qnaList", qnaService.getQnaList()); // 9/20 - 인자 제거2
 
 		return "goods/goods_detail";
 	}
