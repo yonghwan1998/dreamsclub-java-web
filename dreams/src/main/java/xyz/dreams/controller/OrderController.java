@@ -133,20 +133,11 @@ public class OrderController {
     @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
     public String orderInsert(@PathVariable("goodsCode") String goodsCode, 
     		HttpSession session, Model model) {
-    	
+    	System.out.println("test1= "+goodsCode);
     	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
     	memberInfo = memberService.getMember(memberInfo.getMemberId());
-
-    	// URL 인코딩
-        try {
-            goodsCode = URLEncoder.encode(goodsCode, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // 인코딩 실패 시 예외 처리 필요
-        }
         
-        goodsCode = "-" + goodsCode + "-";
-        GoodsDTO goodsDTO = goodsService.getGoodsDetail(goodsCode);
+        GoodsDTO goodsDTO = goodsService.getOrderGoods(goodsCode);
         
         model.addAttribute("memberInfo", memberInfo);
         model.addAttribute("goodsInfo", goodsDTO);

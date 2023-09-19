@@ -51,4 +51,6 @@ public interface GoodsService {
 	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
 	 */
 	void modifyAdminGoodsYn(GoodsDTO goods);
+	
+	GoodsDTO getOrderGoods(String goodsCode);
 }
