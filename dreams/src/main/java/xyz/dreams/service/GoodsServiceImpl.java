@@ -28,6 +28,9 @@ public class GoodsServiceImpl implements GoodsService {
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
 	
 	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+	
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
+	Outer Join을 이용했기 때문에 리뷰가 하나도 없는 경우 해당 굿즈의 reviewCount 0으로 변경
 	*/
 	@Override
 	public List<GoodsDTO> getGoodsList(Map<String, Object> map) {
@@ -113,6 +116,10 @@ public class GoodsServiceImpl implements GoodsService {
 				goodsStar+=goodsCategoryList.get(i).getGoodsStar();
 				// goodsResult 리스트의 index번째 객체에 goodsStar/reviewCount(별점 평균) 값 저장
 				goods.setGoodsStar(Math.round(goodsStar/reviewCount*10.0)/10.0);
+				// 리뷰가 없을 때
+				if (goods.getGoodsStar() == 0) {
+					goods.setReviewCount(0);
+				}
 				goodsResult.set(index, goods);
 
 				// goodsResult에서 사용할 변수(index)값 증가
