@@ -78,7 +78,7 @@
 							<!-- Navbar - 커뮤니티 -->
 							<li><a href="<c:url value="#"/>">커뮤니티 <i class="fa fa-angle-down"></i></a>
 								<ul class="submenu">
-									<li><a href="<c:url value="#"/>">응원의 한마디</a></li>
+									<li><a href="<c:url value="/cheer"/>">응원의 한마디</a></li>
 									<li><a href="<c:url value="/community"/>">꿈들의 모임</a></li>
 								</ul></li>
 								
