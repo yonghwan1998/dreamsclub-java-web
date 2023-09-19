@@ -34,44 +34,12 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final GoodsService goodsService;
-
-	
     
     @ResponseBody
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     public int orderCancel(OrderDTO orderDTO) {
     	int result = orderService.orderCancel(orderDTO);
     	return result;
-    }
-    
-    
-    @RequestMapping(value = "/cartOrder", method = RequestMethod.POST)
-    public String orderAllCartGoods(HttpSession session,
-    		@RequestParam(value = "chd[]") List<String> myCartList, Model model,
-    		@ModelAttribute("selected_opt") String selectedOpt,
-    		@ModelAttribute("goods_count") int goodsCount) {
-    	
-    	List<GoodsDTO> goodsInfo = new ArrayList<GoodsDTO>();
-    	
-    	for(int i = 0; i < myCartList.size(); i++) {
-    		String goodsCode = myCartList.get(i);
-    		
-    		GoodsDTO dto = goodsService.getGoodsDetail(goodsCode);
-    		
-    		if(dto.getGoodsStock() == 0) {
-    			continue;
-    		} else {
-    			goodsInfo.add(dto);
-    		}
-    	}
-    	
-    	MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-    	model.addAttribute("memberInfo", memberDTO);
-    	model.addAttribute("goodsInfoList", goodsInfo);
-    	model.addAttribute("selected_opt", selectedOpt);
-    	model.addAttribute("goodsCount", goodsCount);
-    	
-    	return "order/cartOrder";
     }
     
     @RequestMapping(value = "/result", method = RequestMethod.POST)

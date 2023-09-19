@@ -84,9 +84,9 @@
   </insert>
   
   
-  <update id="updateCartGoodsQty" parameterType="cartVO">
+  <update id="modifyGoodsQty" parameterType="cartVO">
         UPDATE tbl_cart
-          SET cart_goods_qty = #{cartGoodsQty}
+          SET goods_count = #{goodsCount}
           WHERE member_id = #{memberId}
           AND goods_code = #{goodsCode}
   </update>

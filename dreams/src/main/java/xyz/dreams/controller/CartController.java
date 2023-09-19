@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,16 +36,18 @@ public class CartController {
 	private final CartService cartService;
 	
 	@RequestMapping(value="/mycart/{memberId}" ,method = RequestMethod.GET)
-	public String myCart(@PathVariable("memberId") String memberId, Model model) {
+	public String myCart(@PathVariable("memberId") String memberId, GoodsDTO goods, Model model) {
+		System.out.println(goods);
 		Map<String, List> cartMap = cartService.myCartList(memberId);
 		model.addAttribute("cartMap", cartMap);
 		return "cart/mycart";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="addGoodsInCart/{goodsCode}" ,method = RequestMethod.POST)
-	public String addGoodsInCart(@PathVariable("goodsCode") String goodsCode,
-			                    HttpSession session)  throws Exception{
+	@RequestMapping(value="/addGoodsInCart" ,method = RequestMethod.POST)
+	public String addGoodsInCart(@RequestBody GoodsDTO goods, HttpSession session)  throws Exception{
+		
+		String goodsCode = goods.getGoodsCode();
 		
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
 		String memberId = memberInfo.getMemberId();
@@ -52,6 +55,7 @@ public class CartController {
 		CartVO cartVO = new CartVO();
 		cartVO.setMemberId(memberId);
 		cartVO.setGoodsCode(goodsCode);
+		
 		
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
@@ -66,8 +70,8 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
-	public String modifyCartQty(@RequestParam("goods_code") String goodsCode,
-								@RequestParam("cart_goods_qty") int cartGoodsQty,
+	public String modifyCartQty(@RequestParam("goodsCode") String goodsCode,
+								@RequestParam("goodsCount") int goodsCount,
 								HttpSession session)  throws Exception{
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
 		String memberId = memberInfo.getMemberId();
@@ -75,9 +79,9 @@ public class CartController {
 		CartVO cartVO = new CartVO();
 		cartVO.setMemberId(memberId);
 		cartVO.setGoodsCode(goodsCode);
-		cartVO.setCartGoodsQty(cartGoodsQty);
+		cartVO.setGoodsCount(goodsCount);
 		
-		boolean result=cartService.modifyCartQty(cartVO);
+		boolean result=cartService.updateGoodsCount(cartVO);
 		
 		if(result==true){
 			return "modify_success";

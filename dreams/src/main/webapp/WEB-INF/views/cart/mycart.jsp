@@ -98,60 +98,44 @@ if(chk) {
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
 					<tr>
-						<th colspan="2" style="text-align: center;">이름</th>
+						<th colspan="2" style="text-align: center;">상품명</th>
 						<th>가격</th>
 						<th>수량</th>
 						<th>사이즈</th>
 						<th>상품정보</th>
+            <th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
             <c:when test="${goodsList != null}">
   					<c:forEach items="${goodsList}" var="goods" varStatus="status">
+            <c:set value="${cartList[status.index].goodsCode}" var="cList"/>
+            <%-- 
             <c:out value="${goodsList }"/><br><br>
+            cList=유니폼-C-L/ String[] arr = cList.split("-",2)
+            <c:out value="${cartList }"/><br><br>
+             --%>
             <%-- <c:set var="cart_id" value="${cartList.cartId}"/> --%>
   						<tr>
                 <!-- 체크박스, 이미지 -->
   							<td class="product-close">
-    							<input type="checkbox" class="chkbox" onClick="itemSum()" 
-    							 value=""  checked style="margin-right: 30px;">
     							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${goods.goodsImage }"
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
-  							<td><a href="/goods/goods_detail/${cartList[status.index].goodsCode}">${goods.goodsCode}</a>
-  								  <input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
-  							</td>
+                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cList}">${goods.goodsCode}</a>
+                    <input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
+                </td>
+
                 <!-- 가격 -->
   							<td>
                   <fmt:formatNumber type="number" value="${goods.goodsPrice}"/>&nbsp;원<br>
   							<td>
-                <c:choose>
-                    <c:when test="${goods.goodsStock == 0}">
-  								    <span>품절된 상품입니다.</span>
-						        </c:when>
-    							<c:otherwise>
-    								<select class="form-control" name="order_Qty">
-    									<c:forEach var="count" begin="1" end="${goods.goodsStock > 5 ? 5 : goods.goodsStock}">
-    										<option>${count}</option>
-    									</c:forEach>
-    								</select>
-    							</c:otherwise>
-								</c:choose>
+                  ${goods.goodsCount }
                 </td>
                 <!-- 사이즈 -->
-                <td>
-										<!-- <div class="form-horizontal" style="text-align: left;">
-											<select class="form-control opt_select" name="goodsSize">
-												<option value="S">S</option>
-												<option value="M">M</option>
-												<option value="L">L</option>
-                        <option value="F">Free</option>
-											</select>
-										</div> -->
-                    
-                </td>
+                <td>${goods.goodsSize }</td>
                 <!-- 정보 -->
 								<td>${goods.goodsInfo}</td>
 								<td>	
@@ -164,9 +148,9 @@ if(chk) {
   									<c:otherwise>
                       <input type="hidden" value="${member.memberId}" id="login_memberId">
                       <input type="hidden" id="myHiddenGoods" value="${myGoodsCode }">
-  										<button class="btn btn-default cart_to_order" data-pId="${cartList[status.index].goodsCode}">주문하기</button>
+  										<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList[status.index].goodsCode}">주문하기</button>
   										<br>
-  										<button class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
+  										<button style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
   									</c:otherwise>
   								</c:choose> 
 						    </td>
@@ -199,27 +183,32 @@ if(chk) {
       		var goodsCode = document.getElementById("myHiddenGoods").value;
       		alert(goodsCode);
       		
-          $.ajax({
-            type : "post",
-            url : "<c:url value='/cart/delFromCart/' />",
-            data : {
-            	"goodsCode": goodsCode,
-              "memberId" : memberId
-            },
-            dataType : 'text',
-            success : function(result) {
-              
-              if (result == 'ok') {
-                alert("장바구니에서 삭제되었습니다.");
-                location.assign("<c:url value='/cart/mycart/' />" + memberId);
-              } else {
-                alert("이미 삭제 된 상품입니다.");
-              }
-            },
-            error: function (xhr, status, error) {
-              console.error(xhr.responseText);
-            	}
-          });
+      		if(memberId != null) {
+      			$.ajax({
+      	            type : "post",
+      	            url : "<c:url value='/cart/delFromCart/' />",
+      	            data : {
+      	            	"goodsCode": goodsCode,
+      	              "memberId" : memberId
+      	            },
+      	            dataType : 'text',
+      	            success : function(result) {
+      	              
+      	              if (result == 'ok') {
+      	                alert("장바구니에서 삭제되었습니다.");
+      	                location.assign("<c:url value='/cart/mycart/' />" + memberId);
+      	              } else {
+      	                alert("이미 삭제 된 상품입니다.");
+      	              }
+      	            },
+      	            error: function (xhr, status, error) {
+      	              console.error(xhr.responseText);
+      	            	}
+      	          });
+      		} else {
+      			alert("로그인 후 이용해 주세요.");
+      			location.assign("<c:url value='/login' />");
+      		}
     });
     
     
@@ -233,8 +222,8 @@ if(chk) {
         alert(goodsCode);
         location.assign("<c:url value='/order/insert/'/>" + goodsCode);
       } else {
-        alert("로그인이 필요합니다.");
-        location.assign("/member/login");
+				alert("로그인 후 이용해 주세요.");
+  			location.assign("<c:url value='/login' />");
       }
     });
     

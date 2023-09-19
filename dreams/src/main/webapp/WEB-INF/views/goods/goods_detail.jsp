@@ -16,14 +16,16 @@
 
   /* 장바구니 */
   $(document).ready(function () {
-      var goodsCode = $("#goodsCode").val();
-      var goodsCount = $("#goodsCount").val();
-      var memberId = $("#isLogOn").val();
-      var qty = $("#cartGoodsQty").val();
-      var price = $("#price").val();
+      
 
       // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
+    		var goodsCode = $("#goodsCode").val();
+        var count = $("#goodsCount").val();
+        var goodsCount = parseInt(count);
+        var goodsSize = $("#goodsSize").val();
+        var memberId = $("#isLogOn").val();
+        var goodsPrice = $("#goodsPrice").val();
     	
       if (memberId === "false" || memberId === '') {
           alert("로그인 후 주문이 가능합니다!");
@@ -33,13 +35,15 @@
     	  
           $.ajax({
           type: "post",
-          //url: "",//orderController로 받을 메서드 작성 후 추가할 것
+          url: "<c:url value='/order/insert/'/>" + goodsCode,
           data: {
             goodsCode: goodsCode,
             goodsSize: goodsSize,
             goodsCount: goodsCount,
-            memberId: memberId
+            memberId: memberId,
+            goodsPrice: goodsPrice
           },
+          dataType: "text",
           success: function (response) {
             if(response.success) {
               alert("주문을 완료 하였습니다.");
@@ -58,24 +62,30 @@
     // 장바구니 버튼 클릭
     $(".btn-cart").click(function (event) {
       event.preventDefault();
-			var goodsCode = $('#goodsCode').val();
-      alert(goodsCode);
-      var memberId = $('#isLogOn').val();
-      alert(memberId);
-			
+      var goodsCode = $("#goodsCode").val();
+      var count = $("#goodsCount").val();
+      var goodsStock = parseInt(count);
+      var goodsSize = $("#goodsSize").val();
+      var memberId = $("#isLogOn").val();
+      var goodsPrice = $("#goodsPrice").val();
+      
       $.ajax({
         type: "post",
-        url: "<c:url value='/cart/addGoodsInCart/' />" + goodsCode,
-        data: {
-          goodsCode: goodsCode,
-        },
+        url: "<c:url value="/cart/addGoodsInCart"/>",
+        contentType : "application/json",
+        data: JSON.stringify({
+          "goodsCode": goodsCode,
+          "goodsStock": goodsStock,
+          "goodsSize": goodsSize
+        }),
         dataType: "text",
         success: function (result) {
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
             var goMyCart = "<c:url value='/cart/mycart/' />";
+            
             if (check) {
-              location.href("" + memberId);
+              location.assign(goMyCart + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
@@ -88,6 +98,7 @@
     });
   });
 </script>
+
 
 
 
@@ -127,7 +138,7 @@
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
 							<div class="pro-details-size">
-								<span>Size</span> <select id="cartGoodsQty" name="cartGoodsQty" style="border: 1px solid black;">
+								<span>Size</span> <select id="goodsSize" name="goodsSize" style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
 									<c:choose>
 										<c:when test="${goodsDetail.goodsCategory eq 'Uniform' }">

@@ -11,6 +11,6 @@ public interface CartDAO {
 	List<GoodsDTO> selectGoodsList(List<CartVO> cartList);
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
-	void updateCartGoodsQty(CartVO cartVO);
+	void updateGoodsCount(CartVO cartVO);
 	boolean delFromCart(CartVO cartVO);
 }

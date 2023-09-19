@@ -49,9 +49,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public boolean modifyCartQty(CartVO cartVO) {
+	public boolean updateGoodsCount(CartVO cartVO) {
 		boolean result=true;
-		cartDAO.updateCartGoodsQty(cartVO);
+		cartDAO.updateGoodsCount(cartVO);
 		return result;
 	}
 	
