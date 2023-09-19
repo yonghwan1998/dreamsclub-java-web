@@ -1,6 +1,7 @@
 package xyz.dreams.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +22,16 @@ public class CheerController {
 
 	/*
 	- 방용환(생성) : 2023/09/19, 응원의 한마디 페이지 정보 출력
+	
+	- 방용환(수정) : 2023/09/20, 페이징 처리
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String cheerMain(Model model) {
-		List<CheerDTO> cheerList = cheerService.getCheerList();
-		model.addAttribute("cheerList", cheerList);
+	public String cheerMain(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+		
+		Map<String, Object> map = cheerService.getCheerList(pageNum);
+		model.addAttribute("pager", map.get("pager"));
+		model.addAttribute("cheerList", map.get("cheerList"));
+		
 		return "cheer/cheer_main";
 	}
 
