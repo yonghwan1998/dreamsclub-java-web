@@ -78,7 +78,7 @@
 
 /*삭제 확인하기 - 김예지(2023.08.25)*/
 function deleteCheck(){
-   if(confirm("정말 삭제하시겠습니까?")==true){
+   if(confirm("정말 삭제하시겠습까?")==true){
       location.href="<c:url value='/community/delete?commNo=${pageInfo.commNo}'/> ";
       alert("삭제되었습니다.");
    }else if(confirm==false){
