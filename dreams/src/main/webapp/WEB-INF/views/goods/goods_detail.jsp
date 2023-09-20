@@ -99,6 +99,14 @@
   });
 </script>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
+	$(document).ready(function() {
+		$(".t3").click(function() { // 질문 제목을 클릭했을 때
+			$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
+		});
+	});
+</script>
+
 
 
 
@@ -170,7 +178,7 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-                <input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
+                				<input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
 								<button class="btn btn-default btn-order" type="submit">주문하기</button>
 								<button class="btn btn-default btn-cart">장바구니</button>
 							</div>
@@ -201,10 +209,6 @@
                 <!-- 강민경: 리뷰 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
             </div>     
-
-			<!--
-			- 방용환(수정) : 2023/09/13, 전체 태그 위치 및 tabs 수정, script 작성 완료시 최상단 혹은 최하단 이동 요망
-			 -->
 			<div class="tab-content description-review-bottom">
 
 				<!-- 제품 상세 정보 출력 div -->
@@ -235,9 +239,10 @@
 								<table class="qnaTableMain" width="1200px">
 									<thead>
 										<tr>
-											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
+											<th class="t1" scope="col" style="width: 100px">번호</th>
 											<th class="t2" style="width: 100px">답변상태</th>
-											<th class="t3" style="width: 700px">제목</th>
+											<th class="t3" style="width: 150px">제목</th>
+											<th class="t4" style="width: 700px">내용</th>
 											<th class="t5" style="width: 150px">작성자</th>
 											<th class="t6" style="width: 150px">작성일</th>
 										</tr>
@@ -246,28 +251,27 @@
 									<!-- 정보 받아옴 -->
 									<tbody>
 										<c:forEach items="${qnaList}" var="qna">
+											<!-- controller 에서 받아옴 -->
 											<!-- qna리스트받아옴 -->
 											<tr class="boardTableList">
 												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
 												<!-- 번호불러옴 -->
-												
+
 												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
 												<!--  답변여부 -->
-												
-												<td class="t3 text-left"></td>
+
 												<!-- 제목 우측 -->
 												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
 												<!-- 제목받아옴 -->
-												
-												<td class="t4" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
+
+												<td class="t4"><c:out value="${qna.qnaCont}" /></td>
 												<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
-												
+
 												<td class="t5"><c:out value="${qna.memberId}" /></td>
 												<!-- 회원id 받아옴 -->
-												
-												<td class="t6"><c:out value="${qna.qnaDare}" /></td>
+
+												<td class="t6"><c:out value="${qna.qnaDate}" /></td>
 												<!-- 날짜받아옴 -->
-												
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -283,24 +287,13 @@
 						<div class="boardWriteBtn" style="text-align: right;">
 							<c:if test="${!empty(member)}">
 								<form action="<c:url value="/goods/qna/write"/>" method="get">
-									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >
+									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
 									<button type="submit">문의하기</button>
 								</form>
-								<!-- 페이지 이동 -->
 							</c:if>
 						</div>
 					</div>
-					
 				</div>
-
-				<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
-					$(document).ready(function() {
-						$(".t3").click(function() { // 질문 제목을 클릭했을 때
-							$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
-						});
-					});
-				</script>
-
 
 				<!-- 강민경: 상품 리뷰 작성 부분  -->
 				<div id="des-details3" class="tab-pane">

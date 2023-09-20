@@ -1,11 +1,8 @@
 package xyz.dreams.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,6 @@ import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.QnaService;
-import xyz.dreams.util.GoodsReviewComparator;
 
 @Controller
 @RequiredArgsConstructor
@@ -84,12 +80,17 @@ public class GoodsController {
 	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
 	
 	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
+	
+	- 오진서(수정) : 2023/09/20, QnA 리스트 출력
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@RequestParam String goodsName, Model model) {
 
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
+		
+		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
+		model.addAttribute("qnaList", qnaList);
 
 		return "goods/goods_detail";
 	}
@@ -139,7 +140,7 @@ public class GoodsController {
 //        return result;
 //    }
     
-	// 오진서 - 9/12 // Q&A 작성 페이지로 이동
+	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
 	public String showQnaWriteForm(
 			@RequestParam String goodsCode,Model model) {
@@ -147,21 +148,30 @@ public class GoodsController {
 		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
-	// 오진서 - 09/11 Q&A 작성 하기
+	// 오진서 - 09/19(수정) Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
-	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
+	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
 		System.out.println("**************"); 
 		System.out.println(qna); // 값 제대로 받아오나 확인
 		System.out.println("**************"); 
-		qnaService.enrollQna(qna);
+		qnaService.enrollQna(qna); // 등록
 		
 		return "redirect:/goods/main"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
 	}
 	
+//	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
+//	// 정보받아와서 목록 출력하고 싶어....
+//	@RequestMapping(value = "/detail/qna", method = RequestMethod.GET)
+//	public String qnaList(@RequestParam String goodsCode, Model model,
+//			@RequestParam Map<String,Object> map) {
+//		// 9/19 - 맵넣어줘야한대 ▲
+//		
+//		model.addAttribute("qnaList", qnaService.getQnaList(map)); 
+//	//model안에 qnaService안에있는 getQnaList 를 넣을거임 (qnaListqnaList)란 이름으로
+//		return "goods/goods_detail";
+//	}
+//// 500 떠서 잠시 묻어둠
 	
-	
-
-
 
 	
     

@@ -30,7 +30,7 @@
 <!-- QnA  전체 목록보기 -->
 <!--  클릭했을때 내용이 펼쳐보여지게? -->
 <select id = "getList" resultType= "xyz.dreams.dto.QnaDTO">
-	select * from qna order QNA_NO = #{qnaNo}
+	select * from qna where QNA_NO = #{qnaNo}
 </select>
 
 <!--  QnA 글 수정 -->
@@ -45,7 +45,7 @@
 </delete>
 
 
-<!-- QnA 페이징 처리 -->
+<!-- QnA 페이징 처리
 <select id = "selectQnaList" resultType = "QnaDTO">
 	select * from (
 	select rownum as rn,
@@ -70,10 +70,29 @@
 	 qna_re_cont,
 	 qna_re_date,
 	 from qna order by qna_no desc) qna)
-	 where rn between #{startRow} and #{endRow} <!--  처음과 마지막 -->
-	 </select>
+	 where rn between #{startRow} and #{endRow} 
+-->
+	 <!-- 9/19 오진서  url 에 붙어있는 굿즈코드에 따라 QnA 상태도 달라지게 할거임. -->
+	 <!--  where 써서  dao serivce 등등 수정해줘야한대.... .. ... ..........-->
+	 <!--  where goods_code = like -->
+	 <!--  order by goods_code  --> 
 	 
-	 </mapper>
+	 <!-- like 어절써야한댕
+	 </select>
+-->
+	<!-- 9/20 오진서 -->
+	<select id = "selectQnaList" resultType = "QnaDTO">
+		SELECT * FROM QNA
+		<bind name="goodsChangedName" value="goodsName+'-%'"/>
+			WHERE GOODS_CODE LIKE #{goodsChangedName}
+	</select>
+
+	 
+	 <!-- 9/19 오진서  qna리스트 -->
+	<select id = "selectQnaCount" resultType= "int">
+		select count(*) from qna
+	</select>	 
+</mapper>
 
 
 

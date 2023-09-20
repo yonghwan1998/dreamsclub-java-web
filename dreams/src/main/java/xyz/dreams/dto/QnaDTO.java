@@ -29,8 +29,8 @@ public class QnaDTO {
 	private String qnaTitle;	//문의 제목
 	private String qnaCont;		//문의 내용
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date qnaDate;		//문의 날짜
+//	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private String qnaDate;		//문의 날짜
 	
 	// 1아무나 9관리자와 작성자만
 	private int qnaStatus;		//문의 상태 (비밀글 여부)
