@@ -139,10 +139,20 @@ public class GoodsController {
 //        return result;
 //    }
     
-    
-	// 오진서 - 09/11 Q&A 작성 하기 1
+	// 오진서 - 9/12 // Q&A 작성 페이지로 이동
+	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+	public String showQnaWriteForm(
+			@RequestParam String goodsCode,Model model) {
+		model.addAttribute("goodsCode", goodsCode);
+		return "goods/goods_qna_write"; // JSP 페이지 이름
+	}
+	
+	// 오진서 - 09/11 Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
+		System.out.println("**************"); 
+		System.out.println(qna); // 값 제대로 받아오나 확인
+		System.out.println("**************"); 
 		qnaService.enrollQna(qna);
 		
 		return "redirect:/goods/main"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
@@ -150,11 +160,6 @@ public class GoodsController {
 	
 	
 	
-    // 오진서 - 9/12 // Q&A 작성 페이지로 이동 2
-	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-    public String showQnaWriteForm() {
-        return "goods/goods_qna_write"; // JSP 페이지 이름
-    }
 
 
 

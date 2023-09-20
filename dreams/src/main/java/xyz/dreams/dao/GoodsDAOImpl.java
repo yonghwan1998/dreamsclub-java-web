@@ -77,4 +77,9 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public int updateAdminGoodsYn(GoodsDTO goods) {
 		return sqlSession.getMapper(GoodsMapper.class).updateAdminGoodsYn(goods);
 	}
+
+	@Override
+	public GoodsDTO selectOrderGoods(String goodsCode) {
+		return sqlSession.getMapper(GoodsMapper.class).selectOrderGoods(goodsCode);
+	}
 }

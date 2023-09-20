@@ -38,7 +38,7 @@ public class OrderDTO {
 	private int goodsStock;
 	private String goodsInfo;
 	private String goodsImage;
-	private String selectedOpt;
+	private String goodsSize;
 	private String memberId;
 	private String memberName;
 	private String memberEmail;

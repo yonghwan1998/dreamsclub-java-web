@@ -16,47 +16,89 @@
 
   /* 장바구니 */
   $(document).ready(function () {
-    var contextPath = "${pageContext.request.contextPath}";
+      
 
     // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
-      event.preventDefault();
-      $("form").submit();
+    		var goodsCode = $("#goodsCode").val();
+        var count = $("#goodsCount").val();
+        var goodsCount = parseInt(count);
+        var goodsSize = $("#goodsSize").val();
+        var memberId = $("#isLogOn").val();
+        var goodsPrice = $("#goodsPrice").val();
+    	
+      if (memberId === "false" || memberId === '') {
+          alert("로그인 후 주문이 가능합니다!");
+          window.location.href = "<c:url value='/login' />";
+          event.preventDefault();
+      } else {
+    	  
+          $.ajax({
+          type: "post",
+          url: "<c:url value='/order/insert/'/>" + goodsCode,
+          data: {
+            goodsCode: goodsCode,
+            goodsSize: goodsSize,
+            goodsCount: goodsCount,
+            memberId: memberId,
+            goodsPrice: goodsPrice
+          },
+          dataType: "text",
+          success: function (response) {
+            if(response.success) {
+              alert("주문을 완료 하였습니다.");
+              //주문 확인 페이지 이동
+            } else {
+              alert("주문을 실패 하였습니다.");
+            }
+          },
+          error: function(xhr) {
+            alert(xhr.status);
+          }
+        });
+      }
     });
 
     // 장바구니 버튼 클릭
-    $(".btn-cart").click(function () {
+    $(".btn-cart").click(function (event) {
       event.preventDefault();
-      var qty = $("#select_count").val();
-      var price = $("#price").val();
-      var goodsCode = $(this).data("goods-code");
-      var addToCartUrl = contextPath + "/cart/" + goodsCode;
-
+      var goodsCode = $("#goodsCode").val();
+      var count = $("#goodsCount").val();
+      var goodsStock = parseInt(count);
+      var goodsSize = $("#goodsSize").val();
+      var memberId = $("#isLogOn").val();
+      var goodsPrice = $("#goodsPrice").val();
+      
       $.ajax({
         type: "post",
-        url: addToCartUrl,
-        data: {
-          goodsCode: goodsCode,
-        },
+        url: "<c:url value="/cart/addGoodsInCart"/>",
+        contentType : "application/json",
+        data: JSON.stringify({
+          "goodsCode": goodsCode,
+          "goodsStock": goodsStock,
+          "goodsSize": goodsSize
+        }),
         dataType: "text",
         success: function (result) {
           if (result.trim() == 'add_success') {
             var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
+            var goMyCart = "<c:url value='/cart/mycart/' />";
+            
             if (check) {
-              var myCartUrl = contextPath + "/cart/mycart/" + memberId;
-              location.assign(myCartUrl);
+              location.assign(goMyCart + memberId);
             }
           } else if (result.trim() == 'already_existed') {
             alert("이미 장바구니에 등록된 상품입니다.");
           }
         },
-        error: function (xhr, status, error) {
-          console.error(xhr.responseText);
+        error: function(xhr) {
+            alert(xhr.status);
         }
       });
     });
   });
 </script>
+
 
 
 
@@ -78,7 +120,7 @@
 				<div class="product-details-content ml-70">
 					<form method="post" action="<c:url value='/order/insert'/>" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
-						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsName }" id="goodsCode">
+						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
 							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }" id="price">
 							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
@@ -96,7 +138,7 @@
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
 							<div class="pro-details-size">
-								<span>Size</span> <select id="select_count" name="goodsSize" style="border: 1px solid black;">
+								<span>Size</span> <select id="goodsSize" name="goodsSize" style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
 									<c:choose>
 										<c:when test="${goodsDetail.goodsCategory eq 'Uniform' }">
@@ -128,8 +170,9 @@
 								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
+                <input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
 								<button class="btn btn-default btn-order" type="submit">주문하기</button>
-								<button class="btn btn-default btn-cart" data-goods-code="${goodsDetail.goodsCode}">장바구니</button>
+								<button class="btn btn-default btn-cart">장바구니</button>
 							</div>
 						</div>
 					</form>
@@ -195,8 +238,8 @@
 											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
 											<th class="t2" style="width: 100px">답변상태</th>
 											<th class="t3" style="width: 700px">제목</th>
-											<th class="t4" style="width: 150px">작성자</th>
-											<th class="t5" style="width: 150px">작성일</th>
+											<th class="t5" style="width: 150px">작성자</th>
+											<th class="t6" style="width: 150px">작성일</th>
 										</tr>
 									</thead>
 
@@ -207,19 +250,24 @@
 											<tr class="boardTableList">
 												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
 												<!-- 번호불러옴 -->
+												
 												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
 												<!--  답변여부 -->
+												
 												<td class="t3 text-left"></td>
 												<!-- 제목 우측 -->
 												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
 												<!-- 제목받아옴 -->
-												<td class="content" id="qnacontent">
-												<td class="t4"><c:out value="${qna.memberId}" /></td>
+												
+												<td class="t4" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
+												<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+												
+												<td class="t5"><c:out value="${qna.memberId}" /></td>
 												<!-- 회원id 받아옴 -->
-												<td class="t5"><c:out value="${qna.qnaDare}" /></td>
+												
+												<td class="t6"><c:out value="${qna.qnaDare}" /></td>
 												<!-- 날짜받아옴 -->
-												<td class="t6" style="display: none;"><c:out value="${qna.qnaContent}" /></td>
-												<!-- 추가 열: 내용 -->
+												
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -234,17 +282,21 @@
 					<div class="writeBtnContainer">
 						<div class="boardWriteBtn" style="text-align: right;">
 							<c:if test="${!empty(member)}">
-								<a href=<c:url value="/goods/qna/write"/>>문의하기</a>
+								<form action="<c:url value="/goods/qna/write"/>" method="get">
+									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >
+									<button type="submit">문의하기</button>
+								</form>
 								<!-- 페이지 이동 -->
 							</c:if>
 						</div>
 					</div>
+					
 				</div>
 
 				<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
 					$(document).ready(function() {
 						$(".t3").click(function() { // 질문 제목을 클릭했을 때
-							$(this).closest("tr").find(".t6").toggle(); // 클릭한 행에서 다음 열(.t6)을 토글(show/hide)합니다.
+							$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
 						});
 					});
 				</script>

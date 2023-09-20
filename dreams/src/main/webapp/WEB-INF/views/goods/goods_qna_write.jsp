@@ -3,8 +3,11 @@
 
 
 <!--문의하기-->
-<form id="qnaWrite_input" action="<c:url value='/goods/main'/>" method="post" enctype="multipart/form-data"> <!-- 제출시 이동됨 -->
+<form id="qnaWrite_input" action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
 <input type="hidden" id="qnaWriter" name="memberId" value="${member.memberId }">
+<input type="hidden" name="goodsCode" value="${goodsCode }"> 
+
+
 <div class="boardWriteMain">
     <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
         <h3 style="margin-bottom: 40px;">문의하기</h3>
@@ -31,12 +34,19 @@
 
         </table>
 
-
-        <!--작성 버튼(취소, 등록)-->
+ 
+         <!--작성 버튼(취소, 등록) -->
         <div class="qnaWriteBtn">
-            <a href="<c:url value="/goods"/>">취소</a> <!-- 현페이지 어케함 -->
             <a href="javascript:chk_form();">등록</a>
-        </div>
+            <a href="<c:url value="/goods/main"/>" method= "get">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함-->
+			<!--  <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >  --> <!--  굿즈코드받아오라. -->
+
+        </div>  
+
+        
+        
+        
+          
     </div>
 </div>
 </form>

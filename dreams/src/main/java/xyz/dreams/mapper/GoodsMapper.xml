@@ -110,4 +110,9 @@
 	 	WHERE GOODS_CODE = #{goodsCode}
 	 </update>
 	
+	<select id="selectOrderGoods" resultType="GoodsDTO">
+		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			WHERE GOODS_CODE = #{goodsCode}
+			ORDER BY GOODS_CODE
+	</select>
 </mapper>

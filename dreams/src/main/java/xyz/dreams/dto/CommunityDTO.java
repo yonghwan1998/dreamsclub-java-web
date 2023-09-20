@@ -33,5 +33,8 @@ public class CommunityDTO {
 	
 	//[김예지 2023.09.17 추가]댓글 수 카운팅
 	private int replyCount;
+	
+	//[김예지 2023.09.20 추가]좋아요 수 카운팅
+	private int likeCount;
 }
 
