@@ -1,20 +1,15 @@
 package xyz.dreams.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.config.YamlProcessor.ResolutionMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +17,6 @@ import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.QnaService;
-import xyz.dreams.util.GoodsReviewComparator;
 
 @Controller
 @RequiredArgsConstructor
@@ -95,7 +89,7 @@ public class GoodsController {
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
 		
-		List<QnaDTO> qnaList = qnaService.getQnaList();
+		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
 		model.addAttribute("qnaList", qnaList);
 
 		return "goods/goods_detail";
@@ -156,7 +150,7 @@ public class GoodsController {
 	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
-	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
+	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
 		System.out.println("**************"); 
 		System.out.println(qna); // 값 제대로 받아오나 확인
 		System.out.println("**************"); 

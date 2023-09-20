@@ -56,8 +56,8 @@
 	-->
 	<select id="selectGoodsDetailList" resultType="GoodsDTO">
 		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
-			<bind name="goodsName" value="'%%'+goodsName+'-%%'"/>
-			WHERE GOODS_CODE LIKE <![CDATA[#{goodsName}]]>
+			<bind name="goodsName" value="goodsName+'-%'"/>
+			WHERE GOODS_CODE LIKE #{goodsName}
 			ORDER BY GOODS_CODE
 	</select>
 	

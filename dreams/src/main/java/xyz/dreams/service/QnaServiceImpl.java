@@ -85,8 +85,8 @@ public class QnaServiceImpl implements QnaService {
 	*/
 	
 	// 9/20 오진서 - 용안선생님께서 만들래
-	public List<QnaDTO> getQnaList() {
-		return qnaDAO.selectQnaList();
+	public List<QnaDTO> getQnaList(String goodsName) {
+		return qnaDAO.selectQnaList(goodsName);
 	}
 
 }
