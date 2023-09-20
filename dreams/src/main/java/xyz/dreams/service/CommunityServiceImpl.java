@@ -18,15 +18,13 @@ import xyz.dreams.util.Pager;
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
 	private final CommunityDAO communityDAO;
-	private final SqlSession sqlsession;
 
 	/*게시판 글 등록하기*/	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
-		//사용자가 html코드를 적어도 적용되지 못하도록 escape 걸어둔것.
-		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
-		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		//community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		//community.setCommCont(community.getCommCont().replace("\r\n","<br>"));
 		communityDAO.enrollCommunity(community);
 	}
@@ -37,8 +35,8 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
 		
-		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
-		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		//community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		communityDAO.modifyCommunity(community);
 	}
 	

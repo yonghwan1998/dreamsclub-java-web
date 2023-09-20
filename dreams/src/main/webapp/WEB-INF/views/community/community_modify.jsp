@@ -27,7 +27,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="communityModifyContent" name="commCont" class="communityModifyContent"><c:out value="${pageInfo.commCont }"/></textarea>
+                    <textarea id="myEditor" name="commCont"><c:out value="${pageInfo.commCont }"/></textarea>
                 </td>
             </tr>
         <!--이미지 추가-->
@@ -62,7 +62,7 @@ function modify_form(){
 		alert("제목을 입력해주십시오.");
 		return false;
 	}
-	if(document.getElementById("communityModifyContent").value==''){
+	if(document.getElementById("myEditor").value==''){
 		alert("내용을 입력해주십시오.");
 		return false;
 	}
@@ -78,6 +78,31 @@ function cancleCheck(){
    }else if(confirm==false){
    }
 }
+
+
+//썸머노트 API
+$('#myEditor').summernote({
+    lang: 'ko-KR',
+    height: 300,
+    placeholder: '내용을 입력하세요',
+    toolbar: [
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+        ['color', ['forecolor', 'color']],
+        ['table', ['table']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['insert', ['picture', 'link']],
+        ['view', ['help']]
+      ],
+      fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체',
+        '굴림', '돋음체', '바탕체'],
+      fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36',
+        '50', '72']
+   
+    
+});
 
 
 

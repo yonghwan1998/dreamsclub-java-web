@@ -26,7 +26,8 @@
                </div>
    
                <!--글 내용-->
-               <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>
+				<!--  <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>-->
+                <div class="communityDetailContainerBody" style="white-space: pre;">${pageInfo.commCont}</div>
         </div>
 
             <!--버튼-->
@@ -156,6 +157,8 @@ $("#addBtn").click(function() {
 				replyDisplay();
 				//댓글을 쓴 후 댓글 창에 기입한 텍스트가 사라지도록 함
 				$("#commReCont").val("");
+				//댓글 쓴 후 카운팅 숫자 0으로 되돌아가기
+	            $("#textLengthCheck").text("(0/300)");
 			}
 		},
 		error: function(xhr) {
@@ -250,7 +253,7 @@ function updateBtn(commReNo, memberId){
 
 
 
-/*댓글 글자수 카운트 - 김예지(2023.09.19)*/
+/*댓글 글자수 카운트*/
  
 /*//아래 코드는 jQuery를 사용한 댓글 글자수 카운트 예제 >> 제대로 안되어서 아래의 코드로 사용함.
 $("#commReCont").keyup(function (e){
