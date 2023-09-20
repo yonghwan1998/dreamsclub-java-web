@@ -83,17 +83,9 @@ if(chk) {
 </script>
 <div class="container">
   
-
-  
-	<c:forEach items="${cartList}" var="cartList">
-		<input type="hidden" value="${cartList}" name="cartId">
-	</c:forEach>
-		
 		<div class="row qnas" style="text-align: center;">
 		<form name="frm_order_all_cart">
     <c:set value="${pageContext.request.contextPath}" var="contextPath" />
-    <c:set value="${cartMap.cartList}" var="cartList"/>
-    <c:set value="${cartMap.goodsList}" var="goodsList"/>
 			<h1 class="page-header">장바구니</h1>
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
@@ -108,58 +100,49 @@ if(chk) {
 				</thead>
 				<tbody>
 					<c:choose>
-            <c:when test="${goodsList != null}">
-  					<c:forEach items="${goodsList}" var="goods" varStatus="status">
-            <c:set value="${cartList[status.index].goodsCode}" var="cList"/>
-            <%-- 
-            <c:out value="${goodsList }"/><br><br>
-            cList=유니폼-C-L/ String[] arr = cList.split("-",2)
-            <c:out value="${cartList }"/><br><br>
-             --%>
-            <%-- <c:set var="cart_id" value="${cartList.cartId}"/> --%>
+            <c:when test="${cartList != null}">
+  					<c:forEach items="${cartList}" var="cartList" varStatus="status">
+              <input type="hidden" id="${cartList.cartId}" value="${cartList.cartId}">
+            
   						<tr>
-                <!-- 체크박스, 이미지 -->
+                <!-- 이미지 -->
   							<td class="product-close">
-    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${goods.goodsImage }"
+    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage }"
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
-                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cList}">${goods.goodsCode}</a>
-                    <input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
+                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode}</a>
+                    <input value="${cartList.goodsCode}" name="goodsCode" type="hidden" >
                 </td>
 
                 <!-- 가격 -->
   							<td>
-                  <fmt:formatNumber type="number" value="${goods.goodsPrice}"/>&nbsp;원<br>
-  							<td>
-                  ${goods.goodsCount }
+                  <fmt:formatNumber type="number" value="${cartList.goodsPrice}"/>&nbsp;원<br>
+  							</td>
+                
+                <!-- 수량 -->
+                <td>
+                  ${cartList.goodsCount }
                 </td>
                 <!-- 사이즈 -->
-                <td>${goods.goodsSize }</td>
+                <%-- <td>${cartList.goodsSize }</td> --%>
+                <td>S</td>
                 <!-- 정보 -->
-								<td>${goods.goodsInfo}</td>
+								<td>${cartList.goodsInfo}</td>
 								<td>	
-                  <c:set var="myGoodsCode" value="${cartList[status.index].goodsCode}"/>
-  								<c:choose>
-  									<c:when test="${vo.goodsStock == 0}">
-  										<button class="btn btn-default" disabled="disabled">주문하기</button><br>
-  										<button class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-  									</c:when>
-  									<c:otherwise>
-                      <input type="hidden" value="${member.memberId}" id="login_memberId">
-                      <input type="hidden" id="myHiddenGoods" value="${myGoodsCode }">
-  										<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList[status.index].goodsCode}">주문하기</button>
-  										<br>
-  										<button style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-  									</c:otherwise>
-  								</c:choose> 
+                  <input type="hidden" value="${member.memberId}" id="login_memberId">
+                  <input type="hidden" class="myHiddenGoods" value="${myGoodsCode }">
+									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}" onclick="orderBtn('${cartList.cartId}');">주문하기</button>
+									<br>
+									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
 						    </td>
 						</tr>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr><td colspan="5"><h3>장바구니에 내역이 없습니다.</h3></td></tr>
-					</c:otherwise></c:choose>
+					</c:otherwise>
+          </c:choose>
 				</tbody>
 			</table>
 		</form>
@@ -171,19 +154,31 @@ if(chk) {
 </div>
 
   <script type="text/javascript">
+  /* 
+  function clickDelBtn(goodsCode) {
+	alert(goodsCode);
+	var memberId = $("#login_memberId").val();
+	temp= $('#'+goodsCode).val();
+	alert(temp);
+} */
   
-  $(document).ready(function() {
     
     var memberId = $("#login_memberId").val();
     
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
-      		var item = $(this);
+      		//var item = $(this);
       		//var goodsCode = item.attr("data-pId");
-      		var goodsCode = document.getElementById("myHiddenGoods").value;
-      		alert(goodsCode);
+      		//var goodsCode = document.getElementById("myHiddenGoods").value;
+      		//var goodsCode = $(".myHiddenGoods").val();
+      		//alert(goodsCode);
       		
       		if(memberId != null) {
+      			var item = $(this);
+  	        //var goodsCode = item.closest("td").find(".myHiddenGoods").val();
+  	      	var goodsCode = item.attr("data-pId");
+  	        alert(goodsCode);
+      			
       			$.ajax({
       	            type : "post",
       	            url : "<c:url value='/cart/delFromCart/' />",
@@ -211,14 +206,15 @@ if(chk) {
       		}
     });
     
-    
+/*     
     $(".cart_to_order").click(function(event) {
       event.preventDefault();
       
       if (memberId != null) {
         var item = $(this);
-      	var goodsCode = document.getElementById("myHiddenGoods").value;
+      	//var goodsCode = document.getElementById("myHiddenGoods").value;
         //var goodsCode = item.attr("data-pId");
+      	var goodsCode = $(".myHiddenGoods").val();
         alert(goodsCode);
         location.assign("<c:url value='/order/insert/'/>" + goodsCode);
       } else {
@@ -226,7 +222,7 @@ if(chk) {
   			location.assign("<c:url value='/login' />");
       }
     });
-    
+     */
      $("#orderSuccess").click(function () {
        
              var checkArr = new Array();
@@ -287,7 +283,12 @@ if(chk) {
       location.assign("<c:url value='/admin'/>");
     
     });
+    
+    function orderBtn(cartId){
+    	var test = $('#'+cartId).val();
+    	alert(test);
+    }
   
-  });
+
   
 </script>

@@ -19,6 +19,6 @@ public interface QnaService {
 	/*  오진서 (2023.09.19) 수정 // 목록 + 페이징 처리*/
 //	Map<String, Object> getQnaList(Map <String, Object>map);
 	
-	List<QnaDTO> getQnaList();
+	List<QnaDTO> getQnaList(String goodsName);
 	
 }

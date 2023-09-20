@@ -21,7 +21,7 @@ public interface QnaMapper {
 //	List<QnaDTO> selectQnaList(Map<String, Object> map);
 	int selectQnaCount();
 	
-	List<QnaDTO> selectQnaList();
+	List<QnaDTO> selectQnaList(String goodsName);
 	
 	
 	

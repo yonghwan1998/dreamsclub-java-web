@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityDTO;
@@ -87,7 +86,7 @@ public class CommunityController {
 
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);
-		
+				
 
 		return "community/community_detail";
 	}

@@ -1,13 +1,12 @@
 package xyz.dreams.controller;
 
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -95,7 +94,7 @@ public class GoodsController {
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
 		
-		List<QnaDTO> qnaList = qnaService.getQnaList();
+		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
 		model.addAttribute("qnaList", qnaList);
 		
 		//강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
@@ -169,7 +168,7 @@ public class GoodsController {
 	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
-	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
+	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
 		System.out.println("**************"); 
 		System.out.println(qna); // 값 제대로 받아오나 확인
 		System.out.println("**************"); 

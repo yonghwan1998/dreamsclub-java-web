@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!-- 커뮤니티 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
+
 
 <!--커뮤니티 글쓰기-->
 <form id="communityWrite_input" action="<c:url value='/community/write/add'/>" method="post" enctype="multipart/form-data">
@@ -18,16 +20,14 @@
             <tr>
                 <th>제목</th>
                 <td>
-                    <input type="text" id="communityWriteTitle" name="commTitle" placeholder="제목을 입력해주세요." 
-                    	value="${pageInfo.commTitle }">
+                    <input type="text" id="communityWriteTitle" name="commTitle" placeholder="제목을 입력해주세요.">
                 </td>
             </tr>  
         <!--내용-->
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="communityWriteContent" name="commCont" class="communityWriteContent" placeholder="내용을 입력해주세요."
-                    value="${pageInfo.commCont}"></textarea>
+                    <textarea id="myEditor" name="commCont"></textarea>               
                 </td>
             </tr>
         <!--이미지 추가-->
@@ -59,13 +59,38 @@ function chk_form() {
 		alert("제목을 입력해주십시오.");
 		return false;
 	}
-	if(document.getElementById("communityWriteContent").value==''){
+	if(document.getElementById("myEditor").value==''){
 		alert("내용을 입력해주십시오.");
 		return false;
 	}
-	document.getElementById('communityWrite_input').submit();
+	document.getElementById("communityWrite_input").submit();
 	  alert("게시글이 등록되었습니다.");
 }
 
 
+
+    $('#myEditor').summernote({
+        lang: 'ko-KR',
+        height: 300,
+        placeholder: '내용을 입력하세요',
+        toolbar: [
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            ['color', ['forecolor', 'color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['picture', 'link']],
+            ['view', ['help']]
+          ],
+          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체',
+            '굴림', '돋음체', '바탕체'],
+          fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36',
+            '50', '72']
+       
+        
+    });
+	
+ 
 </script>
