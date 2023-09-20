@@ -82,8 +82,7 @@
 -->
 	<!-- 9/20 오진서 -->
 	<select id = "selectQnaList" resultType = "QnaDTO">
-	
-	
+		SELECT * FROM QNA
 	</select>
 
 	 

@@ -1,8 +1,6 @@
 package xyz.dreams.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -10,15 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.QnaDAO;
-import xyz.dreams.dto.CommunityDTO;
 import xyz.dreams.dto.QnaDTO;
-import xyz.dreams.util.Pager;
 
 @Service
 @RequiredArgsConstructor
 public class QnaServiceImpl implements QnaService {
 	private final QnaDAO qnaDAO;
-	private final SqlSession sqlsession;
 	
 	/* 문의 등록하기*/
 	@Transactional(rollbackFor = Exception.class)
@@ -91,16 +86,7 @@ public class QnaServiceImpl implements QnaService {
 	
 	// 9/20 오진서 - 용안선생님께서 만들래
 	public List<QnaDTO> getQnaList() {
-		
-		return null; //뭘 리턴받아야할깝쇼
-		
+		return qnaDAO.selectQnaList();
 	}
-
-@Override
-public Map<String, Object> getQnaList(Map<String, Object> map) {
-	// TODO Auto-generated method stub
-	return null;
-}
-	
 
 }
