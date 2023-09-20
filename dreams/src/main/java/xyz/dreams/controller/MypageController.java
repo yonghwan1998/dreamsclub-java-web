@@ -96,6 +96,7 @@ public class MypageController {
       return "mypage/mypage_review";
    }
    
+   //이소영(최종) : 2023-09-19 회원탈퇴 시 비밀번호 검증
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
     public String withdrawUser(@RequestParam("user-password") String password,@RequestParam("memberId") String memberId, HttpSession session, RedirectAttributes redirectAttributes) {
       
@@ -113,5 +114,12 @@ public class MypageController {
         }
     }
 
+    //이소영(최종) : 2023-09-20 회원탈퇴 시 로그아웃
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+    	session.invalidate();
+    	
+    	return "redirect:/";
+    }
    
 }
