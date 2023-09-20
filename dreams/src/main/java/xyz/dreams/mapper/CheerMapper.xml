@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="xyz.dreams.mapper.CheerMapper">
+
+	<!-- 
+	- 방용환(생성) : 2023/09/19, 응원의 한마디 페이지 정보 출력
+	
+	- 방용환(수정) : 2023/09/20, 페이징 처리
+	-->
+	<select id="selectCheerList" resultType="CheerDTO">
+		SELECT * FROM (
+			SELECT ROWNUM rn, c.* FROM (
+				SELECT CHEER_NO, MEMBER_ID, CHEER_CONTENT, CHEER_DATE, CHEER_DEL FROM CHEER
+					ORDER BY CHEER_NO DESC
+			) c
+		) WHERE rn BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 
+	- 방용환(생성) : 2023/09/19, 응원의 한마디 페이지 새로운 메모 INSERT
+	-->
+	<insert id="insertCheer">
+		INSERT INTO CHEER (
+			CHEER_NO,
+			MEMBER_ID,
+			CHEER_CONTENT,
+			CHEER_DATE,
+			CHEER_DEL		
+		) VALUES (
+			CHEER_SEQ.NEXTVAL,
+			#{memberId},
+			#{cheerContent},
+			SYSDATE,
+			'N'
+		)
+	</insert>
+	
+	<select id="selectCheerCount" resultType="int">
+		SELECT COUNT(*)	from CHEER
+	</select>
+	
+</mapper>

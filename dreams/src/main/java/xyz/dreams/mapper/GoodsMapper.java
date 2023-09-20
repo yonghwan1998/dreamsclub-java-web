@@ -15,6 +15,10 @@ public interface GoodsMapper {
 	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+	
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
 	*/
 	List<GoodsDTO> selectGoodsList(Map<String, Object> map);
 
@@ -47,4 +51,6 @@ public interface GoodsMapper {
 	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
 	 */
 	int updateAdminGoodsYn(GoodsDTO goods);
+	
+	GoodsDTO selectOrderGoods(String goodsCode);
 }

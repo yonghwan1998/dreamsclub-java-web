@@ -11,7 +11,7 @@
       goods_stock, 
       goods_info, 
       goods_image,
-      selected_Opt, 
+      goods_size, 
       member_id, 
       member_name, 
       member_email, 
@@ -32,7 +32,7 @@
       #{goodsStock}, 
       #{goodsInfo}, 
       #{goodsImage},
-      #{selectedOpt}, 
+      #{goodsSize}, 
       #{memberId}, 
       #{memberName}, 
       #{memberEmail}, 
@@ -71,10 +71,6 @@
     UPDATE setOrder SET order_status = #{orderStatus} 
     WHERE orderId = #{orderId} AND order_seq_num = #{order_seq_num}
   </update>
-  
-  <delete id="delFromCart">
-    DELETE FROM tbl_cart WHERE member_id = #{memberId} AND goods_code = #{goodsCode}
-  </delete>
   
   <delete id="orderCancel">
     DELETE FROM setOrder WHERE order_id = #{orderId} AND order_seq_num = #{order_seq_num}

@@ -23,6 +23,10 @@ public class GoodsDAOImpl implements GoodsDAO {
 	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+	
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
 	*/
 	@Override
 	public List<GoodsDTO> selectGoodsList(Map<String, Object> map) {
@@ -72,5 +76,10 @@ public class GoodsDAOImpl implements GoodsDAO {
 	@Override
 	public int updateAdminGoodsYn(GoodsDTO goods) {
 		return sqlSession.getMapper(GoodsMapper.class).updateAdminGoodsYn(goods);
+	}
+
+	@Override
+	public GoodsDTO selectOrderGoods(String goodsCode) {
+		return sqlSession.getMapper(GoodsMapper.class).selectOrderGoods(goodsCode);
 	}
 }

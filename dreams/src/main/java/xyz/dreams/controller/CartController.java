@@ -1,5 +1,6 @@
 package xyz.dreams.controller;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,20 +34,20 @@ import xyz.dreams.service.OrderService;
 @RequiredArgsConstructor
 public class CartController {
 	private final CartService cartService;
-	private final MemberService memberService;
-	private final GoodsService goodsService;
 	
 	@RequestMapping(value="/mycart/{memberId}" ,method = RequestMethod.GET)
-	public String myCart(CartVO cartVO, Model model)  throws Exception {
-		Map<String, List> cartMap = cartService.myCartList(cartVO);
+	public String myCart(@PathVariable("memberId") String memberId, GoodsDTO goods, Model model) {
+		System.out.println(goods);
+		Map<String, List> cartMap = cartService.myCartList(memberId);
 		model.addAttribute("cartMap", cartMap);
 		return "cart/mycart";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{goodsCode}" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	public String addGoodsInCart(@RequestParam("goods_code") String goodsCode,
-			                    HttpSession session)  throws Exception{
+	@RequestMapping(value="/addGoodsInCart" ,method = RequestMethod.POST)
+	public String addGoodsInCart(@RequestBody GoodsDTO goods, HttpSession session)  throws Exception{
+		
+		String goodsCode = goods.getGoodsCode();
 		
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
 		String memberId = memberInfo.getMemberId();
@@ -54,10 +56,11 @@ public class CartController {
 		cartVO.setMemberId(memberId);
 		cartVO.setGoodsCode(goodsCode);
 		
+		
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		
-		if(isAreadyExisted==true){
+		if(isAreadyExisted){
 			return "already_existed";
 		}else{
 			cartService.addGoodsInCart(cartVO);
@@ -67,8 +70,8 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
-	public String modifyCartQty(@RequestParam("goods_code") String goodsCode,
-								@RequestParam("cart_goods_qty") int cartGoodsQty,
+	public String modifyCartQty(@RequestParam("goodsCode") String goodsCode,
+								@RequestParam("goodsCount") int goodsCount,
 								HttpSession session)  throws Exception{
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
 		String memberId = memberInfo.getMemberId();
@@ -76,9 +79,9 @@ public class CartController {
 		CartVO cartVO = new CartVO();
 		cartVO.setMemberId(memberId);
 		cartVO.setGoodsCode(goodsCode);
-		cartVO.setCartGoodsQty(cartGoodsQty);
+		cartVO.setGoodsCount(goodsCount);
 		
-		boolean result=cartService.modifyCartQty(cartVO);
+		boolean result=cartService.updateGoodsCount(cartVO);
 		
 		if(result==true){
 			return "modify_success";
@@ -88,10 +91,16 @@ public class CartController {
 		
 	}
 	
-	@RequestMapping(value="/removeCartGoods" ,method = RequestMethod.POST)
-	public String removeCartGoods(@RequestParam("cart_id") int cartId)  throws Exception{
-		cartService.removeCartGoods(cartId);
+	@ResponseBody
+	@RequestMapping(value = "/delFromCart", method = RequestMethod.POST)
+	public String delFromCart(CartVO cartVO) {
+		System.out.println("cartVO = "+cartVO);
 		
-		return "redirect:/cart/mycart/{memberId}";
+	    boolean result = cartService.delFromCart(cartVO);
+	    if (result) {
+	        return "ok";
+	    } else {
+	        return "no";
+	    }
 	}
 }

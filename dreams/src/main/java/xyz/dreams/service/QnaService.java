@@ -1,5 +1,6 @@
 package xyz.dreams.service;
 
+import java.util.List;
 import java.util.Map;
 
 import xyz.dreams.dto.QnaDTO;
@@ -15,10 +16,9 @@ public interface QnaService {
 	/* QnA 삭제*/
 	void deleteQna(int qnaNo);
 	
-
+	/*  오진서 (2023.09.19) 수정 // 목록 + 페이징 처리*/
+//	Map<String, Object> getQnaList(Map <String, Object>map);
 	
-	/*페이징 처리*/
-	Map<String, Object> getQnaList(int pageNum);
+	List<QnaDTO> getQnaList();
 	
-
 }

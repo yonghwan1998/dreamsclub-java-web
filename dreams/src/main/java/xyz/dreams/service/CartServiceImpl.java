@@ -14,27 +14,26 @@ import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService{
 	private final CartDAO cartDAO;
 
 	@Override
-	public Map<String, List> myCartList(CartVO cartVO) {
+	public Map<String, List> myCartList(String memberId) {
 		Map<String, List> cartMap = new HashMap<String, List>();
 
 		//형섭(23/09/11): cart 테이블에서 회원이 등록한 장바구니 굿즈 id를 가져옴.
 		//=> 결과가 1개 이상이므로 list 사용.
-		List<CartVO> myCartList = cartDAO.selectCartList(cartVO);
-		if(myCartList.size() == 0) {
+		List<CartVO> cartList = cartDAO.selectCartList(memberId);
+		if(cartList.size() == 0) {
 			return null;
 		}
 		
 		//형섭(23/09/11): cart에서 가져온 굿즈 id를 이용해 상품을 검색. 
 		//=> 결과가 1개 이상이므로 list 사용.
-		List<GoodsDTO> myGoodsList = cartDAO.selectGoodsList(myCartList);
-		cartMap.put("myCartList", myCartList);
-		cartMap.put("myGoodsList", myGoodsList);
+		List<GoodsDTO> goodsList = cartDAO.selectGoodsList(cartList);
+		cartMap.put("cartList", cartList);
+		cartMap.put("goodsList", goodsList);
 		
 		return cartMap;
 	}
@@ -50,14 +49,15 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public boolean modifyCartQty(CartVO cartVO) {
+	public boolean updateGoodsCount(CartVO cartVO) {
 		boolean result=true;
-		cartDAO.updateCartGoodsQty(cartVO);
+		cartDAO.updateGoodsCount(cartVO);
 		return result;
 	}
-
+	
 	@Override
-	public void removeCartGoods(int cartId) {
-		cartDAO.deleteCartGoods(cartId);
+	public boolean delFromCart(CartVO cartVO) {
+		
+		return cartDAO.delFromCart(cartVO);
 	}
 }

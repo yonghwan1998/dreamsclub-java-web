@@ -21,13 +21,17 @@ public class HomeController {
 	/*
 	- 방용환(수정) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
 	리뷰 or 별점순으로 출력 예정
+	
 	- 방용환(수정) : 2023/09/12, 메인 페이지 오류 수정
 	minPrice, maxPrice 미설정으로 인한 IndexOutOfBounds 오류 수정
+	
 	- 방용환(수정) : 2023/09/12, 메인 페이지 오류 수정
 	uniform, cap, fan 미설정으로 인한 IndexOutOfBounds 오류 수정
+	
+	- 방용환(수정) : 2023/09/19, 굿즈 리스트 별점순으로 변경
 	*/
 	@RequestMapping("/")
-	public String home(@RequestParam(defaultValue = "goods_code") String column,
+	public String home(@RequestParam(defaultValue = "goods_star") String column,
 			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
 			@RequestParam(defaultValue = "true") Boolean uniform, @RequestParam(defaultValue = "true") Boolean cap,
 			@RequestParam(defaultValue = "true") Boolean fan, Model model) {

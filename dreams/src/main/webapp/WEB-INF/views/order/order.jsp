@@ -130,7 +130,7 @@
 					            <div class="additional-info-wrap">
 					                <h4>배송 요청사항</h4>
 					                <div class="additional-info">
-					                    <textarea placeholder="ex. 도착하면 연락주세요. " name="orderMemo"></textarea>
+					                    <textarea placeholder="ex. 도착하면 연락주세요. " name="deliverMsg"></textarea>
 					                </div>
 					            </div>
 					        </form>
@@ -224,7 +224,7 @@
                     <br>
                     <br>
                     <h3>결제 정보</h3>
-                    <c:set value="${goodsDetail}" var="dto"/>
+                    <c:set value="${goodsInfo}" var="goods"/>
                     <div class="your-order-wrap gray-bg-4">
                         <div class="your-order-product-info">
                             <div class="your-order-top">
@@ -235,8 +235,8 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">${dto.goodsCode}(${dto.goodsSize}) &nbsp;&nbsp; X &nbsp;&nbsp;  ${dto.goodsCount }</span> <span
-                                            class="order-price"><fmt:formatNumber value="${dto.goodsPrice }" pattern="#,###" /> 원 </span></li>
+                                    <li><span class="order-middle-left">${goods.goodsCode} &nbsp;&nbsp; X &nbsp;&nbsp;  ${goods.goodsCount }</span> <span
+                                            class="order-price"><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원 </span></li>
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
@@ -248,7 +248,7 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">총 금액</li>
-                                    <li><span><fmt:formatNumber value="${dto.goodsPrice }" pattern="#,###" /> 원</span></li>
+                                    <li><span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span></li>
                                 </ul>
                             </div>
                         </div>
