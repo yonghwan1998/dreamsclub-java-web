@@ -10,5 +10,8 @@ public class CartVO {
 	private String goodsCode;
 	private int goodsCount;
 	private int cartId;
+	private int goodsPrice;
+	private String goodsInfo;
+	private String goodsImage;
 	private Date cartRegDate;
 }
