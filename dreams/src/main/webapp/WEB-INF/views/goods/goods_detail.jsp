@@ -97,6 +97,16 @@
       });
     });
   });
+   //강민경(2023/09/20): 상세 페이지의 리뷰 삭제 기능 
+     function deleteCheck(no) {
+  	if (confirm("정말 삭제하시겠습니까?") == true) {
+  		//goodsName, revNo를 컨트롤러에게 전달해서 삭제해야 함
+  		location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";
+  		alert("삭제되었습니다.");
+  	} else if (confirm == false) {
+  		alert("취소되었습니다.");
+  	}
+  }
 </script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
@@ -300,59 +310,41 @@
 					<div class="row">
 						<div class="col-lg-11">
 							<div class="review-wrapper">
-								<!-- 리뷰 작성 칸인데 크기가 이상해서 밑에 있는 대댓글 사용할 예정 
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-top-wrap">
-                                            <div class="review-left">
-                                                <div class="review-name">
-                                                    <h4>작성자 id</h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-left">
-                                                <a href="#">삭제</a>
-                                            </div>
-                                        </div>
-                                        <div class="review-bottom">
-                                            <p>넝협은행ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-                                        </div>
-                                    </div>
-                                </div>-->
-
-								<!-- 강민경: 리뷰 답글 부분 주석처리 (추후 사용할 가능성 있음) -->
-								<div class="single-review child-review">
-									<div class="review-img">
-										<img src="${pageContext.request.contextPath }/img/testimonial/2.jpg" alt="">
-									</div>
-									<div class="review-content">
-										<div class="review-top-wrap">
-											<div class="review-left">
-												<div class="review-name">
-													<h4>강민*</h4>
-												</div>
-												<div class="review-rating">
-													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-												</div>
-											</div>
-											<div class="review-left">
-												<a href="#">삭제</a>
-											</div>
-										</div>
-										<div class="review-bottom">
-											<p>너무 예뻐요~</p>
-										</div>
-									</div>
-								</div>
+								<c:forEach var="review" items="${goodsReview }">
+									<div class="single-review">
+	                                    <div class="review-img">
+	                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
+	                                    </div>
+	                                    <div class="review-content">
+	                                        <div class="review-top-wrap">
+	                                            <div class="review-left">
+	                                                <div class="review-name">
+	                                                   <c:out value="${review.memberId}"/>
+	                                                </div>
+	                                                <div class="review-rating">
+		                                                <c:out value="${review.goodsStar}"/>
+	                                                    <!-- 
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                     -->
+	                                                </div>
+	                                            </div>
+	                                            <div class="review-left">
+	                                               <c:if test="${member.memberId == review.memberId}" >
+														<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
+													</c:if>
+	                                            </div>
+		                                        <div class="review-bottom">
+		                                            <p><c:out value="${review.revCont}"/></p>
+		                                        </div>
+			                                        
+		                                      </div>
+	                                    </div>
+	                                </div>
+                               </c:forEach>
 							</div>
 						</div>
 					</div>

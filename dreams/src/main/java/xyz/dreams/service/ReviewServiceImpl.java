@@ -48,8 +48,8 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	//강민경: 목록보기 + 페이징 처리
 	@Override
-	public Map<String, Object> getReviewList(int pageNum) {
-		int totalBoard=reviewDAO.selectReviewCount();
+	public Map<String, Object> getReviewList(int pageNum, String goodsName) {
+		int totalBoard=reviewDAO.selectReviewCount(goodsName);
 		int pageSize=10;
 		int blockSize=10;
 		

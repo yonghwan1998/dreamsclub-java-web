@@ -1,20 +1,19 @@
 package xyz.dreams.controller;
 
-import java.util.Collections;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.config.YamlProcessor.ResolutionMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,7 @@ import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.QnaService;
-import xyz.dreams.util.GoodsReviewComparator;
+import xyz.dreams.service.ReviewService;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +29,7 @@ import xyz.dreams.util.GoodsReviewComparator;
 public class GoodsController {
 	private final GoodsService goodsService;
 	private final QnaService qnaService;
+	private final ReviewService reviewService;
 
 	/*
 	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
@@ -90,16 +90,29 @@ public class GoodsController {
 	- 오진서(수정) : 2023/09/20, QnA 리스트 출력
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam String goodsName, Model model) {
+	public String detail(@RequestParam String goodsName, Model model, @RequestParam (defaultValue = "1") int pageNum) {
 
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
 		
 		List<QnaDTO> qnaList = qnaService.getQnaList();
 		model.addAttribute("qnaList", qnaList);
-
+		
+		//강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
+		Map<String, Object> map = reviewService.getReviewList(pageNum, goodsName);
+		model.addAttribute("goodsReview", map.get("reviewList"));
+		
 		return "goods/goods_detail";
 	}
+
+	//강민경(2023-09-20): 상세페이지에서 리뷰 삭제 기능 
+	@RequestMapping(value = "/detail/delete", method = RequestMethod.GET)
+	public String reviewDelete(@RequestParam("revNo") int revNo, @RequestParam("goodsName") String goodsName ) throws UnsupportedEncodingException {
+		reviewService.deleteReview(revNo);
+		goodsName=URLEncoder.encode(goodsName, "utf-8");
+		return "redirect:/goods/detail?goodsName="+goodsName;
+	}
+	
 
 //	장바구니로 굿즈 정보 넘기기
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)

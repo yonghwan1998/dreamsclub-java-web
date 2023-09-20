@@ -42,6 +42,7 @@
 	</select>
 	<!-- 강민경: 게시글 총 개수(페이징처리) -->
 	<select id="selectReviewCount" resultType="int">
-		select count(*) from review
+		<bind name="reviewCount" value="goodsName+'-%'"/>
+		select count(*) from review_test where goods_code like #{reviewCount}
 	</select>
 </mapper>

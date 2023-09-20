@@ -16,7 +16,7 @@ public interface ReviewService {
 	void deleteReview(int revNo);
 	
 	//강민경: 페이징 처리
-	Map<String, Object> getReviewList(int pageNum);
+	Map<String, Object> getReviewList(int pageNum, String goodsName);
 	
 	
 }

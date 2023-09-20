@@ -79,12 +79,16 @@ public class MypageController {
    
    //강민경(2023/09/11): 리뷰 작성 등록
    @RequestMapping(value="/review/write", method = RequestMethod.POST)
-   public String ReviewWriter(@ModelAttribute ReviewDTO review, @ModelAttribute OrderDTO order) {
-      reviewService.enrollReview(review);
-      
-      //다 작성한 후 마이페이지로 페이지 바뀜
-      return "redirect:/mypage/mypage_check";
-   }
+	public String ReviewWriter(@ModelAttribute ReviewDTO review, HttpSession session) {
+		//로그인 세션 불러오기
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		//DTO에 글쓴이 넣기
+		review.setMemberId(member.getMemberId());
+		reviewService.enrollReview(review);
+		
+		//다 작성한 후 마이페이지로 페이지 바뀜
+		return "mypage/mypage_check";
+	}
    
    //강민경: 리뷰 
    @RequestMapping(value = "/myreview", method = RequestMethod.GET)
