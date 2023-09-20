@@ -34,13 +34,6 @@
     <result property="goodsSize" column="goods_size"/>
 </resultMap> -->
 
-
-    <!-- 형섭(수정): 2023/09/11, 회원 아이디로 장바구니 정보 조회 -->
-    <!-- <select id="selectCartList" resultType="cartVO">
-          SELECT * FROM tbl_cart WHERE member_id = #{memberId}
-    </select> -->
-    
-    
     <!-- 형섭(수정): 2023/09/11, 장바구니의 정보를 가져오는 쿼리.
     foreach: 리스트를 변수로 받아와서 동적인 기능 수행하게 해줌.
     foreach문을 이용해 목록(collection)에서 각 항목(item)을 반복하며 SQL을 생성하는 쿼리. 
@@ -100,6 +93,14 @@
       FROM tbl_cart t JOIN GOODS g
         ON t.GOODS_CODE = g.GOODS_CODE
           WHERE member_id = #{memberId}
+  </select>
+  
+  
+  <select id="selectCartById" resultType="CartVO">
+    SELECT t.CART_ID, t.MEMBER_ID, t.GOODS_CODE, t.GOODS_COUNT, g.GOODS_PRICE
+      FROM tbl_cart t JOIN GOODS g
+        ON t.GOODS_CODE = g.GOODS_CODE
+          WHERE cart_id = #{cartId}
   </select>
 	
 </mapper>

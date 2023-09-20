@@ -62,6 +62,4 @@ public class OrderServiceImpl implements OrderService{
 	public int getAmount() {
 		return orderDAO.getAmount();
 	}
-	
-	
 }

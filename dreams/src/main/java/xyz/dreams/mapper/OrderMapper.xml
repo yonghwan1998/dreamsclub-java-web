@@ -79,5 +79,4 @@
   <select id="getAmount" resultType="integer">
     SELECT COUNT(order_id) FROM setOrder
   </select>
-	
 </mapper>

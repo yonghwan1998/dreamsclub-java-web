@@ -41,12 +41,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<OrderDTO> list(int curPage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<OrderDTO> selectByOrderId(String orderId) {
 		return sqlSession.selectList(NS+".selectByOrderId", orderId);
 	}
@@ -83,5 +77,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne(NS+".getAmount");
 	}
 
+	@Override
+	public List<OrderDTO> list(int curPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -22,16 +22,22 @@ public class CartServiceImpl implements CartService{
 	public List<CartVO> myCartList(String memberId) {
 
 		//형섭(23/09/11): cart 테이블에서 회원이 등록한 장바구니 굿즈 id를 가져옴.
-		//=> 결과가 1개 이상이므로 list 사용.
 		List<CartVO> cartList = cartDAO.selectCartList(memberId);
 		if(cartList.size() == 0) {
 			return null;
 		}
-		
-		//형섭(23/09/11): cart에서 가져온 굿즈 id를 이용해 상품을 검색. 
-		//=> 결과가 1개 이상이므로 list 사용.
-		
 		return cartList;
+	}
+
+	@Override
+	public CartVO selectCartById(int cartId) {
+		CartVO cartVO = cartDAO.selectCartById(cartId);
+		
+		int goodsPrice = cartVO.getGoodsPrice();
+		int goodsCount = cartVO.getGoodsCount();
+		
+		cartVO.setGoodsPrice(goodsPrice*goodsCount);
+		return cartVO;
 	}
 	
 	@Override
@@ -56,4 +62,5 @@ public class CartServiceImpl implements CartService{
 		
 		return cartDAO.delFromCart(cartVO);
 	}
+
 }

@@ -23,6 +23,7 @@ import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.service.CartService;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.MemberService;
 import xyz.dreams.service.OrderService;
@@ -34,6 +35,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final GoodsService goodsService;
+    private final CartService cartService;
     
     @ResponseBody
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
@@ -81,34 +83,14 @@ public class OrderController {
     	
     	return "order/order_result";
     }
-    
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String orderInsert(GoodsDTO goodsDTO, HttpSession session, Model model,
-    		@ModelAttribute("goodsSize") String goodsSize, 
-    		@ModelAttribute("goodsCount") int goodsCount) {
-    	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
-    	memberInfo = memberService.getMember(memberInfo.getMemberId());
-    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
-    	
-    	model.addAttribute("memberInfo", memberInfo);
-    	model.addAttribute("goodsInfo", goodsDTO);
-    	model.addAttribute("goodsCount", goodsCount);
-    	model.addAttribute("goodsSize", goodsSize);
-    	
-    	return "order/order";
-    }
-    
-    @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
-    public String orderInsert(@PathVariable("goodsCode") String goodsCode, 
-    		HttpSession session, Model model) {
-    	System.out.println("test1= "+goodsCode);
-    	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
-    	memberInfo = memberService.getMember(memberInfo.getMemberId());
+   
+    @RequestMapping(value = "/insert/{cartId}")
+    public String orderInsert(@PathVariable("cartId") int cartId, Model model) {
+    	System.out.println("test1= "+cartId);
         
-        GoodsDTO goodsDTO = goodsService.getOrderGoods(goodsCode);
+        CartVO cartVO = cartService.selectCartById(cartId);
         
-        model.addAttribute("memberInfo", memberInfo);
-        model.addAttribute("goodsInfo", goodsDTO);
+        model.addAttribute("cartInfo", cartVO);
         
         
         return "order/order";

@@ -102,17 +102,17 @@ if(chk) {
 					<c:choose>
             <c:when test="${cartList != null}">
   					<c:forEach items="${cartList}" var="cartList" varStatus="status">
-              <input type="hidden" id="${cartList.cartId}" value="${cartList.cartId}">
+              <input type="hidden" id="cartId" value="${cartList.cartId}">
             
   						<tr>
                 <!-- 이미지 -->
   							<td class="product-close">
-    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage }"
+    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}"
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
                 <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode}</a>
-                    <input value="${cartList.goodsCode}" name="goodsCode" type="hidden" >
+                    <input value="${cartList.goodsCode}" id="goodsCode" type="hidden" >
                 </td>
 
                 <!-- 가격 -->
@@ -122,7 +122,7 @@ if(chk) {
                 
                 <!-- 수량 -->
                 <td>
-                  ${cartList.goodsCount }
+                  ${cartList.goodsCount}
                 </td>
                 <!-- 사이즈 -->
                 <%-- <td>${cartList.goodsSize }</td> --%>
@@ -131,7 +131,7 @@ if(chk) {
 								<td>${cartList.goodsInfo}</td>
 								<td>	
                   <input type="hidden" value="${member.memberId}" id="login_memberId">
-                  <input type="hidden" class="myHiddenGoods" value="${myGoodsCode }">
+                  <%-- <input type="hidden" class="myHiddenGoods" value="${myGoodsCode }"> --%>
 									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}" onclick="orderBtn('${cartList.cartId}');">주문하기</button>
 									<br>
 									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
@@ -154,31 +154,17 @@ if(chk) {
 </div>
 
   <script type="text/javascript">
-  /* 
-  function clickDelBtn(goodsCode) {
-	alert(goodsCode);
-	var memberId = $("#login_memberId").val();
-	temp= $('#'+goodsCode).val();
-	alert(temp);
-} */
-  
-    
     var memberId = $("#login_memberId").val();
+    var goodsCode = document.getElementById("goodsCode").value;
+		var cartId = document.getElementById("cartId").value;
     
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
-      		//var item = $(this);
-      		//var goodsCode = item.attr("data-pId");
-      		//var goodsCode = document.getElementById("myHiddenGoods").value;
-      		//var goodsCode = $(".myHiddenGoods").val();
-      		//alert(goodsCode);
       		
       		if(memberId != null) {
-      			var item = $(this);
-  	        //var goodsCode = item.closest("td").find(".myHiddenGoods").val();
-  	      	var goodsCode = item.attr("data-pId");
   	        alert(goodsCode);
-      			
+  	        alert(cartId);
+  	        
       			$.ajax({
       	            type : "post",
       	            url : "<c:url value='/cart/delFromCart/' />",
@@ -203,26 +189,23 @@ if(chk) {
       		} else {
       			alert("로그인 후 이용해 주세요.");
       			location.assign("<c:url value='/login' />");
-      		}
+      		} 
     });
     
-/*     
+     
     $(".cart_to_order").click(function(event) {
       event.preventDefault();
       
       if (memberId != null) {
-        var item = $(this);
-      	//var goodsCode = document.getElementById("myHiddenGoods").value;
-        //var goodsCode = item.attr("data-pId");
-      	var goodsCode = $(".myHiddenGoods").val();
-        alert(goodsCode);
-        location.assign("<c:url value='/order/insert/'/>" + goodsCode);
+        alert("goodsCode = "+goodsCode);
+        location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {
 				alert("로그인 후 이용해 주세요.");
   			location.assign("<c:url value='/login' />");
       }
     });
-     */
+
+    
      $("#orderSuccess").click(function () {
        
              var checkArr = new Array();
@@ -243,52 +226,17 @@ if(chk) {
              }
          });
     
+     
     $(".btn-back_to_shop").click(function() {
-      location.assign("/");
+      location.assign("<c:url value='/goods/main' />");
     });
     
-    
-    $("#mycart_btn").click(function(event) {
-      event.preventDefault();
-      location.assign("<c:url value='/cart/mycart'/>" + memberId);
-      
-    }); 
-    
-    $("#go_to_member_insert").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/join/check'/>");
-    });
-    
-    $("#mypage_btn").click(function(event) {
-      event.preventDefault();
-      var memberId = $("#login_memberId").val();
-      
-      location.assign("<c:url value='/mypage'/>" + memberId);
-    })
-    
-    $("#logout_btn").click(function(event) {
-      event.preventDefault();
-      
-      var logout = confirm("로그아웃 하시겠습니까?");
-      
-      if (logout) {
-        location.assign("<c:url value='/logout'/>");
-      }
-    });
-    
-    $("#go_to_adminPage").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/admin'/>");
-    
-    });
-    
+    /* 
     function orderBtn(cartId){
     	var test = $('#'+cartId).val();
     	alert(test);
     }
-  
+   */
 
   
 </script>
