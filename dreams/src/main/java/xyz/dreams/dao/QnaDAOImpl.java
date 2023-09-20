@@ -59,8 +59,8 @@ public class QnaDAOImpl implements QnaDAO {
 
 
 	@Override
-	public List<QnaDTO> selectQnaList() {
-		return sqlSession.getMapper(QnaMapper.class).selectQnaList();
+	public List<QnaDTO> selectQnaList(String goodsName) {
+		return sqlSession.getMapper(QnaMapper.class).selectQnaList(goodsName);
 	}
  
 	

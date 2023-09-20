@@ -18,7 +18,7 @@
   $(document).ready(function () {
       
 
-      // 주문하기 버튼 클릭
+    // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
     		var goodsCode = $("#goodsCode").val();
         var count = $("#goodsCount").val();

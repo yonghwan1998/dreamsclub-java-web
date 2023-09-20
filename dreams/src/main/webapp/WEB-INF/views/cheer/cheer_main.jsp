@@ -25,7 +25,7 @@
 	            <div class="writeBtnContainer" style="margin-top: 10px">
 	                <div style="text-align: right;">
 		                <span class="textCount">0자</span>
-			    		<span class="textTotal">/ 100자</span>
+			    		<span class="textTotal">/ 50자</span>
 	                   	<button type="submit">메모</button>
 	                </div>
 	            </div>
@@ -42,15 +42,17 @@
                             <th class="t2" style="width: 100px">작성자</th>
                             <th class="t3" style="width: 700px">내용</th>
                             <th class="t4" style="width: 150px">작성일</th>
+                            <c:if test="${member.memberStatus eq '9' }"><th class="t5" style="width: 75px">삭제</th></c:if>
                         </tr>
                     </thead>
                     <tbody>  
                         <c:forEach items="${cheerList }" var="cheerList" >
 	                        <tr class="boardTableList">
-	                            <td class="t1"><c:out value="${cheerList.cheerNo }"/></td>
+	                            <td class="t1 ${cheerList.cheerNo }"><c:out value="${cheerList.cheerNo }"/></td>
 	                            <td class="t2"><c:out value="${cheerList.memberId }"/></td>
 	                            <td class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></td>
 	                            <td class="t4"><c:out value="${cheerList.cheerDate }"/></td>
+	                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="deleteMemo(${cheerList.cheerNo });">삭제</button></td></c:if>
 	                        </tr>
 	                    </c:forEach> 
                     </tbody>
@@ -107,11 +109,15 @@ $('#textBox').keyup(function (e) {
     }
     
     // 글자수 제한
-    if (content.length > 100) {
-    	// 100자 부터는 타이핑 되지 않도록
-        $(this).val($(this).val().substring(0, 100));
-        // 100자 넘으면 알림창 뜨도록
-        alert('글자수는 100자까지 입력 가능합니다.');
+    if (content.length > 50) {
+    	// 50자 부터는 타이핑 되지 않도록
+        $(this).val($(this).val().substring(0, 50));
+        // 50자 넘으면 알림창 뜨도록
+        alert('글자수는 50자까지 입력 가능합니다.');
     };
 });
+
+function deleteMemo(temp) {
+	alert(temp);
+}
 </script>
