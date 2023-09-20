@@ -30,7 +30,6 @@ import xyz.dreams.util.GoodsReviewComparator;
 public class GoodsController {
 	private final GoodsService goodsService;
 	private final QnaService qnaService;
-	private Object map;
 
 	/*
 	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
@@ -87,17 +86,17 @@ public class GoodsController {
 	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
 	
 	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
+	
+	- 오진서(수정) : 2023/09/20, QnA 리스트 출력
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam String goodsName, @RequestParam Map<String,Object> map, Model model) {
+	public String detail(@RequestParam String goodsName, Model model) {
 
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
 		
-		// 9/19 오진서 - qna 목록리스트 추가
-		// model.addAttribute("qnaList", qnaService.getQnaList(map)); 
-		model.addAttribute(map); // 9/20 - 인자 제거 1
-		// model.addAttribute("qnaList", qnaService.getQnaList()); // 9/20 - 인자 제거2
+		List<QnaDTO> qnaList = qnaService.getQnaList();
+		model.addAttribute("qnaList", qnaList);
 
 		return "goods/goods_detail";
 	}

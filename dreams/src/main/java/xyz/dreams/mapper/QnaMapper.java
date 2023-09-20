@@ -18,8 +18,10 @@ public interface QnaMapper {
 
 	
 	/* QnA 페이징 처리*/
-	List<QnaDTO> selectQnaList(Map<String, Object> map);
+//	List<QnaDTO> selectQnaList(Map<String, Object> map);
 	int selectQnaCount();
+	
+	List<QnaDTO> selectQnaList();
 	
 	
 	
