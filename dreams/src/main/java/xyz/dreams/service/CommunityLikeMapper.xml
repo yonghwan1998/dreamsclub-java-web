@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.dreams.mapper.CommunityLikeMapper">
+
+<!-- 게시판 좋아요 클릭 - 김예지(2023.09.20) -->
+<update id="likeCheck" parameterType="HashMap">
+	UPDATE community_like
+	SET like_check = like_check + 1
+	WHERE like_no=#{likeNo} and comm_no=#{commNo}
+</update>
+
+<!-- 게시판 좋아요 취소 - 김예지(2023.09.20) -->
+<update id="likeCheck" parameterType="HashMap">
+	UPDATE community_like
+	SET like_check = 0
+	WHERE like_no=#{likeNo} and comm_no=#{commNo}
+</update>
+
+<!-- 좋아요 눌렀는지 안눌렀는지 확인 - 김예지(2023.09.20) -->
+<!-- 1: 좋아요 상태. 따라서 취소 출력. -->
+<!-- 0: 취소 상태. 따라서 좋아요 출력 -->
+<select id="findLike" resultType="int">
+	SELECT COUNT(*) FROM community_like 
+	WHRER comm_no=#{commNo} and member_id=#{memberId}
+</select>
+
+</mapper>
