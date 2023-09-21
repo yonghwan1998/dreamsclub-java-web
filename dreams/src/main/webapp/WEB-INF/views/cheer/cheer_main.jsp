@@ -42,21 +42,46 @@
                             <th class="t2" style="width: 100px">작성자</th>
                             <th class="t3" style="width: 700px">내용</th>
                             <th class="t4" style="width: 150px">작성일</th>
-                            <c:if test="${member.memberStatus eq '9' }"><th class="t5" style="width: 75px">삭제</th></c:if>
+                            <c:if test="${member.memberStatus eq '9' }"><th class="t5" style="width: 75px">기능</th></c:if>
                         </tr>
                     </thead>
                     <tbody>  
                         <c:forEach items="${cheerList }" var="cheerList" >
 	                        <tr class="boardTableList">
+	                        	<!-- cheerDel 상태 ('N') -->
+	                        
+	                        	<!-- 1. cheerNo -->
 	                            <td class="t1 ${cheerList.cheerNo }"><c:out value="${cheerList.cheerNo }"/></td>
-	                            <td class="t2"><c:out value="${cheerList.memberId }"/></td>
-	                            <td class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></td>
-	                            <td class="t4"><c:out value="${cheerList.cheerDate }"/></td>
+	                            
+	                        	<!-- 2. memberId -->
 	                            <c:if test="${cheerList.cheerDel eq 'N' }">
-		                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="deleteMemo(${cheerList.cheerNo });">삭제</button></td></c:if>
+		                            <td class="t2"><c:out value="${cheerList.memberId }"/></td>
 	                            </c:if>
 	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
-		                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="returnMemo('${cheerList.cheerNo }');">복구</button></td></c:if>
+		                            <td class="t2"><c:out value="드림즈 관리자"/></td>
+	                            </c:if>
+	                            
+	                        	<!-- 3. cheerContent -->
+	                            <c:if test="${cheerList.cheerDel eq 'N' }">
+	                            	<td class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></td>
+	                            </c:if>
+	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
+	                            	<td class="t3" style="text-align: left; color: red;"><c:out value="관리자 요청에 의해 삭제된 글입니다."/></td>
+	                            </c:if>
+	                            
+	                        	<!-- 4. cheerDate -->
+	                            <td class="t4"><c:out value="${cheerList.cheerDate }"/></td>
+	                            
+	                        	<!-- 5. delButton, returnBtn -->
+	                            <c:if test="${cheerList.cheerDel eq 'N' }">
+		                            <c:if test="${member.memberStatus eq '9' }">
+		                            	<td class="t5"><button onclick="deleteMemo('${cheerList.cheerNo }');">삭제</button></td>
+		                            </c:if>
+	                            </c:if>
+	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
+		                            <c:if test="${member.memberStatus eq '9' }">
+		                            	<td class="t5"><button onclick="returnMemo('${cheerList.cheerNo }');">복구</button></td>
+		                            </c:if>
 	                            </c:if>
 	                        </tr>
 	                    </c:forEach> 
@@ -132,6 +157,7 @@ function deleteMemo(cheerNo) {
 		success : function(result) {
 			if (result == 'success') {
 				alert("[" + cheerNo + "번 메모] 정보를 삭제했습니다.");
+				location.href = "<c:url value="/cheer"/>";
 			}
 		},
 		error: function(xhr) {
@@ -152,6 +178,7 @@ function returnMemo(cheerNo) {
 		success : function(result) {
 			if (result == 'success') {
 				alert("[" + cheerNo + "번 메모] 정보를 복구했습니다.");
+				location.href = "<c:url value="/cheer"/>";
 			}
 		},
 		error: function(xhr) {
