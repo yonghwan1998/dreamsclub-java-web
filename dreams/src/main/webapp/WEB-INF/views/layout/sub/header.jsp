@@ -41,7 +41,6 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-					${member }
 						<a href="<c:url value="/login/logout"/>"> 로그아웃 </a>
 					</c:otherwise>
 				</c:choose>
