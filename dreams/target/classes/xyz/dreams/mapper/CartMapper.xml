@@ -2,38 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 	
-  <!-- <resultMap id="cartResult" type="CartVO">
-    <result property="memberId" column="member_id"/>
-    <result property="goodsCode" column="goods_code"/>
-    <result property="cartId" column="cart_id"/>
-    <result property="cartGoodsQty" column="cart_goods_qty"/>
-    <result property="cartRegDate" column="cart_reg_date"/>
-  </resultMap>
-  
-  <resultMap id="goodsResult" type="GoodsDTO">
-    <result property="goodsCode" column="goods_code"/>
-    <result property="goodsPrice" column="goods_price"/>
-    <result property="goodsInfo" column="goods_info"/>
-    <result property="goodsYn" column="goods_yn"/>
-    <result property="goodsStock" column="goods_stock"/>
-    <result property="goodsImage" column="goods_image"/>
-    <result property="reviewCount" column="review_count"/>
-    <result property="goodsStar" column="goods_star"/>
-    <result property="goodsYnL" column="goods_yn_l"/>
-    <result property="goodsYnM" column="goods_yn_m"/>
-    <result property="goodsYnS" column="goods_yn_s"/>
-    <result property="goodsYnF" column="goods_yn_f"/>
-    <result property="goodsStockL" column="goods_stock_l"/>
-    <result property="goodsStockM" column="goods_stock_m"/>
-    <result property="goodsStockS" column="goods_stock_s"/>
-    <result property="goodsStockF" column="goods_stock_f"/>
-    <result property="noSpaceGoodsCode" column="no_space_goods_code"/>
-    <result property="goodsName" column="goods_name"/>
-    <result property="goodsCount" column="goods_count"/>
-    <result property="goodsCategory" column="goods_category"/>
-    <result property="goodsSize" column="goods_size"/>
-</resultMap> -->
-
     <!-- 형섭(수정): 2023/09/11, 장바구니의 정보를 가져오는 쿼리.
     foreach: 리스트를 변수로 받아와서 동적인 기능 수행하게 해줌.
     foreach문을 이용해 목록(collection)에서 각 항목(item)을 반복하며 SQL을 생성하는 쿼리. 

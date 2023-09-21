@@ -12,5 +12,5 @@ public interface CartDAO {
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	void updateGoodsCount(CartVO cartVO);
-	boolean delFromCart(CartVO cartVO);
+	int delFromCart(CartVO cartVO);
 }
