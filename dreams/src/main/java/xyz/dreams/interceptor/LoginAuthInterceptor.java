@@ -33,10 +33,18 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
 		
 		//탈퇴 회원인 경우
 		if (memberDTO != null && memberDTO.getMemberStatus() == 0) {
+			
+			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/login");
 			
 			return false;
 		}
 		return true;
+		//if (memberDTO != null && memberDTO.getMemberStatus() == 0) {
+			//response.sendRedirect(request.getContextPath()+"/login");
+			//
+			//return false;
+		//}
+		//return true;
 	}
 } 
