@@ -25,7 +25,7 @@
 <!--문의하기-->
 <form action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
 	<input type="hidden" name="memberId" value="${member.memberId }">
-	<input type="hidden" name="goodsName" value="${goodsName }"> 
+	<input type="hidden" name="goodsCode" value="${goodsCode }"> 
 	<!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
 	
 	<div class="boardWriteMain">

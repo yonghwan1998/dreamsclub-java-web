@@ -8,7 +8,7 @@ import xyz.dreams.dto.QnaDTO;
 public interface QnaService {
 	
 	/* QnA  등록*/
-	void enrollQna(QnaDTO qna);
+	String enrollQna(QnaDTO qna);
 	
 	/* QnA 수정*/
 	void modifyQna(QnaDTO qna);

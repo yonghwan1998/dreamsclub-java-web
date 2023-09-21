@@ -253,7 +253,7 @@
 								
 								<!-- 9/21 - 오진서 도전!!! -->
 									<!-- <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">  --> <!-- 원본. -->
-									<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
 									<!--  도전 끝 -->
 									
 									<button type="submit">문의하기</button>
