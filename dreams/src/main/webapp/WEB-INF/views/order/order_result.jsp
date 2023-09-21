@@ -81,16 +81,16 @@
 						<th>상품명</th>
 						<th>가격</th>
 						<th>수량</th>
-						<th>옵션</th>
+						<th>사이즈</th>
 						<th>결제금액</th>
 					</tr>
 				</thead>
 				<tbody style="text-align: left; vertical-align: middle;">
 						<tr>
-							<td>${orderInfo.goodsCode.split("-")[0] }</td>
+							<td>${orderInfo.goodsCode }</td>
 							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
 							<td>${orderInfo.goodsCount}</td>
-							<td>${orderInfo.goodsCode.spilit("-")[2]}</td>
+							<td>${orderInfo.goodsCode}</td>
               <td>${orderInfo.goodsPrice }</td>
 						</tr>
 				</tbody>

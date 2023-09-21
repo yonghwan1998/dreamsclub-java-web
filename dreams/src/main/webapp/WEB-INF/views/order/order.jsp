@@ -167,7 +167,7 @@
         <input type="hidden" value="${member.memberAddress2}"
           name="memberAddress2"> <input type="hidden" value="1"
           name="newSelected"> <input type="hidden"
-          value="${cartInfo.goodsCode}" name="goodsName"> <input
+          value="${cartInfo.goodsCode}" name="goodsCode"> <input
           type="hidden" value="${cartInfo.goodsPrice}" name="goodsPrice">
         <input type="hidden" value="${cartInfo.goodsCount}"
           name="goodsCount"> <input type="hidden"
