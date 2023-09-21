@@ -131,8 +131,7 @@ if(chk) {
 								<td>${cartList.goodsInfo}</td>
 								<td>	
                   <input type="hidden" value="${member.memberId}" id="login_memberId">
-                  <%-- <input type="hidden" class="myHiddenGoods" value="${myGoodsCode }"> --%>
-									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}" onclick="orderBtn('${cartList.cartId}');">주문하기</button>
+									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
 									<br>
 									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
 						    </td>
@@ -155,7 +154,7 @@ if(chk) {
 
   <script type="text/javascript">
     var memberId = $("#login_memberId").val();
-    var goodsCode = document.getElementById("goodsCode").value;
+    //var goodsCode = document.getElementById("goodsCode").value;
 		var cartId = document.getElementById("cartId").value;
     
     $(".del_from_cart").click(function(event) {
@@ -197,6 +196,9 @@ if(chk) {
       event.preventDefault();
       
       if (memberId != null) {
+    	  var item = $(this);
+    	  var goodsCode = item.attr("data-pId");
+    	  
         alert("goodsCode = "+goodsCode);
         location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {

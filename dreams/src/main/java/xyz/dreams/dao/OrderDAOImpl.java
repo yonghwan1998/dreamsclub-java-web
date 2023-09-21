@@ -57,17 +57,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
-		int result = sqlSession.delete(NS+".delFromCart", cartVO);
-		
-		if (result == 1) {
-			return true;
-		} else {
-			return false;
-		}	
-	}
-
-	@Override
 	public int orderCancel(OrderDTO orderDTO) {
 		return sqlSession.delete(NS+".orderCancel", orderDTO);
 	}

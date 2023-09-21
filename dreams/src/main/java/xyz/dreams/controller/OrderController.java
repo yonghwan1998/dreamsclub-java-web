@@ -33,7 +33,6 @@ import xyz.dreams.service.OrderService;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
-    private final MemberService memberService;
     private final GoodsService goodsService;
     private final CartService cartService;
     
@@ -45,16 +44,14 @@ public class OrderController {
     }
     
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String order(GoodsDTO goodsDTO, MemberDTO memberDTO, Model model,
-    		@ModelAttribute("goodsSize") String goodsSize,
+    public String order(GoodsDTO goods, MemberDTO memberDTO, CartVO cartVO, Model model
+    		/*@ModelAttribute("goodsSize") String goodsSize,
     		@ModelAttribute("goodsCount") int goodsCount,
-    		@ModelAttribute("deliver_msg") String deliverMsg,
-    		@ModelAttribute("total_amount") String totalAmount,
-    		@ModelAttribute("cal_info") String calInfo) {
+    		@ModelAttribute("deliverMsg") String deliverMsg,
+    		@ModelAttribute("goodsPrice") int goodsPrice,
+    		@ModelAttribute("calInfo") String calInfo*/) {
     		
     	OrderDTO orderDTO = new OrderDTO();
-    	
-    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
     	
     	orderDTO.setMemberId(memberDTO.getMemberId());
     	orderDTO.setMemberName(memberDTO.getMemberName());
@@ -64,23 +61,19 @@ public class OrderController {
     	orderDTO.setMemberAddress1(memberDTO.getMemberAddress1());
     	orderDTO.setMemberAddress2(memberDTO.getMemberAddress2());
     	
-    	orderDTO.setGoodsCode(goodsDTO.getGoodsCode());
-    	orderDTO.setGoodsPrice(goodsDTO.getGoodsPrice());
-    	orderDTO.setGoodsStock(goodsDTO.getGoodsStock());
-    	orderDTO.setGoodsInfo(goodsDTO.getGoodsInfo());
-    	orderDTO.setGoodsSize(goodsSize);
-    	orderDTO.setGoodsCount(goodsCount);
+    	orderDTO.setGoodsCode(cartVO.getGoodsCode());
+    	orderDTO.setGoodsPrice(cartVO.getGoodsPrice());
+    	orderDTO.setGoodsCount(cartVO.getGoodsCount());
     	
-    	orderDTO.setDeliverMsg(deliverMsg);
-    	orderDTO.setOrderStatus(0);
-    	orderDTO.setCalInfo(calInfo);
-    	
-//    	int totalAmount = Integer.parseInt(totalAmount);
-//    	orderDTO.setTotalAmount(totalAmount);
+		/*
+		 * orderDTO.setGoodsSize(goodsSize); orderDTO.setGoodsCount(goodsCount);
+		 * 
+		 * orderDTO.setDeliverMsg(deliverMsg); orderDTO.setOrderStatus(0);
+		 * orderDTO.setCalInfo(calInfo);
+		 */
     	
     	orderService.insert(orderDTO);
     	model.addAttribute("orderDTO", orderDTO);
-    	
     	return "order/order_result";
     }
    
