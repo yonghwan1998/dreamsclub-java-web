@@ -107,21 +107,20 @@ public class MypageController {
    
    //이소영(최종) : 2023-09-19 회원탈퇴 시 비밀번호 검증
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
-    public String withdrawUser(@RequestParam("user-password") String password,@RequestParam("memberId") String memberId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String withdrawUser(@ModelAttribute MemberDTO member, HttpSession session, RedirectAttributes redirectAttributes) {
       
-        System.out.println("memberId"+memberId);
-        boolean isValid = memberService.checkPassword(memberId, password);
-        
-        if(isValid) {
-            memberService.deleteMember(memberId);
-            session.invalidate();
-            redirectAttributes.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
-            return "redirect:/login";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "패스워드가 일치하지 않습니다.");
-            return "redirect:/mypage/delete";
-        }
-        
+    	if (memberService.checkPassword(member.getMemberId(), member.getMemberPw())) {
+    		memberService.deleteMember(member.getMemberId());
+    		System.out.println("1 : "+ session);
+    		session.invalidate();
+    		System.out.println("2 : "+ session);
+    		redirectAttributes.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
+			
+    		return "redirect:/login";
+		} else {
+			redirectAttributes.addFlashAttribute("error", "패스워드가 일치하지 않습니다.");
+			return "redirect:/mypage/delete";
+		}
     }
     
      @GetMapping("/myqna/{memberId}")

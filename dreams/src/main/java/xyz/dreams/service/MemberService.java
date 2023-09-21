@@ -28,8 +28,8 @@ public interface MemberService {
 
 
    // 이소영(수정) : 2023-09-18 회원탈퇴 시 비밀번호 확인
-   int deleteMember(String memberId);
-   boolean checkPassword(String userId, String password); 
+   void deleteMember(String memberId);
+   boolean checkPassword(String memberId, String memberPw); 
 
    MemberDTO getMember(String memberId);
 
