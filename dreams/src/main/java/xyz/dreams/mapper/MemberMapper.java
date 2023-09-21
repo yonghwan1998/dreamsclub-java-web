@@ -27,4 +27,5 @@ public interface MemberMapper {
    //이소영 : 해당회원의 비밀번호를 가져와 문자열로 반환
    String getPassword(String memberId);
    
+   
 }
