@@ -21,9 +21,8 @@ public class NoticeServiceImpl implements NoticeService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollNotice(NoticeDTO notice) {
-		notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
-	    notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
-
+		//notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
+	    //notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
 		noticeDAO.enrollNotice(notice);
 		
 	}
