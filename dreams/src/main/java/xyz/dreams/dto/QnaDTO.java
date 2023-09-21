@@ -43,10 +43,6 @@ public class QnaDTO {
 	private String goodsCode;	//상품 코드
 	
 	
-	
-	
-
-	
-	
-
+	// 9월 20일 - 도오오전
+	private String goodsSize;	//상품 이름
 }

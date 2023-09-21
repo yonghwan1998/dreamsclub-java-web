@@ -19,8 +19,18 @@ public class QnaServiceImpl implements QnaService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollQna(QnaDTO qna) {
-		qna.setQnaTitle(qna.getQnaTitle());
-		qna.setQnaCont(qna.getQnaCont());
+		String[] qnaSplit = null;
+		String qnaGoodsCode = qna.getGoodsCode();
+		String qnaGoodsSize = qna.getGoodsSize();
+
+		qnaSplit = qnaGoodsCode.split("-");
+
+		qnaSplit[2] = qnaGoodsSize;
+
+		qnaGoodsCode = qnaSplit[0] + "-" + qnaSplit[1] + "-" + qnaSplit[2];
+
+		qna.setGoodsCode(qnaGoodsCode);
+
 		qnaDAO.enrollQna(qna);
 	}
 	

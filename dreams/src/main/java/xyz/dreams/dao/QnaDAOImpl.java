@@ -15,9 +15,7 @@ import xyz.dreams.mapper.QnaMapper;
 @RequiredArgsConstructor //생성자 주입
 public class QnaDAOImpl implements QnaDAO {
 	private final SqlSession sqlSession;
-	
-	
-	
+
 	/*게시판 글 등록하기*/
 	@Override
 	public int enrollQna(QnaDTO qna) {

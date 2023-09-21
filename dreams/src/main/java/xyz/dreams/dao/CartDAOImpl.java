@@ -42,13 +42,7 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
-		int result = sqlSession.delete(NS+".delFromCart", cartVO);
-		
-		if (result == 1) {
-			return true;
-		} else {
-			return false;
-		}		
+	public int delFromCart(CartVO cartVO) {
+		return sqlSession.delete(NS+".delFromCart", cartVO);
 	}
 }
