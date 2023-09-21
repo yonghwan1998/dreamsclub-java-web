@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.NoticeDAO;
@@ -16,16 +17,18 @@ public class NoticeServiceImpl implements NoticeService {
 	private final NoticeDAO noticeDAO;
 	private final SqlSession sqlsession;
 	
-	//공지사항 등록
+	//이소영 : 공지사항 등록
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollNotice(NoticeDTO notice) {
-		
+		notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
+	    notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
+
 		noticeDAO.enrollNotice(notice);
 		
 	}
 	
-	//공지사항 목록 보기
+	//이소영 : 공지사항 목록 보기
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public List<NoticeDTO> getList() {
@@ -33,7 +36,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDAO.getList();
 	}
 	
-	//공지사항 글 조회
+	//이소영 : 공지사항 글 조회
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public NoticeDTO getPage(int noticeNo) {
@@ -41,15 +44,15 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDAO.getPage(noticeNo);
 	}
 	
-	//공지사항 글 수정
+	//이소영 : 공지사항 글 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyNotice(NoticeDTO notice) {
 		
-		
+		noticeDAO.modifyNotice(notice);
 	}
 	
-	//공지사항 글 삭제
+	//이소영 : 공지사항 글 삭제
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void deleteNotice(int noticeNo) {

@@ -21,4 +21,6 @@ public interface QnaService {
 	
 	List<QnaDTO> getQnaList(String goodsName);
 	
+	//이소영(추가) : 2023-09-21
+	List<QnaDTO> findByMemberId(String memberId);
 }
