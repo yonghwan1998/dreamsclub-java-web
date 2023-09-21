@@ -25,7 +25,7 @@
 <!--문의하기-->
 <form action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
 	<input type="hidden" name="memberId" value="${member.memberId }">
-	<input type="hidden" name="goodsName" value="${goodsName }"> 
+	<input type="hidden" name="goodsCode" value="${goodsCode }"> 
 	<!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
 	
 	<div class="boardWriteMain">
@@ -81,7 +81,6 @@
 	            <button type="submit">등록</button>
 	            <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
 	            <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
-	            
 	        </div>  
 	        
 	    </div>
