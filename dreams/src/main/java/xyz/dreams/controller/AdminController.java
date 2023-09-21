@@ -20,17 +20,14 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
-import xyz.dreams.dto.OrderDetailDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.MemberService;
-import xyz.dreams.service.OrderDetailService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
 	private final MemberService memberService;
-	private final OrderDetailService orderDetailService;
 	private final GoodsService goodsService;
 
 	private final WebApplicationContext context;
@@ -46,8 +43,8 @@ public class AdminController {
 	/* 관리자 페이지 주문 관리 */
 	@GetMapping("/order")
 	public String AdminOrderView(Model model) {
-		List<OrderDetailDTO> getOrderList = orderDetailService.getOrderList();
-		model.addAttribute("getOrderList", getOrderList);
+		//List<OrderDetailDTO> getOrderList = orderDetailService.getOrderList();
+		//model.addAttribute("getOrderList", getOrderList);
 		return "admin/admin_order";
 	}
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
-import xyz.dreams.dto.GoodsDTO;
 
 @Repository
 @RequiredArgsConstructor

@@ -19,6 +19,7 @@
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
+    	  	alert(goodsSize);
     	  
           $.ajax({
           type: "post",
@@ -60,7 +61,8 @@
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
-      
+      		alert(goodsSize);
+    	  
           $.ajax({
             type: "post",
             url: "<c:url value="/cart/addGoodsInCart"/>",

@@ -70,50 +70,6 @@
   </div>
 
   <!-- 주문 내역 -->
-	<div id="gnb">
-		<a href="/">Hello World</a>
-		<div  class="text-right" >
-			<c:choose>
-				<c:when test="${member.memberId != null}">
-					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
-					<span id="login_log" style="border-bottom: 1px solid white;">${member.memberId} 님, 환영합니다.</span>
-					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<c:if test="${member.memberId == 'admin'}">
-						<button id="go_to_adminPage">관리자 페이지</button>
-					</c:if>
-					<button class="mycart_btn">장바구니</button>
-					<button id="mypage_btn">마이페이지</button>
-					<button id="logout_btn">로그아웃</button>
-					<input type="hidden" value="${member.memberId}" id="login_memberId">
-				</c:when>
-				
-				<c:otherwise>
-					<button onclick="location.href='#'">로그인</button><button onclick="location.href='#'">회원가입</button>
-				</c:otherwise>
-			</c:choose>	
-			
-		</div>
-	</div>
-
-	<div class="container logo">
-		<a href="/">Hello World</a>
-	</div>
-
-	<div class="nav">
-		<nav>
-			<ul class="nav nav-tabs nav-justified">
-				<li value="outer">OUTER</li>
-				<li value="top">TOP</li>
-				<li value="bottom">BOTTOM</li>
-				<li value="bag">BAG</li>
-				<li value="acc">ACC</li>
-				<li value="qna">Q&A</li>
-			</ul>
-		</nav>
-	</div>
-	
-	<br>
 	
 	<div class="container">
 
@@ -132,15 +88,14 @@
 				</thead>
 				<tbody style="text-align: left; vertical-align: middle;">
 						<tr>
-							<td style="text-align: center;"><img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${dto.goodsImage }"
-								style="max-width: 100px; max-height: 100px;">
+							<td style="text-align: center;"><%-- <img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${dto.goodsImage }"
+								style="max-width: 100px; max-height: 100px;"> --%>
 							<input type="hidden" value="${dto.goodsCode}" name="goodsCode" id="goodsCode">
 							</td>
 							<td>${dto.goodsCode}<br>${dto.goodsInfo}</td>
 							<td><fmt:formatNumber type="number" value="${dto.goodsPrice}"/>&nbsp;원</td>
-							<td>${dto.orderQty}</td>
-							<td>${dto.selectedOpt}</td>
-							<td><fmt:formatNumber type="number" value="${dto.totalAmount}"/>&nbsp;원</td>
+							<td>${dto.goodsCount}</td>
+							<td>${dto.goodsCode.spilit("-")[2]}</td>
 						</tr>
 				</tbody>
 			</table>
