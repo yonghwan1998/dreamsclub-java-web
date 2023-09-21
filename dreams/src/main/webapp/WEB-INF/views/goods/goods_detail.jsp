@@ -102,12 +102,14 @@
   		alert("취소되었습니다.");
   	}
   }
+   
 </script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
 	$(document).ready(function() {
 		$(".t3").click(function() { // 질문 제목을 클릭했을 때
-			$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
+			alert('success');
+			$(this).closest("td").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
 		});
 	});
 </script>
@@ -237,14 +239,34 @@
 							<div class="QnaTitle">
 								<h2 style="color: gray;">Q&A</h2>
 								<h4 style="color: gray;">구매하는 상품에 대해 궁금한점이 있으신 경우 문의해주세요</h4>
-							</div>
+							
+							<!--
+                   로그인한 사람만 생기는 q&a 글쓰기 버튼
+                   - 방용환(수정) : 2023/09/13, 'des-details2' id를 가진 태그 내부로 이동 
+                   -->
+					<div class="writeBtnContainer">
+						<div class="boardWriteBtn" style="text-align: right;">
+							<c:if test="${!empty(member)}">
+								<form action="<c:url value="/goods/qna/write"/>" method="get">
+									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+									<button type="submit">문의하기</button>
+								</form>
+							</c:if>
+						</div>
+					</div>
+				</div>
+					<hr> <!-- 구분 선 -->							
+			</div> <!-- 테이블 묶음 끝 -->
+							
+							
+							
 
 							<!-- 문의 테이블 -->
 							<div class="qnaTable" style="margin: 0 auto">
 								<table class="qnaTableMain" width="1200px">
 									<thead>
 										<tr>
-											<th class="t1" scope="col" style="width: 100px">번호</th>
+											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
 											<th class="t2" style="width: 100px">답변상태</th>
 											<th class="t3" style="width: 150px">제목</th>
 											<th class="t4" style="width: 700px">내용</th>
@@ -258,8 +280,8 @@
 										<c:forEach items="${qnaList}" var="qna">
 											<!-- controller 에서 받아옴 -->
 											<!-- qna리스트받아옴 -->
-											<tr class="boardTableList">
-												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
+											<tr class="boardTableList" style="padding-top: 10px; padding-bottom: 10px;">
+												<!-- <td class="t1"><c:out value="${qna.qnaNo }" /></td>  -->
 												<!-- 번호불러옴 -->
 
 												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
@@ -278,27 +300,37 @@
 												<td class="t6"><c:out value="${qna.qnaDate}" /></td>
 												<!-- 날짜받아옴 -->
 											</tr>
+											<!-- !! Re답변  -->
+											<c:choose>
+												<c:when test="${qna.qnaYn eq 'Y'}"> <!-- qnaYn 가 'Y'일경우 보이도록-->
+													<tr class="boardTableList">
+														<!--  <td class="t1"></td> -->
+														<!-- 번호불러옴 -->
+		
+														<td class="t2"></td>
+														<!--  답변여부 -->
+		
+														<td class="t3"></td>
+														<!-- 제목받아옴 -->
+		
+														<td class="t4">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
+														<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+		
+														<td class="t5">드림즈 관리자</td>
+														<!-- 회원id 받아옴 -->
+		
+														<td class="t6"><c:out value="${qna.qnaReDate }" /></td>
+														<!-- 날짜받아옴 -->
+													</tr>
+												</c:when>
+											</c:choose>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
-					<!--
-                   로그인한 사람만 생기는 q&a 글쓰기 버튼
-                   - 방용환(수정) : 2023/09/13, 'des-details2' id를 가진 태그 내부로 이동 
-                   -->
-					<div class="writeBtnContainer">
-						<div class="boardWriteBtn" style="text-align: right;">
-							<c:if test="${!empty(member)}">
-								<form action="<c:url value="/goods/qna/write"/>" method="get">
-									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-									<button type="submit">문의하기</button>
-								</form>
-							</c:if>
-						</div>
-					</div>
-				</div>
+					
 
 				<!-- 강민경: 상품 리뷰 작성 부분  -->
 				<div id="des-details3" class="tab-pane">

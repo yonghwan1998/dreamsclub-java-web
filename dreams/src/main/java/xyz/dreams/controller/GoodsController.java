@@ -133,49 +133,25 @@ public class GoodsController {
 		return "redirect:/order/new";
 	}
 	
-	
-//	// 오진서 - 9/10 ▼ 댓글쓰기
-//	// POST - 댓글 작성 처리
-//    @PostMapping("/addQna")
-//    @ResponseBody
-//    public Map<String, Object> addComment(@RequestBody QnaDTO qnaDTO) {
-//        Map<String, Object> result = new HashMap<>();
-//
-//        try {
-//        	
-//            // 여기에 댓글을 저장하고 DB에 추가하는 로직을 추가
-//            // QnaDTO 객체에는 goodsName과 content가 포함됨
-//
-//            // 저장이 성공하면 success 값을 true로 설정
-//            result.put("success", true);
-//        } catch (Exception e) {
-//            // 저장에 실패하면 success 값을 false로 설정
-//            result.put("success", false);
-//            result.put("errorMessage", "문의글 작성에 실패했습니다.");
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
     
 	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-	public String showQnaWriteForm(
-			@RequestParam String goodsCode,Model model) {
+	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
 		model.addAttribute("goodsCode", goodsCode);
 		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
+	// 오진서 - 09/20 도전 ▼ - 링크 Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
-		System.out.println("**************"); 
-		System.out.println(qna); // 값 제대로 받아오나 확인
-		System.out.println("**************"); 
 		qnaService.enrollQna(qna); // 등록
 		
-		return "redirect:/goods/main"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
-	}
+//		String encodedgoodsName = URLEncoder.encode(qna.getGoodsName(), "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+//		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **추후 수정해야.함..
+		return "redirect:/goods/main"; // 원랜 이거였따
+		// 등록페이지에서 안넘어감....
+	}	
 	
 //	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
 //	// 정보받아와서 목록 출력하고 싶어....
@@ -189,7 +165,7 @@ public class GoodsController {
 //		return "goods/goods_detail";
 //	}
 //// 500 떠서 잠시 묻어둠
-	
+
 
 	
     
