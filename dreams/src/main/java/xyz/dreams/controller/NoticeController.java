@@ -22,14 +22,15 @@ import xyz.dreams.service.NoticeService;
 public class NoticeController {
 	private final NoticeService noticeService;
 	
-	//공지사항 목록 페이지 접속
+	//이소영 : 공지사항 목록 페이지 접속
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String notice(Model model) {
+		System.out.println("noticeList실행");
 		model.addAttribute("NoticeList", noticeService.getList());
 		return "notice/notice_main";
 	}
 	
-	//공지사항 글 하나 보는 페이지 (조회)
+	//이소영 : 공지사항 글 하나 보는 페이지 (조회)
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String noticeDetail(@RequestParam int noticeNo, Model model) {
 		NoticeDTO notice = noticeService.getPage(noticeNo);
@@ -39,43 +40,44 @@ public class NoticeController {
 		return "notice/notice_detail";
 	}
 	
-	//공지사항 글쓰기 페이지 접속
+	//이소영 : 공지사항 글쓰기 페이지 접속
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String noticeWrite() {
 		return "notice/notice_write";
 	}
 	
-	//공지사항 등록하기
+	//이소영 : 공지사항 등록하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String noticeWritePOST(@ModelAttribute NoticeDTO notice, HttpSession session) throws Exception{
 		
 		notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
-		notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
-		noticeService.enrollNotice(notice);
-		
+	    notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
+	    noticeService.enrollNotice(notice);
+
 		return "redirect:/notice";
 	}
 	
-	//공지사항 수정 페이지 이동
+	//이소영 : 공지사항 수정 페이지 이동
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String noticeModify(int noticeNo, Model model) {
 		
 		model.addAttribute("pageInfo", noticeService.getPage(noticeNo));
 		
-		return null;
+		return "notice/notice_modify"; //수정 페이지의 경로를 반환하도록 변경
 		
 	}
 	
-	//페이지 수정
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	//이소영 : 공지사항 글 수정
+	@RequestMapping(value = "/write/update", method = RequestMethod.POST)
 	public String noticeModifyPOST(NoticeDTO notice, RedirectAttributes rttr) {
-		
-		noticeService.modifyNotice(notice);
-		
-		return "redirect:/notice";
-	}
+	      System.out.println("noticeModifyPost!!"+notice.getNoticeNo());
+	      
+	      noticeService.modifyNotice(notice);
+	      
+	      return "redirect:/notice";
+	   }
 	
-	//페이지 삭제
+	//이소영 : 공지사항 글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String noticeDeleteGET(@RequestParam("noticeNo") int noticeNo, @ModelAttribute NoticeDTO noticeDTO, HttpSession session) throws Exception{
 		

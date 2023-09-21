@@ -48,36 +48,21 @@
 					<p>드림즈의 다양한 소식들을 만나보세요</p>
 				</div>
 				<table id="tab-container" width=100%>
-					<tr class="cont_sort">
-						<th class="sort">공지사항</th>
-						<td class="tit_n"><a href="공지사항 링크1" class="tit_new">NC
-								드림즈, ‘메모리얼 리노베이션’ 진행…...</a></td>
-						<td class="date">2023-08-14</td>
-					</tr>
-					<tr class="cont_sort">
-						<th class="sort">공지사항</th>
-						<td class="tit_n"><a href="공지사항 링크2" class="tit_new">NC,
-								야구협회와 함께하는 일일 드림즈 야구교실...</a></td>
-						<td class="date">2023-08-12</td>
-					</tr>
-					<tr class="cont_sort">
-						<th class="sort">공지사항</th>
-						<td class="tit_n"><a href="공지사항 링크3" class="tit_new">본인확인
-								서비스 일시 중단 안내 (9월 8일 ... </a></td>
-						<td class="date">2023-08-07</td>
-					</tr>
-					<tr class="cont_sort">
-						<th class="sort">공지사항</th>
-						<td class="tit_n"><a href="공지사항 링크4" class="tit_new">365바른약속치과의원,
-								2023시즌 스폰... </a></td>
-						<td class="date">2023-08-07</td>
-					</tr>
-					<tr class="cont_sort">
-						<th class="sort">공지사항</th>
-						<td class="tit_n"><a href="공지사항 링크5" class="tit_new">드림즈 팬클럽,
-								지역사회 발전 위해 힘 모은다</a></td>
-						<td class="date">2023-08-05</td>
-					</tr>
+					
+					  <c:forEach items="${NoticeList }" var="Notice" varStatus="status">
+                  			<c:if test="${status.index < 5}">
+                     			<tr class="cont_sort">
+                        			<th class="sort">공지사항</th>
+                        				<td class="tit_n">
+                        					<a href="/dreams/notice/detail?noticeNo=${Notice.noticeNo}" class="tit_new"> <c:out value="${Notice.noticeTitle}" />
+                        					</a>
+                        				</td>
+                        				<td class="date"><c:out value="${Notice.noticeDate}" />
+                        				</td>
+                     			</tr>
+                 			</c:if>
+               		  </c:forEach>
+
 				</table>
 			</div>
 			<!-- 선수단 -->
