@@ -136,22 +136,23 @@
 
 	
 	<!-- 강민경: Intercepter 클래스를 Spring Bean으로 등록 -->
-		<beans:bean id="LoginAuthInterceptor" class="xyz.dreams.interceptor.LoginAuthInterceptor"/>
+		<!-- <beans:bean id="LoginAuthInterceptor" class="xyz.dreams.interceptor.LoginAuthInterceptor"/> -->
 	
 		<!-- 인터셉터 적용 -->
-		 <interceptors> 
-			 <interceptor> 
+		<!-- <interceptors>  -->
+			<!-- <interceptor>  -->
 				<!-- mapping : 인터셉터가 실행될 페이지의 요청 URL 주소를 설정하는 엘리먼트  -->
 				<!-- path 속성 : 요청 처리 메소드가 호출될 페이지의 요청 URL 주소를 속성값으로 설정 -->
 				<!-- ref : 인터셉터 기능을 제공할 객체(Spring Bean)을 설정하기 위한 엘리먼트 -->
 				<!-- bean 속성 : Interceptor 클래스의 Spring Bean의 식별자(beanName)를 속성값으로 설정 -->
 				<!-- exclude-mapping : 인터셉터가 실행되지 않는 페이지의 요청 URL 주소를 설정하는 엘리먼트 -->
-				<mapping path="/**"/>
-				<exclude-mapping path="/admin/**"/>
-				<exclude-mapping path="/login/**"/>
-				<exclude-mapping path="/mypage/**"/>
-				<beans:ref bean="LoginAuthInterceptor"/>
-			</interceptor>
-		</interceptors>
+				<!--<mapping path="/**"/> -->
+				<!--<exclude-mapping path="/admin/**"/> -->
+				<!-- <exclude-mapping path="/login/**"/> -->
+				<!--<exclude-mapping path="/mypage/**"/> -->
+			<!--	<exclude-mapping path="/error/**"/> -->
+				<!--<beans:ref bean="LoginAuthInterceptor"/> -->
+			<!--</interceptor>
+		</interceptors> -->
 
 </beans:beans>

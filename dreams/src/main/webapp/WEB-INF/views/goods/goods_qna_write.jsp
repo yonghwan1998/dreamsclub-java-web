@@ -50,8 +50,7 @@
          <!--작성 버튼(취소, 등록) -->
         <div class="qnaWriteBtn">
             <a href="javascript:chk_form();">등록</a>
-            <a href="<c:url value="/goods/main"/>" method= "get">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함-->
-			<!--  <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" >  --> <!--  굿즈코드받아오라. -->
+            <a href="<c:url value="/goods/main"/>" method= "get">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
 
         </div>  
 
