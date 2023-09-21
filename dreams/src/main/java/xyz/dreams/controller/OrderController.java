@@ -23,6 +23,7 @@ import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.service.CartService;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.MemberService;
 import xyz.dreams.service.OrderService;
@@ -32,8 +33,8 @@ import xyz.dreams.service.OrderService;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
-    private final MemberService memberService;
     private final GoodsService goodsService;
+    private final CartService cartService;
     
     @ResponseBody
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
@@ -43,16 +44,14 @@ public class OrderController {
     }
     
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String order(GoodsDTO goodsDTO, MemberDTO memberDTO, Model model,
-    		@ModelAttribute("goodsSize") String goodsSize,
+    public String order(GoodsDTO goods, MemberDTO memberDTO, CartVO cartVO, Model model
+    		/*@ModelAttribute("goodsSize") String goodsSize,
     		@ModelAttribute("goodsCount") int goodsCount,
-    		@ModelAttribute("deliver_msg") String deliverMsg,
-    		@ModelAttribute("total_amount") String totalAmount,
-    		@ModelAttribute("cal_info") String calInfo) {
+    		@ModelAttribute("deliverMsg") String deliverMsg,
+    		@ModelAttribute("goodsPrice") int goodsPrice,
+    		@ModelAttribute("calInfo") String calInfo*/) {
     		
     	OrderDTO orderDTO = new OrderDTO();
-    	
-    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
     	
     	orderDTO.setMemberId(memberDTO.getMemberId());
     	orderDTO.setMemberName(memberDTO.getMemberName());
@@ -62,53 +61,29 @@ public class OrderController {
     	orderDTO.setMemberAddress1(memberDTO.getMemberAddress1());
     	orderDTO.setMemberAddress2(memberDTO.getMemberAddress2());
     	
-    	orderDTO.setGoodsCode(goodsDTO.getGoodsCode());
-    	orderDTO.setGoodsPrice(goodsDTO.getGoodsPrice());
-    	orderDTO.setGoodsStock(goodsDTO.getGoodsStock());
-    	orderDTO.setGoodsInfo(goodsDTO.getGoodsInfo());
-    	orderDTO.setGoodsSize(goodsSize);
-    	orderDTO.setGoodsCount(goodsCount);
+    	orderDTO.setGoodsCode(cartVO.getGoodsCode());
+    	orderDTO.setGoodsPrice(cartVO.getGoodsPrice());
+    	orderDTO.setGoodsCount(cartVO.getGoodsCount());
     	
-    	orderDTO.setDeliverMsg(deliverMsg);
-    	orderDTO.setOrderStatus(0);
-    	orderDTO.setCalInfo(calInfo);
-    	
-//    	int totalAmount = Integer.parseInt(totalAmount);
-//    	orderDTO.setTotalAmount(totalAmount);
+		/*
+		 * orderDTO.setGoodsSize(goodsSize); orderDTO.setGoodsCount(goodsCount);
+		 * 
+		 * orderDTO.setDeliverMsg(deliverMsg); orderDTO.setOrderStatus(0);
+		 * orderDTO.setCalInfo(calInfo);
+		 */
     	
     	orderService.insert(orderDTO);
     	model.addAttribute("orderDTO", orderDTO);
-    	
     	return "order/order_result";
     }
-    
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String orderInsert(GoodsDTO goodsDTO, HttpSession session, Model model,
-    		@ModelAttribute("goodsSize") String goodsSize, 
-    		@ModelAttribute("goodsCount") int goodsCount) {
-    	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
-    	memberInfo = memberService.getMember(memberInfo.getMemberId());
-    	goodsDTO = goodsService.getOrderGoods(goodsDTO.getGoodsCode());
-    	
-    	model.addAttribute("memberInfo", memberInfo);
-    	model.addAttribute("goodsInfo", goodsDTO);
-    	model.addAttribute("goodsCount", goodsCount);
-    	model.addAttribute("goodsSize", goodsSize);
-    	
-    	return "order/order";
-    }
-    
-    @RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.GET)
-    public String orderInsert(@PathVariable("goodsCode") String goodsCode, 
-    		HttpSession session, Model model) {
-    	System.out.println("test1= "+goodsCode);
-    	MemberDTO memberInfo = (MemberDTO)session.getAttribute("member");
-    	memberInfo = memberService.getMember(memberInfo.getMemberId());
+   
+    @RequestMapping(value = "/insert/{cartId}")
+    public String orderInsert(@PathVariable("cartId") int cartId, Model model) {
+    	System.out.println("test1= "+cartId);
         
-        GoodsDTO goodsDTO = goodsService.getOrderGoods(goodsCode);
+        CartVO cartVO = cartService.selectCartById(cartId);
         
-        model.addAttribute("memberInfo", memberInfo);
-        model.addAttribute("goodsInfo", goodsDTO);
+        model.addAttribute("cartInfo", cartVO);
         
         
         return "order/order";

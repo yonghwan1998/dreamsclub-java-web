@@ -8,7 +8,7 @@ import xyz.dreams.dto.GoodsDTO;
 
 public interface CartDAO {
 	List<CartVO> selectCartList(String memberId);
-	List<GoodsDTO> selectGoodsList(List<CartVO> cartList);
+	CartVO selectCartById(int cartId);
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	void updateGoodsCount(CartVO cartVO);

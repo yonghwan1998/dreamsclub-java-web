@@ -6,7 +6,8 @@ import java.util.Map;
 import xyz.dreams.dto.CartVO;
 
 public interface CartService{
-	Map<String, List> myCartList(String memberId);
+	List<CartVO> myCartList(String memberId);
+	CartVO selectCartById(int cartId);
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	public boolean updateGoodsCount(CartVO cartVO);

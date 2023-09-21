@@ -37,9 +37,8 @@ public class CartController {
 	
 	@RequestMapping(value="/mycart/{memberId}" ,method = RequestMethod.GET)
 	public String myCart(@PathVariable("memberId") String memberId, GoodsDTO goods, Model model) {
-		System.out.println(goods);
-		Map<String, List> cartMap = cartService.myCartList(memberId);
-		model.addAttribute("cartMap", cartMap);
+		List<CartVO> cartList = cartService.myCartList(memberId);
+		model.addAttribute("cartList", cartList);
 		return "cart/mycart";
 	}
 	
@@ -55,6 +54,7 @@ public class CartController {
 		CartVO cartVO = new CartVO();
 		cartVO.setMemberId(memberId);
 		cartVO.setGoodsCode(goodsCode);
+		cartVO.setGoodsCount(goods.getGoodsCount());
 		
 		
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);

@@ -41,12 +41,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<OrderDTO> list(int curPage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<OrderDTO> selectByOrderId(String orderId) {
 		return sqlSession.selectList(NS+".selectByOrderId", orderId);
 	}
@@ -63,17 +57,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
-		int result = sqlSession.delete(NS+".delFromCart", cartVO);
-		
-		if (result == 1) {
-			return true;
-		} else {
-			return false;
-		}	
-	}
-
-	@Override
 	public int orderCancel(OrderDTO orderDTO) {
 		return sqlSession.delete(NS+".orderCancel", orderDTO);
 	}
@@ -83,5 +66,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne(NS+".getAmount");
 	}
 
+	@Override
+	public List<OrderDTO> list(int curPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

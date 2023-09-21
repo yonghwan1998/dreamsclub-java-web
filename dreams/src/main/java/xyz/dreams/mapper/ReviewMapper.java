@@ -19,5 +19,5 @@ public interface ReviewMapper {
 	
 	//강민경: 페이징 처리
 	List<ReviewDTO> selectReviewList(Map<String, Object>map);
-	int selectReviewCount();
+	int selectReviewCount(String goodsName);
 }

@@ -31,7 +31,19 @@
                     value="${pageInfo.qnaCont}"></textarea>
                 </td>
             </tr>
-
+                        
+            <!-- 굿즈 사이즈 -->
+            <tr>
+				<td>굿즈 사이즈</td>
+					<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
+						<select name="goodsSize">
+							<option value="F" selected>F</option>
+							<option value="S">S</option>
+							<option value="M">M</option>
+							<option value="L">L</option>	
+						</select>
+					</td>
+			</tr>
         </table>
 
  
@@ -66,6 +78,12 @@ function chk_form() {
 	}
 	document.getElementById('qnaWrite_input').submit();
 	  alert("게시글이 등록되었습니다.");
+	  
+	  
+	  <!--9/20 링크 도오오전 -->
+	  location.href = "<c:url value = '/goods/detail?goodsName=${qna.getGoodsName}'/>"
+}
+	  
 }
 
 

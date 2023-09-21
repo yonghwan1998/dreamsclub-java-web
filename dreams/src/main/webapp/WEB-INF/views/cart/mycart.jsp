@@ -83,17 +83,9 @@ if(chk) {
 </script>
 <div class="container">
   
-
-  
-	<c:forEach items="${cartList}" var="cartList">
-		<input type="hidden" value="${cartList}" name="cartId">
-	</c:forEach>
-		
 		<div class="row qnas" style="text-align: center;">
 		<form name="frm_order_all_cart">
     <c:set value="${pageContext.request.contextPath}" var="contextPath" />
-    <c:set value="${cartMap.cartList}" var="cartList"/>
-    <c:set value="${cartMap.goodsList}" var="goodsList"/>
 			<h1 class="page-header">장바구니</h1>
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
@@ -108,58 +100,48 @@ if(chk) {
 				</thead>
 				<tbody>
 					<c:choose>
-            <c:when test="${goodsList != null}">
-  					<c:forEach items="${goodsList}" var="goods" varStatus="status">
-            <c:set value="${cartList[status.index].goodsCode}" var="cList"/>
-            <%-- 
-            <c:out value="${goodsList }"/><br><br>
-            cList=유니폼-C-L/ String[] arr = cList.split("-",2)
-            <c:out value="${cartList }"/><br><br>
-             --%>
-            <%-- <c:set var="cart_id" value="${cartList.cartId}"/> --%>
+            <c:when test="${cartList != null}">
+  					<c:forEach items="${cartList}" var="cartList" varStatus="status">
+              <input type="hidden" id="cartId" value="${cartList.cartId}">
+            
   						<tr>
-                <!-- 체크박스, 이미지 -->
+                <!-- 이미지 -->
   							<td class="product-close">
-    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${goods.goodsImage }"
+    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}"
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
-                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cList}">${goods.goodsCode}</a>
-                    <input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
+                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode}</a>
+                    <input value="${cartList.goodsCode}" id="goodsCode" type="hidden" >
                 </td>
 
                 <!-- 가격 -->
   							<td>
-                  <fmt:formatNumber type="number" value="${goods.goodsPrice}"/>&nbsp;원<br>
-  							<td>
-                  ${goods.goodsCount }
+                  <fmt:formatNumber type="number" value="${cartList.goodsPrice}"/>&nbsp;원<br>
+  							</td>
+                
+                <!-- 수량 -->
+                <td>
+                  ${cartList.goodsCount}
                 </td>
                 <!-- 사이즈 -->
-                <td>${goods.goodsSize }</td>
+                <%-- <td>${cartList.goodsSize }</td> --%>
+                <td>S</td>
                 <!-- 정보 -->
-								<td>${goods.goodsInfo}</td>
+								<td>${cartList.goodsInfo}</td>
 								<td>	
-                  <c:set var="myGoodsCode" value="${cartList[status.index].goodsCode}"/>
-  								<c:choose>
-  									<c:when test="${vo.goodsStock == 0}">
-  										<button class="btn btn-default" disabled="disabled">주문하기</button><br>
-  										<button class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-  									</c:when>
-  									<c:otherwise>
-                      <input type="hidden" value="${member.memberId}" id="login_memberId">
-                      <input type="hidden" id="myHiddenGoods" value="${myGoodsCode }">
-  										<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList[status.index].goodsCode}">주문하기</button>
-  										<br>
-  										<button style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-  									</c:otherwise>
-  								</c:choose> 
+                  <input type="hidden" value="${member.memberId}" id="login_memberId">
+									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
+									<br>
+									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
 						    </td>
 						</tr>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr><td colspan="5"><h3>장바구니에 내역이 없습니다.</h3></td></tr>
-					</c:otherwise></c:choose>
+					</c:otherwise>
+          </c:choose>
 				</tbody>
 			</table>
 		</form>
@@ -171,19 +153,17 @@ if(chk) {
 </div>
 
   <script type="text/javascript">
-  
-  $(document).ready(function() {
-    
     var memberId = $("#login_memberId").val();
+    //var goodsCode = document.getElementById("goodsCode").value;
+		var cartId = document.getElementById("cartId").value;
     
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
-      		var item = $(this);
-      		//var goodsCode = item.attr("data-pId");
-      		var goodsCode = document.getElementById("myHiddenGoods").value;
-      		alert(goodsCode);
       		
       		if(memberId != null) {
+  	        alert(goodsCode);
+  	        alert(cartId);
+  	        
       			$.ajax({
       	            type : "post",
       	            url : "<c:url value='/cart/delFromCart/' />",
@@ -208,24 +188,25 @@ if(chk) {
       		} else {
       			alert("로그인 후 이용해 주세요.");
       			location.assign("<c:url value='/login' />");
-      		}
+      		} 
     });
     
-    
+     
     $(".cart_to_order").click(function(event) {
       event.preventDefault();
       
       if (memberId != null) {
-        var item = $(this);
-      	var goodsCode = document.getElementById("myHiddenGoods").value;
-        //var goodsCode = item.attr("data-pId");
-        alert(goodsCode);
-        location.assign("<c:url value='/order/insert/'/>" + goodsCode);
+    	  var item = $(this);
+    	  var goodsCode = item.attr("data-pId");
+    	  
+        alert("goodsCode = "+goodsCode);
+        location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {
 				alert("로그인 후 이용해 주세요.");
   			location.assign("<c:url value='/login' />");
       }
     });
+
     
      $("#orderSuccess").click(function () {
        
@@ -247,47 +228,17 @@ if(chk) {
              }
          });
     
+     
     $(".btn-back_to_shop").click(function() {
-      location.assign("/");
+      location.assign("<c:url value='/goods/main' />");
     });
     
-    
-    $("#mycart_btn").click(function(event) {
-      event.preventDefault();
-      location.assign("<c:url value='/cart/mycart'/>" + memberId);
-      
-    }); 
-    
-    $("#go_to_member_insert").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/join/check'/>");
-    });
-    
-    $("#mypage_btn").click(function(event) {
-      event.preventDefault();
-      var memberId = $("#login_memberId").val();
-      
-      location.assign("<c:url value='/mypage'/>" + memberId);
-    })
-    
-    $("#logout_btn").click(function(event) {
-      event.preventDefault();
-      
-      var logout = confirm("로그아웃 하시겠습니까?");
-      
-      if (logout) {
-        location.assign("<c:url value='/logout'/>");
-      }
-    });
-    
-    $("#go_to_adminPage").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/admin'/>");
-    
-    });
-  
-  });
+    /* 
+    function orderBtn(cartId){
+    	var test = $('#'+cartId).val();
+    	alert(test);
+    }
+   */
+
   
 </script>

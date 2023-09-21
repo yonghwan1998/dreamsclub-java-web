@@ -21,8 +21,8 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public List<GoodsDTO> selectGoodsList(List<CartVO> cartList) {
-		return sqlSession.selectList(NS+".selectGoodsList", cartList);
+	public CartVO selectCartById(int cartId) {
+		return sqlSession.selectOne(NS+".selectCartById", cartId);
 	}
 	
 	@Override

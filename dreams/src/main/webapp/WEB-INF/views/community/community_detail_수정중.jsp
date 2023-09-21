@@ -28,6 +28,26 @@
                <!--글 내용-->
 				<!--  <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>-->
                 <div class="communityDetailContainerBody" style="white-space: pre;">${pageInfo.commCont}</div>
+                
+                <!-- 글 내용 안에 좋아요 버튼 -->
+                
+                <c:if test="${member.memberId == null }">
+                	<div style="text-align: center;">
+	                	<img id="likeImg" class="likeImg_white" style="width: 60px; height: 60px;" 
+	                		src="${pageContext.request.contextPath }/img/community/like-white.png">
+	                		${community.like_count }<br><br>
+	                	추천기능은 <a href=<c:url value="/login"/> type="button" id="newLogin" class="newLoginBtn">로그인</a> 후 사용 가능합니다.
+                	</div>
+                </c:if>
+                <c:if test="${member.memberId != null }">
+                	<div style="text-align: center;">
+                		<input type="hidden" id="like_check" value="${communityLike.like_check }">
+                		<img alt="" id="likeImg" class="likeImg_red" style="width: 60px; height: 60px;"
+                			src="${pageContext.request.contextPath }/img/community/like-white.png">
+                			${community.like_count }
+                	</div>
+                </c:if>
+                
         </div>
 
             <!--버튼-->
@@ -79,7 +99,7 @@
 
 /*삭제 확인하기 - 김예지(2023.08.25)*/
 function deleteCheck(){
-   if(confirm("정말 삭제하시겠습까?")==true){
+   if(confirm("정말 삭제하시겠습니까?")==true){
       location.href="<c:url value='/community/delete?commNo=${pageInfo.commNo}'/> ";
       alert("삭제되었습니다.");
    }else if(confirm==false){
@@ -159,6 +179,7 @@ $("#addBtn").click(function() {
 				$("#commReCont").val("");
 				//댓글 쓴 후 카운팅 숫자 0으로 되돌아가기
 	            $("#textLengthCheck").text("(0/300)");
+				location.reload();	//새로고침
 			}
 		},
 		error: function(xhr) {
@@ -297,5 +318,82 @@ function updateTextLength(commReNo) {
         lengthSpan.text("(300/300자)");
     }
 }
+
+
+
+/*좋아요 하트 색깔 바꾸기*/
+
+/*
+
+$(document).ready(function(){
+	let like_count = document.getElementById('like_count') //좋아요 카운트
+	let likeval = document.getElementById('like_check').value
+	const commNo = '${community.commNo}';
+	const memberId = "${session.memberId}";
+	const likeImg = document.getElementById("likeimg");
+	
+	if(likeval > 0){
+		likeImg.src = "${pageContext.request.contextPath }/img/community/like-red.png";
+	} else{
+		likeImg.src = "${pageContext.request.contextPath }/img/community/like-white.png";
+	}
+	
+	// 좋아요 버튼 클릭시 실행되는 코드
+	$(".likeImg_red").on("click", function(){
+		$.ajax({
+			url: "<c:url value='/community/like'/>",
+			type: "POST",
+			data: { "commNo" : commNo, "memberId" : memberId },
+			success: function(data){
+				if(data==1){ //1인 상태: 좋아요 누른후
+					$("#likeImg").attr("src", "${pageContext.request.contextPath }/img/community/like-red.png");
+					location.reload();	//새로고침
+				}else{
+					$("#likeImg").attr("src", "${pageContext.request.contextPath }/img/community/like-white.png");
+					location.reload();					
+				}
+			}, error: function(){
+					$("#likeImg").attr("src", "${pageContext.request.contextPath }/img/community/like-red.png");
+					console.log("에러 찾아보자.")		
+			}
+			
+		});
+	});
+});
+ */
+ 
+function like_function(){
+	 var memberId = $("#memberId");
+	 var commNo = $("#commNo", memberId).val();
+	
+	 $.ajax({
+		url: "<c:url value='/community/like'/>",
+		type: "GET"
+		cache: false,
+		dataType: "json",
+		data: "commNo="+commNo+"&likeNo="+likeNo,
+		success: function(data){
+			var msg="";
+			vat like_img="";
+			msg+= data.msg;
+			alert(msg);
+			
+			if(data.like_check ==0){
+				like_img = "${pageContext.request.contextPath }/img/community/like-white.png";
+			} else{
+				like_img = "${pageContext.request.contextPath }/img/community/like-red.png";
+			}
+			
+			$("#like_img", memberId).attr("src", like_img);
+			//$("#like_cnt").html(data.like_cnt);
+			$("#like_check").html(data.like_check);
+		},
+		
+	    error: function(request, status, error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	 });
+ }
+
 
 </script>

@@ -26,45 +26,45 @@
                     <h3>배송정보 입력사항</h3>
                     <div class="row">
                     	<c:choose>
-                    		<c:when test="${memberInfo != null }">
+                    		<c:when test="${member != null }">
 	                          <div class="col-lg-6 col-md-6">
 	                              <div class="orderOld">
 	                                  <label>이름</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberName}" />" disabled="disabled"></input>
+	                                  <input type="text" value="<c:out value="${member.memberName}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	                          <div class="col-lg-6 col-md-6">
 	                              <div class="orderOld">
 	                                  <label>전화번호</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberPhone}" />" disabled="disabled"></input>
+	                                  <input type="text" value="<c:out value="${member.memberPhone}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	
 	                          <div class="col-lg-12">
 	                              <div class="orderOld">
 	                                  <label>이메일</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberEmail}" />" disabled="disabled"></input>
+	                                  <input type="text" value="<c:out value="${member.memberEmail}" />" disabled="disabled"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-6">
 	                              <div class="orderOld">
 	                                  <label>우편번호</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberPcode}" />"></input>
+	                                  <input type="text" value="<c:out value="${member.memberPcode}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
 	                              <div class="orderOld">
 	                                  <label>기본주소</label>
-	                                  <input type="text" value="<c:out value="${memberInfo.memberAddress1}" />"></input>
+	                                  <input type="text" value="<c:out value="${member.memberAddress1}" />"></input>
 	                              </div>
 	                          </div>
 	                          
 	                          <div class="col-lg-12">
 	                          	<div class="orderOld">
 	                                  <label>상세주소</label>
-	                                 <input type="text" value="<c:out value="${memberInfo.memberAddress2}" />"></input>
+	                                 <input type="text" value="<c:out value="${member.memberAddress2}" />"></input>
 	                          	</div>
 	                         </div>
                          	</c:when>
@@ -224,7 +224,6 @@
                     <br>
                     <br>
                     <h3>결제 정보</h3>
-                    <c:set value="${goodsInfo}" var="goods"/>
                     <div class="your-order-wrap gray-bg-4">
                         <div class="your-order-product-info">
                             <div class="your-order-top">
@@ -235,8 +234,8 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">${goods.goodsCode} &nbsp;&nbsp; X &nbsp;&nbsp;  ${goods.goodsCount }</span> <span
-                                            class="order-price"><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원 </span></li>
+                                    <li><span class="order-middle-left">${cartInfo.goodsCode} &nbsp;&nbsp; X &nbsp;&nbsp;  ${cartInfo.goodsCount }</span> <span
+                                            class="order-price"><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원 </span></li>
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
@@ -248,7 +247,7 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">총 금액</li>
-                                    <li><span><fmt:formatNumber value="${goods.goodsPrice }" pattern="#,###" /> 원</span></li>
+                                    <li><span><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -486,17 +485,17 @@ var action_popup = {
 
 $(function () {
     // memberPcode 값이 null인 경우 클래스 변경
-    if ("<c:out value="${memberInfo.memberPcode}" />" === "") {
+    if ("<c:out value="${member.memberPcode}" />" === "") {
         $(".orderOld label:contains('우편번호')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
     }
     
     // memberAddress1 값이 null인 경우 클래스 변경
-    if ("<c:out value="${memberInfo.memberAddress1}" />" === "") {
+    if ("<c:out value="${member.memberAddress1}" />" === "") {
         $(".orderOld label:contains('기본주소')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
     }
 
     // memberAddress2 값이 null인 경우 클래스 변경
-    if ("<c:out value="${memberInfo.memberAddress2}" />" === "") {
+    if ("<c:out value="${member.memberAddress2}" />" === "") {
         $(".orderOld label:contains('상세주소')").closest(".orderOld").removeClass("orderOld").addClass("billing-info mb-20");
     }
 });

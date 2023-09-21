@@ -2,28 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-  /* 
-    function purchaseGoods() {
-      if ( purchase.goodsSize.value == "0" ) {
-            alert("사이즈를 선택해주세요.");
-            purchase.goodsSize.focus();
-            return;
-         } 
-         purchase.action = "<c:url value="/goods/detail"/>";
-         purchase.submit();
-   }  
-   */
-
   /* 장바구니 */
   $(document).ready(function () {
-      
 
-      // 주문하기 버튼 클릭
+    // 주문하기 버튼 클릭
     $(".btn-order").click(function () {
     		var goodsCode = $("#goodsCode").val();
         var count = $("#goodsCount").val();
         var goodsCount = parseInt(count);
-        var goodsSize = $("#goodsSize").val();
+        var goodsSize = $("select[name=goodsSize] option:selected").attr('value');
         var memberId = $("#isLogOn").val();
         var goodsPrice = $("#goodsPrice").val();
     	
@@ -37,11 +24,10 @@
           type: "post",
           url: "<c:url value='/order/insert/'/>" + goodsCode,
           data: {
-            goodsCode: goodsCode,
-            goodsSize: goodsSize,
-            goodsCount: goodsCount,
-            memberId: memberId,
-            goodsPrice: goodsPrice
+        	  "goodsCode": goodsCode,
+            "goodsSize": goodsSize,
+            "goodsCount": goodsCount,
+            "goodsPrice": goodsPrice
           },
           dataType: "text",
           success: function (response) {
@@ -64,39 +50,58 @@
       event.preventDefault();
       var goodsCode = $("#goodsCode").val();
       var count = $("#goodsCount").val();
-      var goodsStock = parseInt(count);
-      var goodsSize = $("#goodsSize").val();
+      var goodsCount = parseInt(count);
+      var goodsSize = $("select[name=goodsSize] option:selected").attr('value');
       var memberId = $("#isLogOn").val();
       var goodsPrice = $("#goodsPrice").val();
       
-      $.ajax({
-        type: "post",
-        url: "<c:url value="/cart/addGoodsInCart"/>",
-        contentType : "application/json",
-        data: JSON.stringify({
-          "goodsCode": goodsCode,
-          "goodsStock": goodsStock,
-          "goodsSize": goodsSize
-        }),
-        dataType: "text",
-        success: function (result) {
-          if (result.trim() == 'add_success') {
-            var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
-            var goMyCart = "<c:url value='/cart/mycart/' />";
-            
-            if (check) {
-              location.assign(goMyCart + memberId);
+      if (memberId === "false" || memberId === '') {
+          alert("로그인 후 주문이 가능합니다!");
+          window.location.href = "<c:url value='/login' />";
+          event.preventDefault();
+      } else {
+      
+          $.ajax({
+            type: "post",
+            url: "<c:url value="/cart/addGoodsInCart"/>",
+            contentType : "application/json",
+            data: JSON.stringify({
+              "goodsCode": goodsCode,
+              "goodsCount": goodsCount,
+              "goodsSize": goodsSize
+            }),
+            dataType: "text",
+            success: function (result) {
+              if (result.trim() == 'add_success') {
+                var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
+                var goMyCart = "<c:url value='/cart/mycart/' />";
+                
+                if (check) {
+                  location.assign(goMyCart + memberId);
+                }
+              } else if (result.trim() == 'already_existed') {
+                alert("이미 장바구니에 등록된 상품입니다.");
+              }
+            },
+            error: function(xhr) {
+                alert(xhr.status);
             }
-          } else if (result.trim() == 'already_existed') {
-            alert("이미 장바구니에 등록된 상품입니다.");
-          }
-        },
-        error: function(xhr) {
-            alert(xhr.status);
-        }
-      });
+          });
+          
+      	}
     });
   });
+   
+   //강민경(2023/09/20): 상세 페이지의 리뷰 삭제 기능 
+     function deleteCheck(no) {
+  	if (confirm("정말 삭제하시겠습니까?") == true) {
+  		//goodsName, revNo를 컨트롤러에게 전달해서 삭제해야 함
+  		location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";
+  		alert("삭제되었습니다.");
+  	} else if (confirm == false) {
+  		alert("취소되었습니다.");
+  	}
+  }
 </script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
@@ -300,59 +305,41 @@
 					<div class="row">
 						<div class="col-lg-11">
 							<div class="review-wrapper">
-								<!-- 리뷰 작성 칸인데 크기가 이상해서 밑에 있는 대댓글 사용할 예정 
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-top-wrap">
-                                            <div class="review-left">
-                                                <div class="review-name">
-                                                    <h4>작성자 id</h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-left">
-                                                <a href="#">삭제</a>
-                                            </div>
-                                        </div>
-                                        <div class="review-bottom">
-                                            <p>넝협은행ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-                                        </div>
-                                    </div>
-                                </div>-->
-
-								<!-- 강민경: 리뷰 답글 부분 주석처리 (추후 사용할 가능성 있음) -->
-								<div class="single-review child-review">
-									<div class="review-img">
-										<img src="${pageContext.request.contextPath }/img/testimonial/2.jpg" alt="">
-									</div>
-									<div class="review-content">
-										<div class="review-top-wrap">
-											<div class="review-left">
-												<div class="review-name">
-													<h4>강민*</h4>
-												</div>
-												<div class="review-rating">
-													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-												</div>
-											</div>
-											<div class="review-left">
-												<a href="#">삭제</a>
-											</div>
-										</div>
-										<div class="review-bottom">
-											<p>너무 예뻐요~</p>
-										</div>
-									</div>
-								</div>
+								<c:forEach var="review" items="${goodsReview }">
+									<div class="single-review">
+	                                    <div class="review-img">
+	                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
+	                                    </div>
+	                                    <div class="review-content">
+	                                        <div class="review-top-wrap">
+	                                            <div class="review-left">
+	                                                <div class="review-name">
+	                                                   <c:out value="${review.memberId}"/>
+	                                                </div>
+	                                                <div class="review-rating">
+		                                                <c:out value="${review.goodsStar}"/>
+	                                                    <!-- 
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                    <i class="fa fa-star"></i>
+	                                                     -->
+	                                                </div>
+	                                            </div>
+	                                            <div class="review-left">
+	                                               <c:if test="${member.memberId == review.memberId}" >
+														<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
+													</c:if>
+	                                            </div>
+		                                        <div class="review-bottom">
+		                                            <p><c:out value="${review.revCont}"/></p>
+		                                        </div>
+			                                        
+		                                      </div>
+	                                    </div>
+	                                </div>
+                               </c:forEach>
 							</div>
 						</div>
 					</div>

@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService{
 		cartVO.setMemberId(orderDTO.getMemberId());
 		cartVO.setGoodsCode(orderDTO.getGoodsCode());
 		
-		delFromCart(cartVO);
+		//delFromCart(cartVO);
 	}
 	
 	@Override
@@ -49,11 +49,6 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
-		return orderDAO.delFromCart(cartVO);
-	}
-	
-	@Override
 	public int orderCancel(OrderDTO orderDTO) {
 		return orderDAO.orderCancel(orderDTO);
 	}
@@ -62,6 +57,4 @@ public class OrderServiceImpl implements OrderService{
 	public int getAmount() {
 		return orderDAO.getAmount();
 	}
-	
-	
 }

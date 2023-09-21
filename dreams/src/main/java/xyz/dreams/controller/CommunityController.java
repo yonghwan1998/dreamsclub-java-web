@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CommunityService;
+import xyz.dreams.util.Pager;
 
 @Controller
 @RequestMapping(value = "/community")
@@ -33,9 +33,9 @@ public class CommunityController {
 	/*게시판 글 등록하기 - 김예지(2023.08.20)*/
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String communityWritePOST(@ModelAttribute CommunityDTO community, HttpSession session) throws Exception{
-		communityService.enrollCommunity(community);
+		communityService.enrollCommunity(community);		
 		
-		return "redirect:/community";
+		return "redirect:/community/detail?commNo="+community.getCommNo()+"&pageNum=&column=&keyword=";
 	}
 	
 	
@@ -87,7 +87,7 @@ public class CommunityController {
 
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);
-		
+				
 
 		return "community/community_detail";
 	}

@@ -16,8 +16,6 @@ public interface OrderService {
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
 	
-	boolean delFromCart(CartVO cartVO);
-	
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();

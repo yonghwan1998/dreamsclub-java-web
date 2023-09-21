@@ -94,14 +94,46 @@ td {
 	font-size: 8pt;
 	color: #333333;
 }
+/* 별점 관련 css
+#review fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#review fieldset legend{
+    text-align: right;
+}
+#review input[type=radio]{
+    display: none;
+}
+#review label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#review label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#review label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#review input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+*/
 </style>
 
-<script>
-	function ReviewCreate() {
-		f.action = "<c:url value="/mypage/review/write"/>";
-		f.submit();
-	}
-</script>
+
 <table width=780 border=0 cellpadding=0 cellspacing=0>
 	<tr>
 		<td width="20"></td>
@@ -117,42 +149,68 @@ td {
 				</tr>
 			</table> <br>
 
-			<form name="/mypage/mypage_check" method="post" enctype="multipart/form-data">
+			<form name="review" id="review" method="post">
 				<table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">구매 상품</td>
-						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">${order.goodsCode }</td>
+						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
+							<input type ="text" style="width: 150" name="goodsCode" value="모자 첫 번째-C-F" readonly="readonly" >
+						</td>
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 별점  -->
 					<tr>
+					<!--
+						<fieldset>
+							<span class="text-bold">별점을 선택해주세요</span>
+							<input type="radio" name="reviewStar" value="5" id="rate1"><label
+								for="rate1">★</label>
+							<input type="radio" name="reviewStar" value="4" id="rate2"><label
+								for="rate2">★</label>
+							<input type="radio" name="reviewStar" value="3" id="rate3"><label
+								for="rate3">★</label>
+							<input type="radio" name="reviewStar" value="2" id="rate4"><label
+								for="rate4">★</label>
+							<input type="radio" name="reviewStar" value="1" id="rate5"><label
+								for="rate5">★</label>
+						</fieldset>
+						-->
+						
 						<td width=100 align=center bgcolor="E6ECDE" height="22">별점</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-						<!-- value 부분이 저장할 테이블에 컬럼명을 적는건지 아니면 가져올 정보에 대한 테이블의 컬럼명을 적는건지 -->
-							<input type="text" style="width: 150" name="goodsName" value="${review.goodsStar }">
+							<input type="text" style="width: 150" name="goodsStar" value="5">
 						</td>
+						</td>
+					
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 내용  -->
 					<tr>
+						<!-- 
+						<div>
+							<textarea class="col-auto form-control" type="text" id="reviewContents" name="revCont"
+									  placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
+						</div>
+						-->
 						<td width=100 align=center bgcolor="E6ECDE" height="22">리뷰 내용</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="text" style="width: 150" name="goodsPrice" value="${review.Cont }">
+							<input type="text" style="width: 150" name="revCont" value="넘예뻐여 ">
 						</td>
+						 
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 사진  -->
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">리뷰 사진</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="file" style="width: 240" name="uploadImage" value="${review.revImg }">
+							<input type="file" style="width: 240" name="revImg" value="">
 						</td>
 					</tr>
+				<tr>
+					<td align=center>
+						<button type="button" onClick="review_writer();"><span>리뷰 등록</span></button>
+					</td>
+				</tr>
 				</table>
 			</form> <br>
 			<table width=590 border=0 cellpadding=0 cellspacing=0>
-				<tr>
-					<td align=center>
-						<input type="submit" value="리뷰등록" onClick=" ReviewCreate();">
-					</td>
-				</tr>
 				<tr>
 					<td align=center>
 					<a href="<c:url value="/mypage/mypage_check"/>">뒤로 가기</a>
@@ -162,3 +220,25 @@ td {
 		</td>
 	</tr>
 </table>
+
+<script>
+		
+	
+	function review_writer() {
+		
+		if(review.goodsStar.value == ""){
+			alert("별점을 선택해 주세요.");
+			review.goodsStar.focus();
+			return;
+		}
+		if(review.revCont.value == ""){
+			alert("구매후기를 입력해 주세요.");
+			review.revCont.focus();
+			return;
+		}
+		
+		alert("상품 후기가 등록되었습니다.");
+		review.action = "<c:url value="/mypage/review/write"/>";
+		review.submit();
+	}
+</script>

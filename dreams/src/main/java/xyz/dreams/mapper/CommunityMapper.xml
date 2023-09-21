@@ -3,10 +3,24 @@
 <mapper namespace="xyz.dreams.mapper.CommunityMapper">
 
 <!-- 게시판 등록 -->
+<!-- 
 <insert id="enrollCommunity">
-	insert into Community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) 
+
+	insert into community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) 
 	values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
+
 </insert>
+	 -->
+	 
+<insert id="enrollCommunity" parameterType="CommunityDTO">
+	<selectKey resultType="int" keyProperty="commNo" order="BEFORE">
+		select COMMUNITY_SEQ.NEXTVAL from dual
+	</selectKey>
+	insert into community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID)
+	values(#{commNo}, #{commTitle}, #{commCont}, #{memberId})
+</insert>
+
+
 
 <!-- 게시판 글 하나 보기 -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">

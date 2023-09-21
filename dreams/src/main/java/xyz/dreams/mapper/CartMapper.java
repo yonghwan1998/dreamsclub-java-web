@@ -7,7 +7,7 @@ import xyz.dreams.dto.GoodsDTO;
 
 public interface CartMapper {
 	List<CartVO> selectCartList(String memberId);
-	List<GoodsDTO> selectGoodsList(List<CartVO> cartList);
+	CartVO selectCartById(int cartId);
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	void updateCartGoodsQty(CartVO cartVO);
