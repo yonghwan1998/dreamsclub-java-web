@@ -42,7 +42,8 @@ public class QnaDTO {
 	private Date qnaReDate;		//답변 날짜
 	private String goodsCode;	//상품 코드
 	
-	
+	// 9월 20일 - 도오오전
+	private String goodsName;	//상품 이름
 	
 	
 
