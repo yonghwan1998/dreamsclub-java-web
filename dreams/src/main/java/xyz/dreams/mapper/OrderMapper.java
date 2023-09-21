@@ -19,4 +19,7 @@ public interface OrderMapper {
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();
+	
+	//강민경(2023/09/20): 마이페이지에서 상품 리스트 출력 
+	List<OrderDTO> selectOrderStatus();
 }

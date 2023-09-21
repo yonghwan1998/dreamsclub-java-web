@@ -45,4 +45,5 @@
 		<bind name="reviewCount" value="goodsName+'-%'"/>
 		select count(*) from review_test where goods_code like #{reviewCount}
 	</select>
+	
 </mapper>

@@ -78,4 +78,9 @@
   <select id="getAmount" resultType="integer">
     SELECT COUNT(order_id) FROM setOrder
   </select>
+  
+  <!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
+  <select id="selectOrderStatus" resultType="OrderDTO">
+	select * from setorder where order_status in (0,1)
+	</select>
 </mapper>
