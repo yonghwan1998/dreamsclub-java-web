@@ -86,65 +86,72 @@ if(chk) {
 		<div class="row qnas" style="text-align: center;">
     <c:set value="${pageContext.request.contextPath}" var="contextPath" />
 			<h1 class="page-header">장바구니</h1>
-			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
-				<thead>
-					<tr>
-						<th colspan="2" style="text-align: center;">상품명</th>
-						<th>가격</th>
-						<th>수량</th>
-						<th>사이즈</th>
-						<th>상품정보</th>
-            <th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-            <c:when test="${cartList != null}">
-  					<c:forEach items="${cartList}" var="cartList" varStatus="status">
-		<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
-              <input type="hidden" value="${cartList.cartId}" name="cartId">
-              <input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
-              <input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
-  						<tr>
-                <!-- 이미지 -->
-  							<td class="product-close">
-    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}"
-                    style="max-width: 100px; max-height: 100px;">
-  							</td>
-                <!-- 이름 -->
-                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
-                    
-                </td>
-
-                <!-- 가격 -->
-  							<td>
-                  <fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
-  							</td>
+			<div class="table table-hover" style="display:table; margin: auto; border-bottom: 1px solid #D5D5D5;">
+				<div style="display:table-row">
+					<div style="text-align: center; display:table-cell;">상품명</div>
+					<div style="display:table-cell">가격</div>
+					<div style="display:table-cell">수량</div>
+					<div style="display:table-cell">사이즈</div>
+					<div style="display:table-cell">상품정보</div>
+            		<div style="display:table-cell"></div>
+				</div>
+				<c:choose>
+            		<c:when test="${cartList != null}">
+		  				<c:forEach items="${cartList}" var="cartList" varStatus="status">
+					<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
+  							<div style="display:table-row">
+							<input type="hidden" value="${cartList.cartId}" name="cartId">
+							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
+							<input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
+  							
+                			<!-- 이미지 -->
+  							<div class="product-close" style="display:table-cell">
+    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}" style="max-width: 100px; max-height: 100px;">
+  							</div>
+  							
+			                <!-- 이름 -->
+			                <div style="display:table-cell">
+			                	<a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
+			                </div>
+			                
+                			<!-- 가격 -->
+  							<div style="display:table-cell">
+                  				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
+  							</div>
                 
-                <!-- 수량 -->
-                <td>
-                  ${cartList.goodsCount}
-                </td>
-                <!-- 사이즈 -->
-                <td>${cartList.goodsCode.split("-")[2]}</td>
-                <!-- 정보 -->
-								<td>${cartList.goodsInfo}</td>
-								<td>	
-                  
-									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
-									<br>
-									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
-						    </td>
-						</tr>
+                			<!-- 수량 -->
+                			<div style="display:table-cell">
+                  				${cartList.goodsCount}
+                			</div>
+                			
+                			<!-- 사이즈 -->
+                			<div>
+                				${cartList.goodsCode.split("-")[2]}
+                			</div>
+                			
+                			<!-- 정보 -->
+							<div style="display:table-cell">
+								${cartList.goodsInfo}
+							</div>
+							
+							<div style="display:table-cell">	
+								<button type="submit" style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
+								<br>
+								<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
+						    </div>
+						</div>
 		</form>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<tr><td colspan="5"><h3>장바구니에 내역이 없습니다.</h3></td></tr>
+						<div style="display:table-row">
+							<div style="display:table-cell">
+								<h3>장바구니에 내역이 없습니다.</h3>
+							</div>
+						</div>
 					</c:otherwise>
           </c:choose>
-				</tbody>
-			</table>
+			</div>
 	</div>
 		
 		<div class="row" style="text-align: center; margin: 80px 0;">
@@ -193,19 +200,19 @@ if(chk) {
     });
     
      
-    $(".cart_to_order").click(function(event) {
+    /* $(".cart_to_order").click(function(event) {
       event.preventDefault();
       
       if (memberId != null) {
         
-        submitOrderForm();
+        // submitOrderForm();
         //location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {
 				alert("로그인 후 이용해 주세요.");
   			location.assign("<c:url value='/login' />");
       }
       
-    });
+    }); */
 
     
      $("#orderSuccess").click(function () {
