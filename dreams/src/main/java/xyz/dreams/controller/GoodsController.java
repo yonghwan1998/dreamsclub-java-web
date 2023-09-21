@@ -157,6 +157,7 @@ public class GoodsController {
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
 		System.out.println(qna);
 		String goodsName = qnaService.enrollQna(qna); // 등록 //+ ???? 이걸주석처리하면 요청한곳으로 잘가는데, 풀면 405 뜸
+		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
 		
 		String encodedgoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
 		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^

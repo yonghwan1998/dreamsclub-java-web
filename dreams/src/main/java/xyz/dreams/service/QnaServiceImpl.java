@@ -23,13 +23,13 @@ public class QnaServiceImpl implements QnaService {
 		
 		String[] qnaSplit = null; // qnaSplit String문자열로[배열] = null
 //		
-//		// goodsCode = 모자 네 번째 - C(Code) - F(Size)
-//		// 배열		 		  [0]	-	[1]   -   [2]
+//		// goodsCode = 모자 네 번째(name) - C(Code) - F(Size)
+//		// 배열		 		 		 [0]  -   [1]   -   [2]
 //		
 //		// 값을 변경해줄거니
 		String qnaGoodsCode = qna.getGoodsCode(); // get GoodsCode 를 가져오고. qnaGoodsCode에 값을 넣음 // 원본
 		
-//		String qnaGoodsName = null; // get GoodsName 를 가져오고. qnaGoodsName에 값을 넣음
+//		String qnaGoodsSize = null; // get GoodsSize 를 가져오고. qnaGoodsName에 값을 넣음
 		String qnaGoodsSize = qna.getGoodsSize(); // get GoodsSize 를 가져오고. qnaGoodsSize에 값을 넣음
 //
 		qnaSplit = qnaGoodsCode.split("-"); // qnaGoodsCode에 .split("-")를 사용해 "-"를 나누고, qnaSlit에 저장
@@ -46,7 +46,7 @@ public class QnaServiceImpl implements QnaService {
 
 		qnaDAO.enrollQna(qna);
 		
-		return qnaSplit[0];
+		return qnaSplit[0]; // goodsName을 다시 리턴. GoodsController 159번줄에서 다시 받음
 	}
 	
 	/* 수정하기 */
