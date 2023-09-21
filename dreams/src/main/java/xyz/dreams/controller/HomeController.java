@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.service.GoodsService;
+import xyz.dreams.service.NoticeService;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 	private final GoodsService goodsService; 
+	private final NoticeService noticeService;
 
 	/*
 	- 방용환(수정) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
@@ -53,6 +55,9 @@ public class HomeController {
 		// 검색 조건들을 goodsService.getGoodsList(Map<String, Object> map)에 인자로 넘김
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
 		model.addAttribute("goodsList", goodsList);
+		
+		//이소영(추가) : 2023-09-21 공지사항 메인화면 미리보기
+		model.addAttribute("NoticeList",noticeService.getList());
 
 		return "mainpage/index";
 	}
