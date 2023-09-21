@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dao.CartDAO;
 import xyz.dreams.dao.OrderDAO;
 import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
@@ -15,17 +16,26 @@ import xyz.dreams.dto.OrderDTO;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 	private final OrderDAO orderDAO;
+	private final CartDAO cartDAO;
 	
 	@Transactional
 	@Override
-	public void insert(OrderDTO orderDTO) {
-		orderDAO.insert(orderDTO);
+	public void insert(OrderDTO order) {
+		
+		if (order.getNewSelected() == 1) {
+			orderDAO.insert(order);
+		}else {
+			order.setMemberPcode(order.getMemberNewPcode());
+			order.setMemberAddress1(order.getMemberNewAddress1());
+			order.setMemberAddress2(order.getMemberNewAddress2());
+			orderDAO.insert(order);
+		}
 		
 		CartVO cartVO = new CartVO();
-		cartVO.setMemberId(orderDTO.getMemberId());
-		cartVO.setGoodsCode(orderDTO.getGoodsCode());
+		cartVO.setMemberId(order.getMemberId());
+		cartVO.setGoodsCode(order.getGoodsCode());
 		
-		//delFromCart(cartVO);
+		cartDAO.delFromCart(cartVO);
 	}
 	
 	@Override

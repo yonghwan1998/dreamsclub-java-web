@@ -50,4 +50,10 @@ public class OrderDTO {
 	private String deliverMsg;
 	private int orderStatus;
 	private String calInfo;
+
+	
+	private String memberNewPcode;
+	private String memberNewAddress1;
+	private String memberNewAddress2;
+	int newSelected;
 }

@@ -11,5 +11,5 @@ public interface CartMapper {
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	void updateCartGoodsQty(CartVO cartVO);
-	boolean delFromCart(CartVO cartVO);
+	int delFromCart(CartVO cartVO);
 }

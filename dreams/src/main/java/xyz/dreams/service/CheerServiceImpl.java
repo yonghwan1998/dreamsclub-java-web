@@ -51,4 +51,16 @@ public class CheerServiceImpl implements CheerService {
 		cheerDAO.insertCheer(cheer);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void changeCheerY(int cheerNo) {
+		cheerDAO.updateCheerY(cheerNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void changeCheerN(int cheerNo) {
+		cheerDAO.updateCheerN(cheerNo);
+	}
+
 }

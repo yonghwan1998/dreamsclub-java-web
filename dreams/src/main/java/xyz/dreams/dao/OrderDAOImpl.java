@@ -22,11 +22,11 @@ public class OrderDAOImpl implements OrderDAO {
 	private final String NS = "xyz.dreams.mapper.OrderMapper";
 	
 	@Override
-	public void insert(OrderDTO orderDTO) {
+	public int insert(OrderDTO order) {
 			int orderId = sqlSession.selectOne(NS+".countOrderId");
-			orderDTO.setOrderId(orderId);
+			order.setOrderId(orderId);
 			
-			sqlSession.insert(NS+".insert", orderDTO);
+			return sqlSession.insert(NS+".insert", order);
 	}
 
 	@Override
