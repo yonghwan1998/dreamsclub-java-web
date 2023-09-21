@@ -77,7 +77,7 @@
 												                ${order.orderDate}
 												                <!-- 주문 상태 출력 -->
 												                <c:choose>
-												                	<c:when test="${order.orderStatus == 0 }">배송준비중</c:when>
+												                	<c:when test="${order.orderStatus == 0}">배송준비중</c:when>
 												                	<c:when test="${order.orderStatus == 1}"> 배송 완료 </c:when>
 												                	<c:otherwise>고객센터로 문의 바랍니다.</c:otherwise>
 												                </c:choose>
@@ -101,8 +101,8 @@
 												                    <tbody class="sc-gnmni8-2 hryMPB">
 												                        <tr class="sc-gnmni8-3 gmGnuU">
 												                            <td class="sc-gnmni8-5 hUzAOG">
-												                                <!-- 상품 이미지 출력 
-												                                <img loading="lazy" width="64" height="64" src="${order.productImage}" alt="${order.productName}" />-->
+												                                <!-- 상품 이미지 출력 -->
+												                               
 												                                <!-- 상품명 출력 -->
 												                                <a href="${order.goodsCode}" target="_blank">${order.goodsCode}</a>
 												                                <!-- 상품 가격과 수량 출력 -->
