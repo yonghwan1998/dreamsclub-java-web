@@ -2,51 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.QnaMapper">
 
-<!--  QnA 등록 -->
-<insert id = "enrollQna">
-	insert into Qna(
-	QNA_NO,
-	MEMBER_ID,
-	QNA_TITLE,
-	QNA_CONT,
-	QNA_DATE,
-	QNA_STATUS,
-	QNA_YN,
-	GOODS_CODE
-	)
-	values 
-	(QNA_SEQ.NEXTVAL, <!-- 시퀀스의 값을 증가 시키고싶대 -->
-	#{memberId},
-	#{qnaTitle},
-	#{qnaCont},
-	SYSDATE, <!-- 근데 수정 마지막일도 변경해줘야하나? 어케하는거임? -->
-	1, <!-- 변경할수있게 할거임 -->
-	'N',
-	#{goodsCode}
-	) 
+	<!--  QnA 등록 -->
+	<insert id = "enrollQna">
+		INSERT INTO QNA(
+			QNA_NO,
+			MEMBER_ID,
+			QNA_TITLE,
+			QNA_CONT,
+			QNA_DATE,
+			QNA_STATUS,
+			QNA_YN,
+			GOODS_CODE
+		) VALUES (
+			QNA_SEQ.NEXTVAL, <!-- 시퀀스의 값을 증가 시키고싶대 -->
+			#{memberId},
+			#{qnaTitle},
+			#{qnaCont},
+			SYSDATE, <!-- 근데 수정 마지막일도 변경해줘야하나? 어케하는거임? -->
+			1, <!-- 변경할수있게 할거임 -->
+			'N',
+			#{goodsCode}
+		) 
 	</insert>
 	
 
-<!-- QnA  전체 목록보기 -->
-<!--  클릭했을때 내용이 펼쳐보여지게? -->
-<select id = "getList" resultType= "xyz.dreams.dto.QnaDTO">
-	select * from qna where QNA_NO = #{qnaNo}
-</select>
-
-<!--  QnA 글 수정 -->
-<update id = "modifyQna" parameterType = "QnaDTO">
-	update Qna set qna_title = #{qnaTitle},
-						qna_cont= #{qnaCont} where qna_no = #{qnaNo}
-</update>
-
-<!-- QnA 글 삭제 -->
-<delete id="delectQna">
-	delect from Qna where Qna_No = #{qnaNo}
-</delete>
-
-
-<!-- QnA 페이징 처리
-<select id = "selectQnaList" resultType = "QnaDTO">
+	<!-- QnA  전체 목록보기 -->
+	<!--  클릭했을때 내용이 펼쳐보여지게? -->
+	<select id = "getList" resultType= "xyz.dreams.dto.QnaDTO">
+		select * from qna where QNA_NO = #{qnaNo}
+	</select>
+	
+	<!--  QnA 글 수정 -->
+	<update id = "modifyQna" parameterType = "QnaDTO">
+		update Qna set qna_title = #{qnaTitle},
+							qna_cont= #{qnaCont} where qna_no = #{qnaNo}
+	</update>
+	
+	<!-- QnA 글 삭제 -->
+	<delete id="delectQna">
+		delect from Qna where Qna_No = #{qnaNo}
+	</delete>
+	
+	
+	<!-- QnA 페이징 처리
+	<select id = "selectQnaList" resultType = "QnaDTO">
 	select * from (
 	select rownum as rn,
 	 qna_no,

@@ -102,12 +102,14 @@
   		alert("취소되었습니다.");
   	}
   }
+   
 </script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
 	$(document).ready(function() {
 		$(".t3").click(function() { // 질문 제목을 클릭했을 때
-			$(this).closest("tr").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
+			alert('success');
+			$(this).closest("td").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
 		});
 	});
 </script>
@@ -258,7 +260,7 @@
 										<c:forEach items="${qnaList}" var="qna">
 											<!-- controller 에서 받아옴 -->
 											<!-- qna리스트받아옴 -->
-											<tr class="boardTableList">
+											<tr class="boardTableList" style="padding-top: 10px; padding-bottom: 10px;">
 												<td class="t1"><c:out value="${qna.qnaNo }" /></td>
 												<!-- 번호불러옴 -->
 
@@ -278,6 +280,30 @@
 												<td class="t6"><c:out value="${qna.qnaDate}" /></td>
 												<!-- 날짜받아옴 -->
 											</tr>
+											<c:choose>
+												<c:when test="${qna.qnaYn eq 'Y'}">
+													<tr class="boardTableList">
+														<td class="t1"></td>
+														<!-- 번호불러옴 -->
+		
+														<td class="t2"></td>
+														<!--  답변여부 -->
+		
+														<!-- 제목 우측 -->
+														<td class="t3"></td>
+														<!-- 제목받아옴 -->
+		
+														<td class="t4">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
+														<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+		
+														<td class="t5">드림즈 관리자</td>
+														<!-- 회원id 받아옴 -->
+		
+														<td class="t6"><c:out value="${qna.qnaReDate }" /></td>
+														<!-- 날짜받아옴 -->
+													</tr>
+												</c:when>
+											</c:choose>
 										</c:forEach>
 									</tbody>
 								</table>
