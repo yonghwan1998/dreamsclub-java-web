@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.service.MemberService;
+import xyz.dreams.service.QnaService;
 import xyz.dreams.service.ReviewService;
 
 @Controller
@@ -25,6 +28,7 @@ import xyz.dreams.service.ReviewService;
 public class MypageController {
    private final MemberService memberService;
    private final ReviewService reviewService;
+   private final QnaService qnaService;
    
    //이소영(최종) : 2023-09-19 마이페이지 메인
    @RequestMapping(value = "", method = RequestMethod.GET)
@@ -117,14 +121,14 @@ public class MypageController {
             redirectAttributes.addFlashAttribute("error", "패스워드가 일치하지 않습니다.");
             return "redirect:/mypage/delete";
         }
+        
     }
+    /*
+     @GetMapping("/myqna/{memberId}")
+     public String getByMemberId(@PathVariable String memberId , Model model) {
+             model.addAttribute("qnaList", qnaService.findByMemberId(memberId));
+             return "mypage/mypage_myqna";
 
-    //이소영(최종) : 2023-09-20 회원탈퇴 시 로그아웃
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-    	session.invalidate();
-    	
-    	return "redirect:/";
     }
-   
+   */
 }

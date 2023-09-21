@@ -91,6 +91,13 @@
 	<select id = "selectQnaCount" resultType= "int">
 		select count(*) from qna
 	</select>	 
+	
+	<!-- 이소영(추가) qna mypage 리스트 -->
+	<select id="selectQnaByMember" resultType="xyz.dreams.dto.QnaDTO">
+      SELECT * FROM QNA WHERE MEMBER_ID = #{memberId}
+    </select>
+	
+	
 </mapper>
 
 
