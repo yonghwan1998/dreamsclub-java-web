@@ -20,4 +20,8 @@ public interface CheerDAO {
 	int insertCheer(CheerDTO cheer);
 	
 	int selectCheerCount();
+	
+	int updateCheerY(int cheerNo);
+	
+	int updateCheerN(int cheerNo);
 }

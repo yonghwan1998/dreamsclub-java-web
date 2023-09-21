@@ -37,4 +37,14 @@ public class CheerDAOImpl implements CheerDAO {
 	public int selectCheerCount() {
 		return sqlSession.getMapper(CheerMapper.class).selectCheerCount();
 	}
+
+	@Override
+	public int updateCheerY(int cheerNo) {
+		return sqlSession.getMapper(CheerMapper.class).updateCheerY(cheerNo);
+	}
+
+	@Override
+	public int updateCheerN(int cheerNo) {
+		return sqlSession.getMapper(CheerMapper.class).updateCheerN(cheerNo);
+	}
 }

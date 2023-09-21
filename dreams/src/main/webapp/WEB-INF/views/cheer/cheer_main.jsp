@@ -52,13 +52,16 @@
 	                            <td class="t2"><c:out value="${cheerList.memberId }"/></td>
 	                            <td class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></td>
 	                            <td class="t4"><c:out value="${cheerList.cheerDate }"/></td>
-	                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="deleteMemo(${cheerList.cheerNo });">삭제</button></td></c:if>
+	                            <c:if test="${cheerList.cheerDel eq 'N' }">
+		                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="deleteMemo(${cheerList.cheerNo });">삭제</button></td></c:if>
+	                            </c:if>
+	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
+		                            <c:if test="${member.memberStatus eq '9' }"><td class="t5"><button onclick="returnMemo('${cheerList.cheerNo }');">복구</button></td></c:if>
+	                            </c:if>
 	                        </tr>
 	                    </c:forEach> 
                     </tbody>
                 </table>
-                <form id="moveForm" method="get">
-                </form>
             </div>
 
             <%-- 페이지 번호 출력 --%>
@@ -117,7 +120,43 @@ $('#textBox').keyup(function (e) {
     };
 });
 
-function deleteMemo(temp) {
-	alert(temp);
+function deleteMemo(cheerNo) {
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/cheer/deleteMemo"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"cheerNo" : cheerNo,
+		}),
+		dataType : "text",
+		success : function(result) {
+			if (result == 'success') {
+				alert("[" + cheerNo + "번 메모] 정보를 삭제했습니다.");
+			}
+		},
+		error: function(xhr) {
+			alert("[" + cheerNo + "번 메모] 정보 수정에 실패했습니다.\n에러코드 = " + xhr.stauts);
+		}
+	});
+}
+
+function returnMemo(cheerNo) {
+	$.ajax({
+		type : "post",
+		url : "<c:url value="/cheer/returnMemo"/>",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"cheerNo" : cheerNo,
+		}),
+		dataType : "text",
+		success : function(result) {
+			if (result == 'success') {
+				alert("[" + cheerNo + "번 메모] 정보를 복구했습니다.");
+			}
+		},
+		error: function(xhr) {
+			alert("[" + cheerNo + "번 메모] 정보 수정에 실패했습니다.\n에러코드 = " + xhr.stauts);
+		}
+	});
 }
 </script>
