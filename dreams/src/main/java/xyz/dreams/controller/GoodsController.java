@@ -94,6 +94,7 @@ public class GoodsController {
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
 		
+		// 오진서 (2023/09/18) : 페이지에서 Q&A리스트 출력
 		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
 		model.addAttribute("qnaList", qnaList);
 		
@@ -134,23 +135,31 @@ public class GoodsController {
 	}
 	
     
-	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
+//	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
+//	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+//	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
+//		model.addAttribute("goodsCode", goodsCode);
+//		return "goods/goods_qna_write"; // JSP 페이지 이름
+//	}
+	
+	
+	// 오진서 - 9/21 도전!!!!  Q&A 작성 페이지로 이동
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
-		model.addAttribute("goodsCode", goodsCode);
+	public String showQnaWriteForm(@RequestParam String goodsName, Model model) {
+		model.addAttribute("goodsName", goodsName);
+		
 		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
-	// 오진서 - 09/20 도전 ▼ - 링크 Q&A 작성 하기
+	// 오진서 - 09/21 도전 ▼ - 링크 Q&A 작성 하기
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
-		qnaService.enrollQna(qna); // 등록
+		//qnaService.enrollQna(qna); // 등록 //+ ???? 이걸주석처리하면 요청한곳으로 잘가는데, 풀면 405 뜸
 		
-//		String encodedgoodsName = URLEncoder.encode(qna.getGoodsName(), "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
-//		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **추후 수정해야.함..
-		return "redirect:/goods/main"; // 원랜 이거였따
-		// 등록페이지에서 안넘어감....
+		String encodedgoodsName = URLEncoder.encode(qna.getGoodsName(), "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
+		//return "redirect:/goods/main"; // 원랜 이거였따
 	}	
 	
 //	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
