@@ -1,8 +1,11 @@
 package xyz.dreams.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,9 +67,11 @@ public class MypageController {
       return "mypage/mypage_myqna";
    }
    
-   
+   //강민경(2023/09/20): 상품 리스트 출력 
    @RequestMapping(value = "/check", method = RequestMethod.GET)
-   public String mypage5() {
+   public String mypageGoodsStatus(Model model) {
+	   List<OrderDTO> orderList = reviewService.selectOrderStatus();
+	   model.addAttribute("orderList", orderList);
       return "mypage/mypage_check";
    }
    

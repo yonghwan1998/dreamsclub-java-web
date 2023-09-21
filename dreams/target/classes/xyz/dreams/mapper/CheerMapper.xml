@@ -39,4 +39,12 @@
 		SELECT COUNT(*)	from CHEER
 	</select>
 	
+	<update id="updateCheerY">
+		UPDATE CHEER SET CHEER_DEL = 'Y' WHERE CHEER_NO = #{cheerNo}
+	</update>
+	
+	<update id="updateCheerN">
+		UPDATE CHEER SET CHEER_DEL = 'N' WHERE CHEER_NO = #{cheerNo}
+	</update>
+	
 </mapper>
