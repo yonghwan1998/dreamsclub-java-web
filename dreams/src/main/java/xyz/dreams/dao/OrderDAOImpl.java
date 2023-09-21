@@ -6,13 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.dto.CartDTO;
-import xyz.dreams.dto.CartVO;
-import xyz.dreams.dto.GoodsDTO;
-import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
-import xyz.dreams.dto.OrderDetailDTO;
-import xyz.dreams.mapper.OrderMapper;
 
 @Repository
 @RequiredArgsConstructor

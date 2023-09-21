@@ -155,7 +155,7 @@
 					
 					<input type="hidden" value="1" name="newSelected">
 					
-					<input type="hidden" value="${cartInfo.goodsCode}" name="goodsCode">
+					<input type="hidden" value="${cartInfo.goodsCode}" name="goodsName">
 					<input type="hidden" value="${cartInfo.goodsPrice}" name="goodsPrice">
 					<input type="hidden" value="${cartInfo.goodsCount}" name="goodsCount">
 					<input type="hidden" value="${cartInfo.goodsInfo}" name="goodsInfo">
@@ -255,7 +255,7 @@
 		                            </div>
 		                            <div class="your-order-middle">
 		                                <ul>
-		                                    <li><span class="order-middle-left">${cartInfo.goodsCode} &nbsp;&nbsp; X &nbsp;&nbsp;  ${cartInfo.goodsCount }</span> <span
+		                                    <li><span class="order-middle-left">${cartInfo.goodsCode.split("-")[0]} &nbsp;&nbsp; X &nbsp;&nbsp;  ${cartInfo.goodsCount }</span> <span
 		                                            class="order-price"><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원 </span></li>
 		                                </ul>
 		                            </div>
