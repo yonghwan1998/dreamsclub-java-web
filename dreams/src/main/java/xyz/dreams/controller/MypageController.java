@@ -123,12 +123,12 @@ public class MypageController {
         }
         
     }
-    /*
+    
      @GetMapping("/myqna/{memberId}")
      public String getByMemberId(@PathVariable String memberId , Model model) {
              model.addAttribute("qnaList", qnaService.findByMemberId(memberId));
              return "mypage/mypage_myqna";
 
     }
-   */
+   
 }
