@@ -111,7 +111,7 @@ if(chk) {
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
-                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode}</a>
+                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
                     <input value="${cartList.goodsCode}" id="goodsCode" type="hidden" >
                 </td>
 
@@ -125,8 +125,7 @@ if(chk) {
                   ${cartList.goodsCount}
                 </td>
                 <!-- 사이즈 -->
-                <%-- <td>${cartList.goodsSize }</td> --%>
-                <td>S</td>
+                <td>${cartList.goodsCode.split("-")[2]}</td>
                 <!-- 정보 -->
 								<td>${cartList.goodsInfo}</td>
 								<td>	
@@ -154,15 +153,16 @@ if(chk) {
 
   <script type="text/javascript">
     var memberId = $("#login_memberId").val();
-    //var goodsCode = document.getElementById("goodsCode").value;
 		var cartId = document.getElementById("cartId").value;
     
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
       		
       		if(memberId != null) {
-  	        alert(goodsCode);
+    	      var item = $(this);
+      	 		var goodsCode = item.attr("data-pId");
   	        alert(cartId);
+  	      	alert("goodsCode = "+goodsCode);
   	        
       			$.ajax({
       	            type : "post",

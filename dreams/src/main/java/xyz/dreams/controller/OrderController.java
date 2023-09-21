@@ -32,7 +32,7 @@ public class OrderController {
 	@RequestMapping(value = "/result", method = RequestMethod.POST)
 	public String order(@ModelAttribute OrderDTO order, Model model) {
 		orderService.insert(order);
-		return "order/order";
+		return "order/order_result";
 	}
 
 	/*
