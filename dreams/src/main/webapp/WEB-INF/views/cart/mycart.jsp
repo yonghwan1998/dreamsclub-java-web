@@ -84,7 +84,6 @@ if(chk) {
 <div class="container">
   
 		<div class="row qnas" style="text-align: center;">
-		<form name="frm_order_all_cart">
     <c:set value="${pageContext.request.contextPath}" var="contextPath" />
 			<h1 class="page-header">장바구니</h1>
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
@@ -102,8 +101,10 @@ if(chk) {
 					<c:choose>
             <c:when test="${cartList != null}">
   					<c:forEach items="${cartList}" var="cartList" varStatus="status">
-              <input type="hidden" id="cartId" value="${cartList.cartId}">
-            
+		<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
+              <input type="hidden" value="${cartList.cartId}" name="cartId">
+              <input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
+              <input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
   						<tr>
                 <!-- 이미지 -->
   							<td class="product-close">
@@ -111,13 +112,13 @@ if(chk) {
                     style="max-width: 100px; max-height: 100px;">
   							</td>
                 <!-- 이름 -->
-                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode}</a>
-                    <input value="${cartList.goodsCode}" id="goodsCode" type="hidden" >
+                <td><a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
+                    
                 </td>
 
                 <!-- 가격 -->
   							<td>
-                  <fmt:formatNumber type="number" value="${cartList.goodsPrice}"/>&nbsp;원<br>
+                  <fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
   							</td>
                 
                 <!-- 수량 -->
@@ -125,17 +126,17 @@ if(chk) {
                   ${cartList.goodsCount}
                 </td>
                 <!-- 사이즈 -->
-                <%-- <td>${cartList.goodsSize }</td> --%>
-                <td>S</td>
+                <td>${cartList.goodsCode.split("-")[2]}</td>
                 <!-- 정보 -->
 								<td>${cartList.goodsInfo}</td>
 								<td>	
-                  <input type="hidden" value="${member.memberId}" id="login_memberId">
+                  
 									<button style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
 									<br>
 									<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
 						    </td>
 						</tr>
+		</form>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -144,7 +145,6 @@ if(chk) {
           </c:choose>
 				</tbody>
 			</table>
-		</form>
 	</div>
 		
 		<div class="row" style="text-align: center; margin: 80px 0;">
@@ -154,15 +154,16 @@ if(chk) {
 
   <script type="text/javascript">
     var memberId = $("#login_memberId").val();
-    //var goodsCode = document.getElementById("goodsCode").value;
-		var cartId = document.getElementById("cartId").value;
-    
+		
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
       		
       		if(memberId != null) {
-  	        alert(goodsCode);
+    	      var item = $(this);
+      	 		var goodsCode = item.attr("data-pId");
+      	 		var cartId = document.getElementById("cartId").value;
   	        alert(cartId);
+  	      	alert("goodsCode = "+goodsCode);
   	        
       			$.ajax({
       	            type : "post",
@@ -196,15 +197,14 @@ if(chk) {
       event.preventDefault();
       
       if (memberId != null) {
-    	  var item = $(this);
-    	  var goodsCode = item.attr("data-pId");
-    	  
-        alert("goodsCode = "+goodsCode);
-        location.assign("<c:url value='/order/insert/'/>" + cartId);
+        
+        submitOrderForm();
+        //location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {
 				alert("로그인 후 이용해 주세요.");
   			location.assign("<c:url value='/login' />");
       }
+      
     });
 
     
@@ -232,6 +232,12 @@ if(chk) {
     $(".btn-back_to_shop").click(function() {
       location.assign("<c:url value='/goods/main' />");
     });
+    
+    
+    function submitOrderForm() {
+	    var form = document.getElementById("orderForm");
+	    form.submit();
+	}
     
     /* 
     function orderBtn(cartId){

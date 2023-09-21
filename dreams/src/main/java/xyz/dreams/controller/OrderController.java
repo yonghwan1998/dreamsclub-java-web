@@ -32,7 +32,10 @@ public class OrderController {
 	@RequestMapping(value = "/result", method = RequestMethod.POST)
 	public String order(@ModelAttribute OrderDTO order, Model model) {
 		orderService.insert(order);
-		return "order/order";
+		System.out.println(order);
+		model.addAttribute("orderInfo", order);
+		
+		return "order/order_result";
 	}
 
 	/*
@@ -73,12 +76,12 @@ public class OrderController {
 	 * orderService.insert(orderDTO); model.addAttribute("orderDTO", orderDTO);
 	 * return "order/order_result"; }
 	 */
-	@RequestMapping(value = "/insert/{cartId}")
-	public String orderInsert(@PathVariable("cartId") int cartId, Model model) {
-		System.out.println("test1= " + cartId);
+	@RequestMapping(value = "/insert")
+	public String orderInsert(@ModelAttribute CartVO cart, Model model) {
+		System.out.println("test1= " + cart);
 
-		CartVO cartVO = cartService.selectCartById(cartId);
-
+		CartVO cartVO = cartService.selectCartById(cart.getCartId());
+		System.out.println(cartVO);
 		model.addAttribute("cartInfo", cartVO);
 
 		return "order/order";

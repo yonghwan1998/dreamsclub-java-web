@@ -132,81 +132,6 @@
     </div>
 </div>
 
-
-<!--  
-<i class="sc-178zqvr-9 fnQWVX"></i>
-<div class="sc-178zqvr-10 gYDNlI">
-
-<span class="i18n-wrapper">
-<span style="color: #111;">주문,결제,확인</span><br />
-<span>이 완료되었습니다.</span>
-</span>
-</div>
-
-<div class="sc-178zqvr-8 edyIRv">
-<i class="sc-178zqvr-9 kNKHIh"></i>
-
-<div class="sc-178zqvr-10 gYDNlI">
-<span class="i18n-wrapper">
-<span>판매자가 발송할</span><br />
-<span style="color: #111;">상품을 준비중</span>
-<span>입니다.</span>
-</span>
-</div>
-</div>
-
-
-<div class="sc-178zqvr-8 edyIRv"><i class="sc-178zqvr-9 kNKvAf"></i>
-<div class="sc-178zqvr-10 gYDNlI"><span class="i18n-wrapper">
-<span>상품준비가 완료되어</span><br /><span>곧 </span><span style="color: #111;">배송</span><span>될 </span><span style="color: #111;">예정</span><span>입니다.</span>
-</span>
-</div>
-</div>
-
-
-<div class="sc-178zqvr-8 edyIRv"><i class="sc-178zqvr-9 kNMjwi"></i>
-<div class="sc-178zqvr-10 gYDNlI"><span class="i18n-wrapper"><span>상품이 고객님께</span><br /><span style="color: #111;">배송중</span><span>입니다.</span></span></div>
-</div>
-
-<div class="sc-178zqvr-8 edyIRv"><i class="sc-178zqvr-9 kNLvyn"></i>
-<div class="sc-178zqvr-10 gYDNlI"><span class="i18n-wrapper"><span>상품이 주문자에게</span><br /><span style="color: #111;">전달완료</span><span>되었습니다.</span></span></div>
-</div>
-</div>
-</div>
-
-
-<div class="sc-178zqvr-11 UxXQy">
-<div class="sc-178zqvr-12 fQDbaW"><b>
-<i class="sc-178zqvr-13 bQUraS"></i><span class="i18n-wrapper">
-
--->
-
-
- <!--
-<div class="sc-178zqvr-14 bboIjZ">- --> 
-<!-- 설치상품/주문제작/해외배송/신선냉동 상품 등은 고객센터에서만 반품 신청이 가능합니다. --> 
-<!-- 
-<a href="/ssr/desktop/contact/inquiry" target="_blank" class="sc-178zqvr-16 jgRggD">1:1문의하기</a></div>
-<div class="sc-178zqvr-14 bboIjZ"><strong class="sc-178zqvr-15 fWZpfp">교환</strong></div>
- -->
-<!--
-<div class="sc-178zqvr-14 bboIjZ">- --> 
-<!-- 상품의 교환 신청은 고객센터로 문의하여 주세요.
-<a href="/ssr/desktop/contact/inquiry" target="_blank" class="sc-178zqvr-16 jgRggD">1:1문의하기</a>
-</div></div>
-
-</div>
-</div>
-<div style="display:contents"></div>
-<div style="display:contents"></div>
-<div style="display:contents"></div>
-<div style="display:contents"></div>
-<div style="display:contents"></div>
-</div>
-</div>
--->
-
-
 <div>
  <h4 class="fw-bold py-3 mb-4">주문/배송 조회<span class="text-muted fw-light">(최근 30일 내에 진행중인 주문정보입니다.)</span></h4>
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex3.png">
@@ -219,17 +144,6 @@
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex9.png">
  <img alt="" src="${pageContext.request.contextPath }/img/ready/ex7.png">
  </div>
- 
- 
- <!--
- <div>
-결제완료 <img alt="" src="${pageContext.request.contextPath }/img/ready/ing1.png">
-상품준비중 <img alt="" src="${pageContext.request.contextPath }/img/ready/ing2.png">
-배송중 <img alt="" src="${pageContext.request.contextPath }/img/ready/ing3.png">
-배송완료 <img alt="" src="${pageContext.request.contextPath }/img/ready/ing4.png">
-</div>
-  -->
-
 
 
               <!--/ Hoverable Table rows -->

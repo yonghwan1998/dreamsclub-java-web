@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.service.MemberService;
+import xyz.dreams.service.QnaService;
 import xyz.dreams.service.ReviewService;
 
 @Controller
@@ -25,6 +28,7 @@ import xyz.dreams.service.ReviewService;
 public class MypageController {
    private final MemberService memberService;
    private final ReviewService reviewService;
+   private final QnaService qnaService;
    
    //이소영(최종) : 2023-09-19 마이페이지 메인
    @RequestMapping(value = "", method = RequestMethod.GET)
@@ -103,28 +107,27 @@ public class MypageController {
    
    //이소영(최종) : 2023-09-19 회원탈퇴 시 비밀번호 검증
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
-    public String withdrawUser(@RequestParam("user-password") String password,@RequestParam("memberId") String memberId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String withdrawUser(@ModelAttribute MemberDTO member, HttpSession session, RedirectAttributes redirectAttributes) {
       
-        System.out.println("memberId"+memberId);
-        boolean isValid = memberService.checkPassword(memberId, password);
-        
-        if(isValid) {
-            memberService.deleteMember(memberId);
-            session.invalidate();
-            redirectAttributes.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
-            return "redirect:/login";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "패스워드가 일치하지 않습니다.");
-            return "redirect:/mypage/delete";
-        }
+    	if (memberService.checkPassword(member.getMemberId(), member.getMemberPw())) {
+    		memberService.deleteMember(member.getMemberId());
+    		System.out.println("1 : "+ session);
+    		session.invalidate();
+    		System.out.println("2 : "+ session);
+    		redirectAttributes.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
+			
+    		return "redirect:/login";
+		} else {
+			redirectAttributes.addFlashAttribute("error", "패스워드가 일치하지 않습니다.");
+			return "redirect:/mypage/delete";
+		}
     }
+    
+     @GetMapping("/myqna/{memberId}")
+     public String getByMemberId(@PathVariable String memberId , Model model) {
+             model.addAttribute("qnaList", qnaService.findByMemberId(memberId));
+             return "mypage/mypage_myqna";
 
-    //이소영(최종) : 2023-09-20 회원탈퇴 시 로그아웃
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-    	session.invalidate();
-    	
-    	return "redirect:/";
     }
    
 }

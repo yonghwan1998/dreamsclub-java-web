@@ -108,4 +108,8 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDAO.selectQnaList(goodsName);
 	}
 
+	//이소영(추가) : 2023-09-21 - qna mypage list 
+    public List<QnaDTO> findByMemberId(String memberId) {
+           return qnaDAO.findByMemberId(memberId);
+       }
 }

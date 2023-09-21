@@ -1,17 +1,13 @@
 package xyz.dreams.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.CartDAO;
 import xyz.dreams.dto.CartVO;
-import xyz.dreams.dto.GoodsDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +22,7 @@ public class CartServiceImpl implements CartService{
 		if(cartList.size() == 0) {
 			return null;
 		}
+		
 		return cartList;
 	}
 
@@ -57,8 +54,9 @@ public class CartServiceImpl implements CartService{
 		return result;
 	}
 	
+	@Transactional
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
+	public int delFromCart(CartVO cartVO) {
 		
 		return cartDAO.delFromCart(cartVO);
 	}

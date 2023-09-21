@@ -11,5 +11,5 @@ public interface CartService{
 	boolean findCartGoods(CartVO cartVO);
 	void addGoodsInCart(CartVO cartVO);
 	public boolean updateGoodsCount(CartVO cartVO);
-	boolean delFromCart(CartVO cartVO);
+	int delFromCart(CartVO cartVO);
 }

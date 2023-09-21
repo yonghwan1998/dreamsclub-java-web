@@ -24,7 +24,8 @@ public interface QnaMapper {
 	List<QnaDTO> selectQnaList(String goodsName);
 	
 	
-	
+	//이소영(추가) : 2023-09-21 
+	List<QnaDTO> selectQnaByMember(String memberId);
 	
 	
 

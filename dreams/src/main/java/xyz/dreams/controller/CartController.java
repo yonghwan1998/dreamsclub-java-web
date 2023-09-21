@@ -96,8 +96,8 @@ public class CartController {
 	public String delFromCart(CartVO cartVO) {
 		System.out.println("cartVO = "+cartVO);
 		
-	    boolean result = cartService.delFromCart(cartVO);
-	    if (result) {
+	    int result = cartService.delFromCart(cartVO);
+	    if (result == 1) {
 	        return "ok";
 	    } else {
 	        return "no";
