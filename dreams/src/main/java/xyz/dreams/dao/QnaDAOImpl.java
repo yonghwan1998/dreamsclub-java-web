@@ -60,6 +60,13 @@ public class QnaDAOImpl implements QnaDAO {
 	public List<QnaDTO> selectQnaList(String goodsName) {
 		return sqlSession.getMapper(QnaMapper.class).selectQnaList(goodsName);
 	}
+
+
+	//이소영(추가) : 2023-09-21
+	@Override
+	public List<QnaDTO> findByMemberId(String memberId) {
+		return sqlSession.getMapper(QnaMapper.class).selectQnaByMember(memberId);
+	}
  
 	
 
