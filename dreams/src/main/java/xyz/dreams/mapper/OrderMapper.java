@@ -6,7 +6,7 @@ import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderMapper {
-	void insert(OrderDTO orderDTO);
+	int insert(OrderDTO order);
 
 	List<OrderDTO> myOrderList(String memberId);
 

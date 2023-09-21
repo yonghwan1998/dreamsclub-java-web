@@ -41,7 +41,7 @@
       #{memberPcode},
       #{memberAddress1},
       #{memberAddress2},
-      #{orderDate},
+      SYSDATE,
       #{deliverMsg},
       #{orderStatus},
       #{calInfo}
