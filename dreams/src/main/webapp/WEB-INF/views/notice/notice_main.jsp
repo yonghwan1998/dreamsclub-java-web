@@ -37,7 +37,7 @@
                         <td class="t1"><c:out value="${NoticeList.noticeNo }" /></td>
                         <td class="t2 text-left"><a class="move"
                            href="/dreams/notice/detail?noticeNo=<c:out value='${NoticeList.noticeNo}'/>">
-                              <c:out value="${NoticeList.noticeTitle }" />
+                              ${NoticeList.noticeTitle }"
                         </a></td>
                         <td class="t3">드림즈 관리자</td>
                         <td class="t4"><c:out value="${NoticeList.noticeDate }" /></td>

@@ -29,7 +29,7 @@
                <c:out value="${pageInfo.noticeNo }" />
             </div>
             <div class="title" style="width: 65%;">
-               <strong><c:out value="${pageInfo.noticeTitle }" /></strong>
+               <strong>${pageInfo.noticeTitle }"</strong>
             </div>
             <div class="writer" style="width: 15%; text-align: right;">작성자
                : 드림즈 관리자</div>
@@ -39,7 +39,7 @@
             </div>
          </div>
          <div class="communityDetailContainerBody" style="white-space: pre;">
-            <c:out value="${pageInfo.noticeCont }" />
+            ${pageInfo.noticeCont }"
          </div>
       </div>
 
