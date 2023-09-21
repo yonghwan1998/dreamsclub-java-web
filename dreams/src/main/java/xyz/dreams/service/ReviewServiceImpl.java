@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dao.OrderDAO;
 import xyz.dreams.dao.ReviewDAO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.util.Pager;
  
@@ -18,6 +20,7 @@ import xyz.dreams.util.Pager;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService{
 	private final ReviewDAO reviewDAO;
+	private final OrderDAO orderDAO;
 	private final SqlSession sqlsession;
 	
 	
@@ -70,6 +73,12 @@ public class ReviewServiceImpl implements ReviewService{
 		resultMap.put("reviewList", reviewList);
 		
 		return resultMap;
+	}
+
+	//강민경(2023/09/20): 마이페이지에서 주문 후 상품 리스트 출력
+	@Override
+	public List<OrderDTO> selectOrderStatus() {
+		return reviewDAO.selectOrderStatus();
 	}
 	
 }
