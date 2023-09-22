@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public List<OrderDTO> selectByOrderId(String orderId) {
+	public OrderDTO selectByOrderId(int orderId) {
 		return orderDAO.selectByOrderId(orderId);
 	}
 	@Override

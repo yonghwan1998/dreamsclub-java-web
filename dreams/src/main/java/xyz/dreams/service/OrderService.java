@@ -2,7 +2,6 @@ package xyz.dreams.service;
 
 import java.util.List;
 
-import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderService {
@@ -12,7 +11,7 @@ public interface OrderService {
 
 	List<OrderDTO> list(int curPage);
 
-	List<OrderDTO> selectByOrderId(String orderId);
+	OrderDTO selectByOrderId(int orderId);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
 	

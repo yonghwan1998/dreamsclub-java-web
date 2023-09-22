@@ -87,59 +87,58 @@ if(chk) {
     <c:set value="${pageContext.request.contextPath}" var="contextPath" />
 			<h1 class="page-header">장바구니</h1>
 			<div class="table table-hover" style="display:table; margin: auto; border-bottom: 1px solid #D5D5D5;">
-				<div style="display:table-row">
+				<div style="display:table-row;">
 					<div style="text-align: center; display:table-cell;">상품명</div>
 					<div style="display:table-cell">가격</div>
 					<div style="display:table-cell">수량</div>
 					<div style="display:table-cell">사이즈</div>
 					<div style="display:table-cell">상품정보</div>
-            		<div style="display:table-cell"></div>
 				</div>
 				<c:choose>
-            		<c:when test="${cartList != null}">
-		  				<c:forEach items="${cartList}" var="cartList" varStatus="status">
-					<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
-  							<div style="display:table-row">
-							<input type="hidden" value="${cartList.cartId}" name="cartId">
-							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
-							<input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
+      		<c:when test="${cartList != null}">
+  				<c:forEach items="${cartList}" var="cartList" varStatus="status">
+					  <form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
+							<div style="display:table-row">
+  							<input type="hidden" value="${cartList.cartId}" name="cartId">
+  							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
+  							<input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
   							
-                			<!-- 이미지 -->
-  							<div class="product-close" style="display:table-cell">
-    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}" style="max-width: 100px; max-height: 100px;">
-  							</div>
+      		  	<!-- 이미지 -->
+  						<div class="product-close" style="display:table-cell">
+  							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}" style="max-width: 100px; max-height: 100px;">
+  						</div>
   							
-			                <!-- 이름 -->
-			                <div style="display:table-cell">
-			                	<a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
-			                </div>
+              <!-- 이름 -->
+              <div style="display:table-cell">
+              	<a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
+              </div>
 			                
-                			<!-- 가격 -->
-  							<div style="display:table-cell">
-                  				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
-  							</div>
-                
-                			<!-- 수량 -->
-                			<div style="display:table-cell">
-                  				${cartList.goodsCount}
-                			</div>
-                			
-                			<!-- 사이즈 -->
-                			<div>
-                				${cartList.goodsCode.split("-")[2]}
-                			</div>
-                			
-                			<!-- 정보 -->
-							<div style="display:table-cell">
-								${cartList.goodsInfo}
-							</div>
-							
-							<div style="display:table-cell">	
-								<button type="submit" style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
-								<br>
-								<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
-						    </div>
+      			 <!-- 가격 -->
+						<div style="display:table-cell">
+              				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
 						</div>
+                
+      			<!-- 수량 -->
+      			<div style="display:table-cell">
+        				${cartList.goodsCount}
+      			</div>
+                			
+      			<!-- 사이즈 -->
+      			<div>
+      				${cartList.goodsCode.split("-")[2]}
+      			</div>
+                			
+    			 <!-- 정보 -->
+					<div style="display:table-cell">
+						${cartList.goodsInfo}
+					</div>
+							
+					<div style="display:table-cell">	
+						<button type="submit" style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
+						<br>
+						<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
+				    </div>
+				</div>
 		</form>
 					</c:forEach>
 					</c:when>
@@ -162,6 +161,7 @@ if(chk) {
   <script type="text/javascript">
     var memberId = $("#login_memberId").val();
 		
+    //형섭(수정): 2023/09/21, 삭제 버튼 누르면 동작하는 함수
     $(".del_from_cart").click(function(event) {
       		event.preventDefault();
       		
@@ -169,8 +169,6 @@ if(chk) {
     	      var item = $(this);
       	 		var goodsCode = item.attr("data-pId");
       	 		var cartId = document.getElementById("cartId").value;
-  	        alert(cartId);
-  	      	alert("goodsCode = "+goodsCode);
   	        
       			$.ajax({
       	            type : "post",
@@ -182,6 +180,7 @@ if(chk) {
       	            dataType : 'text',
       	            success : function(result) {
       	              
+      	            	//컨트롤러에서 받아온 result 값에 따라 삭제 처리
       	              if (result == 'ok') {
       	                alert("장바구니에서 삭제되었습니다.");
       	                location.assign("<c:url value='/cart/mycart/' />" + memberId);
@@ -199,21 +198,6 @@ if(chk) {
       		} 
     });
     
-     
-    /* $(".cart_to_order").click(function(event) {
-      event.preventDefault();
-      
-      if (memberId != null) {
-        
-        // submitOrderForm();
-        //location.assign("<c:url value='/order/insert/'/>" + cartId);
-      } else {
-				alert("로그인 후 이용해 주세요.");
-  			location.assign("<c:url value='/login' />");
-      }
-      
-    }); */
-
     
      $("#orderSuccess").click(function () {
        
@@ -236,22 +220,17 @@ if(chk) {
          });
     
      
+     //형섭(생성): 2023/09/12, 쇼핑 계속하기 버튼 클릭 시 굿즈 메인 페이지로 이동
     $(".btn-back_to_shop").click(function() {
       location.assign("<c:url value='/goods/main' />");
     });
     
     
+    //형섭(생성): 2023/09/22, 주문하기 버튼 클릭 시 form 태그 제출 함수
     function submitOrderForm() {
 	    var form = document.getElementById("orderForm");
 	    form.submit();
 	}
     
-    /* 
-    function orderBtn(cartId){
-    	var test = $('#'+cartId).val();
-    	alert(test);
-    }
-   */
-
   
 </script>

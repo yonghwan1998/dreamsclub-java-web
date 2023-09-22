@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath }/css/community.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
 <!--공지사항 전체-->
 <div class="communityContainer">
@@ -27,7 +25,6 @@
                      <th class="t2" style="width: 700px">제목</th>
                      <th class="t3" style="width: 150px">작성자</th>
                      <th class="t4" style="width: 150px">작성일</th>
-                     <!--  <th class="t5" style="width: 100px">조회수</th>  -->
                   </tr>
                </thead>
 
@@ -37,7 +34,7 @@
                         <td class="t1"><c:out value="${NoticeList.noticeNo }" /></td>
                         <td class="t2 text-left"><a class="move"
                            href="/dreams/notice/detail?noticeNo=<c:out value='${NoticeList.noticeNo}'/>">
-                              ${NoticeList.noticeTitle }"
+                              ${NoticeList.noticeTitle }
                         </a></td>
                         <td class="t3">드림즈 관리자</td>
                         <td class="t4"><c:out value="${NoticeList.noticeDate }" /></td>

@@ -22,7 +22,7 @@ COMM_HIT            VARCHAR2(10)
 @Data
 public class CommunityDTO {
 	private int commNo; //게시판 번호
-	private String memberId; //글쓴이
+	private String memberId; //게시글 쓴 회원아이디(글쓴이)
 	private String commTitle; //게시판 제목
 	private String commCont; //게시판 내용
 	@DateTimeFormat(pattern="yyyy-MM-dd")

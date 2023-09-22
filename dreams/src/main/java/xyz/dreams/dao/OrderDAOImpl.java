@@ -36,8 +36,8 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<OrderDTO> selectByOrderId(String orderId) {
-		return sqlSession.selectList(NS+".selectByOrderId", orderId);
+	public OrderDTO selectByOrderId(int orderId) {
+		return sqlSession.selectOne(NS+".selectByOrderId", orderId);
 	}
 
 	@Override

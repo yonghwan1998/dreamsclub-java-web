@@ -38,7 +38,7 @@
 
 				<!-- 나의 상품 -->
 				<li class="menu-header small text-uppercase"><span class="menu-header-text">나의 상품</span></li>
-				<li class="menu-item"><a href="/dreams/mypage/myqna" class="menu-link ">
+				<li class="menu-item"><a href="/dreams/mypage/myqna/${member.memberId}" class="menu-link ">
 						<div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
 				</a> <a href="/dreams/mypage/check" class="menu-link ">
 						<div data-i18n="Authentications">주문목록/배송조회</div>
