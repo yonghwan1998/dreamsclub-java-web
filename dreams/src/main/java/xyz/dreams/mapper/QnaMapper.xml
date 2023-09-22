@@ -25,6 +25,15 @@
 		) 
 	</insert>
 	
+	<!-- QnA 답변등록 - 오진서 9/22 -->
+	<update id = "addQnaReply">
+		UPDATE QNA SET 
+			QNA_YN = 'Y',
+			QNA_RE_CONT = #{qnaReCont},
+			QNA_RE_DATE = SYSDATE
+		WHERE QNA_NO = #{qnaNo}
+	</update>
+	
 
 	<!-- QnA  전체 목록보기 -->
 	<!--  클릭했을때 내용이 펼쳐보여지게? -->
@@ -42,6 +51,8 @@
 	<delete id="delectQna">
 		delect from Qna where Qna_No = #{qnaNo}
 	</delete>
+	
+	
 	
 	
 	<!-- QnA 페이징 처리
