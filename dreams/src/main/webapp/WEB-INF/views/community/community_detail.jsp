@@ -12,7 +12,7 @@
     <div class="communityDetailWrtten">
         <!--글 경로 (커뮤니티 > 꿈들의 모임)-->
         <div class="communityDetailPath">
-            <h5>커뮤니티  >  꿈들의 모임</h5>
+            <h5>커뮤니티  >  <a href=<c:url value="/community"/> type="button">꿈들의 모임</a></h5>
         </div>
 
         <!--글 컨테이너-->
@@ -77,7 +77,7 @@
 <!-- JS -->
 <script type="text/javascript">
 
-/*삭제 확인하기 - 김예지(2023.08.25)*/
+/*김예지(2023.08.25) - 삭제 확인하기 */
 function deleteCheck(){
    if(confirm("정말 삭제하시겠습까?")==true){
       location.href="<c:url value='/community/delete?commNo=${pageInfo.commNo}'/> ";
@@ -91,7 +91,7 @@ function deleteCheck(){
 
 /*댓글 출력 - 김예지(2023.09.14)*/
 /* 글쓴 유저의 memberId, 내용(commReCont), 작성날짜(commReDate)만 사용자 화면에 출력됨.
- * 가장 오래된 것이 맨위에 가장 최근 댓글이 아래로 붙어나가며 출력된다.
+ * 가장 오래된 것이 맨위에 위치하고 가장 최근 댓글이 그 아래로 붙어나가며 출력된다.
  */
 function replyDisplay() {
 	$.ajax({
@@ -109,7 +109,6 @@ function replyDisplay() {
 				html+="</div>";
 				html+="<p class='txt'>"+this.commReCont+"</p>";
 				html+="<div style='display: flex;'>";
-					//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
 				//세션에서 불러온 로그인된 memberId와 댓글 글쓴이의 memberId가 같다면 수정과 삭제 버튼이 나타남.
 				if("${member.memberId}"==this.memberId){
 					//수정 버튼을 눌렀을때 여기서 입력된 commReNo, memberId, commReDate, commReCont 값이 수정폼으로 가기위해 버튼 안에 변수값을 넣어 가져가도록함)
@@ -132,9 +131,8 @@ function replyDisplay() {
 replyDisplay();
 
 
-/*댓글 등록 - 김예지(2023.09.14)*/
-/* 댓글 등록 폼에서 addBtn(확인)버튼을 누르면 memberId, commReCont, 값을 받아온 commNo까지 모두 JSON 형식의 데이타로 변환하여 등록됨
- */
+/*김예지(2023.09.14) - 댓글 등록 */
+//댓글 등록 폼에서 addBtn(확인)버튼을 누르면 memberId, commReCont, 값을 받아온 commNo까지 모두 JSON 형식의 데이타로 변환하여 등록됨
 $("#addBtn").click(function() {
 	var writer=$("#memberId").val();
 	
@@ -157,7 +155,7 @@ $("#addBtn").click(function() {
 				replyDisplay();
 				//댓글을 쓴 후 댓글 창에 기입한 텍스트가 사라지도록 함
 				$("#commReCont").val("");
-				//댓글 쓴 후 카운팅 숫자 0으로 되돌아가기
+				//김예지(2023.09.17 추가) - 댓글 쓴 후 카운팅 숫자 0으로 되돌아가기
 	            $("#textLengthCheck").text("(0/300)");
 			}
 		},
@@ -169,7 +167,7 @@ $("#addBtn").click(function() {
 });
 
 
-/*댓글 삭제 - 김예지(2023.9.15)*/
+/*김예지(2023.9.15) - 댓글 삭제*/
 function delete_reply(commReNo){
 
 	if(!confirm("정말 삭제하시겠습니까?")){
@@ -194,7 +192,7 @@ function delete_reply(commReNo){
 
 
 
-/*댓글 수정 - 김예지(2023.09.18)*/
+/*김예지(2023.09.18) - 댓글 수정*/
 /*댓글 수정 폼  
  * 폼만바꾸면 되는거라서 ajax 안씀. 댓글 출력 목록에서 내용만 textarea태그로 바꿔서 내용을 수정하게 만들어줌.
  * 매개변수로 commReNo, memberId, commReDate, commReCont를 받아옴. 
@@ -211,7 +209,6 @@ function UpdateCommentBtn(commReNo, memberId, commReDate, commReCont){
 	html+="<p><textarea class='form-control' name='commReCont2' id='commReCont"+commReNo+"' style='max-height: 100px; max-width: 1000px;'>"+commReCont+"</textarea></p>";
 	html+="<span id='textLengthCheck2" + commReNo + "'>(" + commReCont.length + "/300자)</span>"
 	html+="<div style='display: flex;'>";
-		//html+="<p><a href='#' class='commentReRely'>답글</a></p>";
 	html+="<button type='button' onclick='updateBtn("+commReNo+",\""+memberId+"\")'>저장</button>"
 	html+="<button type='button' onclick='replyDisplay()'>취소</button>";
 	html+="</div>";
@@ -221,14 +218,14 @@ function UpdateCommentBtn(commReNo, memberId, commReDate, commReCont){
 	$("#commReNo"+commReNo).replaceWith(html);
 	$("#commReCont"+commReNo).focus();	//수정폼 열릴때 textarea로 포커스 맞춤
 	
-	//수정시 textarea에 있는 글자수 실시간 카운팅
+	//김예지(2023.09.18) - 수정시 textarea에 있는 글자수 실시간 카운팅
     $("#commReCont" + commReNo).on("input", function () {
         updateTextLength(commReNo);
     });
 }
 
 
-//댓글 수정 버튼시 작동하는 ajax
+//김예지(2023.09.18) - 댓글 수정 버튼시 작동하는 ajax
 function updateBtn(commReNo, memberId){
 	
 	var replyContent = $("#commReCont"+commReNo).val(); //수정폼의 textarea값 읽어오기
@@ -253,22 +250,8 @@ function updateBtn(commReNo, memberId){
 
 
 
-/*댓글 글자수 카운트*/
- 
-/*//아래 코드는 jQuery를 사용한 댓글 글자수 카운트 예제 >> 제대로 안되어서 아래의 코드로 사용함.
-$("#commReCont").keyup(function (e){
-	console.log("키업!");
-	var content = $(this).val();
-	$("#textLengthCheck").html("("+content.length +"/300자)"); //실시간 글자수 카운팅(최대300자)
-	if(content.length > 300){
-		alert("최대 300자까지 입력 가능합니다.");
-		$(this).val(content.substring(0, 300));
-		$("#textLengthCheck").html("(300/300자)");
-	}
-});
-*/
-
-// jQuery를 사용하지 않고 순수 JavaScript를 사용하여 댓글 글자 수를 셀 수 있는 코드 예제
+/*김예지(2023.09.17) - 댓글 글자수 카운트*/
+// jQuery를 사용하지 않고 순수 JavaScript를 사용하여 댓글 글자 수 카운팅함
 document.getElementById("commReCont").addEventListener("input", function () {
     console.log("키업!");
     var content = this.value;
@@ -283,7 +266,7 @@ document.getElementById("commReCont").addEventListener("input", function () {
 
 
 
-//댓글 수정시 댓글 수 카운트
+//김예지(2023.09.18) - 댓글 수정시 댓글 수 카운트
 function updateTextLength(commReNo) {
     var textarea = $("#commReCont" + commReNo);
     var lengthSpan = $("#textLengthCheck2" + commReNo);

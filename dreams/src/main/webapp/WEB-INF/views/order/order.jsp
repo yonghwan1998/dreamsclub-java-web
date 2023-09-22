@@ -157,21 +157,17 @@
 
 
         <input type="hidden" value="${member.memberId}" name="memberId">
-        <input type="hidden" value="${member.memberName}"
-          name="memberName"> <input type="hidden"
-          value="${member.memberEmail}" name="memberEmail"> <input
-          type="hidden" value="${member.memberPhone}" name="memberPhone">
-        <input type="hidden" value="${member.memberPcode}"
-          name="memberPcode"> <input type="hidden"
-          value="${member.memberAddress1}" name="memberAddress1">
-        <input type="hidden" value="${member.memberAddress2}"
-          name="memberAddress2"> <input type="hidden" value="1"
-          name="newSelected"> <input type="hidden"
-          value="${cartInfo.goodsCode}" name="goodsCode"> <input
-          type="hidden" value="${cartInfo.goodsPrice}" name="goodsPrice">
-        <input type="hidden" value="${cartInfo.goodsCount}"
-          name="goodsCount"> <input type="hidden"
-          value="${cartInfo.goodsInfo}" name="goodsInfo">
+        <input type="hidden" value="${member.memberName}" name="memberName"> 
+        <input type="hidden" value="${member.memberEmail}" name="memberEmail"> 
+        <input type="hidden" value="${member.memberPhone}" name="memberPhone">
+        <input type="hidden" value="${member.memberPcode}" name="memberPcode"> 
+        <input type="hidden" value="${member.memberAddress1}" name="memberAddress1">
+        <input type="hidden" value="${member.memberAddress2}" name="memberAddress2"> 
+        <input type="hidden" value="1" name="newSelected"> 
+        <input type="hidden" value="${cartInfo.goodsCode}" name="goodsCode"> 
+        <input type="hidden" value="${cartInfo.goodsPrice}" name="goodsPrice">
+        <input type="hidden" value="${cartInfo.goodsCount}" name="goodsCount"> 
+        <input type="hidden" value="${cartInfo.goodsInfo}" name="goodsInfo">
 
 
         <div class="col-lg-5">
@@ -273,12 +269,10 @@
                 </div>
                 <div class="your-order-middle">
                   <ul>
-                    <li><span class="order-middle-left">${cartInfo.goodsCode.split("-")[0]}
-                        &nbsp;&nbsp; X &nbsp;&nbsp;
-                        ${cartInfo.goodsCount }</span> <span
-                      class="order-price"><fmt:formatNumber
-                          value="${cartInfo.goodsPrice }"
-                          pattern="#,###" /> 원 </span></li>
+                    <li>
+                        <span class="order-middle-left">${cartInfo.goodsCode.split("-")[0]} &nbsp;&nbsp; X &nbsp;&nbsp; ${cartInfo.goodsCount }</span> 
+                        <span class="order-price"><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원 </span>
+                    </li>
                   </ul>
                 </div>
                 <div class="your-order-bottom">
@@ -290,9 +284,9 @@
                 <div class="your-order-total">
                   <ul>
                     <li class="order-total">총 금액</li>
-                    <li><span><fmt:formatNumber
-                          value="${cartInfo.goodsPrice }"
-                          pattern="#,###" /> 원</span></li>
+                    <li>
+                      <span><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원</span>
+                    </li>
                   </ul>
                 </div>
               </div>
