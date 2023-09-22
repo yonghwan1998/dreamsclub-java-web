@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath }/css/admin/core.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 
@@ -19,8 +17,7 @@
    function validateForm() {
       var submitResult = true;
       var originalPassword = document.getElementById("new_password").value;
-      var originalConfirmPassword = document
-            .getElementById("confirm_password").value;
+      var originalConfirmPassword = document.getElementById("confirm_password").value;
       var originalName = document.getElementsByName("memberName")[0].value;
       var originalEmail = document.getElementsByName("memberEmail")[0].value;
       var originalPhone = document.getElementsByName("memberPhone")[0].value;
@@ -121,7 +118,7 @@
             <!-- 나의 상품 -->
             <li class="menu-header small text-uppercase"><span
                class="menu-header-text">나의 상품</span></li>
-            <li class="menu-item"><a href="/dreams/mypage/myqna"
+            <li class="menu-item"><a href="/dreams/mypage/myqna/${member.memberId}"
                class="menu-link ">
                   <div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
             </a> <a href="/dreams/mypage/check" class="menu-link ">

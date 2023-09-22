@@ -110,6 +110,7 @@
 	 	WHERE GOODS_CODE = #{goodsCode}
 	 </update>
 	
+  <!-- 문형섭(생성) : 2023/09/17, 굿즈 디테일 페이지에서 바로 구매 시 조회 -->
 	<select id="selectOrderGoods" resultType="GoodsDTO">
 		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
 			WHERE GOODS_CODE = #{goodsCode}

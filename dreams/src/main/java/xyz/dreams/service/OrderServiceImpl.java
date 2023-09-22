@@ -67,4 +67,10 @@ public class OrderServiceImpl implements OrderService{
 	public int getAmount() {
 		return orderDAO.getAmount();
 	}
+
+	@Override
+	public OrderDTO selectOrderId(int orderId, String memberId) {
+		return orderDAO.selectOrderId(orderId, memberId);
+	}
+	
 }

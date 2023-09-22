@@ -149,37 +149,31 @@ td {
 				</tr>
 			</table> <br>
 
-			<form name="review" id="review" method="post">
+			<form name="review" id="review" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="orderNo" value="${order.orderId }">
 				<table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">구매 상품</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type ="text" style="width: 150" name="goodsCode" value="${goods.goodsCode }" readonly="readonly" >
+							<input type ="text" style="width: 150" name="goodsCode" value="${order.goodsCode }" readonly="readonly" >
 						</td>
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 별점  -->
 					<tr>
-					<!--
-						<fieldset>
-							<span class="text-bold">별점을 선택해주세요</span>
-							<input type="radio" name="reviewStar" value="5" id="rate1"><label
-								for="rate1">★</label>
-							<input type="radio" name="reviewStar" value="4" id="rate2"><label
-								for="rate2">★</label>
-							<input type="radio" name="reviewStar" value="3" id="rate3"><label
-								for="rate3">★</label>
-							<input type="radio" name="reviewStar" value="2" id="rate4"><label
-								for="rate4">★</label>
-							<input type="radio" name="reviewStar" value="1" id="rate5"><label
-								for="rate5">★</label>
-						</fieldset>
-						-->
+						<select name="goodsStar">
+	                        <option value="5">5</option>
+	                        <option value="4">4</option>
+	                        <option value="3">3</option>
+	                        <option value="2">2</option>
+	                        <option value="1">1</option>
+	                    </select>
 						
+						<!--  	
 						<td width=100 align=center bgcolor="E6ECDE" height="22">별점</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 							<input type="text" style="width: 150" name="goodsStar" value="5">
 						</td>
-						</td>
+						-->
 					
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 내용  -->
@@ -192,7 +186,7 @@ td {
 						-->
 						<td width=100 align=center bgcolor="E6ECDE" height="22">리뷰 내용</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="text" style="width: 150" name="revCont" value="넘예뻐여 ">
+							<input type="text" style="width: 150" name="revCont" placeholder="리뷰 내용을 작성해주세요.">
 						</td>
 						 
 					</tr>
@@ -200,7 +194,7 @@ td {
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">리뷰 사진</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type="file" style="width: 240" name="revImg" value="">
+							<input type="file" style="width: 240" name="uploadFile" >
 						</td>
 					</tr>
 				<tr>

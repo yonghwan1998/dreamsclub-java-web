@@ -1,33 +1,48 @@
 package xyz.dreams.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.service.MemberService;
+import xyz.dreams.service.OrderService;
 import xyz.dreams.service.QnaService;
 import xyz.dreams.service.ReviewService;
 
 @Controller
 @RequestMapping(value = "/mypage" )
 @RequiredArgsConstructor
+@Slf4j
 public class MypageController {
    private final MemberService memberService;
    private final ReviewService reviewService;
    private final QnaService qnaService;
+   private final OrderService orderService;
+   
+ //WebApplicationContext 객체(스프링 컨테이너)를 제공받아 필드에 의존성 주입
+ 	private final WebApplicationContext context;
    
    //이소영(최종) : 2023-09-19 마이페이지 메인
    @RequestMapping(value = "", method = RequestMethod.GET)
@@ -79,23 +94,56 @@ public class MypageController {
       return "mypage/mypage_check";
    }
    
-   
+    
    //강민경(2023/09/11): '리뷰 작성'버튼 누르면 리뷰 작성 페이지로 이동
    @RequestMapping(value = "/review/write", method = RequestMethod.GET)
-   public String ReviewWriterView() {
+   public String ReviewWriterView(@RequestParam("orderId") int orderId,@ModelAttribute OrderDTO order,Model model, HttpSession session) {
+		//로그인 세션 불러오기
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		//DTO에 글쓴이 넣기
+		String memberId =member.getMemberId();
+		order = orderService.selectOrderId(orderId, memberId);
+	   model.addAttribute("order",order);
+      log.info("order:{}",order);
       return "mypage/mypage_review_write";
    }
    
    //강민경(2023/09/11): 리뷰 작성 등록
    @RequestMapping(value="/review/write", method = RequestMethod.POST)
-	public String ReviewWriter(@ModelAttribute ReviewDTO review, HttpSession session) {
+	public String ReviewWriter(@ModelAttribute ReviewDTO review,@ModelAttribute OrderDTO order, HttpSession session,
+			@RequestParam MultipartFile uploadFile, 
+		Model model) throws IOException{
 		//로그인 세션 불러오기
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		//DTO에 글쓴이 넣기
 		review.setMemberId(member.getMemberId());
+		
+		//업로드된 파일이 pdf 파일이 아닌 경우(DTO 객체보다 Model객체에 저장하는 것이 뷰에 접근 하기 쉬움
+		if(!uploadFile.isEmpty() && !uploadFile.getContentType().equals("image/png")) {
+			model.addAttribute("message", "png 파일만 업로드 해주세요.");
+			return "redirect:/mypage/review/write";
+		}
+		if(!uploadFile.isEmpty()) {
+			String uploadDirectory = context.getServletContext().getRealPath("/resources/review/upload");
+			//String revImgName=UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
+			
+			String revImg = extracted(uploadFile);
+			
+			review.setRevImg(revImg);
+			File file=new File(uploadDirectory, revImg);
+			
+			//전달파일을 서버 디렉토리에 저장 - 업로드 처리
+			uploadFile.transferTo(file);
+			
+			
+			model.addAttribute("uploadFilename", revImg);
+			
+		}
+		
+		//작성한 리뷰 글 db에 등록 
 		reviewService.enrollReview(review);
 		
-		//다 작성한 후 마이페이지로 페이지 바뀜
+		//다 작성한 후 마이페이지로 페이지로 이동
 		return "mypage/mypage_check";
 	}
    
@@ -129,5 +177,9 @@ public class MypageController {
              return "mypage/mypage_myqna";
 
     }
-   
+   private String extracted(MultipartFile uploadFile) {
+	   String revImg = UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
+	return revImg;
+	   
+   }
 }

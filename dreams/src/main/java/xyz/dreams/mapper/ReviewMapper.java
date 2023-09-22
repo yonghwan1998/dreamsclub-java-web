@@ -15,7 +15,7 @@ public interface ReviewMapper {
 	int modifyReview(ReviewDTO review);
 	
 	//강민경: 리뷰 글 삭제 
-	int deleteReviwe(int revNo);
+	int deleteReview(int revNo);
 	
 	//강민경: 페이징 처리
 	List<ReviewDTO> selectReviewList(Map<String, Object>map);

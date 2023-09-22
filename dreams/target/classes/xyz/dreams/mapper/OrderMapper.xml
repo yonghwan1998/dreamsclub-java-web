@@ -66,6 +66,10 @@
     SELECT * FROM setOrder WHERE order_id = #{orderId} ORDER BY order_date DESC
   </select>
   
+  <select id="selectOrderId" resultType="xyz.dreams.dto.OrderDTO">
+    SELECT * FROM setOrder WHERE order_id = #{orderId} and member_id=#{memberId} 
+  </select>
+  
   <update id="updateOrderStatus">
     UPDATE setOrder SET order_status = #{orderStatus} 
     WHERE orderId = #{orderId} AND order_seq_num = #{orderSeqNum}
@@ -80,7 +84,8 @@
   </select>
   
   <!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
-  <select id="selectOrderStatus" resultType="OrderDTO">
+
+   <select id="selectOrderStatus" resultType="OrderDTO">
 	select * from setorder where order_status in (0,1)
 	</select>
 </mapper>
