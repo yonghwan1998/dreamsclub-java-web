@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -76,6 +75,7 @@ public class MypageController {
    public String mypageGoodsStatus(Model model) {
 	   List<OrderDTO> orderList = reviewService.selectOrderStatus();
 	   model.addAttribute("orderList", orderList);
+	   //강민경: orderId로 주문 리스트 출력 여부 결정
       return "mypage/mypage_check";
    }
    

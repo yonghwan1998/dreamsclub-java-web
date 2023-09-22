@@ -15,11 +15,11 @@ COMM_RE_DEL  NOT NULL VARCHAR2(1)
 
 @Data
 public class CommunityReplyDTO {
-	private int commReNo;
-	private int commNo;
-	private String commReCont;
+	private int commReNo;	//댓글 번호
+	private int commNo;		//게시글 번호
+	private String commReCont;	//댓글 내용
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String commReDate;
-	private String memberId;
-	private String commReDel;
+	private String commReDate;	//댓글 작성 날짜
+	private String memberId;	//댓글 작성 회원 아이디
+	private String commReDel;	//댓글 삭제 여부
 }
