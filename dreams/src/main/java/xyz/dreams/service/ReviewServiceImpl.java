@@ -54,7 +54,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public Map<String, Object> getReviewList(int pageNum, String goodsName) {
 		int totalBoard=reviewDAO.selectReviewCount(goodsName);
 		int pageSize=10;
-		int blockSize=10;
+		int blockSize=5;
 		
 		//pager 클래스로 객체를 생성하여 저장 - 생성자 매개변수에 페이징 처리 관련 값을 전달
 		//=> Pager 객체 : 페이징 처리 관련 값이 저장된 객체

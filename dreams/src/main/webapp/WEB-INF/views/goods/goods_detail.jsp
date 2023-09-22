@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product-details-content ml-70">
-					<form method="post" action="<c:url value="/order/insert"/>" name="purchase">
+					<form method="post" action="<c:url value="/order/insertGoods"/>" name="orderForm">
 						<h2>${goodsDetail.goodsName }</h2>
 						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
@@ -265,6 +265,39 @@
 							</div>
 						</div>
 					</div>
+					
+					<%-- 페이지 번호 출력 --%>
+		            <div style="text-align: center; padding-top: 10px;">
+						<c:choose>
+							<c:when test="${pager.startPage > pager.blockSize }">
+								<a href="<c:url value="/cheer"/>?pageNum=${pager.prevPage}">[이전]</a>
+							</c:when>
+							<c:otherwise>
+								[이전]
+							</c:otherwise>
+						</c:choose>
+					
+						<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+							<c:choose>
+								<c:when test="${pager.pageNum != i  }">
+									<a href="<c:url value="/cheer"/>?pageNum=${i}">[${i }]</a>
+								</c:when>
+								<c:otherwise>
+									[${i }]
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					
+						<c:choose>
+							<c:when test="${pager.endPage != pager.totalPage }">
+								<a href="<c:url value="/cheer"/>?pageNum=${pager.nextPage}">[다음]</a>
+							</c:when>
+							<c:otherwise>
+								[다음]
+							</c:otherwise>
+						</c:choose>
+		            </div>
+					
 				</div>
 			</div>
 		</div>
@@ -284,8 +317,8 @@
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
+    	  var form = document.getElementById("orderForm");
         form.submit();
-    	  location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";}
     });
 
     // 장바구니 담기

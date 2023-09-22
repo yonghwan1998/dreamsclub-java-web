@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -55,12 +56,15 @@ public class OrderController {
 		return "order/order";
 	}
 	
-	@RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.POST)
-	public String GoodsOrder(@ModelAttribute("goodsCode") String goodsCode, Model model) {
+	@RequestMapping(value = "/insertGoods", method = RequestMethod.POST)
+	public String GoodsOrder(@ModelAttribute("goodsCode") String goodsCode, @RequestParam("goodsCount") int goodsCount, Model model) {
 
 		GoodsDTO goods = goodsService.getOrderGoods(goodsCode);
-		model.addAttribute("goodsInfo", goods);
-
+		goods.setGoodsCount(goodsCount);
+		goods.setGoodsPrice(goods.getGoodsCount() * goods.getGoodsPrice());
+		
+		model.addAttribute("cartInfo", goods);
+		
 		return "order/order";
 	}
 }

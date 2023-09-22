@@ -117,12 +117,11 @@
 																								<button
 																									class="sc-1k9quwu-0 fUUUKW sc-4d0nwb-0 iiEWkt">배송조회</button>
 																								<br>
-																								<form action="/goods_detail/" method="post">
+																								<form action="/goods_detail/" method="post" enctype = multipart>
 																									<!-- 강민경: 배송 완료인 경우 리뷰 작성 버튼 생성  -->
 																									<c:if test="${order.orderStatus == 1}">
-																										<a
-																											href="<c:url value="/mypage/review/write"/>"
-																											class="sreply_button_wrap">리뷰 작성하기</a>
+																										<button type="button" onclick="review('${order.orderId}');"
+																											class="sreply_button_wrap">리뷰 작성하기</button>
 																									</c:if>
 																								</form>
 																							</div>
@@ -237,7 +236,6 @@
 
 <!-- Main JS -->
 <script src="${pageContext.request.contextPath }/js/admin/main.js"></script>
-
 <script>
 	const adminAvatar = document.getElementById('adminAvatar');
 	const dropdownMenu = document.getElementById('dropdownMenu');
@@ -251,7 +249,12 @@
 	dropdownMenu.addEventListener('mouseleave', () => {
 	  dropdownMenu.style.display = 'none';
 	});
-	  
+	 
+	
+	function review(orderId) {
+		alert(orderId);
+		location.href='<c:url value="/mypage/review/write"/>?orderId='+orderId;
+	}
 	
 </script>
 <!-- Place this tag in your head or just before your close body tag. -->
