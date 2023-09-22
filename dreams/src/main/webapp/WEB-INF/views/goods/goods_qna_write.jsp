@@ -24,67 +24,65 @@
 
 <!--문의하기-->
 <form action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
-	<input type="hidden" name="memberId" value="${member.memberId }">
-	<input type="hidden" name="goodsCode" value="${goodsCode }"> 
-	<!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
-	
-	<div class="boardWriteMain">
-	    <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
-	        <h3 style="margin-bottom: 40px; margin-right: 800px;">문의하기</h3>
+   <input type="hidden" name="memberId" value="${member.memberId }">
+   <input type="hidden" name="goodsCode" value="${goodsCode }"> 
+   <!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
+   
+   <div class="boardWriteMain">
+       <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
+           <h3 style="margin-bottom: 40px; margin-right: 800px;">문의하기</h3>
 
-	    </div>
-	    
-	    <div class="boardWriteContainer">
-	        <table class="baordWriteTable">
-	         	<!--제목 입력-->
-	            <tr>
-	                <th>제목</th>
-	                <td>
-	                    <input type="text" id="qnaWriteTitle" name="qnaTitle" placeholder="제목을 입력해주세요." value="${pageInfo.qnaTitle }">
-	                </td>
-	            </tr>
-	            
-	       	 	<!--내용-->
-	            <tr>
-	                <th>내용</th>
-	                <td>
-	                    <textarea id="qnaWriteContent" name="qnaCont" class="qnaWriteContent" placeholder="내용을 입력해주세요." value="${pageInfo.qnaCont}"></textarea>
-	                </td>
-	            </tr>
-	                        
-	            <!-- 굿즈 사이즈 -->
-	            <tr>
-					<th>굿즈 사이즈</th>
-					<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-						<select name="goodsSize">
-							<option value="0" selected>사이즈를 선택해주세요.</option>
-							<option value="L">L</option>	
-							<option value="M">M</option>
-							<option value="S">S</option>
-							<option value="F">F</option>
-						</select>
-					</td>
-				</tr>		
-				
-	        </table>
-	        
-	        <!-- 비밀글 여부 -->
-			<div style="margin-right: 400px;">
-				<label>
-					<h5 style="margin-right: 720px;">비밀글</h5>
-				<input id = "secretYn" type = "checkbox" style="transform: scale(0.8);">
-				</label>
-			</div>
-	        
-	         <!--작성 버튼(등록, 취소) -->
-	        <div class="qnaWriteBtn" style= "margin-left: 200px;">
-	            <button type="submit">등록</button>
-	            <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
-	            <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
-	        </div>  
-	        
-	    </div>
-	</div>
+       </div>
+       
+       <div class="boardWriteContainer">
+           <table class="baordWriteTable">
+               <!--제목 입력-->
+               <tr>
+                   <th>제목</th>
+                   <td>
+                       <input type="text" id="qnaWriteTitle" name="qnaTitle" placeholder="제목을 입력해주세요." value="${pageInfo.qnaTitle }">
+                   </td>
+               </tr>
+               
+                 <!--내용-->
+               <tr>
+                   <th>내용</th>
+                   <td>
+                       <textarea id="qnaWriteContent" name="qnaCont" class="qnaWriteContent" placeholder="내용을 입력해주세요." value="${pageInfo.qnaCont}"></textarea>
+                   </td>
+               </tr>
+                           
+               <!-- 굿즈 사이즈 -->
+               <tr>
+               <th>굿즈 사이즈</th>
+               <td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
+                  <select name="goodsSize">
+                     <option value="0" selected>사이즈를 선택해주세요.</option>
+                     <option value="L">L</option>   
+                     <option value="M">M</option>
+                     <option value="S">S</option>
+                     <option value="F">F</option>
+                  </select>
+               </td>
+            </tr>      
+            
+           </table>
+           
+           <!-- 비밀글 여부 -->
+              <p style="margin-top: 1rem;">
+            <input id = "secretYn" type = "checkbox" style="transform: scale(0.8); 
+                    position: relative; right: 22rem; height: 30px;">
+                <label for="secretYn" style="position: relative; left: 27rem; 
+                    bottom: 2rem; font-size: 15px;">비밀글</label>
+           <p>
+            <!--작성 버튼(등록, 취소) -->
+           <div class="qnaWriteBtn" style= "margin-left: 200px;">
+               <button type="submit">등록</button>
+               <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
+               <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
+           </div>  
+           
+       </div>
+   </div>
 </form>
-
 

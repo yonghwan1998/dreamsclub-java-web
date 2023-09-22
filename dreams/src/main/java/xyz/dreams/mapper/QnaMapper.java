@@ -15,6 +15,8 @@ public interface QnaMapper {
 	/* QnA 삭제*/
 	int deleteQna(int qnaNo);
 	
+	/* QnA 답변등록 */
+	int addQnaReply(QnaDTO qna);
 
 	
 	/* QnA 페이징 처리*/

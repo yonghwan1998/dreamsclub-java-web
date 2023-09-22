@@ -252,9 +252,7 @@
 								<form action="<c:url value="/goods/qna/write"/>" method="get">
 								
 								<!-- 9/21 - 오진서 도전!!! -->
-									<!-- <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">  --> <!-- 원본. -->
 									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-									<!--  도전 끝 -->
 									
 									<button type="submit">문의하기</button>
 								</form>
@@ -279,6 +277,7 @@
 											<th class="t4" style="width: 700px">내용</th>
 											<th class="t5" style="width: 150px">작성자</th>
 											<th class="t6" style="width: 150px">작성일</th>
+											<th class="t7" style="width: 100px"> </th>
 										</tr>
 									</thead>
 
@@ -294,7 +293,6 @@
 												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
 												<!--  답변여부 -->
 
-												<!-- 제목 우측 -->
 												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
 												<!-- 제목받아옴 -->
 
@@ -306,7 +304,21 @@
 
 												<td class="t6"><c:out value="${qna.qnaDate}" /></td>
 												<!-- 날짜받아옴 -->
+												
+												<td class="t7"> <!-- 관리자일 경우에만 버튼 보임 -->
+													<c:if test="${not empty member and member.memberStatus == 9}">
+													<!-- 로그인한 사람과, memberStatus 가 9 (관리자) 인경우 -->
+                            							<form action="<c:url value="/goods/qna/rewrite"/>"method="get">
+															<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+															<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
+                                							<button type="submit">답변하기</button>
+                            							</form>
+                        							</c:if>
+												
+												
+												<td>
 											</tr>
+											
 											<!-- !! Re답변  -->
 											<c:choose>
 												<c:when test="${qna.qnaYn eq 'Y'}"> <!-- qnaYn 가 'Y'일경우 보이도록-->
@@ -321,7 +333,7 @@
 														<!-- 제목받아옴 -->
 		
 														<td class="t4">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
-														<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+														<!-- 내용 받아옴 -->
 		
 														<td class="t5">드림즈 관리자</td>
 														<!-- 회원id 받아옴 -->

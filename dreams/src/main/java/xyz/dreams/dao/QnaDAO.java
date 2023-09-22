@@ -17,6 +17,9 @@ public interface QnaDAO {
 	/* QnA 삭제*/
 	int deleteQna(int qnaNo);
 	
+	/* 오진서 9/22 - QnA 답변등록 */
+	int addQnaReply(QnaDTO qna);
+	
 
 	
 	/* QnA 페이징 처리*/
@@ -27,5 +30,6 @@ public interface QnaDAO {
 	
 	//이소영(추가) : 2023-09-21
 	List<QnaDTO> findByMemberId(String memberId);
+
 
 }

@@ -135,15 +135,8 @@ public class GoodsController {
 	}
 	
     
-//	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
-//	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-//	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
-//		model.addAttribute("goodsCode", goodsCode);
-//		return "goods/goods_qna_write"; // JSP 페이지 이름
-//	}
-	
-	
-	// 오진서 - 9/21 도전!!!!  Q&A 작성 페이지로 이동
+//	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동	
+	// 오진서 - 9/21 Q&A 작성 페이지로 이동
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
 	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
 		model.addAttribute("goodsCode", goodsCode);
@@ -151,11 +144,26 @@ public class GoodsController {
 		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
+	
+	// 오진서 - 9/22 도전 !! ,,, Q&A 답변페이지로 이동
+	@RequestMapping(value = "/qna/rewrite", method = RequestMethod.GET)
+	public String showQnaReWriteForm(@RequestParam String goodsCode, @RequestParam int qnaNo, Model model) {
+		System.out.println("111111111111111");
+		model.addAttribute("goodsCode", goodsCode);
+		model.addAttribute("qnaNo", qnaNo);
+		System.out.println("222222222222222");
+		
+		return "goods/goods_qna_rewrite"; // JSP 페이지 이름
+	}	
+	
+	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
-	// 오진서 - 09/21 도전 ▼ - 링크 Q&A 작성 하기
+	// 오진서 - 09/21 - 링크 Q&A 작성 하기
 	@RequestMapping(value = "/write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
 		System.out.println(qna);
+		
+		
 		String goodsName = qnaService.enrollQna(qna); // 등록 //+ ???? 이걸주석처리하면 요청한곳으로 잘가는데, 풀면 405 뜸
 		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
 		
@@ -163,6 +171,28 @@ public class GoodsController {
 		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
 		//return "redirect:/goods/main"; // 원랜 이거였따
 	}	
+	
+	
+	// 오진서 - 09/22 -  Q&A 답변 작성 하기
+	@RequestMapping(value = "/rewrite/add", method = RequestMethod.POST)
+	public String qnaReWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
+		System.out.println("********************");
+		System.out.println(qna);
+		System.out.println("********************");
+		
+		// Q&A 답변을 추가하고 결과로 반환된 상품 이름을 받음
+		String goodsName = qnaService.addQnaReply(qna);
+		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
+		
+		String encodedgoodsName2 = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+		
+		return "redirect:/goods/detail?goodsName=" + encodedgoodsName2; // 입력후 굿즈메인페이지로 이동 **수정완^^
+		//return "redirect:/goods/main"; // 원랜 이거였따
+	}
+
+	
+	
+	
 	
 //	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
 //	// 정보받아와서 목록 출력하고 싶어....

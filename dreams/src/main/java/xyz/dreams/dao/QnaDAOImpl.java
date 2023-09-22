@@ -16,7 +16,7 @@ import xyz.dreams.mapper.QnaMapper;
 public class QnaDAOImpl implements QnaDAO {
 	private final SqlSession sqlSession;
 
-	/*게시판 글 등록하기*/
+	/*QnA  등록하기*/
 	@Override
 	public int enrollQna(QnaDTO qna) {
 		return sqlSession.getMapper(QnaMapper.class).enrollQna(qna);
@@ -25,19 +25,24 @@ public class QnaDAOImpl implements QnaDAO {
 	// DB 작업을 위한 QnaMapper 매퍼 인터페이스를 얻고, 이 인터페이스의 enrollQna 메서드를 호출하여 글을 등록
 
 	
-	/*게시판 수정*/	
+	/* 수정 */	
 	@Override
 	public int modifyQna(QnaDTO qna) {
 		return sqlSession.getMapper(QnaMapper.class).modifyQna(qna);
 	}
 
 	
-	/*페이지 삭제*/
+	/* 삭제 */
 	@Override
 	public int deleteQna(int qnaNo) {
 		return sqlSession.getMapper(QnaMapper.class).deleteQna(qnaNo);
 	}	
 	
+	/* 9/22 - 오진서 / 답변달기 */
+	@Override
+	public int addQnaReply(QnaDTO qna) {
+		return sqlSession.getMapper(QnaMapper.class).addQnaReply(qna);
+	}
 	
 	/*페이징 처리*/
 	// Q&A  목록을 반환
