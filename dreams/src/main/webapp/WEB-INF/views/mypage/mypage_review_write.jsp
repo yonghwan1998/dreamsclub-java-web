@@ -154,7 +154,7 @@ td {
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">구매 상품</td>
 						<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
-							<input type ="text" style="width: 150" name="goodsCode" value="모자 첫 번째-C-F" readonly="readonly" >
+							<input type ="text" style="width: 150" name="goodsCode" value="${goods.goodsCode }" readonly="readonly" >
 						</td>
 					</tr>
 					<!-- 강민경(2023/09/11): 리뷰 별점  -->
