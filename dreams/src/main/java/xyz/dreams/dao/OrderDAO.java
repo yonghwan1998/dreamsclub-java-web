@@ -22,4 +22,6 @@ public interface OrderDAO {
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();
+
+	OrderDTO selectOrderId(int orderId, String memberId);
 }

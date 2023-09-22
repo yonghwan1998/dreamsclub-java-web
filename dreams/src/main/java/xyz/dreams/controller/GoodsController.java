@@ -100,6 +100,7 @@ public class GoodsController {
 		
 		//강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
 		Map<String, Object> map = reviewService.getReviewList(pageNum, goodsName);
+		model.addAttribute("pager", map.get("pager"));
 		model.addAttribute("goodsReview", map.get("reviewList"));
 		
 		return "goods/goods_detail";
@@ -122,7 +123,7 @@ public class GoodsController {
 		
 		return "redirect:/cart/purchase";
 	}
-	
+	 
 //	결제페이지로 굿즈 정보 바로 넘기기
 	@RequestMapping(value = "/detail/order", method = RequestMethod.POST)
 	public String purchaseOrder(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {

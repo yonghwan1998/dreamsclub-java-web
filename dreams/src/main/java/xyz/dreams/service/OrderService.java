@@ -19,4 +19,6 @@ public interface OrderService {
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();
+	
+	OrderDTO selectOrderId(int orderId, String memberId);
 }
