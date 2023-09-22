@@ -14,6 +14,7 @@ import xyz.dreams.dto.CartVO;
 public class CartServiceImpl implements CartService{
 	private final CartDAO cartDAO;
 
+	/* 형섭(수정): 2023/09/19, 회원의 아이디를 이용한 장바구니 조회 */
 	@Override
 	public List<CartVO> myCartList(String memberId) {
 
@@ -26,6 +27,10 @@ public class CartServiceImpl implements CartService{
 		return cartList;
 	}
 
+	/* 
+	 형섭(수정): 2023/09/21, 장바구니 아이디를 이용한 장바구니 조회 
+	 굿즈 가격 계산하는 기능 추가
+	 */
 	@Override
 	public CartVO selectCartById(int cartId) {
 		CartVO cartVO = cartDAO.selectCartById(cartId);
@@ -37,23 +42,19 @@ public class CartServiceImpl implements CartService{
 		return cartVO;
 	}
 	
+	/* 형섭(수정): 2023/09/11, 장바구니에 추가된 상품인지 검색 기능 */
 	@Override
 	public boolean findCartGoods(CartVO cartVO) {
 		return cartDAO.findCartGoods(cartVO);
 	}
 
+	/*형섭(수정): 2023/09/12, 장바구니에 상품 추가 기능*/
 	@Override
 	public void addGoodsInCart(CartVO cartVO) {
 		cartDAO.addGoodsInCart(cartVO);
 	}
-
-	@Override
-	public boolean updateGoodsCount(CartVO cartVO) {
-		boolean result=true;
-		cartDAO.updateGoodsCount(cartVO);
-		return result;
-	}
 	
+	/* 형섭(생성): 2023/09/12, 장바구니에서 조건에 맞는 굿즈 삭제 기능 */
 	@Transactional
 	@Override
 	public int delFromCart(CartVO cartVO) {

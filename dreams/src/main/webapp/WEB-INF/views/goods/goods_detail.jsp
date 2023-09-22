@@ -1,123 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script>
-  /* 장바구니 */
-  $(document).ready(function () {
-
-    // 주문하기 버튼 클릭
-    $(".btn-order").click(function () {
-    		var goodsCode = $("#goodsCode").val();
-        var count = $("#goodsCount").val();
-        var goodsCount = parseInt(count);
-        var goodsSize = $("select[name=goodsSize] option:selected").attr('value');
-        var memberId = $("#isLogOn").val();
-        var goodsPrice = $("#goodsPrice").val();
-    	
-      if (memberId === "false" || memberId === '') {
-          alert("로그인 후 주문이 가능합니다!");
-          window.location.href = "<c:url value='/login' />";
-          event.preventDefault();
-      } else {
-    	  	alert(goodsSize);
-    	  
-          $.ajax({
-          type: "post",
-          url: "<c:url value='/order/insert/'/>" + goodsCode,
-          data: {
-        	  "goodsCode": goodsCode,
-            "goodsSize": goodsSize,
-            "goodsCount": goodsCount,
-            "goodsPrice": goodsPrice
-          },
-          dataType: "text",
-          success: function (response) {
-            if(response.success) {
-              alert("주문을 완료 하였습니다.");
-              //주문 확인 페이지 이동
-            } else {
-              alert("주문을 실패 하였습니다.");
-            }
-          },
-          error: function(xhr) {
-            alert(xhr.status);
-          }
-        });
-      }
-    });
-
-    // 장바구니 버튼 클릭
-    $(".btn-cart").click(function (event) {
-      event.preventDefault();
-      var goodsCode = $("#goodsCode").val();
-      var count = $("#goodsCount").val();
-      var goodsCount = parseInt(count);
-      var goodsSize = $("select[name=goodsSize] option:selected").attr('value');
-      var memberId = $("#isLogOn").val();
-      var goodsPrice = $("#goodsPrice").val();
-      
-      if (memberId === "false" || memberId === '') {
-          alert("로그인 후 주문이 가능합니다!");
-          window.location.href = "<c:url value='/login' />";
-          event.preventDefault();
-      } else {
-      		alert(goodsSize);
-    	  
-          $.ajax({
-            type: "post",
-            url: "<c:url value="/cart/addGoodsInCart"/>",
-            contentType : "application/json",
-            data: JSON.stringify({
-              "goodsCode": goodsCode,
-              "goodsCount": goodsCount,
-              "goodsSize": goodsSize
-            }),
-            dataType: "text",
-            success: function (result) {
-              if (result.trim() == 'add_success') {
-                var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
-                var goMyCart = "<c:url value='/cart/mycart/' />";
-                
-                if (check) {
-                  location.assign(goMyCart + memberId);
-                }
-              } else if (result.trim() == 'already_existed') {
-                alert("이미 장바구니에 등록된 상품입니다.");
-              }
-            },
-            error: function(xhr) {
-                alert(xhr.status);
-            }
-          });
-          
-      	}
-    });
-  });
-   
-   //강민경(2023/09/20): 상세 페이지의 리뷰 삭제 기능 
-     function deleteCheck(no) {
-  	if (confirm("정말 삭제하시겠습니까?") == true) {
-  		//goodsName, revNo를 컨트롤러에게 전달해서 삭제해야 함
-  		location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";
-  		alert("삭제되었습니다.");
-  	} else if (confirm == false) {
-  		alert("취소되었습니다.");
-  	}
-  }
-   
-</script>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
-	$(document).ready(function() {
-		$(".t3").click(function() { // 질문 제목을 클릭했을 때
-			alert('success');
-			$(this).closest("td").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
-		});
-	});
-</script>
-
-
-
 
 <div class="shop-area pt-100 pb-100">
 	<div class="container">
@@ -135,7 +18,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product-details-content ml-70">
-					<form method="post" action="<c:url value='/order/insert'/>" name="purchase">
+					<form method="post" action="<c:url value="/order/insert"/>" name="purchase">
 						<h2>${goodsDetail.goodsName }</h2>
 						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
@@ -387,3 +270,91 @@
 		</div>
     </div>
 </div>
+
+
+<script>
+  /* DOM이 완전히 불러와지면 실행 */
+  	$(function () {
+
+    // 바로 주문하기
+    $(".btn-order").click(function () {
+      
+      if (memberId === "false" || memberId === '') {
+          alert("로그인 후 주문이 가능합니다!");
+          window.location.href = "<c:url value='/login' />";
+          event.preventDefault();
+      } else {
+        form.submit();
+    	  location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";}
+    });
+
+    // 장바구니 담기
+    $(".btn-cart").click(function (event) {
+      event.preventDefault();
+      var goodsCode = $("#goodsCode").val();
+      var count = $("#goodsCount").val();
+      var goodsCount = parseInt(count);
+      var memberId = $("#isLogOn").val();
+      var goodsPrice = $("#goodsPrice").val();
+      
+      if (memberId === "false" || memberId === '') {
+          alert("로그인 후 주문이 가능합니다!");
+          window.location.href = "<c:url value='/login' />";
+          event.preventDefault();
+      } else {
+        	alert(goodsCode);
+    	  
+          $.ajax({
+            type: "post",
+            url: "<c:url value="/cart/addGoodsInCart"/>",
+            contentType : "application/json",
+            data: JSON.stringify({
+              "goodsCode": goodsCode,
+              "goodsCount": goodsCount,
+              "goodsSize": goodsSize
+            }),
+            dataType: "text",
+            success: function (result) {
+              if (result.trim() == 'add_success') {
+                var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
+                var goMyCart = "<c:url value='/cart/mycart/' />";
+                
+                //확인 시 나의 장바구니 이동
+                if (check) {
+                  location.assign(goMyCart + memberId);
+                }
+              } else if (result.trim() == 'already_existed') {
+                alert("이미 장바구니에 등록된 상품입니다.");
+              }
+            },
+            error: function(xhr) {
+                alert(xhr.status);
+            }
+          });
+          
+        }
+    });
+  });
+   
+   //강민경(2023/09/20): 상세 페이지의 리뷰 삭제 기능 
+     function deleteCheck(no) {
+    if (confirm("정말 삭제하시겠습니까?") == true) {
+      //goodsName, revNo를 컨트롤러에게 전달해서 삭제해야 함
+      location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";
+      alert("삭제되었습니다.");
+    } else if (confirm == false) {
+      alert("취소되었습니다.");
+    }
+  }
+   
+</script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
+  	$(function() {
+    
+  		$(".t3").click(function() { // 질문 제목을 클릭했을 때
+      alert('success');
+      $(this).closest("td").find(".t4").toggle(); // 클릭한 행에서 다음 열(.t4)을 토글(show/hide)합니다.
+    });
+  });
+</script>

@@ -1,12 +1,7 @@
 package xyz.dreams.controller;
 
-import java.io.Console;
 import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -15,19 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
-import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.CartService;
-import xyz.dreams.service.GoodsService;
-import xyz.dreams.service.MemberService;
-import xyz.dreams.service.OrderService;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -35,6 +24,7 @@ import xyz.dreams.service.OrderService;
 public class CartController {
 	private final CartService cartService;
 	
+	/* 형섭(수정): 2023/09/20, 나의 장바구니 조회 */
 	@RequestMapping(value="/mycart/{memberId}" ,method = RequestMethod.GET)
 	public String myCart(@PathVariable("memberId") String memberId, GoodsDTO goods, Model model) {
 		List<CartVO> cartList = cartService.myCartList(memberId);
@@ -42,6 +32,8 @@ public class CartController {
 		return "cart/mycart";
 	}
 	
+	
+	/* 형섭(수정): 2023/09/20, 장바구니에 굿즈 정보 추가 */
 	@ResponseBody
 	@RequestMapping(value="/addGoodsInCart" ,method = RequestMethod.POST)
 	public String addGoodsInCart(@RequestBody GoodsDTO goods, HttpSession session)  throws Exception{
@@ -57,6 +49,7 @@ public class CartController {
 		cartVO.setGoodsCount(goods.getGoodsCount());
 		
 		
+		/* boolean을 이용하여 카트에 등록되어 있는 굿즈인지 여부 판단 */
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		
@@ -67,35 +60,14 @@ public class CartController {
 			return "add_success";
 		}
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
-	public String modifyCartQty(@RequestParam("goodsCode") String goodsCode,
-								@RequestParam("goodsCount") int goodsCount,
-								HttpSession session)  throws Exception{
-		MemberDTO memberInfo = (MemberDTO) session.getAttribute("member");
-		String memberId = memberInfo.getMemberId();
-		
-		CartVO cartVO = new CartVO();
-		cartVO.setMemberId(memberId);
-		cartVO.setGoodsCode(goodsCode);
-		cartVO.setGoodsCount(goodsCount);
-		
-		boolean result=cartService.updateGoodsCount(cartVO);
-		
-		if(result==true){
-			return "modify_success";
-		}else{
-			return "modify_failed";	
-		}
-		
-	}
-	
+
+	/* 형섭(수정): 2023/09/21, 장바구니에서 굿즈 삭제 */
 	@ResponseBody
 	@RequestMapping(value = "/delFromCart", method = RequestMethod.POST)
 	public String delFromCart(CartVO cartVO) {
 		System.out.println("cartVO = "+cartVO);
 		
+		/* 형섭(수정): 2023/09/21, view에서 result값을 전달하여 삭제 처리 */ 
 	    int result = cartService.delFromCart(cartVO);
 	    if (result == 1) {
 	        return "ok";

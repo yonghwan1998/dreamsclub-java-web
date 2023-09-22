@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.CartService;
+import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.OrderService;
 
 @Controller
@@ -20,6 +22,7 @@ import xyz.dreams.service.OrderService;
 public class OrderController {
 	private final OrderService orderService;
 	private final CartService cartService;
+	private final GoodsService goodsService;
 
 	@ResponseBody
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
@@ -41,13 +44,22 @@ public class OrderController {
 	}
 
 	
-	@RequestMapping(value = "/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String orderInsert(@ModelAttribute CartVO cart, Model model) {
 		System.out.println("test1= " + cart);
 
 		CartVO cartVO = cartService.selectCartById(cart.getCartId());
 		System.out.println(cartVO);
 		model.addAttribute("cartInfo", cartVO);
+
+		return "order/order";
+	}
+	
+	@RequestMapping(value = "/insert/{goodsCode}", method = RequestMethod.POST)
+	public String GoodsOrder(@ModelAttribute("goodsCode") String goodsCode, Model model) {
+
+		GoodsDTO goods = goodsService.getOrderGoods(goodsCode);
+		model.addAttribute("goodsInfo", goods);
 
 		return "order/order";
 	}

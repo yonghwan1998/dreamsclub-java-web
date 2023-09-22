@@ -2,21 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.CartMapper">
 	
-    <!-- 형섭(수정): 2023/09/11, 장바구니의 정보를 가져오는 쿼리.
-    foreach: 리스트를 변수로 받아와서 동적인 기능 수행하게 해줌.
-    foreach문을 이용해 목록(collection)에서 각 항목(item)을 반복하며 SQL을 생성하는 쿼리. 
-    => 'getMyCartGoodsCode'로 가져온 굿즈 id들의 list를 변수로 받아와서 결과값을
-    'getMyCartList'에 하나씩 저장 >> "(item1,item2...)"의 형태.  
-   -->
-  <select id="selectGoodsList" resultType="GoodsDTO">
-      SELECT * FROM goods WHERE goods_code IN
-      <foreach collection="list" item="item" open="(" separator="," close=")">
-        #{item.goodsCode}
-      </foreach>
-      ORDER BY goods_code 
-  </select>
-    
-  
 	<!-- 형섭(수정): 2023/09/11, 장바구니에 추가된 상품인지 검색하는 쿼리.
 		decode(count(*), 0, 'false', 'true'): 
 		count(*) : tbl_cart 테이블에서 조건을 만족하는 행의 수를 반환.
@@ -44,18 +29,13 @@
       VALUES (#{cartId}, #{memberId}, #{goodsCode}, #{goodsCount})
   </insert>
   
-  
-  <update id="modifyGoodsQty" parameterType="cartVO">
-        UPDATE tbl_cart
-          SET goods_count = #{goodsCount}
-          WHERE member_id = #{memberId}
-          AND goods_code = #{goodsCode}
-  </update>
-  
+  <!-- 형섭(생성): 2023/09/12, 장바구니에서 조건에 맞는 굿즈 삭제 쿼리. -->
   <delete id="delFromCart">
     DELETE FROM tbl_cart WHERE member_id = #{memberId} AND goods_code = #{goodsCode}
   </delete>
   
+  
+  <!-- 형섭(생성): 2023/09/19, 회원의 아이디를 이용한 장바구니 조회 -->
   <select id="selectCartList" resultType="CartVO">
     SELECT t.CART_ID, t.MEMBER_ID, t.GOODS_CODE, t.GOODS_COUNT, g.GOODS_PRICE, g.GOODS_INFO, g.GOODS_IMAGE
       FROM tbl_cart t JOIN GOODS g
@@ -64,6 +44,8 @@
   </select>
   
   
+  <!-- 형섭(생성): 2023/09/19, 장바구니 아이디를 이용한 장바구니 조회하는 쿼리.
+      굿즈 코드를 이용해 카트 테이블과 굿즈 테이블 검색 -->
   <select id="selectCartById" resultType="CartVO">
     SELECT t.CART_ID, t.MEMBER_ID, t.GOODS_CODE, t.GOODS_COUNT, g.GOODS_PRICE
       FROM tbl_cart t JOIN GOODS g
