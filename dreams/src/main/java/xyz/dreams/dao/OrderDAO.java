@@ -15,7 +15,7 @@ public interface OrderDAO {
 
 	List<OrderDTO> list(int curPage);
 
-	List<OrderDTO> selectByOrderId(String orderId);
+	OrderDTO selectByOrderId(int orderId);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
 
