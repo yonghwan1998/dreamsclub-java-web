@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
@@ -76,6 +77,7 @@ public class MypageController {
    public String mypageGoodsStatus(Model model) {
 	   List<OrderDTO> orderList = reviewService.selectOrderStatus();
 	   model.addAttribute("orderList", orderList);
+	   //강민경: orderId로 주문 리스트 출력 여부 결정
       return "mypage/mypage_check";
    }
    
