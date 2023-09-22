@@ -250,7 +250,12 @@
 						<div class="boardWriteBtn" style="text-align: right;">
 							<c:if test="${!empty(member)}">
 								<form action="<c:url value="/goods/qna/write"/>" method="get">
+								
+								<!-- 9/21 - 오진서 도전!!! -->
+									<!-- <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">  --> <!-- 원본. -->
 									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+									<!--  도전 끝 -->
+									
 									<button type="submit">문의하기</button>
 								</form>
 							</c:if>

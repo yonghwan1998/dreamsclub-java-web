@@ -152,16 +152,15 @@ public class MemberServiceImpl implements MemberService {
    }
 
    @Override
-   public int deleteMember(String memberId) {
-      return memberDAO.deleteMember(memberId);
-
+   public void deleteMember(String memberId) {
+      memberDAO.deleteMember(memberId);
    }
    
    //이소영(추가) : 2023-09-18 회원탈퇴시 비밀번호 일치여부 확인
    @Override
-   public boolean checkPassword(String memberId, String password) {
+   public boolean checkPassword(String memberId, String memberPw) {
        String storedPassword = memberDAO.getPassword(memberId);
-       return BCrypt.checkpw(password, storedPassword);
+       return BCrypt.checkpw(memberPw, storedPassword);
    }
 
 

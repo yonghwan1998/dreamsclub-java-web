@@ -1,14 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+    #qnaWriteTitle 
+    {width: 400px; /* 제목 */}
+    
+    #qnaWriteContent 
+    {width: 400px; height: 200px; /* 내용 */}
+    
+ /*  등록 및 취소 버튼 꾸미기 */
+    .qnaWriteBtn button, .qnaWriteBtn a { /* 버튼 및 a태그 꾸미기 */
+    display: inline-block; /* 링크를 블록 요소로 변환하여 버튼처럼 표시 */
+    padding: 10px 20px; /* 내부 여백 설정 */
+    background-color: #64BE5B; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 커서 모양을 포인터로 변경하여 클릭 가능하게 함 */
+    }
+</style>
+
+
+
 <!--문의하기-->
 <form action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
 	<input type="hidden" name="memberId" value="${member.memberId }">
 	<input type="hidden" name="goodsCode" value="${goodsCode }"> 
+	<!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
 	
 	<div class="boardWriteMain">
 	    <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
-	        <h3 style="margin-bottom: 40px;">문의하기</h3>
+	        <h3 style="margin-bottom: 40px; margin-right: 800px;">문의하기</h3>
+
 	    </div>
 	    
 	    <div class="boardWriteContainer">
@@ -19,7 +42,8 @@
 	                <td>
 	                    <input type="text" id="qnaWriteTitle" name="qnaTitle" placeholder="제목을 입력해주세요." value="${pageInfo.qnaTitle }">
 	                </td>
-	            </tr>  
+	            </tr>
+	            
 	       	 	<!--내용-->
 	            <tr>
 	                <th>내용</th>
@@ -30,7 +54,7 @@
 	                        
 	            <!-- 굿즈 사이즈 -->
 	            <tr>
-					<td>굿즈 사이즈</td>
+					<th>굿즈 사이즈</th>
 					<td colspan="4" bgcolor="ffffff" style="padding-left: 10px;">
 						<select name="goodsSize">
 							<option value="0" selected>사이즈를 선택해주세요.</option>
@@ -40,13 +64,27 @@
 							<option value="F">F</option>
 						</select>
 					</td>
-				</tr>
+				</tr>		
+				
 	        </table>
-	         <!--작성 버튼(취소, 등록) -->
-	        <div class="qnaWriteBtn">
+	        
+	        <!-- 비밀글 여부 -->
+			<div style="margin-right: 400px;">
+				<label>
+					<h5 style="margin-right: 720px;">비밀글</h5>
+				<input id = "secretYn" type = "checkbox" style="transform: scale(0.8);">
+				</label>
+			</div>
+	        
+	         <!--작성 버튼(등록, 취소) -->
+	        <div class="qnaWriteBtn" style= "margin-left: 200px;">
 	            <button type="submit">등록</button>
+	            <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
 	            <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
 	        </div>  
+	        
 	    </div>
 	</div>
 </form>
+
+

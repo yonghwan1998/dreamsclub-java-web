@@ -18,29 +18,35 @@ public class QnaServiceImpl implements QnaService {
 	/* 문의 등록하기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void enrollQna(QnaDTO qna) {
+	public String enrollQna(QnaDTO qna) {
+		
+		
 		String[] qnaSplit = null; // qnaSplit String문자열로[배열] = null
+//		
+//		// goodsCode = 모자 네 번째(name) - C(Code) - F(Size)
+//		// 배열		 		 		 [0]  -   [1]   -   [2]
+//		
+//		// 값을 변경해줄거니
+		String qnaGoodsCode = qna.getGoodsCode(); // get GoodsCode 를 가져오고. qnaGoodsCode에 값을 넣음 // 원본
 		
-		// goodsCode = 모자 네 번째 - C(Code) - F(Size)
-		// 배열		 		  [0]	-	[1]   -   [2]
-		
-		// 값을 변경해줄거니
-		String qnaGoodsCode = qna.getGoodsCode(); // get GoodsCode 를 가져오고. qnaGoodsCode에 값을 넣음
+//		String qnaGoodsSize = null; // get GoodsSize 를 가져오고. qnaGoodsName에 값을 넣음
 		String qnaGoodsSize = qna.getGoodsSize(); // get GoodsSize 를 가져오고. qnaGoodsSize에 값을 넣음
-
+//
 		qnaSplit = qnaGoodsCode.split("-"); // qnaGoodsCode에 .split("-")를 사용해 "-"를 나누고, qnaSlit에 저장
-		//split() 함수: 문자열을 일정한 구분자로 잘라서 배열로 저장
-		
+//		//split() 함수: 문자열을 일정한 구분자로 잘라서 배열로 저장
+//		
 		qnaSplit[2] = qnaGoodsSize; // qnaGoodsSize 에 Spblit[문자열2] 를 대입
-
+//
 		qnaGoodsCode = qnaSplit[0] + "-" + qnaSplit[1] + "-" + qnaSplit[2];
-		// goodsName + "-" + goodsCode + "-" + goodsSize 를 qnaGoodsCode 에 다시 대입 
-		// 설정했던걸 다시 합침
-
+//		// goodsName + "-" + goodsCode + "-" + goodsSize 를 qnaGoodsCode 에 다시 대입 
+//		// 설정했던걸 다시 합침
+//
 		qna.setGoodsCode(qnaGoodsCode);
-		// set GoodsCode(qnaGoodsCode) 설정완료
+//		// set GoodsName(qnaGoodsCode) 설정완료
 
 		qnaDAO.enrollQna(qna);
+		
+		return qnaSplit[0]; // goodsName을 다시 리턴. GoodsController 159번줄에서 다시 받음
 	}
 	
 	/* 수정하기 */

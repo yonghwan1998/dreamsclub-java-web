@@ -44,5 +44,8 @@ public class QnaDTO {
 	
 	
 	// 9월 20일 - 도오오전
-	private String goodsSize;	//상품 이름
+	private String goodsSize; // 굿즈 사이즈
+	
+	// 9월 21일 - 도줘어언
+	private String goodsName; //상품 이름
 }
