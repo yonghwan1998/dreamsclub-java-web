@@ -22,7 +22,7 @@ COMM_HIT            VARCHAR2(10)
 @Data
 public class CommunityDTO {
 	private int commNo; //게시판 번호
-	private String memberId; //글쓴이
+	private String memberId; //게시글 쓴 회원아이디(글쓴이)
 	private String commTitle; //게시판 제목
 	private String commCont; //게시판 내용
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -30,5 +30,8 @@ public class CommunityDTO {
 	private String commImg; //첨가 이미지
 	private String commDel; //삭제유무
 	private int commHit; //조회수
+	
+	//[김예지 2023.09.17 추가]댓글 수 카운팅
+	private int replyCount;
 }
 

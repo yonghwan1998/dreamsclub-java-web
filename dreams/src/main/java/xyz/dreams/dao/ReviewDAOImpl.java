@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
+import xyz.dreams.mapper.OrderMapper;
 import xyz.dreams.mapper.ReviewMapper;
 
 @Repository
@@ -39,9 +41,16 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public List<ReviewDTO> selectReviewList(Map<String, Object> map) {
 		return sqlSession.getMapper(ReviewMapper.class).selectReviewList(map);
 	}
-
 	@Override
-	public int selectReviewCount() {
-		return sqlSession.getMapper(ReviewMapper.class).selectReviewCount();
+	public int selectReviewCount(String goodsName) {
+		return sqlSession.getMapper(ReviewMapper.class).selectReviewCount(goodsName);
 	}
+	
+	//강민경(2023/09/20): 마이페이지에서 리뷰 list 출력 
+	@Override
+	public List<OrderDTO> selectOrderStatus() {
+		return sqlSession.getMapper(OrderMapper.class).selectOrderStatus();
+	}
+	
+	
 }

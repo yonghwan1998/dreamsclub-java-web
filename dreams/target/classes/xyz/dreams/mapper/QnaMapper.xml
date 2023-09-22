@@ -2,50 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.QnaMapper">
 
-<!--  QnA 등록 -->
-<insert id = "enrollQna">
-	insert into Qna(
-	QNA_NO,
-	MEMBER_ID,
-	QNA_TITLE,
-	QNA_CONT,
-	QNA_DATE,
-	QNA_STATUS,
-	QNA_YN,
-	)
-	values 
-	(QNA_SEQ.NEXTVAL, <!-- 시퀀스의 값을 증가 시키고싶대 -->
-	#{qnaNo},
-	#{memberId},
-	#{qnaTitle},
-	#{qnaCont},
-	SYSDATE, <!-- 근데 수정 마지막일도 변경해줘야하나? 어케하는거임? -->
-	#{qnaStatus} <!-- 변경할수있게 할거임 -->
-	#{qnaYn}
-	) 
+	<!--  QnA 등록 -->
+	<insert id = "enrollQna">
+		INSERT INTO QNA(
+			QNA_NO,
+			MEMBER_ID,
+			QNA_TITLE,
+			QNA_CONT,
+			QNA_DATE,
+			QNA_STATUS,
+			QNA_YN,
+			GOODS_CODE
+		) VALUES (
+			QNA_SEQ.NEXTVAL, <!-- 시퀀스의 값을 증가 시키고싶대 -->
+			#{memberId},
+			#{qnaTitle},
+			#{qnaCont},
+			SYSDATE, <!-- 근데 수정 마지막일도 변경해줘야하나? 어케하는거임? -->
+			1, <!-- 변경할수있게 할거임 -->
+			'N',
+			#{goodsCode}
+		) 
 	</insert>
 	
 
-<!-- QnA  전체 목록보기 -->
-<!--  클릭했을때 내용이 펼쳐보여지게? -->
-<select id = "getList" resultType= "xyz.dreams.dto.QnaDTO">
-	select * from qna order QNA_NO = #{qnaNo}
-</select>
-
-<!--  QnA 글 수정 -->
-<update id = "modifyQna" parameterType = "QnaDTO">
-	update Qna set qna_title = #{qnaTitle},
-						qna_cont= #{qnaCont} where qna_no = #{qnaNo}
-</update>
-
-<!-- QnA 글 삭제 -->
-<delete id="delectQna">
-	delect from Qna where Qna_No = #{qnaNo}
-</delete>
-
-
-<!-- QnA 페이징 처리 -->
-<select id = "selectQnaList" resultType = "QnaDTO">
+	<!-- QnA  전체 목록보기 -->
+	<!--  클릭했을때 내용이 펼쳐보여지게? -->
+	<select id = "getList" resultType= "xyz.dreams.dto.QnaDTO">
+		select * from qna where QNA_NO = #{qnaNo}
+	</select>
+	
+	<!--  QnA 글 수정 -->
+	<update id = "modifyQna" parameterType = "QnaDTO">
+		update Qna set qna_title = #{qnaTitle},
+							qna_cont= #{qnaCont} where qna_no = #{qnaNo}
+	</update>
+	
+	<!-- QnA 글 삭제 -->
+	<delete id="delectQna">
+		delect from Qna where Qna_No = #{qnaNo}
+	</delete>
+	
+	
+	<!-- QnA 페이징 처리
+	<select id = "selectQnaList" resultType = "QnaDTO">
 	select * from (
 	select rownum as rn,
 	 qna_no,
@@ -69,10 +69,31 @@
 	 qna_re_cont,
 	 qna_re_date,
 	 from qna order by qna_no desc) qna)
-	 where rn between #{startRow} and #{endRow} <!--  처음과 마지막 -->
-	 </select>
+	 where rn between #{startRow} and #{endRow} 
 	 
-	 </mapper>
+	 -->
+
+	<!--  9/20 오진서 qna 리스트 출력 -->
+	<select id = "selectQnaList" resultType = "QnaDTO">
+		SELECT * FROM QNA
+		<bind name="goodsChangedName" value="goodsName+'-%'"/>
+			WHERE GOODS_CODE LIKE #{goodsChangedName}
+			<!-- 굿즈이름-u-f 인데, 굿즈 이름 까지 보이게함 -->	
+	</select>
+
+	 
+	 <!-- 9/19 오진서  qna리스트 -->
+	<select id = "selectQnaCount" resultType= "int">
+		select count(*) from qna
+	</select>	 
+	
+	<!-- 이소영(추가) qna mypage 리스트 -->
+	<select id="selectQnaByMember" resultType="xyz.dreams.dto.QnaDTO">
+      SELECT * FROM QNA WHERE MEMBER_ID = #{memberId}
+    </select>
+	
+	
+</mapper>
 
 
 

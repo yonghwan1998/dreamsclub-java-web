@@ -1,7 +1,9 @@
 package xyz.dreams.service;
 
+import java.util.List;
 import java.util.Map;
 
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 
 public interface ReviewService {
@@ -16,7 +18,9 @@ public interface ReviewService {
 	void deleteReview(int revNo);
 	
 	//강민경: 페이징 처리
-	Map<String, Object> getReviewList(int pageNum);
+	Map<String, Object> getReviewList(int pageNum, String goodsName);
 	
+	//강민경: 주문 완료 후 상품 리스트 출력
+	List<OrderDTO> selectOrderStatus();
 	
 }

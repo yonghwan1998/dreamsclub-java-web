@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CommunityService;
+import xyz.dreams.util.Pager;
 
 @Controller
 @RequestMapping(value = "/community")
@@ -24,31 +24,35 @@ import xyz.dreams.service.CommunityService;
 public class CommunityController {
 	private final CommunityService communityService;
 	
-	/*게시판 글쓰기 페이지 접속*/
+	/*김예지(2023.08.28) - 게시판 글쓰기 페이지 접속*/
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String communityWrite() {
 		return "community/community_write";
 	}
 	
-	/*게시판 글 등록하기*/
+	/*김예지(2023.08.28) - 게시판 글 등록하기*/
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String communityWritePOST(@ModelAttribute CommunityDTO community, HttpSession session) throws Exception{
-		communityService.enrollCommunity(community);
+		communityService.enrollCommunity(community);		
 		
-		return "redirect:/community";
+		//글 등록 후 방금 쓴 글을 바로 볼 수 있도록 글 조회 페이지로 이동
+		return "redirect:/community/detail?commNo="+community.getCommNo()+"&pageNum=&column=&keyword=";
 	}
 	
 	
-	/*게시판 수정 페이지 이동*/
+	/*김예지(2023.09.07) - 게시판 수정 페이지 이동*/
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String communityModify(int commNo, Model model) throws Exception{
+		//글 조회페이지에 있는 내용들을 그대로 수정 페이지에 담아와 수정할 수 있도록 값을 담아 pageInfo로 명명
 		model.addAttribute("pageInfo", communityService.getPage(commNo));
 		
 		return "community/community_modify";
 	}
 
 	
-	/*페이지 수정 POST*/
+	/*김예지(2023.09.07) - 게시글 수정 POST*/
+	//POST요청방식이고 리다이렉트로 주소를 반환해줄 것이기 때문에 
+	//RedirectAttributes의 변수 rttr에 CommunityDTO의 값을 commModify로 지정해 사용.
 	@RequestMapping(value = "/modify/add", method = RequestMethod.POST)
 	public String communityModifyPOST(@ModelAttribute CommunityDTO community, HttpSession session, RedirectAttributes rttr) throws Exception{
 	
@@ -60,7 +64,7 @@ public class CommunityController {
 
 	
 	
-	/*페이지 삭제*/
+	/*김예지(2023.08.30) - 게시글 삭제*/
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String communityDeleteGET(@RequestParam("commNo") int commNo, @ModelAttribute CommunityDTO communityDTO,
 				HttpSession session) throws Exception{
@@ -76,17 +80,24 @@ public class CommunityController {
 	}
 	
 	
-	/*게시판 글 하나 보는 페이지 (조회)*/
+	/*김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회) */
+	/*김예지(2023.09.17) - 게시글 당 댓글 수 카운팅 추가(게시물에 들어가면 댓글수가 업데이트되어 목록화면에서도 적용되도록한다.)*/
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String communityDetail(@RequestParam int commNo, Model model) {
+
+		communityService.updateReplyCount(commNo); //댓글 수 카운팅
+
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);
+				
 
 		return "community/community_detail";
 	}
 	
 	
-	/*게시판 목록 페이지 접속*/
+	/*김예지(2023.08.27) - 게시판 목록 페이지 접속
+	 * 김예지(2023.08.30) - 게시판 목록 페이징
+	 * 김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가*/
 	/*
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String community(@RequestParam(defaultValue = "1") int pageNum, Model model) {
@@ -103,11 +114,10 @@ public class CommunityController {
 	
 	@RequestMapping(value = "")
 	 public String community(@RequestParam Map<String, Object> map, Model model) {
-			
-		model.addAttribute("result", communityService.getCommunityList(map));
-		model.addAttribute("search", map);
-			
+				
+		model.addAttribute("result", communityService.getCommunityList(map));	//목록 출력 리스트
+		model.addAttribute("search", map);	//검색
 		return "community/community_main";
-	}
+	}	
 
 }

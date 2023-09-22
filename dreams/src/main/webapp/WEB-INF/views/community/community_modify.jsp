@@ -3,6 +3,16 @@
 
 <!-- 커뮤니티 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
+	
+<!-- 썸머노트- 게시판 에디터(김예지:2023.09.19) -->
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 
 <!--커뮤니티 수정하기-->
@@ -27,7 +37,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea id="communityModifyContent" name="commCont" class="communityModifyContent"><c:out value="${pageInfo.commCont }"/></textarea>
+                    <textarea id="myEditor" name="commCont"><c:out value="${pageInfo.commCont }"/></textarea>
                 </td>
             </tr>
         <!--이미지 추가-->
@@ -62,7 +72,7 @@ function modify_form(){
 		alert("제목을 입력해주십시오.");
 		return false;
 	}
-	if(document.getElementById("communityModifyContent").value==''){
+	if(document.getElementById("myEditor").value==''){
 		alert("내용을 입력해주십시오.");
 		return false;
 	}
@@ -78,6 +88,31 @@ function cancleCheck(){
    }else if(confirm==false){
    }
 }
+
+
+//썸머노트 API
+$('#myEditor').summernote({
+    lang: 'ko-KR',
+    height: 300,
+    placeholder: '내용을 입력하세요',
+    toolbar: [
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+        ['color', ['forecolor', 'color']],
+        ['table', ['table']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['insert', ['picture', 'link']],
+        ['view', ['help']]
+      ],
+      fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체',
+        '굴림', '돋음체', '바탕체'],
+      fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36',
+        '50', '72']
+   
+    
+});
 
 
 

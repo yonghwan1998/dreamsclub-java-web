@@ -3,13 +3,13 @@
 <mapper namespace="xyz.dreams.mapper.NoticeMapper">
 
 <!-- 공지사항 등록 -->
-<insert id="enrollCommunity">
-	insert into Notice(NOTICE_NO , NOTICE_TITLE, NOTICE_CONT, MEMBER_ID) values (NOTICE_SEQ.NEXTVAL, #{noticeTitle}, #{noticeCont}, #{memberId})
+<insert id="enrollNotice">
+	insert into Notice(NOTICE_NO , NOTICE_TITLE, NOTICE_CONT) values (NOTICE_SEQ.NEXTVAL, #{noticeTitle}, #{noticeCont})
 </insert>
 
 <!-- 공지사항 전체 목록보기 -->
 <select id="getList" resultType="xyz.dreams.dto.NoticeDTO">
-	select * from notice
+	select * from notice order by NOTICE_NO DESC
 </select> 
 
 <!-- 공지사항 글 하나 보기 -->
@@ -18,7 +18,7 @@
 </select>
 
 <!-- 공지사항 글 수정 -->
-<update id="modifyNotice">
+<update id="modifyNotice" parameterType="xyz.dreams.dto.NoticeDTO">
 	update notice set notice_title=#{noticeTitle}, notice_cont=#{noticeCont} where notice_no=#{noticeNo}
 </update>
 

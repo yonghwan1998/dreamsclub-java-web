@@ -18,31 +18,30 @@ import xyz.dreams.util.Pager;
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
 	private final CommunityDAO communityDAO;
-	private final SqlSession sqlsession;
 
-	/*게시판 글 등록하기*/	
+	/*김예지(2023.08.28) - 게시판 글 등록하기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
-		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
-		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		//community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		//community.setCommCont(community.getCommCont().replace("\r\n","<br>"));
 		communityDAO.enrollCommunity(community);
 	}
 
 	
-	/*게시판 글 수정하기*/
+	/*김예지(2023.09.07) - 게시글 수정*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
 		
-		community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
-		community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
+		//community.setCommTitle(HtmlUtils.htmlEscape(community.getCommTitle()));
+		//community.setCommCont(HtmlUtils.htmlEscape(community.getCommCont()));
 		communityDAO.modifyCommunity(community);
 	}
 	
 
-	/*게시판 글 삭제*/
+	/*김예지(2023.08.30) - 게시글 삭제*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void deleteCommunity(int commNo) {
@@ -51,27 +50,29 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 
-	/*게시판 글 조회(글 1개)*/
+	/*김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회)*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public CommunityDTO getPage(int communityNo) {
 		CommunityDTO comm = communityDAO.getPage(communityNo);
 		
-		//조회수 +1
+		//김예지(2023.09.08 추가) - 조회수 증가
 		communityDAO.upCountCommunity(communityNo);
 		
 		return communityDAO.getPage(communityNo);
 	}
 
 	
-	/*게시글 조회수 증가*/
+	/*김예지(2023.09.08) - 조회수 증가*/
 	@Override
 	public void upCountCommunity(int commNo) {
 		communityDAO.upCountCommunity(commNo);
 	}
 	
 
-	/*목록보기 + 페이징 처리*/
+	/*김예지(2023.08.27) - 게시판 목록 페이지 접속
+	  김예지(2023.08.30) - 게시판 목록 페이징
+	  김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가	*/
 	@Override
 	public Map<String, Object> getCommunityList(Map<String, Object> map) {
 		int pageNum=1; //요청 페이지번호의 선언초기화 (무조건 1부터 시작)
@@ -98,6 +99,14 @@ public class CommunityServiceImpl implements CommunityService{
 		resultMap.put("communityList", communityList);
 		
 		return resultMap;
+	}
+
+
+	
+	/*김예지(2023.09.17)- 게시글 당 댓글 수 카운팅*/
+	@Override
+	public void updateReplyCount(int commNo) {
+		communityDAO.updateReplyCount(commNo);
 	}
 	
 

@@ -6,13 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.dto.CartDTO;
-import xyz.dreams.dto.CartVO;
-import xyz.dreams.dto.GoodsDTO;
-import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.dto.OrderDTO;
-import xyz.dreams.dto.OrderDetailDTO;
-import xyz.dreams.mapper.OrderMapper;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,11 +16,11 @@ public class OrderDAOImpl implements OrderDAO {
 	private final String NS = "xyz.dreams.mapper.OrderMapper";
 	
 	@Override
-	public void insert(OrderDTO orderDTO) {
+	public int insert(OrderDTO order) {
 			int orderId = sqlSession.selectOne(NS+".countOrderId");
-			orderDTO.setOrderId(orderId);
+			order.setOrderId(orderId);
 			
-			sqlSession.insert(NS+".insert", orderDTO);
+			return sqlSession.insert(NS+".insert", order);
 	}
 
 	@Override
@@ -38,12 +32,6 @@ public class OrderDAOImpl implements OrderDAO {
 		} else {
 			return myOrderList;
 		}
-	}
-
-	@Override
-	public List<OrderDTO> list(int curPage) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -63,17 +51,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean delFromCart(CartVO cartVO) {
-		int result = sqlSession.delete(NS+".delFromCart", cartVO);
-		
-		if (result == 1) {
-			return true;
-		} else {
-			return false;
-		}	
-	}
-
-	@Override
 	public int orderCancel(OrderDTO orderDTO) {
 		return sqlSession.delete(NS+".orderCancel", orderDTO);
 	}
@@ -83,5 +60,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne(NS+".getAmount");
 	}
 
+	@Override
+	public List<OrderDTO> list(int curPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

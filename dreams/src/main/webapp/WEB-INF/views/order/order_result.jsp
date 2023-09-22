@@ -70,86 +70,35 @@
   </div>
 
   <!-- 주문 내역 -->
-	<div id="gnb">
-		<a href="/">Hello World</a>
-		<div  class="text-right" >
-			<c:choose>
-				<c:when test="${member.memberId != null}">
-					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
-					<span id="login_log" style="border-bottom: 1px solid white;">${member.memberId} 님, 환영합니다.</span>
-					<span class="glyphicon glyphicon-heart-empty" style="color: white;" aria-hidden="true"></span>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<c:if test="${member.memberId == 'admin'}">
-						<button id="go_to_adminPage">관리자 페이지</button>
-					</c:if>
-					<button class="mycart_btn">장바구니</button>
-					<button id="mypage_btn">마이페이지</button>
-					<button id="logout_btn">로그아웃</button>
-					<input type="hidden" value="${member.memberId}" id="login_memberId">
-				</c:when>
-				
-				<c:otherwise>
-					<button onclick="location.href='#'">로그인</button><button onclick="location.href='#'">회원가입</button>
-				</c:otherwise>
-			</c:choose>	
-			
-		</div>
-	</div>
-
-	<div class="container logo">
-		<a href="/">Hello World</a>
-	</div>
-
-	<div class="nav">
-		<nav>
-			<ul class="nav nav-tabs nav-justified">
-				<li value="outer">OUTER</li>
-				<li value="top">TOP</li>
-				<li value="bottom">BOTTOM</li>
-				<li value="bag">BAG</li>
-				<li value="acc">ACC</li>
-				<li value="qna">Q&A</li>
-			</ul>
-		</nav>
-	</div>
-	
-	<br>
-	
+	<input type="hidden" id="goodsCode" value="${orderInfo.goodsCode}">
 	<div class="container">
 
-		<c:set value="${orderDTO}" var="dto"/>
 		<div class="row" style="text-align: center;">
 			<h1 class="page-header" style="margin-bottom: 50px;">주문이 완료되었습니다.</h1>
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
 					<tr>
-						<th colspan="2" style="text-align: center !important;">상품명</th>
+						<th>상품명</th>
 						<th>가격</th>
 						<th>수량</th>
-						<th>옵션</th>
+						<th>사이즈</th>
 						<th>결제금액</th>
 					</tr>
 				</thead>
 				<tbody style="text-align: left; vertical-align: middle;">
 						<tr>
-							<td style="text-align: center;"><img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${dto.goodsImage }"
-								style="max-width: 100px; max-height: 100px;">
-							<input type="hidden" value="${dto.goodsCode}" name="goodsCode" id="goodsCode">
-							</td>
-							<td>${dto.goodsCode}<br>${dto.goodsInfo}</td>
-							<td><fmt:formatNumber type="number" value="${dto.goodsPrice}"/>&nbsp;원</td>
-							<td>${dto.orderQty}</td>
-							<td>${dto.selectedOpt}</td>
-							<td><fmt:formatNumber type="number" value="${dto.totalAmount}"/>&nbsp;원</td>
+							<td>${orderInfo.goodsCode }</td>
+							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
+							<td>${orderInfo.goodsCount}</td>
+							<td>${orderInfo.goodsCode}</td>
+              <td>${orderInfo.goodsPrice }</td>
 						</tr>
 				</tbody>
 			</table>
 		</div>
 		
 		<hr>
-		
 		<div class="row" style="text-align: center;">
-			
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
 					<tr>
@@ -162,11 +111,11 @@
 				</thead>
 				<tbody style="text-align: left;">
 						<tr>
-							<td>${dto.memberName}</td>
-							<td>${dto.memberPcode}<br>${dto.memberAddress1}<br>${dto.memberAddress2}</td>
-							<td>${dto.memberPhone}</td>
+							<td>${orderInfo.memberName}</td>
+							<td colspan="2" style="text-align: left !important;">${orderInfo.memberPcode}<br>${orderInfo.memberAddress1}<br>${orderInfo.memberAddress2}</td>
+							<td>${orderInfo.memberPhone}</td>
 							<td id="order_status"></td>
-							<td>${dto.deliverMsg}</td>
+							<td>${orderInfo.deliverMsg}</td>
 						</tr>
 				</tbody>
 			</table>
@@ -187,65 +136,24 @@
 		
 		order_status();
 		
-		
 		$(".back_btn").click(function(event) {
 			event.preventDefault();
-			location.assign("/");
-		});
-
-		$(".mycart_btn").click(function(event) {
-			event.preventDefault();
-			location.assign("/cart/mycart/" + memberId);
-			
+			//location.assign("/");
+			alert(goodsCode);
 		});
 		
-		$("#go_to_member_insert").click(function(event) {
-			event.preventDefault();
-			
-			location.assign("/member/insert");
-		});
-		
-		$("#mypage_btn").click(function(event) {
-			event.preventDefault();
-			var memberId = $("#login_memberId").val();
-			
-			location.assign("/member/read/" + memberId);
-		})
-		
-		$("#logout_btn").click(function(event) {
-			event.preventDefault();
-			
-			var logout = confirm("로그아웃 하시겠습니까?");
-			
-			if (logout) {
-				location.assign("/member/logout");
-			}
-		});
-		
-		$("#go_to_adminPage").click(function(event) {
-			event.preventDefault();
-			
-			location.assign("/admin/orderedlist");
-		
-		});
-		
-		$("#searchAdd").click(function(event) {
-			event.preventDefault();
-			postcode();
-
-		});
 	    
-	    function order_status() {
-	    	var status = "<c:out value='${dto.orderStatus}'/>";
-	    	if (status == '0') {
-				status = "배송 준비중";
-			} else if (status == '1') {
-				status = "배송중";
-			} else if (status == '2') {
-				status = "배송 완료";
-			}
-	    	
-	    	$("#order_status").html(status);
+    function order_status() {
+    	var status = "<c:out value='${orderInfo.orderStatus}'/>";
+    	if (status == '0') {
+			status = "배송 준비중";
+		} else if (status == '1') {
+			status = "배송중";
+		} else if (status == '2') {
+			status = "배송 완료";
+		}
+    	
+    	$("#order_status").html(status);
 		}
 	
 	});

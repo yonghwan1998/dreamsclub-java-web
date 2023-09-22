@@ -10,14 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
+import xyz.dreams.dao.OrderDAO;
 import xyz.dreams.dao.ReviewDAO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.util.Pager;
  
 @Service
 @RequiredArgsConstructor
-public class ReviewServiewImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService{
 	private final ReviewDAO reviewDAO;
+	private final OrderDAO orderDAO;
 	private final SqlSession sqlsession;
 	
 	
@@ -48,8 +51,8 @@ public class ReviewServiewImpl implements ReviewService{
 	
 	//강민경: 목록보기 + 페이징 처리
 	@Override
-	public Map<String, Object> getReviewList(int pageNum) {
-		int totalBoard=reviewDAO.selectReviewCount();
+	public Map<String, Object> getReviewList(int pageNum, String goodsName) {
+		int totalBoard=reviewDAO.selectReviewCount(goodsName);
 		int pageSize=10;
 		int blockSize=10;
 		
@@ -70,6 +73,12 @@ public class ReviewServiewImpl implements ReviewService{
 		resultMap.put("reviewList", reviewList);
 		
 		return resultMap;
+	}
+
+	//강민경(2023/09/20): 마이페이지에서 주문 후 상품 리스트 출력
+	@Override
+	public List<OrderDTO> selectOrderStatus() {
+		return reviewDAO.selectOrderStatus();
 	}
 	
 }

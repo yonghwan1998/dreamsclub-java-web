@@ -7,13 +7,22 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CartVO;
-import xyz.dreams.dto.GoodsDTO;
 
 @Repository
 @RequiredArgsConstructor
 public class CartDAOImpl implements CartDAO {
 	private final SqlSession sqlSession;
 	private final String NS = "xyz.dreams.mapper.CartMapper";
+	
+	@Override
+	public List<CartVO> selectCartList(String memberId) {
+		return sqlSession.selectList(NS+".selectCartList", memberId);
+	}
+
+	@Override
+	public CartVO selectCartById(int cartId) {
+		return sqlSession.selectOne(NS+".selectCartById", cartId);
+	}
 	
 	@Override
 	public boolean findCartGoods(CartVO cartVO) {
@@ -27,14 +36,12 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public List<CartVO> getMyCartGoodsCode(String memberId) {
-		return sqlSession.selectList(NS+".getMyCartGoodsCode", memberId);
+	public void updateGoodsCount(CartVO cartVO) {
+		sqlSession.insert(NS+".modifyGoodsQty", cartVO);
 	}
 
 	@Override
-	public List<GoodsDTO> getMyCartList(List<CartVO> cartList) {
-		return sqlSession.selectList(NS+".getMyCartList", cartList);
+	public int delFromCart(CartVO cartVO) {
+		return sqlSession.delete(NS+".delFromCart", cartVO);
 	}
-
-
 }

@@ -6,7 +6,7 @@ import xyz.dreams.dto.CartVO;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderService {
-	void insert(OrderDTO orderDTO);
+	void insert(OrderDTO order);
 
 	List<OrderDTO> myOrderList(String memberId);
 
@@ -15,8 +15,6 @@ public interface OrderService {
 	List<OrderDTO> selectByOrderId(String orderId);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
-	
-	boolean delFromCart(CartVO cartVO);
 	
 	int orderCancel(OrderDTO orderDTO);
 

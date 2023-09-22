@@ -12,22 +12,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.service.GoodsService;
+import xyz.dreams.service.NoticeService;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 	private final GoodsService goodsService; 
+	private final NoticeService noticeService;
 
 	/*
 	- 방용환(수정) : 2023/09/11, 메인 페이지 굿즈 리스트 출력
 	리뷰 or 별점순으로 출력 예정
+	
 	- 방용환(수정) : 2023/09/12, 메인 페이지 오류 수정
 	minPrice, maxPrice 미설정으로 인한 IndexOutOfBounds 오류 수정
+	
 	- 방용환(수정) : 2023/09/12, 메인 페이지 오류 수정
 	uniform, cap, fan 미설정으로 인한 IndexOutOfBounds 오류 수정
+	
+	- 방용환(수정) : 2023/09/19, 굿즈 리스트 별점순으로 변경
 	*/
 	@RequestMapping("/")
-	public String home(@RequestParam(defaultValue = "goods_code") String column,
+	public String home(@RequestParam(defaultValue = "goods_star") String column,
 			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
 			@RequestParam(defaultValue = "true") Boolean uniform, @RequestParam(defaultValue = "true") Boolean cap,
 			@RequestParam(defaultValue = "true") Boolean fan, Model model) {
@@ -49,6 +55,9 @@ public class HomeController {
 		// 검색 조건들을 goodsService.getGoodsList(Map<String, Object> map)에 인자로 넘김
 		List<GoodsDTO> goodsList = goodsService.getGoodsList(map);
 		model.addAttribute("goodsList", goodsList);
+		
+		//이소영(추가) : 2023-09-21 공지사항 메인화면 미리보기
+		model.addAttribute("NoticeList",noticeService.getList());
 
 		return "mainpage/index";
 	}

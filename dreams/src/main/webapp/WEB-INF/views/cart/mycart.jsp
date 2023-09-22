@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <style type="text/css">
   #text_in_the_image{
     float: left;
@@ -54,7 +55,6 @@
 
   
 </style>
-
 <script type="text/javascript">
 function itemSum(){
     var str = "";
@@ -81,138 +81,139 @@ if(chk) {
 });
 
 </script>
-
 <div class="container">
-
-	<c:set value="${cartMap.cartList}" var="cartList"/>
-	<c:set value="${cartMap.goodsList}" var="goodsList"/>
-	
-	<c:forEach items="${cartList}" var="cList">
-		<input type="hidden" value="${cList.cartId}" name="cartId">
-	</c:forEach>
-		
+  
 		<div class="row qnas" style="text-align: center;">
-		<form action="/order/cartOrder" method="post" id="orderForm">
+    <c:set value="${pageContext.request.contextPath}" var="contextPath" />
 			<h1 class="page-header">장바구니</h1>
-			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
-				<thead>
-					<tr>
-						<th colspan="2" style="text-align: center;">상품명</th>
-						<th>가격</th>
-						<th>수량</th>
-						<th>옵션</th>
-						<th>상품정보</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose><c:when test="${goodsList != null}">
-					<c:forEach items="${goodsList}" var="vo" varStatus="status">
-						<tr>
-							<td class="product-close">
-							<input type="checkbox" class="chkbox" onClick="itemSum()" 
-							 value="" data-cartNum="${vo.goodsCode}" checked style="margin-right: 30px;">
-							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${vo.goodsImage }"
-                style="max-width: 100px; max-height: 100px;">
-							</td>
-							<td><a href="/goods/goods_detail/${cartList[status.index].goodsCode}">${vo.goodsCode}</a>
-								<input value="${cartList[status.index].goodsCode}" name="goodsCode" type="hidden">
-							</td>
-							<td><fmt:formatNumber type="number" value="${vo.goodsPrice}"/>&nbsp;원<br>
-								<%-- <span><fmt:parseNumber var="test" value="${vo.goodsPrice / 100}" integerOnly="true"/> ${test}&nbsp;원 --%>
-										<%-- <input value="${test}" type="hidden" name="getPoint" id="point"></span> --%></td>
-								<td>${vo.goodsCount }</td>
-                    <td>
-												<div class="form-horizontal" style="text-align: left;">
-													<select class="form-control opt_select" name="selected_Opt">
-														<option value="S">S</option>
-														<option value="M">M</option>
-														<option value="L">L</option>
-                            <option value="F">Free</option>
-													</select>
-												</div>
-                     </td>
-										<td>${vo.goodsInfo}</td>
-									<td>	
-								<c:choose>
-									<c:when test="${vo.goodsStock == 0}">
-										<button class="btn btn-default" disabled="disabled">주문하기</button><br>
-										<button class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-									</c:when>
-									<c:otherwise>
-                    <input type="hidden" value="${member.memberId}" id="login_memberId">
-										<button class="btn btn-default cart_to_order" data-pId="${cartList[status.index].goodsCode}">주문하기</button>
-										<br>
-										<button class="btn btn-default del_from_cart" data-pId="${cartList[status.index].goodsCode}">삭제하기</button>
-									</c:otherwise>
-								</c:choose> 
-							</td>
-						</tr>
+			<div class="table table-hover" style="display:table; margin: auto; border-bottom: 1px solid #D5D5D5;">
+				<div style="display:table-row">
+					<div style="text-align: center; display:table-cell;">상품명</div>
+					<div style="display:table-cell">가격</div>
+					<div style="display:table-cell">수량</div>
+					<div style="display:table-cell">사이즈</div>
+					<div style="display:table-cell">상품정보</div>
+            		<div style="display:table-cell"></div>
+				</div>
+				<c:choose>
+            		<c:when test="${cartList != null}">
+		  				<c:forEach items="${cartList}" var="cartList" varStatus="status">
+					<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
+  							<div style="display:table-row">
+							<input type="hidden" value="${cartList.cartId}" name="cartId">
+							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
+							<input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
+  							
+                			<!-- 이미지 -->
+  							<div class="product-close" style="display:table-cell">
+    							<img alt="thumbnail" src="${pageContext.request.contextPath }/img/goods-img/${cartList.goodsImage}" style="max-width: 100px; max-height: 100px;">
+  							</div>
+  							
+			                <!-- 이름 -->
+			                <div style="display:table-cell">
+			                	<a href="<c:url value='/goods/goods_detail?goodsName=' />${cartList}">${cartList.goodsCode.split("-")[0]}</a>
+			                </div>
+			                
+                			<!-- 가격 -->
+  							<div style="display:table-cell">
+                  				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
+  							</div>
+                
+                			<!-- 수량 -->
+                			<div style="display:table-cell">
+                  				${cartList.goodsCount}
+                			</div>
+                			
+                			<!-- 사이즈 -->
+                			<div>
+                				${cartList.goodsCode.split("-")[2]}
+                			</div>
+                			
+                			<!-- 정보 -->
+							<div style="display:table-cell">
+								${cartList.goodsInfo}
+							</div>
+							
+							<div style="display:table-cell">	
+								<button type="submit" style="border: 1px solid forestgreen" class="btn btn-default cart_to_order" data-pId="${cartList.goodsCode}">주문하기</button>
+								<br>
+								<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
+						    </div>
+						</div>
+		</form>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<tr><td colspan="5"><h3>장바구니에 내역이 없습니다.</h3></td></tr>
-					</c:otherwise></c:choose>
-				</tbody>
-			</table>
-		</form>
+						<div style="display:table-row">
+							<div style="display:table-cell">
+								<h3>장바구니에 내역이 없습니다.</h3>
+							</div>
+						</div>
+					</c:otherwise>
+          </c:choose>
+			</div>
 	</div>
 		
 		<div class="row" style="text-align: center; margin: 80px 0;">
 			<button class="btn btn-default btn-back_to_shop">쇼핑을 계속하기</button>
 		</div>
-	
-	</div>
+</div>
 
   <script type="text/javascript">
-  
-  $(document).ready(function() {
-    
     var memberId = $("#login_memberId").val();
-    
+		
     $(".del_from_cart").click(function(event) {
-      event.preventDefault();
-      var item = $(this);
-      var goodsCode = item.attr("data-pId");
-      var memberId = $("#login_memberId").val();
-      
-      $.ajax({
-        
-        type : 'post',
-        url : '<c:url value='/cart/delFromCart'/>',
-        data : {
-          goodsCode : goodsCode,
-          memberId : memberId
-        },
-        dataType : 'text',
-        success : function(result) {
-          
-          if (result == 'ok') {
-            alert("장바구니에서 삭제되었습니다.");
-            location.assign("<c:url value='/cart/mycart/' />" + memberId);
-          } else {
-            alert("이미 삭제 된 상품입니다.");
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error(xhr.responseText);
-        }
-      });
+      		event.preventDefault();
+      		
+      		if(memberId != null) {
+    	      var item = $(this);
+      	 		var goodsCode = item.attr("data-pId");
+      	 		var cartId = document.getElementById("cartId").value;
+  	        alert(cartId);
+  	      	alert("goodsCode = "+goodsCode);
+  	        
+      			$.ajax({
+      	            type : "post",
+      	            url : "<c:url value='/cart/delFromCart/' />",
+      	            data : {
+      	            	"goodsCode": goodsCode,
+      	              "memberId" : memberId
+      	            },
+      	            dataType : 'text',
+      	            success : function(result) {
+      	              
+      	              if (result == 'ok') {
+      	                alert("장바구니에서 삭제되었습니다.");
+      	                location.assign("<c:url value='/cart/mycart/' />" + memberId);
+      	              } else {
+      	                alert("이미 삭제 된 상품입니다.");
+      	              }
+      	            },
+      	            error: function (xhr, status, error) {
+      	              console.error(xhr.responseText);
+      	            	}
+      	          });
+      		} else {
+      			alert("로그인 후 이용해 주세요.");
+      			location.assign("<c:url value='/login' />");
+      		} 
     });
     
-    
-    $(".cart_to_order").click(function(event) {
+     
+    /* $(".cart_to_order").click(function(event) {
       event.preventDefault();
       
       if (memberId != null) {
-        var item = $(this);
-        var goodsCode = item.attr("data-pId");
         
-        location.assign("<c:url value='/order/insert'/>" + goodsCode);
+        // submitOrderForm();
+        //location.assign("<c:url value='/order/insert/'/>" + cartId);
       } else {
-        alert("로그인이 필요합니다.");
-        location.assign("/member/login");
+				alert("로그인 후 이용해 주세요.");
+  			location.assign("<c:url value='/login' />");
       }
-    });
+      
+    }); */
+
     
      $("#orderSuccess").click(function () {
        
@@ -234,47 +235,23 @@ if(chk) {
              }
          });
     
+     
     $(".btn-back_to_shop").click(function() {
-      location.assign("/");
+      location.assign("<c:url value='/goods/main' />");
     });
     
     
-    $("#mycart_btn").click(function(event) {
-      event.preventDefault();
-      location.assign("<c:url value='/cart/mycart'/>" + memberId);
-      
-    }); 
+    function submitOrderForm() {
+	    var form = document.getElementById("orderForm");
+	    form.submit();
+	}
     
-    $("#go_to_member_insert").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/join/check'/>");
-    });
-    
-    $("#mypage_btn").click(function(event) {
-      event.preventDefault();
-      var memberId = $("#login_memberId").val();
-      
-      location.assign("<c:url value='/mypage'/>" + memberId);
-    })
-    
-    $("#logout_btn").click(function(event) {
-      event.preventDefault();
-      
-      var logout = confirm("로그아웃 하시겠습니까?");
-      
-      if (logout) {
-        location.assign("<c:url value='/logout'/>");
-      }
-    });
-    
-    $("#go_to_adminPage").click(function(event) {
-      event.preventDefault();
-      
-      location.assign("<c:url value='/admin'/>");
-    
-    });
-  
-  });
+    /* 
+    function orderBtn(cartId){
+    	var test = $('#'+cartId).val();
+    	alert(test);
+    }
+   */
+
   
 </script>

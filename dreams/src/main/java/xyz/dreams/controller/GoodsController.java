@@ -1,15 +1,15 @@
 package xyz.dreams.controller;
 
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +20,7 @@ import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.QnaDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.QnaService;
+import xyz.dreams.service.ReviewService;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ import xyz.dreams.service.QnaService;
 public class GoodsController {
 	private final GoodsService goodsService;
 	private final QnaService qnaService;
+	private final ReviewService reviewService;
 
 	/*
 	- 방용환(수정) : 2023/09/11, 굿즈 메인 페이지에서 굿즈 출력
@@ -36,6 +38,10 @@ public class GoodsController {
 	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
 	 */
 	
 	// 검색 조건을 설정하기 전에 전체 범위로 이름순으로 출력하기 위해 defaultValue 설정
@@ -78,17 +84,35 @@ public class GoodsController {
 	- 방용환(수정) : 2023/08/23, 굿즈 디테일 페이지에서 해당 굿즈 정보 출력
 	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
 	
-	- 방용환(수정) : 2023/09/15, 굿즈 사이즈 별 재고 및 구매 가능 여부 출력
+	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
 	
+	- 오진서(수정) : 2023/09/20, QnA 리스트 출력
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam String goodsName, Model model) {
+	public String detail(@RequestParam String goodsName, Model model, @RequestParam (defaultValue = "1") int pageNum) {
 
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
-
+		
+		// 오진서 (2023/09/18) : 페이지에서 Q&A리스트 출력
+		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
+		model.addAttribute("qnaList", qnaList);
+		
+		//강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
+		Map<String, Object> map = reviewService.getReviewList(pageNum, goodsName);
+		model.addAttribute("goodsReview", map.get("reviewList"));
+		
 		return "goods/goods_detail";
 	}
+
+	//강민경(2023-09-20): 상세페이지에서 리뷰 삭제 기능 
+	@RequestMapping(value = "/detail/delete", method = RequestMethod.GET)
+	public String reviewDelete(@RequestParam("revNo") int revNo, @RequestParam("goodsName") String goodsName ) throws UnsupportedEncodingException {
+		reviewService.deleteReview(revNo);
+		goodsName=URLEncoder.encode(goodsName, "utf-8");
+		return "redirect:/goods/detail?goodsName="+goodsName;
+	}
+	
 
 //	장바구니로 굿즈 정보 넘기기
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
@@ -110,65 +134,50 @@ public class GoodsController {
 		return "redirect:/order/new";
 	}
 	
-	
-//	// 오진서 - 9/10 ▼ 댓글쓰기
-//	// POST - 댓글 작성 처리
-//    @PostMapping("/addQna")
-//    @ResponseBody
-//    public Map<String, Object> addComment(@RequestBody QnaDTO qnaDTO) {
-//        Map<String, Object> result = new HashMap<>();
-//
-//        try {
-//        	
-//            // 여기에 댓글을 저장하고 DB에 추가하는 로직을 추가
-//            // QnaDTO 객체에는 goodsName과 content가 포함됨
-//
-//            // 저장이 성공하면 success 값을 true로 설정
-//            result.put("success", true);
-//        } catch (Exception e) {
-//            // 저장에 실패하면 success 값을 false로 설정
-//            result.put("success", false);
-//            result.put("errorMessage", "문의글 작성에 실패했습니다.");
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
     
-    
-//	// 오진서 - 09/11 Q&A 작성 페이지 이동 1
+//	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
 //	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-//	public String QnaWrite() {
-//
-//		return "goods/goods_qna_write";
+//	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
+//		model.addAttribute("goodsCode", goodsCode);
+//		return "goods/goods_qna_write"; // JSP 페이지 이름
 //	}
-//	
-//	
-//	
-//	
-	// 오진서 - 09/11 Q&A 작성 하기 1
-	@RequestMapping(value = "write/add", method = RequestMethod.POST)
-	public String qnaWritePOST(@ModelAttribute QnaDTO qna, HttpSession session) throws Exception{
-		qnaService.enrollQna(qna);
+	
+	
+	// 오진서 - 9/21 도전!!!!  Q&A 작성 페이지로 이동
+	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
+		model.addAttribute("goodsCode", goodsCode);
 		
-		return "redirect:/goods"; // 입력후 굿즈메인페이지로 이동 **추후 수정해야함..
+		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
+	// 오진서 - 09/19(수정) Q&A 작성 하기
+	// 오진서 - 09/21 도전 ▼ - 링크 Q&A 작성 하기
+	@RequestMapping(value = "/write/add", method = RequestMethod.POST)
+	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
+		System.out.println(qna);
+		String goodsName = qnaService.enrollQna(qna); // 등록 //+ ???? 이걸주석처리하면 요청한곳으로 잘가는데, 풀면 405 뜸
+		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
+		
+		String encodedgoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
+		//return "redirect:/goods/main"; // 원랜 이거였따
+	}	
 	
-	
-    // 오진서 - 9/12 // Q&A 작성 페이지로 이동 2
-	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-    public String showQnaWriteForm() {
-        return "goods_qna_write"; // JSP 페이지 이름
-    }
+//	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
+//	// 정보받아와서 목록 출력하고 싶어....
+//	@RequestMapping(value = "/detail/qna", method = RequestMethod.GET)
+//	public String qnaList(@RequestParam String goodsCode, Model model,
+//			@RequestParam Map<String,Object> map) {
+//		// 9/19 - 맵넣어줘야한대 ▲
+//		
+//		model.addAttribute("qnaList", qnaService.getQnaList(map)); 
+//	//model안에 qnaService안에있는 getQnaList 를 넣을거임 (qnaListqnaList)란 이름으로
+//		return "goods/goods_detail";
+//	}
+//// 500 떠서 잠시 묻어둠
+
 
 	
-//    // 오진서 - 9/12 //  Q&A 작성 처리2
-//    @PostMapping("/qna/write")
-//    public String submitQna(@ModelAttribute QnaDTO qna) {
-//        // qnaService를 사용하여 Q&A 데이터를 저장하는 로직을 수행
-//        qnaService.enrollQna(qna);
-//        return "redirect:/goods"; // 작업 완료 후 이동할 경로
-//    }
     
 }

@@ -48,22 +48,7 @@
                             <th class="t5" style="width: 100px">조회수</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <!-- 
-                        <c:forEach items="${communityList }" var="community" >
-	                        <tr class="boardTableList">
-	                            <td class="t1"><c:out value="${community.commNo }"/></td>
-	                            <td class="t2 text-left">
-	                            	<a class="move" href="<c:url value="/community/detail?commNo=${community.commNo}"/>">
-	                            		<c:out value="${community.commTitle }"/>
-	                            	</a>
-	                           	</td>
-	                            <td class="t3"><c:out value="${community.memberId }"/></td>
-	                            <td class="t4"><c:out value="${community.commDate }"/></td>
-	                            <td class="t5"><c:out value="${community.commHit }"/></td>
-	                        </tr>
-	                    </c:forEach>  
-	                    -->      
+                    <tbody>  
 	                    <c:choose>
                     		<c:when test="${result.communityList == null }">
                     			<tr class="boardTableList">
@@ -75,9 +60,11 @@
 			                        <tr class="boardTableList">
 			                            <td class="t1"><c:out value="${community.commNo }"/></td>
 			                            <td class="t2 text-left">
-			                            	<!-- <a class="move" href="<c:url value="/community/detail?commNo=${community.commNo}"/>"> -->
 			                            		<a class="move" href="<c:url value='/community/detail'/>?commNo=${community.commNo }&pageNum=${search.pageNum }&column=${search.column }&keyword=${search.keyword }">${communtiy.commTitle }
 			                            		<c:out value="${community.commTitle }"/>
+			                            		<c:if test="${community.replyCount ne 0 }">
+			                            			<small><b>[<c:out value="${community.replyCount }"/>]</b></small>
+			                            		</c:if>
 			                            	</a>
 			                           	</td>
 			                            <td class="t3"><c:out value="${community.memberId }"/></td>

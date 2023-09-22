@@ -32,13 +32,13 @@ CAL_INFO           VARCHAR2(20)
 @Data
 public class OrderDTO {
 	private int orderId;
+	private int orderSeqNum;
 	private String goodsCode;
 	private int goodsPrice;
 	private int goodsCount;
 	private int goodsStock;
 	private String goodsInfo;
-	private String goodsImage;
-	private String selectedOpt;
+	private String goodsSize;
 	private String memberId;
 	private String memberName;
 	private String memberEmail;
@@ -49,6 +49,11 @@ public class OrderDTO {
 	private Date orderDate;
 	private String deliverMsg;
 	private int orderStatus;
-	private int totalAmount;
 	private String calInfo;
+
+	
+	private String memberNewPcode;
+	private String memberNewAddress1;
+	private String memberNewAddress2;
+	int newSelected;
 }

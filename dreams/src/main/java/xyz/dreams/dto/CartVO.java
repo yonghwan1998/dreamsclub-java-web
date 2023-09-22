@@ -8,7 +8,10 @@ import lombok.Data;
 public class CartVO {
 	private String memberId;
 	private String goodsCode;
-	private int cartId;
 	private int goodsCount;
-	private Date regDate;
+	private int cartId;
+	private int goodsPrice;
+	private String goodsInfo;
+	private String goodsImage;
+	private Date cartRegDate;
 }

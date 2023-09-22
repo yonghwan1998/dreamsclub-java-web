@@ -10,43 +10,68 @@
 	- 방용환(수정) : 2023/09/12, 굿즈 메인 페이지에서 굿즈 출력
 	uniform:유니폼 카테고리, cap:모자 카테고리, fan:팬 상품 카테고리
 	등의 값을 받아서 해당 조건들에 맞는 굿즈들 출력
+	
+	- 방용환(수정) : 2023/09/18, 리뷰순 정렬 기능 추가
+	service에서 정렬할 것이기 때문에 goodsCode 순으로 출력
+	
+	- 방용환(수정) : 2023/09/19, 별점순 정렬 기능 추가
+	service에서 정렬할 것이기 때문에 goodsCode 순으로 출력
 	-->
 	<select id="selectGoodsList" resultType="GoodsDTO">
 		SELECT * FROM (
-			SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			SELECT g.GOODS_CODE, g.GOODS_PRICE, g.GOODS_INFO, g.GOODS_YN, g.GOODS_STOCK, g.GOODS_IMAGE, r.GOODS_STAR
+				FROM GOODS g LEFT OUTER JOIN REVIEW_TEST r ON g.GOODS_CODE = r.GOODS_CODE
 			<!-- 검색 키워드(q)가 존재한다면 bind -->
 			<if test="q != null and q != ''"> 
 				<bind name="search" value="'%'+q+'%'"/>
-				WHERE REPLACE(GOODS_CODE,' ', '') LIKE #{search} 
+				WHERE REPLACE(g.GOODS_CODE,' ', '') LIKE #{search} 
 				<!-- 띄어쓰기 무시하고 검색하기 위한 REPLACE -->
 			</if>
 			<!-- 정렬순서(colmun)이 '이름순'일 때 -->
 			<if test="column == 'goods_code'"> 
-				ORDER BY GOODS_CODE)
+				ORDER BY g.GOODS_CODE)
 			</if>
 			<!-- 정렬순서(colmun)이 '가격순'일 때 -->
 			<if test="column == 'goods_price'"> 
-				ORDER BY GOODS_PRICE, GOODS_CODE)
+				ORDER BY g.GOODS_PRICE, g.GOODS_CODE)
+			</if>
+			<!-- 정렬순서(colmun)이 '별점순'일 때, service에서 정렬할 것이기 때문에 goodsCode 순으로 출력 -->
+			<if test="column == 'goods_star'"> 
+				ORDER BY g.GOODS_CODE)
+			</if>
+			<!-- 정렬순서(colmun)이 '가격순'일 때, service에서 정렬할 것이기 때문에 goodsCode 순으로 출력 -->
+			<if test="column == 'goods_reviewCount'"> 
+				ORDER BY g.GOODS_CODE)
 			</if>
 		<!-- minPrice ~ maxPrice 가격 범위 설정 -->
 		WHERE GOODS_PRICE BETWEEN #{minPrice} AND #{maxPrice}
 	</select>
 
-	<!-- 굿즈 디테일 페이지 -->
-	<!-- 굿즈 상세 정보 출력 -->
+	<!--
+	- 방용환(수정) : 2023/08/23, 굿즈 디테일 페이지에서 해당 굿즈 정보 출력
+	goodsCode가 아닌 goodsName을 전달해 해당 이름에 해당하는 굿즈 정보 출력
+	
+	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
+	'굿즈이름-' 형식으로 검색하기 위해 bind 사용
+	-->
 	<select id="selectGoodsDetailList" resultType="GoodsDTO">
-		select GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE from goods
-		<bind name="goodsName" value="'%%'+goodsName+'-%%'"/>
-		where GOODS_CODE like <![CDATA[#{goodsName}]]> order by GOODS_CODE
+		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			<bind name="goodsName" value="goodsName+'-%'"/>
+			WHERE GOODS_CODE LIKE #{goodsName}
+			ORDER BY GOODS_CODE
 	</select>
 	
-	<!-- 관리자 페이지 굿즈 관리 -->
-	<!-- 관리자 굿즈 목록 출력 -->
+	<!--
+	- 방용환(생성) : 2023/08/28, 관리자 페이지 굿즈 출력 기능
+	-->
 	<select id="selectAdminGoodsList" resultType="GoodsDTO">
-		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK from goods order by GOODS_CODE
+		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK FROM GOODS
+			ORDER BY GOODS_CODE
 	</select>
 	
-	<!-- 관리자 굿즈 등록 -->
+	<!--
+	- 방용환(생성) : 2023/09/01, 굿즈 등록 페이지 굿즈 등록
+	-->
 	<insert id="insertAdminGoods">
 		INSERT INTO GOODS VALUES(
 			#{goodsCode},
@@ -59,7 +84,7 @@
 	</insert>
 	
 	<!-- 
-	방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
+	- 방용환(생성) : 2023/09/11, 관리자 굿즈 수정 기능
 	admin_goods.jsp에서 입력한 수정 값을 받아와 해당 굿즈 정보 UPDATE
 	 -->
 	 <update id="updateAdminGoods">
@@ -71,7 +96,7 @@
 	 </update>
 	 
 	<!-- 
-	방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
+	- 방용환(생성) : 2023/09/11, 관리자 굿즈 판매 여부 수정 기능
 	admin_goods.jsp에서 클릭한 굿즈의 값이 'Y'라면 'N'으로, 'N'이라면 'Y'로 굿즈 정보 UPDATE
 	 -->
 	 <update id="updateAdminGoodsYn">
@@ -82,7 +107,12 @@
 	 		<if test="goodsYn eq 'N'.toString()">
 			GOODS_YN = 'Y'
 			</if>
-	 	where GOODS_CODE = #{goodsCode}
+	 	WHERE GOODS_CODE = #{goodsCode}
 	 </update>
 	
+	<select id="selectOrderGoods" resultType="GoodsDTO">
+		SELECT GOODS_CODE, GOODS_PRICE, GOODS_INFO, GOODS_YN, GOODS_STOCK, GOODS_IMAGE FROM GOODS
+			WHERE GOODS_CODE = #{goodsCode}
+			ORDER BY GOODS_CODE
+	</select>
 </mapper>

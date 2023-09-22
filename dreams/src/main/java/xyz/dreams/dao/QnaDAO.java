@@ -20,8 +20,12 @@ public interface QnaDAO {
 
 	
 	/* QnA 페이징 처리*/
-	List<QnaDTO> selectQnaList(Map<String, Object> map);
+//	List<QnaDTO> selectQnaList(Map<String, Object> map);
 	int selectQnaCount();
 	
+	List<QnaDTO> selectQnaList(String goodsName);
+	
+	//이소영(추가) : 2023-09-21
+	List<QnaDTO> findByMemberId(String memberId);
 
 }
