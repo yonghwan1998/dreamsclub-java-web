@@ -3,7 +3,7 @@
 
 <mapper namespace="xyz.dreams.mapper.CommunityReplyMapper">
 
-<!-- 댓글 등록 - 김예지(2023.09.13)-->
+<!-- 김예지(2023.09.14) - 댓글 등록 - -->
 <insert id="insertCommunityReply">
 	INSERT INTO COMMUNITY_REPLY (
 		COMM_RE_NO,
@@ -21,7 +21,7 @@
 </insert>
 
 
-<!-- 댓글 목록 - 김예지(2023.09.14)-->
+<!-- 김예지(2023.09.13) - 댓글 목록 - -->
 <select id="selectCommunityReply" resultType="CommunityReplyDTO">
 	SELECT
 		COMM_RE_NO,
@@ -35,14 +35,14 @@
 </select>
 
 
-<!-- 댓글 삭제 - 김예지(2023.09.15)-->
+<!-- 김예지(2023.09.15) - 댓글 삭제 -->
 <delete id="deleteCommunityReply" parameterType="CommunityReplyDTO">
 	DELETE FROM COMMUNITY_REPLY
 	WHERE COMM_RE_NO=#{commReNo}
 </delete>
 
 
-<!-- 댓글수정 - 김예지(2023.09.17) -->
+<!-- 김예지(2023.09.17) - 댓글수정 -->
 <update id="updateCommunityReply" parameterType="CommunityReplyDTO">
 	update COMMUNITY_REPLY
 	set COMM_RE_CONT=#{commReCont}

@@ -2,16 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.dreams.mapper.CommunityMapper">
 
-<!-- 게시판 등록 -->
-<!-- 
-<insert id="enrollCommunity">
+<!-- 게시글 번호(commNo), 게시글 제목(commTitle), 게시글 내용(commCont), 회원아이디(memberId)  -->
 
-	insert into community(COMM_NO, COMM_TITLE, COMM_CONT, MEMBER_ID) 
-	values (COMMUNITY_SEQ.NEXTVAL, #{commTitle}, #{commCont}, #{memberId})
-
-</insert>
-	 -->
-	 
+<!-- 김예지(2023.08.28) - 게시판 글 등록하기 -->
+<!-- 자동 생성키를 그대로 CommunityDTO(객체)로 받아와 사용 하기위해 selectKey를 사용함. -->
 <insert id="enrollCommunity" parameterType="CommunityDTO">
 	<selectKey resultType="int" keyProperty="commNo" order="BEFORE">
 		select COMMUNITY_SEQ.NEXTVAL from dual
@@ -21,35 +15,40 @@
 </insert>
 
 
-
-<!-- 게시판 글 하나 보기 -->
+<!-- 김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회) -->
 <select id="getPage" resultType="xyz.dreams.dto.CommunityDTO">
 	select * 
 	from community 
 	where COMM_NO=#{commNo}
 </select>
 
-<!-- 게시판 글 수정 -->
+
+<!-- 김예지(2023.09.07) - 게시글 수정 -->
 <update id="modifyCommunity" parameterType="CommunityDTO">
 	update community 
 	set comm_title=#{commTitle}, comm_cont=#{commCont} 
 	where comm_no=#{commNo}
 </update>
 
-<!-- 게시판 글 삭제 -->
+
+<!-- 김예지(2023.08.30) - 게시글 삭제 -->
 <delete id="deleteCommunity">
 	delete from community 
 	where COMM_NO=#{commNo}
 </delete>
 
-<!-- 게시글 조회수 증가 -->
+
+<!-- 김예지(2023.09.08) - 게시글 조회수 증가 -->
 <update id="upCountCommunity" parameterType="int">
 	update community 
 	set comm_hit = comm_hit+1 
 	where comm_no=#{commNo}
 </update>
 
-<!-- 게시글 목록 보기 + 페이징처리 + 검색 --> 
+
+<!-- 김예지(2023.08.27) - 게시판 목록 페이지 접속
+	 김예지(2023.08.30) - 게시판 목록 페이징
+	 김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가 -->
 <select id="selectCommunityList" resultType="CommunityDTO">
 	select * 
 	from (
@@ -82,7 +81,8 @@
 	where rn between #{startRow} and #{endRow}
 </select>
 
-<!-- 게시글 총 개수(페이징처리) -->
+
+<!-- 김예지(2023.09.12) - 게시글 총 개수(페이징처리) + 검색 -->
 <select id="selectCommunityCount" resultType="int">
 	select count(*) 
 	from community
@@ -91,6 +91,7 @@
 		where ${column} like #{word}
 	</if>
 </select>
+
 
 <!-- 김예지(2023.09.14) - 댓글 목록 구현시 필요한 정보를 얻기위해 게시글의 번호가 일치할때 
 	memberId를 fk로 community 테이블과 member 테이블을 조인 -->
@@ -103,7 +104,7 @@
 </select>
 
 
-<!-- 김예지(2023.09.17) 게시글 당 댓글 개수 카운팅 -->
+<!-- 김예지(2023.09.17) - 게시글 당 댓글 개수 카운팅 -->
 <update id="updateReplyCount">
 	update community c
 	set c.REPLY_COUNT = (select count(COMM_RE_NO) from community_reply where COMM_NO=#{commNo}) 

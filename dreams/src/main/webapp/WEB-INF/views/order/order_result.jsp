@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <style type="text/css">
   #text_in_the_image{
     float: left;
@@ -36,7 +38,7 @@
   }
   
   .container{
-    margin-top: 50px;
+    margin-top: 1rem;
   }
   
   .products li{
@@ -70,28 +72,31 @@
   </div>
 
   <!-- 주문 내역 -->
-	<input type="hidden" id="goodsCode" value="${orderInfo.goodsCode}">
+	<input type="hidden" name="goodsCode" value="${orderInfo.goodsCode}">
 	<div class="container">
 
 		<div class="row" style="text-align: center;">
 			<h1 class="page-header" style="margin-bottom: 50px;">주문이 완료되었습니다.</h1>
-			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
+			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5; margin-bottom: 2rem;">
 				<thead>
 					<tr>
 						<th>상품명</th>
 						<th>가격</th>
 						<th>수량</th>
 						<th>사이즈</th>
-						<th>결제금액</th>
+						<th>주문날짜</th>
 					</tr>
 				</thead>
-				<tbody style="text-align: left; vertical-align: middle;">
+        <c:set var="goodsName" value="${fn:split(orderInfo.goodsCode, '-')}"/>
+				<tbody style="text-align: center; vertical-align: middle;">
 						<tr>
-							<td>${orderInfo.goodsCode }</td>
+							<td>${goodsName[0]}</td>
 							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
 							<td>${orderInfo.goodsCount}</td>
-							<td>${orderInfo.goodsCode}</td>
-              <td>${orderInfo.goodsPrice }</td>
+							<td>${goodsName[2]}</td>
+              <td>
+                 <fmt:formatDate value="${orderInfo.orderDate}" pattern="yyyy-MM-dd"/>
+              </td>
 						</tr>
 				</tbody>
 			</table>
@@ -109,10 +114,10 @@
 						<th>배송메세지</th>
 					</tr>
 				</thead>
-				<tbody style="text-align: left;">
+				<tbody style="text-align: center;">
 						<tr>
 							<td>${orderInfo.memberName}</td>
-							<td colspan="2" style="text-align: left !important;">${orderInfo.memberPcode}<br>${orderInfo.memberAddress1}<br>${orderInfo.memberAddress2}</td>
+							<td style="text-align: center !important;">${orderInfo.memberPcode}<br>${orderInfo.memberAddress1}<br>${orderInfo.memberAddress2}</td>
 							<td>${orderInfo.memberPhone}</td>
 							<td id="order_status"></td>
 							<td>${orderInfo.deliverMsg}</td>
@@ -132,7 +137,7 @@
 	$(document).ready(function() {
 		
 		var memberId = $("#login_memberId").val();
-		var goodsCode = $("#goodsCode").val();
+		var goodsCode = $(".goodsCode").val();
 		
 		order_status();
 		
