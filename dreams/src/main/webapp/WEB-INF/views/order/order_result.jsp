@@ -81,9 +81,9 @@
 				<thead>
 					<tr>
 						<th>상품명</th>
-						<th>가격</th>
-						<th>수량</th>
 						<th>사이즈</th>
+						<th>수량</th>
+						<th>결제금액</th>
 						<th>주문날짜</th>
 					</tr>
 				</thead>
@@ -91,9 +91,9 @@
 				<tbody style="text-align: center; vertical-align: middle;">
 						<tr>
 							<td>${goodsName[0]}</td>
-							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
-							<td>${orderInfo.goodsCount}</td>
 							<td>${goodsName[2]}</td>
+							<td>${orderInfo.goodsCount}</td>
+							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
               <td>
                  <fmt:formatDate value="${orderInfo.orderDate}" pattern="yyyy-MM-dd"/>
               </td>
@@ -120,7 +120,17 @@
 							<td style="text-align: center !important;">${orderInfo.memberPcode}<br>${orderInfo.memberAddress1}<br>${orderInfo.memberAddress2}</td>
 							<td>${orderInfo.memberPhone}</td>
 							<td id="order_status"></td>
-							<td>${orderInfo.deliverMsg}</td>
+							<td>
+                  <c:choose>
+                      <c:when test="${empty orderInfo.deliverMsg}">
+                          빠른 배송 부탁드려요 ~!
+                      </c:when>
+                      <c:otherwise>
+                          ${orderInfo.deliverMsg}
+                      </c:otherwise>
+                  </c:choose>
+              </td>
+
 						</tr>
 				</tbody>
 			</table>
@@ -142,21 +152,20 @@
 		order_status();
 		
 		$(".back_btn").click(function(event) {
-			event.preventDefault();
-			//location.assign("/");
-			alert(goodsCode);
+			location.assign("<c:url value='/goods/main' />");
 		});
 		
-	    
+		$(".mycart_btn").click(function(event) {
+			location.assign("<c:url value='/cart/mycart/' />" + memberId);
+		});
+		
     function order_status() {
     	var status = "<c:out value='${orderInfo.orderStatus}'/>";
     	if (status == '0') {
 			status = "배송 준비중";
 		} else if (status == '1') {
-			status = "배송중";
-		} else if (status == '2') {
 			status = "배송 완료";
-		}
+		} 
     	
     	$("#order_status").html(status);
 		}

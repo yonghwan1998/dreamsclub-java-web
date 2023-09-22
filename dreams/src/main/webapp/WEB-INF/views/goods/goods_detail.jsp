@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product-details-content ml-70">
-					<form method="post" action="<c:url value="/order/insert"/>" name="purchase">
+					<form method="post" action="<c:url value="/order/insertGoods"/>" name="orderForm">
 						<h2>${goodsDetail.goodsName }</h2>
 						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
@@ -284,8 +284,8 @@
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
+    	  var form = document.getElementById("orderForm");
         form.submit();
-    	  location.href = "<c:url value='/goods/detail/delete?revNo="+no+"&goodsName=${goodsDetail.goodsName}'/> ";}
     });
 
     // 장바구니 담기
