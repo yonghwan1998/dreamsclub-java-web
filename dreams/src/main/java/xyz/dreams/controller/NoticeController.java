@@ -50,8 +50,8 @@ public class NoticeController {
 	@RequestMapping(value = "write/add", method = RequestMethod.POST)
 	public String noticeWritePOST(@ModelAttribute NoticeDTO notice, HttpSession session) throws Exception{
 		
-		notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
-	    notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
+		//notice.setNoticeTitle(HtmlUtils.htmlEscape(notice.getNoticeTitle()));
+	    //notice.setNoticeCont(HtmlUtils.htmlEscape(notice.getNoticeCont()));
 	    noticeService.enrollNotice(notice);
 
 		return "redirect:/notice";
