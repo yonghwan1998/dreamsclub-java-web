@@ -78,8 +78,7 @@
             <!--작성 버튼(등록, 취소) -->
            <div class="qnaWriteBtn" style= "margin-left: 200px;">
                <button type="submit">등록</button>
-               <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
-               <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
+               <a href="<c:url value="/goods/detail?goodsName=${goodsName } "/>">취소</a>
            </div>  
            
        </div>

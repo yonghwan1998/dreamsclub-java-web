@@ -20,13 +20,10 @@ public interface QnaDAO {
 	/* 오진서 9/22 - QnA 답변등록 */
 	int addQnaReply(QnaDTO qna);
 	
-
+	int selectQnaCount(String goodsName);
 	
 	/* QnA 페이징 처리*/
-//	List<QnaDTO> selectQnaList(Map<String, Object> map);
-	int selectQnaCount();
-	
-	List<QnaDTO> selectQnaList(String goodsName);
+	List<QnaDTO> selectQnaList(Map<String, Object> map);
 	
 	//이소영(추가) : 2023-09-21
 	List<QnaDTO> findByMemberId(String memberId);

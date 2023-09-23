@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <style>    
     #qnaReWriteContent 
@@ -21,6 +22,8 @@
 
 <!-- 9/22 오진서 / 문의 답변하기-->
 <form action="<c:url value='/goods/rewrite/add'/>" method="post"> <!-- 제출시 이동됨 -->
+    <input type="hidden" name="qnaNo" value="${qnaNo }">
+    <input type="hidden" name="goodsCode" value="${goodsCode }" />
 	
 	<div class="boardReWriteMain">
 	    <div class="boardReWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
@@ -30,7 +33,6 @@
 	    
 	    <div class="boardReWriteContainer">
 	        <table class="baordReWriteTable">
-
 	            
 	       	 	<!--내용-->
 	            <tr>
@@ -39,16 +41,12 @@
 	                    <textarea id="qnaReWriteContent" name="qnaReCont" class="qnaReWriteContent" placeholder="내용을 입력해주세요." value="${pageInfo.qnaReCont}"></textarea>
 	                </td>
 	            </tr>
-	                        		
-				
 	        </table>
-	        <input type="hidden" name="qnaNo" value="${qnaNo }">
 	        
 	         <!--작성 버튼(등록, 취소) -->
 	        <div class="qnaReWriteBtn" style= "margin-left: 200px;">
 	            <button type="submit">등록</button>
-	            <!-- <a href="<c:url value="/goods/main"/>">취소</a> --> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->  
-	            <a href="<c:url value="/goods/main"/>">취소</a> <!-- **굿즈 코드 넣어서 현페이지 어케함????-->
+	            <a href="<c:url value="/goods/detail?goodsName=${goodsName }"/>">취소</a>
 	        </div>  
 	        
 	    </div>

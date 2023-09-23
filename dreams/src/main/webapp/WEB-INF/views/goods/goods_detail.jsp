@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="shop-area pt-100 pb-100">
 	<div class="container">
@@ -118,121 +119,147 @@
 				<!-- QnA 출력 div-->
 				<div id="des-details2" class="tab-pane active">
 					<div class="product-description-wrapper">
-
-						<!-- QnA 전체? -->
 						<div class="QnaContainer">
 							<div class="QnaTitle">
 								<h2 style="color: gray;">Q&A</h2>
 								<h4 style="color: gray;">구매하는 상품에 대해 궁금한점이 있으신 경우 문의해주세요</h4>
-							
-							<!--
-                   로그인한 사람만 생기는 q&a 글쓰기 버튼
-                   - 방용환(수정) : 2023/09/13, 'des-details2' id를 가진 태그 내부로 이동 
-                   -->
-					<div class="writeBtnContainer">
-						<div class="boardWriteBtn" style="text-align: right;">
-							<c:if test="${!empty(member)}">
-								<form action="<c:url value="/goods/qna/write"/>" method="get">
-								
-								<!-- 9/21 - 오진서 도전!!! -->
-									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-									
-									<button type="submit">문의하기</button>
-								</form>
-							</c:if>
-						</div>
-					</div>
-				</div>
-					<hr> <!-- 구분 선 -->							
-			</div> <!-- 테이블 묶음 끝 -->
-							
-							
-							
-
-							<!-- 문의 테이블 -->
-							<div class="qnaTable" style="margin: 0 auto">
-								<table class="qnaTableMain" width="1200px">
-									<thead>
-										<tr>
-											<!-- <th class="t1" scope="col" style="width: 100px">번호</th>  -->
-											<th class="t2" style="width: 100px">답변상태</th>
-											<th class="t3" style="width: 150px">제목</th>
-											<th class="t4" style="width: 700px">내용</th>
-											<th class="t5" style="width: 150px">작성자</th>
-											<th class="t6" style="width: 150px">작성일</th>
-											<th class="t7" style="width: 100px"> </th>
-										</tr>
-									</thead>
-
-									<!-- 정보 받아옴 -->
-									<tbody>
-										<c:forEach items="${qnaList}" var="qna">
-											<!-- controller 에서 받아옴 -->
-											<!-- qna리스트받아옴 -->
-											<tr class="boardTableList" style="padding-top: 10px; padding-bottom: 10px;">
-												<!-- <td class="t1"><c:out value="${qna.qnaNo }" /></td>  -->
-												<!-- 번호불러옴 -->
-
-												<td class="t2"><c:out value="${qna.qnaYn}" /></td>
-												<!--  답변여부 -->
-
-												<td class="t3"><c:out value="${qna.qnaTitle}" /></td>
-												<!-- 제목받아옴 -->
-
-												<td class="t4"><c:out value="${qna.qnaCont}" /></td>
-												<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
-
-												<td class="t5"><c:out value="${qna.memberId}" /></td>
-												<!-- 회원id 받아옴 -->
-
-												<td class="t6"><c:out value="${qna.qnaDate}" /></td>
-												<!-- 날짜받아옴 -->
-												
-												<td class="t7"> <!-- 관리자일 경우에만 버튼 보임 -->
-													<c:if test="${not empty member and member.memberStatus == 9}">
-													<!-- 로그인한 사람과, memberStatus 가 9 (관리자) 인경우 -->
-                            							<form action="<c:url value="/goods/qna/rewrite"/>"method="get">
-															<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-															<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
-                                							<button type="submit">답변하기</button>
-                            							</form>
-                        							</c:if>
-												
-												
-												<td>
-											</tr>
-											
-											<!-- !! Re답변  -->
-											<c:choose>
-												<c:when test="${qna.qnaYn eq 'Y'}"> <!-- qnaYn 가 'Y'일경우 보이도록-->
-													<tr class="boardTableList">
-														<!--  <td class="t1"></td> -->
-														<!-- 번호불러옴 -->
-		
-														<td class="t2"></td>
-														<!--  답변여부 -->
-		
-														<td class="t3"></td>
-														<!-- 제목받아옴 -->
-		
-														<td class="t4">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
-														<!-- 내용 받아옴 -->
-		
-														<td class="t5">드림즈 관리자</td>
-														<!-- 회원id 받아옴 -->
-		
-														<td class="t6"><c:out value="${qna.qnaReDate }" /></td>
-														<!-- 날짜받아옴 -->
-													</tr>
-												</c:when>
-											</c:choose>
-										</c:forEach>
-									</tbody>
-								</table>
+								<div class="writeBtnContainer">
+									<div class="boardWriteBtn" style="text-align: right;">
+										<!-- 방용환(수정) : 2023/09/23, 일반 유저만 보이는 버튼 -->
+										<c:if test="${member.memberStatus eq 1}">
+											<form action="<c:url value="/goods/qna/write"/>" method="get">
+												<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+												<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+												<button type="submit">문의하기</button>
+											</form>
+										</c:if>
+									</div>
+								</div>
 							</div>
+							<hr> <!-- 구분 선 -->							
+						</div>
+
+						<!-- 문의 테이블 -->
+						<div class="qnaTable" style="margin: 0 auto">
+							<table class="qnaTableMain" width="1200px" style="border-collapse: separate; border-spacing: 0px 10px;">
+								<thead>
+									<tr>
+										<th class="t1" style="width: 100px">답변상태</th>
+										<th class="t2" style="width: 150px">제목</th>
+										<th class="t3" style="width: 700px">내용</th>
+										<th class="t4" style="width: 150px">작성자</th>
+										<th class="t5" style="width: 150px">작성일</th>
+										<c:if test="${member.memberStatus eq 9}">
+											<th class="t6" style="width: 100px">
+													기능													
+											</th>
+										</c:if>
+									</tr>
+								</thead>
+
+								<!-- 정보 받아옴 -->
+								<tbody>
+									<c:forEach items="${qnaList}" var="qna">
+										<!-- controller 에서 받아옴 -->
+										<!-- qna리스트받아옴 -->
+										<tr class="boardTableList">
+
+											<!--  답변여부 -->
+											<td class="t1">
+												<c:if test="${qna.qnaYn eq 'N'}">
+													미답변
+												</c:if>
+												<c:if test="${qna.qnaYn eq 'Y'}">
+													답변완료
+												</c:if>
+											</td>
+
+											<!-- 제목받아옴 -->
+											<td class="t2"><c:out value="${qna.qnaTitle}" /></td>
+
+											<!-- 내용 받아옴 / 안보이다가 누르면 보이게할거임  -->
+											<td class="t3"><c:out value="${qna.qnaCont}" /></td>
+
+											<!-- 회원id 받아옴 -->
+											<td class="t4"><c:out value="${qna.memberId}" /></td>
+
+											<!-- 방용환(수정) : 2023/09/23, 날짜에서 시간 제거 -->
+											<!-- 날짜받아옴 -->
+											<td class="t5"><c:out value="${fn:substring(qna.qnaDate,0,10)}" /></td>
+											
+											<!-- 방용환(수정) : 2023/09/23, 관리자인 경우와 답변 상태가 'N'인 글만 답변하기 버튼 생성 -->
+											<td class="t6">
+												<!-- 로그인한 사람과, memberStatus 가 9 (관리자) 인경우 -->
+												<c:if test="${member.memberStatus eq 9 && qna.qnaYn eq 'N'}">
+                           							<form action="<c:url value="/goods/qna/rewrite"/>"method="get">
+														<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+														<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
+														<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+                               							<button type="submit">답변하기</button>
+                           							</form>
+                       							</c:if>
+											<td>
+										</tr>
+										
+										<!-- !! Re답변  -->
+										<c:choose>
+											<c:when test="${qna.qnaYn eq 'Y'}"> <!-- qnaYn 가 'Y'일경우 보이도록-->
+												<tr class="boardTableList" style="border-bottom: 1px solid gray;">
+	
+													<!--  답변여부 -->
+													<td class="t1"></td>
+	
+													<!-- 제목받아옴 -->
+													<td class="t2"></td>
+	
+													<!-- 내용 받아옴 -->
+													<td class="t3">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
+	
+													<!-- 회원id 받아옴 -->
+													<td class="t4">드림즈 관리자</td>
+	
+													<!-- 날짜받아옴 -->
+													<td class="t5"><c:out value="${fn:substring(qna.qnaReDate,0,10)}" /></td>
+												</tr>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
 					</div>
+					<%-- 페이지 번호 출력 --%>
+		            <div style="text-align: center; padding-top: 10px;">
+						<c:choose>
+							<c:when test="${qnaPager.startPage > qnaPager.blockSize }">
+								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.prevPage}">[이전]</a>
+							</c:when>
+							<c:otherwise>
+								[이전]
+							</c:otherwise>
+						</c:choose>
 					
+						<c:forEach var="i" begin="${qnaPager.startPage }" end="${qnaPager.endPage }" step="1">
+							<c:choose>
+								<c:when test="${qnaPager.pageNum != i  }">
+									<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${i}">[${i }]</a>
+								</c:when>
+								<c:otherwise>
+									[${i }]
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					
+						<c:choose>
+							<c:when test="${qnaPager.endPage != qnaPager.totalPage }">
+								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.nextPage}">[다음]</a>
+							</c:when>
+							<c:otherwise>
+								[다음]
+							</c:otherwise>
+						</c:choose>
+		            </div>
+				</div>
 
 				<!-- 강민경: 상품 리뷰 작성 부분  -->
 				<div id="des-details3" class="tab-pane">
@@ -281,18 +308,18 @@
 					<%-- 페이지 번호 출력 --%>
 		            <div style="text-align: center; padding-top: 10px;">
 						<c:choose>
-							<c:when test="${pager.startPage > pager.blockSize }">
-								<a href="<c:url value="/cheer"/>?pageNum=${pager.prevPage}">[이전]</a>
+							<c:when test="${reviewPager.startPage > reviewPager.blockSize }">
+								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.prevPage}">[이전]</a>
 							</c:when>
 							<c:otherwise>
 								[이전]
 							</c:otherwise>
 						</c:choose>
 					
-						<c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
+						<c:forEach var="i" begin="${reviewPager.startPage }" end="${reviewPager.endPage }" step="1">
 							<c:choose>
-								<c:when test="${pager.pageNum != i  }">
-									<a href="<c:url value="/cheer"/>?pageNum=${i}">[${i }]</a>
+								<c:when test="${reviewPager.pageNum != i  }">
+									<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${i}">[${i }]</a>
 								</c:when>
 								<c:otherwise>
 									[${i }]
@@ -301,8 +328,8 @@
 						</c:forEach>
 					
 						<c:choose>
-							<c:when test="${pager.endPage != pager.totalPage }">
-								<a href="<c:url value="/cheer"/>?pageNum=${pager.nextPage}">[다음]</a>
+							<c:when test="${reviewPager.endPage != reviewPager.totalPage }">
+								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.nextPage}">[다음]</a>
 							</c:when>
 							<c:otherwise>
 								[다음]
