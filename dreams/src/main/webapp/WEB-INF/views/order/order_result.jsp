@@ -74,11 +74,11 @@
   <!-- 주문 내역 -->
 	<input type="hidden" name="goodsCode" value="${orderInfo.goodsCode}">
 	<div class="container">
-
 		<div class="row" style="text-align: center;">
 			<h1 class="page-header" style="margin-bottom: 50px;">주문이 완료되었습니다.</h1>
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5; margin-bottom: 2rem;">
 				<thead>
+          <!-- 주문 정보 -->
 					<tr>
 						<th>상품명</th>
 						<th>사이즈</th>
@@ -87,14 +87,15 @@
 						<th>주문날짜</th>
 					</tr>
 				</thead>
+        <!-- 굿즈 코드 분리 작업 -->
         <c:set var="goodsName" value="${fn:split(orderInfo.goodsCode, '-')}"/>
 				<tbody style="text-align: center; vertical-align: middle;">
 						<tr>
-							<td>${goodsName[0]}</td>
-							<td>${goodsName[2]}</td>
-							<td>${orderInfo.goodsCount}</td>
-							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td>
-              <td>
+							<td>${goodsName[0]}</td><!-- 굿즈명 -->
+							<td>${goodsName[2]}</td><!-- 굿즈 사이즈 -->
+							<td>${orderInfo.goodsCount}</td><!-- 굿즈 수량 -->
+							<td><fmt:formatNumber type="number" value="${orderInfo.goodsPrice}"/>&nbsp;원</td><!-- 결제금액 -->
+              <td><!-- 주문날짜 -->
                  <fmt:formatDate value="${orderInfo.orderDate}" pattern="yyyy-MM-dd"/>
               </td>
 						</tr>
@@ -106,6 +107,7 @@
 		<div class="row" style="text-align: center;">
 			<table class="table table-hover" style="margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>
+          <!-- 회원 정보 -->
 					<tr>
 						<th>주문자</th>
 						<th>배송지</th>
@@ -122,6 +124,7 @@
 							<td id="order_status"></td>
 							<td>
                   <c:choose>
+                      <!-- 배송 요청사항을 미작성 시 default값 설정 -->
                       <c:when test="${empty orderInfo.deliverMsg}">
                           빠른 배송 부탁드려요 ~!
                       </c:when>
@@ -130,7 +133,6 @@
                       </c:otherwise>
                   </c:choose>
               </td>
-
 						</tr>
 				</tbody>
 			</table>
@@ -144,21 +146,25 @@
 
 <script type="text/javascript">
 	
-	$(document).ready(function() {
+	$(function() {
 		
 		var memberId = $("#login_memberId").val();
 		var goodsCode = $(".goodsCode").val();
 		
+		/* 주문 상태 출력 함수 */
 		order_status();
 		
+		/* 쇼핑 계속하기 버튼 */
 		$(".back_btn").click(function(event) {
 			location.assign("<c:url value='/goods/main' />");
 		});
 		
+		/* 장바구니 버튼 */
 		$(".mycart_btn").click(function(event) {
 			location.assign("<c:url value='/cart/mycart/' />" + memberId);
 		});
 		
+		/* 주문 상태 출력을 위한 함수 */
     function order_status() {
     	var status = "<c:out value='${orderInfo.orderStatus}'/>";
     	if (status == '0') {

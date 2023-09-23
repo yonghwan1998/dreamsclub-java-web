@@ -101,8 +101,8 @@
                 <!-- 강민경: 리뷰 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
             </div>     
-			<div class="tab-content description-review-bottom">
-
+            
+			 <div class="tab-content description-review-bottom">
 				<!-- 제품 상세 정보 출력 div -->
 				<div id="des-details1" class="tab-pane ">
 					<div class="product-anotherinfo-wrapper">
@@ -129,26 +129,24 @@
                    로그인한 사람만 생기는 q&a 글쓰기 버튼
                    - 방용환(수정) : 2023/09/13, 'des-details2' id를 가진 태그 내부로 이동 
                    -->
-					<div class="writeBtnContainer">
-						<div class="boardWriteBtn" style="text-align: right;">
-							<c:if test="${!empty(member)}">
-								<form action="<c:url value="/goods/qna/write"/>" method="get">
-								
-								<!-- 9/21 - 오진서 도전!!! -->
-									<!-- <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">  --> <!-- 원본. -->
-									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-									<!--  도전 끝 -->
-									
-									<button type="submit">문의하기</button>
-								</form>
-							</c:if>
-						</div>
-					</div>
-				</div>
-					<hr> <!-- 구분 선 -->							
-			</div> <!-- 테이블 묶음 끝 -->
-							
-							
+  					<div class="writeBtnContainer">
+  						<div class="boardWriteBtn" style="text-align: right;">
+  							<c:if test="${!empty(member)}">
+  								<form action="<c:url value="/goods/qna/write"/>" method="get">
+  								
+  								<!-- 9/21 - 오진서 도전!!! -->
+  									<!-- <input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">  --> <!-- 원본. -->
+  									<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
+  									<!--  도전 끝 -->
+  									
+  									<button type="submit">문의하기</button>
+  								</form>
+  							</c:if>
+  						</div>
+					 </div>
+  				</div>
+  					<hr> <!-- 구분 선 -->							
+  			</div> <!-- 테이블 묶음 끝 -->
 							
 
 							<!-- 문의 테이블 -->
@@ -229,46 +227,45 @@
 							<div class="review-wrapper">
 								<c:forEach var="review" items="${goodsReview }">
 									<div class="single-review">
-	                                    <div class="review-img">
-	                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
-	                                    </div>
-	                                    <div class="review-content">
-	                                        <div class="review-top-wrap">
-	                                            <div class="review-left">
-	                                                <div class="review-name">
-	                                                   <c:out value="${review.memberId}"/>
-	                                                </div>
-	                                                <div class="review-rating">
-		                                                <c:out value="${review.goodsStar}"/>
-	                                                    <!-- 
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                     -->
-	                                                </div>
-	                                            </div>
-	                                            <div class="review-left">
-	                                               <c:if test="${member.memberId == review.memberId}" >
-														<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
-													</c:if>
-	                                            </div>
-		                                        <div class="review-bottom">
-		                                            <p><c:out value="${review.revCont}"/></p>
-		                                        </div>
-			                                        
-		                                      </div>
-	                                    </div>
-	                                </div>
-                               </c:forEach>
-							</div>
+                    <div class="review-img">
+                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-top-wrap">
+                            <div class="review-left">
+                                <div class="review-name">
+                                   <c:out value="${review.memberId}"/>
+                                </div>
+                                <div class="review-rating">
+                                  <c:out value="${review.goodsStar}"/>
+                                    <!-- 
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                     -->
+                                </div>
+                            </div>
+                            <div class="review-left">
+                               <c:if test="${member.memberId == review.memberId}" >
+                      					<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
+                      				</c:if>
+                            </div>
+                          <div class="review-bottom">
+                              <p><c:out value="${review.revCont}"/></p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+             </c:forEach>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>
 		</div>
-    </div>
+  </div>
 </div>
 
 
@@ -276,34 +273,36 @@
   /* DOM이 완전히 불러와지면 실행 */
   	$(function () {
 
-    // 바로 주문하기
+    // 구매하기 클릭 시
     $(".btn-order").click(function () {
       
+    	//로그인을 안한 경우 로그인 페이지로 이동
       if (memberId === "false" || memberId === '') {
           alert("로그인 후 주문이 가능합니다!");
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
+    	  //로그인을 한 경우 form 태그 제출
     	  var form = document.getElementById("orderForm");
         form.submit();
     });
 
-    // 장바구니 담기
+    // 장바구니 버튼 클릭 시
     $(".btn-cart").click(function (event) {
       event.preventDefault();
-      var goodsCode = $("#goodsCode").val();
-      var count = $("#goodsCount").val();
+      var goodsCode = $("#goodsCode").val();	//굿즈명
+      var count = $("#goodsCount").val();			//굿즈 수량
       var goodsCount = parseInt(count);
-      var memberId = $("#isLogOn").val();
-      var goodsPrice = $("#goodsPrice").val();
+      var memberId = $("#isLogOn").val();			//회원 아이디
+      var goodsPrice = $("#goodsPrice").val();//굿즈 가격
       
+      //로그인을 안한 경우 로그인 페이지 이동
       if (memberId === "false" || memberId === '') {
           alert("로그인 후 주문이 가능합니다!");
           window.location.href = "<c:url value='/login' />";
           event.preventDefault();
       } else {
-        	alert(goodsCode);
-    	  
+    	  	
           $.ajax({
             type: "post",
             url: "<c:url value="/cart/addGoodsInCart"/>",
@@ -315,15 +314,18 @@
             }),
             dataType: "text",
             success: function (result) {
-              if (result.trim() == 'add_success') {
+            	//장바구니에 존재하지 않은 상품인 경우
+            	if (result.trim() == 'add_success') {
                 var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
                 var goMyCart = "<c:url value='/cart/mycart/' />";
                 
-                //확인 시 나의 장바구니 이동
+                //confirm 창에서 확인 클릭 시 나의 장바구니 이동
                 if (check) {
                   location.assign(goMyCart + memberId);
                 }
-              } else if (result.trim() == 'already_existed') {
+              } 
+            	//장바구니에 존재하는 상품인 경우
+            	else if (result.trim() == 'already_existed') {
                 alert("이미 장바구니에 등록된 상품입니다.");
               }
             },

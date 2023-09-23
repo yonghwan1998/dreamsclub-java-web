@@ -29,6 +29,7 @@
             <h3>배송정보 입력사항</h3>
             <div class="row">
               <c:choose>
+                <!-- 회원정보가 존재하는 경우, 회원정보 출력 -->
                 <c:when test="${member != null }">
                   <div class="col-lg-6 col-md-6">
                     <div class="orderOld">
@@ -74,6 +75,8 @@
                     </div>
                   </div>
                 </c:when>
+                
+                <!-- 회원정보가 존재하지 않는 경우 -->
                 <c:otherwise>
                   <div class="col-lg-12">
                     <p>로그인이 필요한 서비스입니다. 로그인하거나 회원 가입을 진행해주세요.</p>
@@ -87,7 +90,7 @@
               </c:choose>
             </div>
 
-            <!-- 라디오 버튼(체크박스) -->
+            <!-- 라디오 버튼(체크박스): 배송지 선택 -->
             <div class="checkout-account mb-50"
               style="margin-top: 10px;">
               <label> <input class="checkout-toggle2"
@@ -153,9 +156,7 @@
           </div>
         </div>
 
-        <!-- 컨텐츠 우측 주문 정보 -->
-
-
+        <!-- 전달해야하는 값 -->
         <input type="hidden" value="${member.memberId}" name="memberId">
         <input type="hidden" value="${member.memberName}" name="memberName"> 
         <input type="hidden" value="${member.memberEmail}" name="memberEmail"> 
@@ -169,7 +170,7 @@
         <input type="hidden" value="${cartInfo.goodsCount}" name="goodsCount"> 
         <input type="hidden" value="${cartInfo.goodsInfo}" name="goodsInfo">
 
-
+        <!-- 컨텐츠 우측 주문 정보 -->
         <div class="col-lg-5">
           <!-- 카드 정보  -->
           <div class="your-order-area">
@@ -244,20 +245,19 @@
                 href="https://dribbble.com/shots/4268384-Credit-card-design"
                 target="_blank">inspiration</a>
               <div>
+                <!-- 결제수단 선택 -->
                 <div class="billing-select mb-20">
                   <select style="font-size: 20px;">
-                    <option selected="selected" style="font-size: 15px;">결제수단
-                      선택</option>
-                    <option>신용카드</option>
-                    <option disabled="disabled" style="font-size: 15px;">무통장
-                      입금</option>
-                    <option disabled="disabled" style="font-size: 15px;">카카오
-                      페이</option>
+                    <option selected="selected" style="font-size: 15px;">결제수단 선택</option>
+                    <option>카드</option>
+                    <option disabled="disabled" style="font-size: 15px;">무통장 입금</option>
+                    <option style="font-size: 15px;">카카오페이</option>
                   </select>
                 </div>
               </div>
             </div>
             <br> <br>
+            
             <h3>결제 정보</h3>
             <div class="your-order-wrap gray-bg-4">
               <div class="your-order-product-info">
@@ -270,17 +270,20 @@
                 <div class="your-order-middle">
                   <ul>
                     <li>
+                        <!-- 구매하고자 하는 상품명, 수량 가격 -->
                         <span class="order-middle-left">${cartInfo.goodsCode.split("-")[0]} &nbsp;&nbsp; X &nbsp;&nbsp; ${cartInfo.goodsCount }</span> 
                         <span class="order-price"><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원 </span>
                     </li>
                   </ul>
                 </div>
+                <!-- 배송비 -->
                 <div class="your-order-bottom">
                   <ul>
                     <li class="your-order-shipping">배송비</li>
                     <li style="color: red;">무료</li>
                   </ul>
                 </div>
+                <!-- 결제 금액 -->
                 <div class="your-order-total">
                   <ul>
                     <li class="order-total">총 금액</li>
@@ -290,6 +293,7 @@
                   </ul>
                 </div>
               </div>
+              <!-- 결제정보 아래 Notice -->
               <div class="payment-method">
                 <div class="payment-accordion element-mrg">
                   <div class="panel-group" id="accordion">
@@ -369,9 +373,6 @@
   </div>
 </form>
 
-
-<!-- All JS is here
-============================================ -->
 <!-- 다음 우편번호 API -->
 <script
   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -454,14 +455,14 @@
 	});
 </script>
 <script>
+	/* 전달해야하는 정보들을 submit 하는 form */
 	function submitOrderForm() {
 		var form = document.getElementById("orderForm");
 		form.submit();
 	}
 
-	//
+	//confirm 창에서 확인을 누른 경우
 	$(function() {
-		//사용 예시 **************************
 		$(document).on("click", "#confirm", function() {
 			action_popup.confirm("정말 구매하시겠습니까?", function(res) {
 				if (res) {
@@ -470,6 +471,7 @@
 			})
 		});
 
+		/* 모달창 관련 */
 		$(".modal_close").on("click", function() {
 			action_popup.close(this);
 		});
@@ -504,8 +506,7 @@
 			}, 'fast');
 
 			$("body").append("<div class='dimLayer'></div>");
-			$(".dimLayer").css('height', $(document).height()).attr("target",
-					type);
+			$(".dimLayer").css('height', $(document).height()).attr("target", type);
 			popup.fadeIn(this.timer);
 		},
 
