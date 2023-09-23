@@ -13,13 +13,19 @@
 			REV_CONT,
 			GOODS_STAR,
 			MEMBER_ID,
-			REV_DATE
+			ORDER_NO,
+			REV_DATE,
+			GOODS_CODE,
+			REV_IMG
 		)values(
 			REVIEW_SEQ.NEXTVAL,
 			#{revCont},
 			#{goodsStar},			
 			#{memberId},
-			SYSDATE
+			#{orderNo},
+			SYSDATE,
+			#{goodsCode},
+			#{revImg}
 		)
 	</insert>
 
@@ -37,18 +43,18 @@
 	<!-- 강민경: 페이징 처리 -->
 	<select id="selectReviewList" resultType="ReviewDTO">
 		select * from (
-			select rownum as rn, REV_NO, MEMBER_ID, REV_CONT, REV_DATE from (
-				select REV_NO, MEMBER_ID, REV_CONT, REV_DATE from REVIEW
+			select rownum as rn, REV_NO, MEMBER_ID, REV_CONT, REV_DATE, GOODS_STAR, REV_IMG from (
+				select REV_NO, MEMBER_ID, REV_CONT, REV_DATE, GOODS_STAR, REV_IMG from REVIEW
 					order by REV_NO desc
 				) REVIEW
-			)
-						where rn between #{startRow} and #{endRow}
+			) where rn between #{startRow} and #{endRow}
 	</select>
 	<!-- 강민경: 게시글 총 개수(페이징처리) -->
 	<select id="selectReviewCount" resultType="int">
 		<bind name="reviewCount" value="goodsName+'-%'"/>
-		select count(*) from review_test where goods_code like #{reviewCount}
+		select count(*) from review where goods_code like #{reviewCount}
 	</select>
+	
 
 	
 </mapper>

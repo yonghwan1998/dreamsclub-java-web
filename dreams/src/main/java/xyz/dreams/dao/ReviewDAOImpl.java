@@ -32,7 +32,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	//강민경: 리뷰 삭제 
 	@Override
 	public int deleteReview(int revNo) {
-		return sqlSession.getMapper(ReviewMapper.class).deleteReviwe(revNo);
+		return sqlSession.getMapper(ReviewMapper.class).deleteReview(revNo);
 	}
 	
 	

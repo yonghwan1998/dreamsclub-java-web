@@ -39,6 +39,8 @@
 	<resources mapping="/fonts/**" location="/resources/fonts/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/review/**" location="/resources/img/" />
+	
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

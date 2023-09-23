@@ -39,7 +39,7 @@ public class QnaDTO {
 	private String qnaYn;		//답변 여부
 	private String qnaReCont;	//답변 내용
 	
-	private Date qnaReDate;		//답변 날짜
+	private String qnaReDate;		//답변 날짜
 	private String goodsCode;	//상품 코드
 	
 	

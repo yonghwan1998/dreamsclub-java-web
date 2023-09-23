@@ -21,8 +21,6 @@ import xyz.dreams.util.Pager;
 public class ReviewServiceImpl implements ReviewService{
 	private final ReviewDAO reviewDAO;
 	private final OrderDAO orderDAO;
-	private final SqlSession sqlsession;
-	
 	
 	//강민경: 리뷰 등록
 	@Transactional(rollbackFor = Exception.class) // 리뷰 등록 도중 작성을 중단할 경우 리뷰 등록 안되도록 롤백
@@ -51,25 +49,25 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	//강민경: 목록보기 + 페이징 처리
 	@Override
-	public Map<String, Object> getReviewList(int pageNum, String goodsName) {
+	public Map<String, Object> getReviewList(int reviewPageNum, String goodsName) {
 		int totalBoard=reviewDAO.selectReviewCount(goodsName);
 		int pageSize=10;
-		int blockSize=10;
+		int blockSize=5;
 		
 		//pager 클래스로 객체를 생성하여 저장 - 생성자 매개변수에 페이징 처리 관련 값을 전달
 		//=> Pager 객체 : 페이징 처리 관련 값이 저장된 객체
-		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		Pager pager = new Pager(reviewPageNum, totalBoard, pageSize, blockSize);
 		
 		//FileBoardDAO 클래스의 selectFileBoardList() 메소드를 호출하기 위해 매개변수에 전달하여
 		//저장될 Map 객체(시작 행번호, 종료 행번호) 생성
-		Map<String, Object> pageMap=new HashMap<String, Object>();
-		pageMap.put("startRow", pager.getStartRow());
-		pageMap.put("endRow", pager.getEndRow());
-		List<ReviewDTO> reviewList=reviewDAO.selectReviewList(pageMap);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("startRow", pager.getStartRow());
+		map.put("endRow", pager.getEndRow());
+		List<ReviewDTO> reviewList=reviewDAO.selectReviewList(map);
 		
 		//Controller 클래스에게 제공되는 데이타 처리 결과값을 반환하기 위한 Map 객체 생성
 		Map<String, Object> resultMap=new HashMap<String, Object>();
-		resultMap.put("pager", pager);
+		resultMap.put("reviewPager", pager);
 		resultMap.put("reviewList", reviewList);
 		
 		return resultMap;

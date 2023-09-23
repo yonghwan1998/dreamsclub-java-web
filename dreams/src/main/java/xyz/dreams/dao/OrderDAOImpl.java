@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.OrderDTO;
+import xyz.dreams.mapper.OrderMapper;
 
 @Repository
 @RequiredArgsConstructor
@@ -65,5 +66,10 @@ public class OrderDAOImpl implements OrderDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public OrderDTO selectOrderId(int orderId, String memberId) {
+		return sqlSession.getMapper(OrderMapper.class).selectOrderId(orderId, memberId);	
+		}
 	
 }

@@ -76,6 +76,7 @@ public class GoodsController {
 		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
+		
 
 		return "goods/goods_main";
 	}
@@ -87,20 +88,25 @@ public class GoodsController {
 	- 방용환(수정) : 2023/09/15, 굿즈 사이즈마다 재고 및 구매 가능 여부 출력
 	
 	- 오진서(수정) : 2023/09/20, QnA 리스트 출력
+	
+	- 방용환(수정) : 2023/09/23 : 페이징 처리
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam String goodsName, Model model, @RequestParam (defaultValue = "1") int pageNum) {
-
+	public String detail(@RequestParam String goodsName, @RequestParam(defaultValue = "1") int reviewPageNum,
+			@RequestParam(defaultValue = "1") int qnaPageNum, Model model) {
 		GoodsDTO goodsDetail = goodsService.getGoodsDetail(goodsName);
 		model.addAttribute("goodsDetail", goodsDetail);
-		
+
 		// 오진서 (2023/09/18) : 페이지에서 Q&A리스트 출력
-		List<QnaDTO> qnaList = qnaService.getQnaList(goodsName);
-		model.addAttribute("qnaList", qnaList);
-		
-		//강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
-		Map<String, Object> map = reviewService.getReviewList(pageNum, goodsName);
-		model.addAttribute("goodsReview", map.get("reviewList"));
+		Map<String, Object> qnaMap = qnaService.getQnaList(qnaPageNum, goodsName);
+		model.addAttribute("qnaPager", qnaMap.get("qnaPager"));
+		model.addAttribute("qnaList", qnaMap.get("qnaList"));
+
+		// 강민경(2023/09/20): 상품 상세 페이지에서 리뷰 출력
+		Map<String, Object> reviewMap = reviewService.getReviewList(reviewPageNum, goodsName);
+		model.addAttribute("reviewPager", reviewMap.get("reviewPager"));
+		model.addAttribute("goodsReview", reviewMap.get("reviewList"));
+
 		
 		return "goods/goods_detail";
 	}
@@ -122,7 +128,7 @@ public class GoodsController {
 		
 		return "redirect:/cart/purchase";
 	}
-	
+	 
 //	결제페이지로 굿즈 정보 바로 넘기기
 	@RequestMapping(value = "/detail/order", method = RequestMethod.POST)
 	public String purchaseOrder(@ModelAttribute GoodsDTO goods, RedirectAttributes attributes) {
@@ -135,34 +141,52 @@ public class GoodsController {
 	}
 	
     
-//	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동
-//	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-//	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
-//		model.addAttribute("goodsCode", goodsCode);
-//		return "goods/goods_qna_write"; // JSP 페이지 이름
-//	}
-	
-	
-	// 오진서 - 9/21 도전!!!!  Q&A 작성 페이지로 이동
+	// 오진서 - 9/19(수정)  Q&A 작성 페이지로 이동	
+	// 오진서 - 9/21 Q&A 작성 페이지로 이동
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-	public String showQnaWriteForm(@RequestParam String goodsCode, Model model) {
+	public String showQnaWriteForm(@RequestParam String goodsCode, @RequestParam String goodsName, Model model) {
 		model.addAttribute("goodsCode", goodsCode);
-		
+		model.addAttribute("goodsName", goodsName);
+
 		return "goods/goods_qna_write"; // JSP 페이지 이름
 	}
 	
 	// 오진서 - 09/19(수정) Q&A 작성 하기
-	// 오진서 - 09/21 도전 ▼ - 링크 Q&A 작성 하기
+	// 오진서 - 09/21 - 링크 Q&A 작성 하기
 	@RequestMapping(value = "/write/add", method = RequestMethod.POST)
 	public String qnaWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
-		System.out.println(qna);
 		String goodsName = qnaService.enrollQna(qna); // 등록 //+ ???? 이걸주석처리하면 요청한곳으로 잘가는데, 풀면 405 뜸
 		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
 		
-		String encodedgoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
-		return "redirect:/goods/detail?goodsName=" + encodedgoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
-		//return "redirect:/goods/main"; // 원랜 이거였따
+		String encodedGoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+		return "redirect:/goods/detail?goodsName=" + encodedGoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
 	}	
+	
+	// 오진서 - 9/22 도전 !! ,,, Q&A 답변페이지로 이동
+	@RequestMapping(value = "/qna/rewrite", method = RequestMethod.GET)
+	public String showQnaReWriteForm(@RequestParam String goodsCode, @RequestParam int qnaNo, @RequestParam String goodsName, Model model) {
+		model.addAttribute("goodsCode", goodsCode);
+		model.addAttribute("qnaNo", qnaNo);
+		model.addAttribute("goodsName", goodsName);
+		
+		return "goods/goods_qna_rewrite"; // JSP 페이지 이름
+	}	
+	
+	// 오진서 - 09/22 -  Q&A 답변 작성 하기
+	@RequestMapping(value = "/rewrite/add", method = RequestMethod.POST)
+	public String qnaReWritePOST(@ModelAttribute QnaDTO qna) throws Exception{
+		// Q&A 답변을 추가하고 결과로 반환된 상품 이름을 받음
+		String goodsName = qnaService.addQnaReply(qna);
+		// (+추가) String goodsName = 함으로써 qnaService에 값을 받아옴
+		
+		String encodedGoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
+		
+		return "redirect:/goods/detail?goodsName=" + encodedGoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
+	}
+
+	
+	
+	
 	
 //	// 오진서 - 9/19 Q&A 목록 도전!!!!!! 목록을 받아와야하니칸 GET 방식
 //	// 정보받아와서 목록 출력하고 싶어....

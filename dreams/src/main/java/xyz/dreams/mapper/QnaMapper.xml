@@ -25,6 +25,15 @@
 		) 
 	</insert>
 	
+	<!-- QnA 답변등록 - 오진서 9/22 -->
+	<update id = "addQnaReply">
+		UPDATE QNA SET 
+			QNA_YN = 'Y',
+			QNA_RE_CONT = #{qnaReCont},
+			QNA_RE_DATE = SYSDATE
+		WHERE QNA_NO = #{qnaNo}
+	</update>
+	
 
 	<!-- QnA  전체 목록보기 -->
 	<!--  클릭했을때 내용이 펼쳐보여지게? -->
@@ -42,49 +51,25 @@
 	<delete id="delectQna">
 		delect from Qna where Qna_No = #{qnaNo}
 	</delete>
-	
-	
-	<!-- QnA 페이징 처리
-	<select id = "selectQnaList" resultType = "QnaDTO">
-	select * from (
-	select rownum as rn,
-	 qna_no,
-	 member_id,
-	 qna_title,
-	 qna_cont,
-	 qna_date,
-	 qna_yn,
-	 qna_status,
-	 qna_re_cont,
-	 qna_re_date,
-	 
-	 from (
-	 select qna_no,
-	 member_id,
-	 qna_title,
-	 qna_cont,
-	 qna_date,
-	 qna_yn,
-	 qna_status,
-	 qna_re_cont,
-	 qna_re_date,
-	 from qna order by qna_no desc) qna)
-	 where rn between #{startRow} and #{endRow} 
-	 
-	 -->
 
-	<!--  9/20 오진서 qna 리스트 출력 -->
-	<select id = "selectQnaList" resultType = "QnaDTO">
-		SELECT * FROM QNA
-		<bind name="goodsChangedName" value="goodsName+'-%'"/>
-			WHERE GOODS_CODE LIKE #{goodsChangedName}
-			<!-- 굿즈이름-u-f 인데, 굿즈 이름 까지 보이게함 -->	
+	<!-- 
+	- 오진서(생성) : 2023/09/20, qna 리스트 출력
+	- 방용환(수정) : 2023/09/23, 페이징 처리
+	-->
+	<select id = "selectQnaList" resultType ="QnaDTO">
+		<!-- 굿즈이름-u-f 인데, 굿즈 이름 까지 보이게함 -->	
+		SELECT * FROM (
+			SELECT ROWNUM AS rn, QNA_NO, MEMBER_ID, QNA_TITLE, QNA_CONT, QNA_DATE, QNA_STATUS, QNA_YN, QNA_RE_CONT, QNA_RE_DATE, GOODS_CODE FROM (
+				SELECT QNA_NO, MEMBER_ID, QNA_TITLE, QNA_CONT, QNA_DATE, QNA_STATUS, QNA_YN, QNA_RE_CONT, QNA_RE_DATE, GOODS_CODE FROM QNA
+					ORDER BY QNA_NO DESC			
+			) QNA
+		) WHERE rn BETWEEN #{startRow} and #{endRow}
 	</select>
-
-	 
+	
 	 <!-- 9/19 오진서  qna리스트 -->
 	<select id = "selectQnaCount" resultType= "int">
-		select count(*) from qna
+		<bind name="goodsChangedName" value="goodsName+'-%'"/>
+		SELECT COUNT(*) FROM QNA WHERE GOODS_CODE LIKE #{goodsChangedName}
 	</select>	 
 	
 	<!-- 이소영(추가) : 2023-09-22 MYPAGE QnA List 출력 -->

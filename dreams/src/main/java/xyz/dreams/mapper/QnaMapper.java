@@ -15,14 +15,13 @@ public interface QnaMapper {
 	/* QnA 삭제*/
 	int deleteQna(int qnaNo);
 	
+	/* QnA 답변등록 */
+	int addQnaReply(QnaDTO qna);
 
 	
 	/* QnA 페이징 처리*/
-//	List<QnaDTO> selectQnaList(Map<String, Object> map);
-	int selectQnaCount();
-	
-	List<QnaDTO> selectQnaList(String goodsName);
-	
+	List<QnaDTO> selectQnaList(Map<String, Object> map);
+	int selectQnaCount(String goodsName);
 	
 	//이소영(추가) : 2023-09-21 
 	List<QnaDTO> selectQnaByMember(String memberId);
