@@ -123,8 +123,8 @@
 							<td>${orderInfo.memberPhone}</td>
 							<td id="order_status"></td>
 							<td>
+                  <!-- 배송 요청사항을 미작성 시 default값 설정 -->
                   <c:choose>
-                      <!-- 배송 요청사항을 미작성 시 default값 설정 -->
                       <c:when test="${empty orderInfo.deliverMsg}">
                           빠른 배송 부탁드려요 ~!
                       </c:when>

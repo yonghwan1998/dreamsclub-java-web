@@ -43,6 +43,7 @@ public class PaymentsController {
 		
 		//세션에 저장된 결제 금액을 반환받아 저장
 		Long beforeAmount=(Long)session.getAttribute(payment.getMerchantUid());
+		System.out.println("whyyyyyyyy@@@@@"+beforeAmount);
 		session.removeAttribute(payment.getMerchantUid());
 		
 		//결제된 결제금액을 반환받아 저장

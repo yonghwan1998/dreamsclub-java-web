@@ -68,14 +68,12 @@
 					<div style="display:table-cell">사이즈</div>
 					<div style="display:table-cell">상품정보</div>
 				</div>
+        <!-- 장바구니에 굿즈가 존재하는 경우 -->
 				<c:choose>
-          <!-- 장바구니에 굿즈가 존재하는 경우 -->
       		<c:when test="${cartList != null}">
-            <!-- form 태그 안의 정보들을 전송 -->
 					  <form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
   				    <c:forEach items="${cartList}" var="cartList" varStatus="status">
 							<div style="display:table-row">
-                <!-- 장바구니, 굿즈, 회원의 식별자 전달 -->
   							<input type="hidden" value="${cartList.cartId}" name="cartId">
   							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
   							<input type="hidden" value="${member.memberId}" id="login_memberId" name="memberId">
@@ -119,7 +117,6 @@
 					</c:forEach>
 		    </form>
 					</c:when>
-          <!-- 장바구니에 굿즈가 존재하지 않는 경우 -->
 					<c:otherwise>
 						<div style="display:table-row">
 							<div style="display:table-cell">
