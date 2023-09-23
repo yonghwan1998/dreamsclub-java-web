@@ -76,6 +76,7 @@ public class GoodsController {
 		model.addAttribute("map", map);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
+		
 
 		return "goods/goods_main";
 	}
@@ -106,6 +107,7 @@ public class GoodsController {
 		model.addAttribute("reviewPager", reviewMap.get("reviewPager"));
 		model.addAttribute("goodsReview", reviewMap.get("reviewList"));
 
+		
 		return "goods/goods_detail";
 	}
 

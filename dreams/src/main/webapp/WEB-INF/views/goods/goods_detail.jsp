@@ -269,7 +269,7 @@
 								<c:forEach var="review" items="${goodsReview }">
 									<div class="single-review">
 	                                    <div class="review-img">
-	                                        <img src="${pageContext.request.contextPath }/img/testimonial/1.jpg" alt="">
+	                                        <img src="${pageContext.request.contextPath }/img/review/${review.revImg}">
 	                                    </div>
 	                                    <div class="review-content">
 	                                        <div class="review-top-wrap">

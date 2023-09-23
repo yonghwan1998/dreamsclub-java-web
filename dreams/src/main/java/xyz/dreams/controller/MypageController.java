@@ -108,7 +108,7 @@ public class MypageController {
       return "mypage/mypage_review_write";
    }
    
-   //강민경(2023/09/11): 리뷰 작성 등록
+   //강민경(2023/09/11): 리뷰 작성 등록, 리뷰 사진은 하나만 등록 가능 
    @RequestMapping(value="/review/write", method = RequestMethod.POST)
 	public String ReviewWriter(@ModelAttribute ReviewDTO review,@ModelAttribute OrderDTO order, HttpSession session,
 			@RequestParam MultipartFile uploadFile, 
@@ -124,22 +124,21 @@ public class MypageController {
 			return "redirect:/mypage/review/write";
 		}
 		if(!uploadFile.isEmpty()) {
-			String uploadDirectory = context.getServletContext().getRealPath("/resources/review/upload");
-			//String revImgName=UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
+			String uploadDirectory = context.getServletContext().getRealPath("/resources/review");
 			
-			String revImg = extracted(uploadFile);
+			//String revImg = extracted(uploadFile);
+			 String revImg = UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
+			 uploadFile.transferTo(new File(uploadDirectory, revImg));
+
+			
+			//전달 파일을 서버 디렉토리에 저장 
+			//File file=new File(uploadDirectory, revImg);
 			
 			review.setRevImg(revImg);
-			File file=new File(uploadDirectory, revImg);
-			
 			//전달파일을 서버 디렉토리에 저장 - 업로드 처리
-			uploadFile.transferTo(file);
-			
-			
-			model.addAttribute("uploadFilename", revImg);
+			//model.addAttribute("uploadFilename", revImg);
 			
 		}
-		
 		//작성한 리뷰 글 db에 등록 
 		reviewService.enrollReview(review);
 		
@@ -177,9 +176,11 @@ public class MypageController {
              return "mypage/mypage_myqna";
 
     }
+   /*강민경: 사진업로드 제목
    private String extracted(MultipartFile uploadFile) {
 	   String revImg = UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
 	return revImg;
 	   
    }
+   */
 }
