@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
 <script type="text/javascript">
@@ -117,19 +118,33 @@ function searchBtn() {
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>주문번호</th>
+                        <th>주문날짜</th>
                         <th>이름</th>
                         <th>상품명</th>
-                        <th>배송 상태</th>
+                        <th>결제금액</th>
+                        <th>배송상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A-01</strong></td>
-                        <td>홍길동</td>
-                        <td>키보드</td>
-                        <td><span class="bg-label-dark">결제 완료</span></td>
+                      <c:forEach items="${orderList }" var="order">
+                      <tr id="row-${order.orderId}">
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></strong></td>
+                        <td>${order.memberName }</td>
+                        <td>${order.goodsCode.split("-")[0] }</td>
+                        <td><fmt:formatNumber type="number" value="${order.goodsPrice}"/>&nbsp;원</td>
+                        <td><span class="bg-label-dark">
+                          <c:choose>
+                              <c:when test="${order.orderStatus == 0}">
+                                  배송 준비중
+                              </c:when>
+                              <c:otherwise>
+                                  배송 완료
+                              </c:otherwise>
+                          </c:choose>
+                          </span></td>
                         <td>
+                        
+                          <!-- 
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
@@ -143,53 +158,10 @@ function searchBtn() {
                               >
                             </div>
                           </div>
+                           -->
                         </td>
                       </tr>
-
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>B-02</strong></td>
-                        <td>임꺽정</td>
-                        <td>녹즙</td>
-                        <td><span class="bg-label-danger">배송 완료</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> 삭제</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>C-13</strong></td>
-                        <td>전우치</td>
-                        <td>탈모약</td>
-                        <td><span class="bg-label-dark">배송중</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> 수정</a
-                              >
-                              <!-- 삭제: hidden 으로 안보이게만 -->
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> 삭제</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
+                      </c:forEach>
 
                     </tbody>
                   </table>

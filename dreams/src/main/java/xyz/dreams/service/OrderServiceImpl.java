@@ -44,8 +44,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public List<OrderDTO> list(int curPage) {
-		return orderDAO.list(curPage);
+	public List<OrderDTO> allOrderList() {
+		return orderDAO.allOrderList();
 	}
 	
 	@Override

@@ -78,5 +78,13 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<OrderDTO> selectOrderStatus() {
 		return reviewDAO.selectOrderStatus();
 	}
+
+	//강민경(2023/09/23): 굿즈 상세페이지에서 리뷰 갯수 출력 
+	@Override
+	public int selectReviewCount(String goodsName) {
+		return reviewDAO.selectReviewCount(goodsName);
+	}
+	
+	
 	
 }

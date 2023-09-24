@@ -20,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.MemberDTO;
+import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.service.GoodsService;
 import xyz.dreams.service.MemberService;
+import xyz.dreams.service.OrderService;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,22 +31,23 @@ import xyz.dreams.service.MemberService;
 public class AdminController {
 	private final MemberService memberService;
 	private final GoodsService goodsService;
-
+	private final OrderService orderService;
+	
 	private final WebApplicationContext context;
 
 	/* 관리자 페이지 회원 관리 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String AdminMemberView(Model model) {
-		List<MemberDTO> getMemberList = memberService.getMemberList();
-		model.addAttribute("getMemberList", getMemberList);
+		List<MemberDTO> memberList = memberService.getMemberList();
+		model.addAttribute("memberList", memberList);
 		return "admin/admin";
 	}
 
 	/* 관리자 페이지 주문 관리 */
 	@GetMapping("/order")
 	public String AdminOrderView(Model model) {
-		//List<OrderDetailDTO> getOrderList = orderDetailService.getOrderList();
-		//model.addAttribute("getOrderList", getOrderList);
+		List<OrderDTO> getOrderList = orderService.allOrderList();
+		model.addAttribute("orderList", getOrderList);
 		return "admin/admin_order";
 	}
 

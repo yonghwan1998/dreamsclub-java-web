@@ -18,8 +18,10 @@ public interface ReviewDAO{
 	
 	//강민경: 페이징 처리
 	List<ReviewDTO> selectReviewList(Map<String, Object>map);
-	int selectReviewCount(String goodsname); //게시글 총 개수 
+	int selectReviewCount(String goodsName); //게시글 총 개수 
 	
 	//강민경: 상품 list 출력 
 	List<OrderDTO> selectOrderStatus();
+	
+	
 }

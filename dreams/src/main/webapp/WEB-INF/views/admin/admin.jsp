@@ -120,23 +120,22 @@ function searchBtn() {
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-	                    <c:forEach items="${getMemberList }" var="member">
+	                    <c:forEach items="${memberList }" var="member">
 	                      <tr id="row-${member.memberId}">
 	                        <td ><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${member.memberName }</strong></td>
-      						<td>${member.memberPhone}</td>
+      						        <td>${member.memberPhone}</td>
 	                        <td>${member.memberEmail }</td>
-							<td><fmt:formatDate value="${member.memberRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-	                        
-	                        <td>
-							    <c:choose>
+							            <td><fmt:formatDate value="${member.memberRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                      <td>
+							        <c:choose>
 							        <c:when test="${member.memberStatus eq 1 }">
 							            <button class="badge bg-label-success me-1 toggle-button" data-status="1" style="border: 1px solid lightgreen">일반회원</button>
 							        </c:when>
 							        <c:when test="${member.memberStatus eq 0 }">
 							            <button class="badge bg-label-primary me-1 toggle-button" data-status="0">탈퇴회원</button>
 							        </c:when>
-							    </c:choose>
-							</td>
+							       </c:choose>
+							      </td>
 
 	                       	
 	                        <%-- finall때 할게요 
