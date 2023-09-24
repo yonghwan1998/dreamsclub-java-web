@@ -292,7 +292,16 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.2.5.Final</version>
 		</dependency>
-	</dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+    <!-- => JSON 형식의 문자열을 Java 객체로 변환하기 위한 기능을 제공하는 라이브러리 -->
+    <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+  </dependencies>
+  
 	<build>
 		<plugins>
 			<plugin>

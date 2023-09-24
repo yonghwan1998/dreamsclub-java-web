@@ -55,32 +55,6 @@
 
   
 </style>
-<script type="text/javascript">
-function itemSum(){
-    var str = "";
-    var sum = 0;
-    var count = $(".chkbox").length;
-    for(var i=0; i < count; i++ ){
-        if( $(".chkbox")[i].checked == true ){
-         sum += parseInt($(".chkbox")[i].value);
-        }
-    }
-    $("#total_sum").html(sum+" 원");
-    $("#amount").val(sum);
- }
-
-$("#allCheck").click(function(){
-var chk = $("#allCheck").prop("checked");
-if(chk) {
-    $(".chkbox").prop("checked", true);
-        itemSum();
-} else {
-     $(".chkbox").prop("checked", false);
-    itemSum();
-}
-});
-
-</script>
 <div class="container">
   
 		<div class="row qnas" style="text-align: center;">
@@ -94,10 +68,11 @@ if(chk) {
 					<div style="display:table-cell">사이즈</div>
 					<div style="display:table-cell">상품정보</div>
 				</div>
+        <!-- 장바구니에 굿즈가 존재하는 경우 -->
 				<c:choose>
       		<c:when test="${cartList != null}">
-  				<c:forEach items="${cartList}" var="cartList" varStatus="status">
 					  <form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
+  				    <c:forEach items="${cartList}" var="cartList" varStatus="status">
 							<div style="display:table-row">
   							<input type="hidden" value="${cartList.cartId}" name="cartId">
   							<input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
@@ -115,7 +90,7 @@ if(chk) {
 			                
       			 <!-- 가격 -->
 						<div style="display:table-cell">
-              				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
+        				<fmt:formatNumber type="number" value="${cartList.goodsPrice * cartList.goodsCount}"/>&nbsp;원<br>
 						</div>
                 
       			<!-- 수량 -->
@@ -138,9 +113,9 @@ if(chk) {
 						<br>
 						<button type="button" style="border: 1px solid forestgreen" class="btn btn-default del_from_cart" data-pId="${cartList.goodsCode}">삭제하기</button>
 				    </div>
-				</div>
-		</form>
+				  </div>
 					</c:forEach>
+		    </form>
 					</c:when>
 					<c:otherwise>
 						<div style="display:table-row">
@@ -167,7 +142,7 @@ if(chk) {
       		
       		if(memberId != null) {
     	      var item = $(this);
-      	 		var goodsCode = item.attr("data-pId");
+      	 		var goodsCode = item.attr("data-pId"); //선택한 object의 data속성을 가져오기
       	 		var cartId = document.getElementById("cartId").value;
   	        
       			$.ajax({
@@ -182,6 +157,7 @@ if(chk) {
       	              
       	            	//컨트롤러에서 받아온 result 값에 따라 삭제 처리
       	              if (result == 'ok') {
+      	            	  //경고창 출력 및 현재 페이지 유지
       	                alert("장바구니에서 삭제되었습니다.");
       	                location.assign("<c:url value='/cart/mycart/' />" + memberId);
       	              } else {
@@ -198,27 +174,6 @@ if(chk) {
       		} 
     });
     
-    
-     $("#orderSuccess").click(function () {
-       
-             var checkArr = new Array();
-
-             
-             $("input[class='chkbox']:checked").each(function () {
-                 checkArr.push($(this).attr("data-cartNum"));
-
-             });
-
-             $("#chk").val(checkArr);
- 
-
-            if (confirm("주문 하시겠습니까?")) {
- 
-                 $("#orderForm").submit();
-                 console.log(checkArr);
-             }
-         });
-    
      
      //형섭(생성): 2023/09/12, 쇼핑 계속하기 버튼 클릭 시 굿즈 메인 페이지로 이동
     $(".btn-back_to_shop").click(function() {
@@ -231,6 +186,4 @@ if(chk) {
 	    var form = document.getElementById("orderForm");
 	    form.submit();
 	}
-    
-  
 </script>

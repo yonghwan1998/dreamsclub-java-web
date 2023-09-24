@@ -2,9 +2,8 @@
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath }/css/order.css">
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/order.css">
 
 <!-- 컨텐츠 상단 홈/결제 -->
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
@@ -19,8 +18,7 @@
 </div>
 
 <!-- 배송지 입력칸 -->
-<form id="orderForm" action="<c:url value="/order/result"/>"
-  method="post">
+<form id="orderForm" action="<c:url value="/order/result"/>" method="post">
   <div class="checkout-area pt-95 pb-100">
     <div class="container">
       <div class="row">
@@ -28,8 +26,18 @@
           <div class="billing-info-wrap">
             <h3>배송정보 입력사항</h3>
             <div class="row">
+              <!-- 회원정보가 존재하는 경우, 회원정보 출력 -->
               <c:choose>
-                <c:when test="${member != null }">
+                <c:when test="${member == null }">
+                  <div class="col-lg-12">
+                    <h3>로그인이 필요한 서비스입니다.<br> 
+                    <a href="<c:url value="/login"/>">로그인</a>하거나 
+                    <a href="<c:url value="/join/check"/>">회원가입</a>을 진행해주세요.
+                    </h3>
+                  </div>
+                </c:when>
+                
+                <c:otherwise>
                   <div class="col-lg-6 col-md-6">
                     <div class="orderOld">
                       <label>이름</label> <input type="text"
@@ -73,21 +81,11 @@
                         value="<c:out value="${member.memberAddress2}" />"></input>
                     </div>
                   </div>
-                </c:when>
-                <c:otherwise>
-                  <div class="col-lg-12">
-                    <p>로그인이 필요한 서비스입니다. 로그인하거나 회원 가입을 진행해주세요.</p>
-                    <p>
-                      <a href="<c:url value="/dreams/login"/>">로그인</a>
-                      또는 <a href="<c:url value="/dreams/join/check"/>">회원
-                        가입</a>
-                    </p>
-                  </div>
                 </c:otherwise>
               </c:choose>
             </div>
 
-            <!-- 라디오 버튼(체크박스) -->
+            <!-- 라디오 버튼(체크박스): 배송지 선택 -->
             <div class="checkout-account mb-50"
               style="margin-top: 10px;">
               <label> <input class="checkout-toggle2"
@@ -153,9 +151,7 @@
           </div>
         </div>
 
-        <!-- 컨텐츠 우측 주문 정보 -->
-
-
+        <!-- 전달해야하는 값 -->
         <input type="hidden" value="${member.memberId}" name="memberId">
         <input type="hidden" value="${member.memberName}" name="memberName"> 
         <input type="hidden" value="${member.memberEmail}" name="memberEmail"> 
@@ -164,12 +160,12 @@
         <input type="hidden" value="${member.memberAddress1}" name="memberAddress1">
         <input type="hidden" value="${member.memberAddress2}" name="memberAddress2"> 
         <input type="hidden" value="1" name="newSelected"> 
-        <input type="hidden" value="${cartInfo.goodsCode}" name="goodsCode"> 
+        <input type="hidden" value="${cartInfo.goodsCode}" name="goodsCode" id="goodsCode"> 
         <input type="hidden" value="${cartInfo.goodsPrice}" name="goodsPrice">
         <input type="hidden" value="${cartInfo.goodsCount}" name="goodsCount"> 
         <input type="hidden" value="${cartInfo.goodsInfo}" name="goodsInfo">
 
-
+        <!-- 컨텐츠 우측 주문 정보 -->
         <div class="col-lg-5">
           <!-- 카드 정보  -->
           <div class="your-order-area">
@@ -244,20 +240,19 @@
                 href="https://dribbble.com/shots/4268384-Credit-card-design"
                 target="_blank">inspiration</a>
               <div>
+                <!-- 결제수단 선택 -->
                 <div class="billing-select mb-20">
                   <select style="font-size: 20px;">
-                    <option selected="selected" style="font-size: 15px;">결제수단
-                      선택</option>
-                    <option>신용카드</option>
-                    <option disabled="disabled" style="font-size: 15px;">무통장
-                      입금</option>
-                    <option disabled="disabled" style="font-size: 15px;">카카오
-                      페이</option>
+                    <option selected="selected" style="font-size: 15px;">결제수단 선택</option>
+                    <option id="html5_inicis">카드</option>
+                    <option id="kakaopay" style="font-size: 15px;">카카오페이</option>
+                    <option disabled="disabled" style="font-size: 15px;">무통장 입금</option>
                   </select>
                 </div>
               </div>
             </div>
             <br> <br>
+            
             <h3>결제 정보</h3>
             <div class="your-order-wrap gray-bg-4">
               <div class="your-order-product-info">
@@ -270,17 +265,20 @@
                 <div class="your-order-middle">
                   <ul>
                     <li>
+                        <!-- 구매하고자 하는 상품명, 수량 가격 -->
                         <span class="order-middle-left">${cartInfo.goodsCode.split("-")[0]} &nbsp;&nbsp; X &nbsp;&nbsp; ${cartInfo.goodsCount }</span> 
                         <span class="order-price"><fmt:formatNumber value="${cartInfo.goodsPrice }" pattern="#,###" /> 원 </span>
                     </li>
                   </ul>
                 </div>
+                <!-- 배송비 -->
                 <div class="your-order-bottom">
                   <ul>
                     <li class="your-order-shipping">배송비</li>
                     <li style="color: red;">무료</li>
                   </ul>
                 </div>
+                <!-- 결제 금액 -->
                 <div class="your-order-total">
                   <ul>
                     <li class="order-total">총 금액</li>
@@ -290,6 +288,7 @@
                   </ul>
                 </div>
               </div>
+              <!-- 결제정보 아래 Notice -->
               <div class="payment-method">
                 <div class="payment-accordion element-mrg">
                   <div class="panel-group" id="accordion">
@@ -346,6 +345,7 @@
               </div>
             </div>
             <!-- 주문하기 버튼 -->
+            <c:out value="${cartInfo}"/>
             <section>
               <div class="Place-order mt-25">
                 <button type="button" class="btn-hover" id="confirm">주문하기</button>
@@ -358,8 +358,11 @@
                 <p class="menu_msg"></p>
               </div>
               <div class="enroll_btn">
-                <button class="btn pink_btn btn_ok">예</button>
-                <button class="btn gray_btn modal_close">아니오</button>
+                <!-- <button class="btn pink_btn btn_ok">예</button>
+                <button class="btn gray_btn modal_close">아니오</button> -->
+                
+                <button type="button" id="html5_inicis" class="pay">카드결제</button>
+                <button type="button" id="kakaopay" class="pay">간편결제(카카오페이)</button>
               </div>
             </section>
           </div>
@@ -369,99 +372,115 @@
   </div>
 </form>
 
-
-<!-- All JS is here
-============================================ -->
 <!-- 다음 우편번호 API -->
-<script
-  src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-	/* 다음 주소 연동 */
-	function execution_daum_address() {
-		console.log("동작");
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
 
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}
-
-				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-				if (data.userSelectedType === 'R') {
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraAddr += (extraAddr !== '' ? ', '
-								+ data.buildingName : data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraAddr !== '') {
-						extraAddr = ' (' + extraAddr + ')';
-					}
-					// 추가해야할 코드
-					// 주소변수 문자열과 참고항목 문자열 합치기
-					addr += extraAddr;
-
-				} else {
-					addr += ' ';
-				}
-
-				// 제거해야할 코드
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				$("#addr1").val(data.zonecode);
-				$("#addr2").val(addr);
-				// 커서를 상세주소 필드로 이동한다.
-				$("#addr3").attr("readonly", false);
-				$("#addr3").focus();
-
-			}
-		}).open();
-	}
-</script>
 <script type="text/javascript">
-	document.addEventListener("DOMContentLoaded", function() {
-		const existingAddressRadio = document
-				.querySelector(".checkout-toggle2");
-		const newAddressRadio = document.querySelector(".checkout-toggle");
-		const newAddressToggle = document.querySelector(".different-address");
+  /* 포트원 결제 API */
+  var csrfHeaderName="${_csrf.headerName}"
+  var csrfTokenValue="${_csrf.token}";
+  var goodsPrice="${cartInfo.goodsPrice }";
+  var goodsName = "${cartInfo.goodsCode.split("-")[0]}";
+  $(document).ajaxSend(function(e, xhr) {
+    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+  });
+  
+  $(".pay").click(function() {
+    var pg=$(this).attr("id");
+    alert(pg);
+    
+    var IMP=window.IMP;
+    //IMP 객체 초기화 - 가맹점 식별코드
+    IMP.init("imp05520283");
+    
+    //주문번호 - 주문테이블에서 제공된 값 사용 
+    var merchantUid="merchant1_"+new Date().getTime();
+    //결제금액 - 주문테이블에서 제공된 값 사용 
+    var amount=goodsPrice;
+    //주문상품
+    var name=goodsName;
+    //결제 전 주문번호와 결제금액을 세션에 저장하기 위한 페이지 요청
+    // => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
+    $.ajax({
+      type: "post",
+      url: "<c:url value="/payment/pay"/>",
+      contentType: "application/json",
+      data: JSON.stringify({"merchantUid":merchantUid, "amount":amount, "name":name}),
+      dataType: "text",
+      success: function(result) {
+        if(result=="ok") {
+          //결제를 요청하는 메소드 호출
+          IMP.request_pay({
+            // 결제 대행사 : kakaopay, html5_inicis, nice, jtnet, uplus, danal, payco 등
+            pg : pg,
+            // 결제 방식 : card(카드), samsung(삼성페이), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
+            pay_method : "card",
+            //주문번호
+            merchant_uid : merchantUid,
+            //결제금액
+            amount : amount,
+            //결제창에 보여질 제품명
+            name: name, 
+            //결제 사용자의 이메일 주소 
+            buyer_email: "gudtjq0306@naver.com",
+            buyer_name: "홍길동",//결제 사용자 이름
+            buyer_tel: "010-1234-5678",//결제 사용자 전화번호
+            buyer_postcode: "123-456",//결제 사용자 우편번호
+            buyer_addr: "서울시 강남구 역삼동 내빌딩 5층 501호",//결제 사용자 주소
+          //m_redirect_url: "http://localhost:8000:auth/payment/pay",//모바일의 리다이렉트 URL 주소
+          }, function(response) {//결제 관련 응답 결과를 제공받아 처리하는 함수
+            //response : 응답결과를 저장한 Object 객체
+            if (response.success) {//결제한 경우
+              //결제금액을 검증하기 위한 페이지를 요청
+              $.ajax({
+                type: "post",
+                url: "<c:url value="/payment/complate"/>",
+                contentType: "application/json",
+                data: JSON.stringify({"impUid": response.imp_uid, "merchantUid": response.merchant_uid}),
+                dataType: "text",
+                success: function(result) {
+                  if(result == "success") {
+                    //결제 성공 페이지로 이동
+                    var msg = '결제가 완료되었습니다.';
+              			msg += '\n고유ID : ' + rsp.imp_uid;
+              			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+              			msg += '\결제 금액 : ' + rsp.paid_amount;
+              			msg += '카드 승인번호 : ' + rsp.apply_num;
+      
+        						alert(msg);
+                    location.assign("<c:url value='/order/result' />");
+                  } else {
+                    //결제 실패 페이지로 이동
+                    alert("결제 취소");
+                    location.assign("<c:url value='/goods/main' />");
+                  }
+                }, 
+                error: function(xhr) {
+                  alert("에러 = "+xhr.status);
+                }
+              });
+            }
+          });
+        }
+      }, 
+      error: function(xhr) {
+        alert("에러 = "+xhr.status);
+      }
+    });
+    
+  });
+  </script>
 
-		//
-
-		existingAddressRadio.addEventListener("change", function() {
-			if (this.checked) {
-				newAddressToggle.style.display = "none";
-			}
-		});
-
-		newAddressRadio.addEventListener("change", function() {
-			if (this.checked) {
-				newAddressToggle.style.display = "block";
-			}
-		});
-	});
-</script>
 <script>
+	/* 전달해야하는 정보들을 submit 하는 form */
 	function submitOrderForm() {
 		var form = document.getElementById("orderForm");
 		form.submit();
 	}
 
-	//
+	//confirm 창에서 확인을 누른 경우
 	$(function() {
-		//사용 예시 **************************
 		$(document).on("click", "#confirm", function() {
 			action_popup.confirm("정말 구매하시겠습니까?", function(res) {
 				if (res) {
@@ -470,6 +489,7 @@
 			})
 		});
 
+		/* 모달창 관련 */
 		$(".modal_close").on("click", function() {
 			action_popup.close(this);
 		});
@@ -504,8 +524,7 @@
 			}, 'fast');
 
 			$("body").append("<div class='dimLayer'></div>");
-			$(".dimLayer").css('height', $(document).height()).attr("target",
-					type);
+			$(".dimLayer").css('height', $(document).height()).attr("target", type);
 			popup.fadeIn(this.timer);
 		},
 
@@ -528,6 +547,7 @@
 		}
 	}
 </script>
+
 <script type="text/javascript">
 	$(function() {
 		// memberPcode 값이 null인 경우 클래스 변경
@@ -548,4 +568,83 @@
 					.removeClass("orderOld").addClass("billing-info mb-20");
 		}
 	});
+</script>
+
+<script>
+  /* 다음 주소 연동 */
+  function execution_daum_address() {
+    console.log("동작");
+    new daum.Postcode({
+      oncomplete : function(data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var addr = ''; // 주소 변수
+        var extraAddr = ''; // 참고항목 변수
+
+        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+          addr = data.roadAddress;
+        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+          addr = data.jibunAddress;
+        }
+
+        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+        if (data.userSelectedType === 'R') {
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraAddr += (extraAddr !== '' ? ', '
+                + data.buildingName : data.buildingName);
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraAddr !== '') {
+            extraAddr = ' (' + extraAddr + ')';
+          }
+          // 추가해야할 코드
+          // 주소변수 문자열과 참고항목 문자열 합치기
+          addr += extraAddr;
+
+        } else {
+          addr += ' ';
+        }
+
+        // 제거해야할 코드
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        $("#addr1").val(data.zonecode);
+        $("#addr2").val(addr);
+        // 커서를 상세주소 필드로 이동한다.
+        $("#addr3").attr("readonly", false);
+        $("#addr3").focus();
+
+      }
+    }).open();
+  }
+</script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    const existingAddressRadio = document
+        .querySelector(".checkout-toggle2");
+    const newAddressRadio = document.querySelector(".checkout-toggle");
+    const newAddressToggle = document.querySelector(".different-address");
+
+    //
+
+    existingAddressRadio.addEventListener("change", function() {
+      if (this.checked) {
+        newAddressToggle.style.display = "none";
+      }
+    });
+
+    newAddressRadio.addEventListener("change", function() {
+      if (this.checked) {
+        newAddressToggle.style.display = "block";
+      }
+    });
+  });
 </script>
