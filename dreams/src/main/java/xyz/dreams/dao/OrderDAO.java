@@ -13,7 +13,7 @@ public interface OrderDAO {
 
 	List<OrderDTO> myOrderList(String memberId);
 
-	List<OrderDTO> list(int curPage);
+	List<OrderDTO> allOrderList();
 
 	OrderDTO selectByOrderId(int orderId);
 

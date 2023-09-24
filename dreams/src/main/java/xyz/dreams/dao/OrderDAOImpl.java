@@ -62,9 +62,8 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<OrderDTO> list(int curPage) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderDTO> allOrderList() {
+		return sqlSession.selectList(NS+".allOrderList");
 	}
 
 	@Override

@@ -58,8 +58,8 @@
     SELECT * FROM setOrder WHERE member_id = #{memberId}
   </select>
   
-  <select id="list" resultType="xyz.dreams.dto.OrderDTO">
-    SELECT * FROM setOrder ORDER BY orderDate DESC
+  <select id="allOrderList" resultType="xyz.dreams.dto.OrderDTO">
+    SELECT * FROM setOrder ORDER BY order_date
   </select>
   
   <select id="selectByOrderId" resultType="xyz.dreams.dto.OrderDTO">
