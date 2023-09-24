@@ -78,9 +78,7 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCount", goodsList.size());
 		
-		//강민경: 굿즈 상세페이지에서 리뷰 갯수 출력 기능 
-		int reviewCount = reviewService.selectReviewCount(goodsName);
-		model.addAttribute("reviewCount", reviewCount);
+		
 		return "goods/goods_main";
 	}
 
@@ -110,7 +108,9 @@ public class GoodsController {
 		model.addAttribute("reviewPager", reviewMap.get("reviewPager"));
 		model.addAttribute("goodsReview", reviewMap.get("reviewList"));
 
-		
+		//강민경: 굿즈 상세페이지에서 리뷰 갯수 출력 기능 
+		int reviewCount = reviewService.selectReviewCount(goodsName);
+		model.addAttribute("reviewCount", reviewCount);
 		return "goods/goods_detail";
 	}
 

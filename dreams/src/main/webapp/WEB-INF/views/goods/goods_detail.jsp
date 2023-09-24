@@ -34,7 +34,7 @@
 								<i class="fa fa-star-o"></i>
 								<i class="fa fa-star-o"></i>
 							</div>
-							<span><a href="#">3 Reviews</a></span>
+							<span><a href="#">${reviewCount } Reviews</a></span>
 						</div>
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
@@ -276,27 +276,16 @@
 	                                            <div class="review-left">
 	                                                <div class="review-name" style='display: flex;'>
 	                                                   <p><strong><c:out value="${review.memberId}"/></strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-	                                                <!-- </div>
-	                                                <div class="review-rating"> -->
 		                                               <p>별점 : <c:out value="${review.goodsStar}"/></p>
-	                                                    <!-- 
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                    <i class="fa fa-star"></i>
-	                                                     -->
 	                                                </div>
 	                                            </div>
 		                                      </div>
+		                                            <p style="line-height: 0.1;"><c:out value="${review.revCont}"/></p>
 	                                            <div class="review-left">
 	                                               <c:if test="${member.memberId == review.memberId}" >
 														<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
 													</c:if>
 	                                            </div>
-		                                        <!-- <div class="review-bottom"> -->
-		                                            <p style="line-height: 0.1;"><c:out value="${review.revCont}"/></p>
-		                                       <!-- </div> -->
 			                                        
 	                                    </div>
 	                                </div>
