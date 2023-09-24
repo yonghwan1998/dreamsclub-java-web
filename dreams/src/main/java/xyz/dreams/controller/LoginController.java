@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.auth.NaverLoginBean;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
 import xyz.dreams.exception.MemberNotFoundException;
@@ -73,15 +72,15 @@ public class LoginController {
  	/*네이버 로그인 - 김예지(2023.09.25)*/
  	//김예지: 네이버 로그인 페이지를 요청하기 위한 요청 처리 메소드
  	@RequestMapping("/naver")
-	public String naveLogin(HttpSession session) throws UnsupportedEncodingException {
+	public String naverLogin(HttpSession session) throws UnsupportedEncodingException {
 		String naverAuthUrl=naverLoginBean.getAuthorizationUrl(session);
 		return "redirect:"+naverAuthUrl;
 	}
  	
  	//김예지: 네이버 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
 	//네이버 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
-	@RequestMapping("/callback")
-	public String naveLogin(@RequestParam String code, @RequestParam String state
+	@RequestMapping("/naver/callback")
+	public String naverLogin(@RequestParam String code, @RequestParam String state
 			, HttpSession session) throws IOException, ParseException {
 		//네이버 로그인 사용자에 대한 접근 토큰을 반환하는 메소드 호출하여 사용자 접근 토큰 저장 
 		OAuth2AccessToken accessToken=naverLoginBean.getAccessToken(session, code, state);
