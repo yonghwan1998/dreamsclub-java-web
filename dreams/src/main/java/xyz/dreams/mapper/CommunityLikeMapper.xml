@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.dreams.mapper.CommunityLikeMapper">
+
+
+<!-- 좋아요 추가 - 김예지(2023.09.23) -->
+<!-- 
+<insert id="insert_like_save" parameterType="CommunityLikeDTO">
+	<selectKey resultType="int" keyProperty="likeNo" order="BEFORE">
+		community_like_seq.NEXTVAL from dual
+	</selectKey>
+	INSERT INTO community_like (like_no, comm_no, member_id)
+	VALUES(#{likeNo}, #{commNo}, #{memberId})
+</insert>
+ -->
+ 
+ <insert id="insert_like_save" parameterType="CommunityDTO">
+ 	insert into community_like (like_no, comm_no, member_id)
+ 	VALUES(community_like_seq.NEXTVAL, #{commNo}, #{memberId})
+ </insert>
+ 
+<update id="insert_like_up" parameterType="CommunityDTO">
+	update community
+	set like_count = like_count + 1
+	where comm_no=#{commNo}
+</update>
+
+
+<!-- 좋아요 삭제 - 김예지(2023.09.23) -->
+<delete id="delete_like_remove" parameterType="CommunityLikeDTO">
+	DELETE FROM community_like
+	WHERE comm_no=#{commNo} AND member_id=#{memberId}
+</delete>
+
+<update id="delete_like_down" parameterType="CommunityDTO">
+	update community
+	set like_count = like_count - 1
+	where comm_no=#{commNo}
+</update>
+
+
+<!-- 좋아요 개수 count - 김예지(2023.09.23) -->
+<select id="LikeCnt" parameterType="CommunityDTO" resultType="CommunityDTO">
+	SELECT like_count
+	FROM community
+	WHERE comm_no=#{commNo}
+</select>
+
+
+<!-- 게시판 삭제시 좋아요 삭제 - 김예지(2023.09.21) -->
+<delete id="deletebyCommNo" parameterType="int">
+	DELETE FROM community_like
+	WHERE comm_no=#{commNo}
+</delete>
+
+<!-- 멤버아이디 삭제시 좋아요 삭제 - 김예지(2023.09.21) -->
+<delete id="deletebyMemberId" parameterType="int">
+	DELETE FROM community_like
+	WHERE member_id=#{memberId}
+</delete>
+
+</mapper>

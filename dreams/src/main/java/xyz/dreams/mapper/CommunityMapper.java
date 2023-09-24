@@ -32,4 +32,7 @@ public interface CommunityMapper {
 	
 	/*김예지(2023.09.17) - 댓글 수 카운팅*/
 	int updateReplyCount(int commNo);
+	
+	/*김예지(2023.09.24) - 좋아요 수 카운트*/
+	int likeCount(int commNo);
 }

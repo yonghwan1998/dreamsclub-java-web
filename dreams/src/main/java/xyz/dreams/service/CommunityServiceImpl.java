@@ -108,6 +108,13 @@ public class CommunityServiceImpl implements CommunityService{
 	public void updateReplyCount(int commNo) {
 		communityDAO.updateReplyCount(commNo);
 	}
+
+
+	/*김예지(2023.09.24) - 좋아요 수 카운트*/
+	@Override
+	public void likeCount(int commNo) {
+		communityDAO.likeCount(commNo);
+	}
 	
 
 	

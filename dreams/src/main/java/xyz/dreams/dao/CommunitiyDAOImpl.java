@@ -57,26 +57,29 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityList(map);
 	}
 
-	/*게시글 전체수 카운팅*/
+	/*김예지(2023.09.17) - 게시글 전체수 카운팅*/
 	@Override
 	public int selectCommunityCount(Map<String, Object> map) {
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount(map);
 	}
 
-	/*댓글 목록 구현시 필요한 정보를 얻기위해 해당 게시글 선택*/
+	/*김예지(2023.09.14) - 댓글 목록 구현시 필요한 정보를 얻기위해 해당 게시글 선택*/
 	@Override
 	public CommunityDTO selectCommunityByCommNo(int commNo) {
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityByCommNo(commNo);
 	}
 
-	/*게시글 당 댓글 개수 카운팅*/
+	/*김예지(2023.09.17) - 댓글 수 카운팅*/
 	@Override
 	public int updateReplyCount(int commNo) {
 		return sqlSession.getMapper(CommunityMapper.class).updateReplyCount(commNo);
 	}
 
-
-
+	/*김예지(2023.09.24) - 좋아요 수 카운트*/
+	@Override
+	public int likeCount(int commNo) {
+		return sqlSession.getMapper(CommunityMapper.class).likeCount(commNo);
+	}
 
 
 }

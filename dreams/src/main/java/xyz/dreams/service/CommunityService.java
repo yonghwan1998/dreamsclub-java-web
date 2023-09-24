@@ -28,4 +28,7 @@ public interface CommunityService {
 	
 	/*김예지(2023.09.17) - 댓글 수 카운팅*/
 	void updateReplyCount(int commNo);
+	
+	/*김예지(2023.09.24) - 좋아요 수 카운트*/
+	void likeCount(int commNo);
 }

@@ -3,13 +3,19 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<h1>결제페이지</h1>
-	<hr>
-	<h3>결제 관련 제품 정보 출력</h3>
-	<hr>
-	<button type="button" id="html5_inicis" class="pay">카드결제</button>
-  <button type="button" id="kakaopay" class="pay">간편결제(카카오페이)</button>
-	
+	<div class="popup">
+    <div class="pwrap">
+      <h1>결제페이지</h1>
+    	<hr>
+    	<h3>결제 관련 제품 정보 출력</h3>
+    	<hr>
+    	<button type="button" id="html5_inicis" class="pay">카드결제</button>
+      <button type="button" id="kakaopay" class="pay">간편결제(카카오페이)</button>
+    </div>
+	</div>
+  
+  
+  
 	<script type="text/javascript">
   /* 포트원 결제 API */
   var csrfHeaderName="${_csrf.headerName}"
@@ -29,11 +35,11 @@
     IMP.init("imp05520283");
     
     //주문번호 - 주문테이블에서 제공된 값 사용 
-    var merchantUid="merchant1_"+new Date().getTime();
+    var merchantUid="merchant_"+new Date().getTime();
     //결제금액 - 주문테이블에서 제공된 값 사용 
-    var amount=goodsPrice;
+    var amount=1000;
     //주문상품
-    var name=goodsName;
+    var name="test";
     //결제 전 주문번호와 결제금액을 세션에 저장하기 위한 페이지 요청
     // => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
     $.ajax({
@@ -47,7 +53,7 @@
           //결제를 요청하는 메소드 호출
           IMP.request_pay({
             // 결제 대행사 : kakaopay, html5_inicis, nice, jtnet, uplus, danal, payco 등
-            pg : pg,
+            pg : "",
             // 결제 방식 : card(카드), samsung(삼성페이), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
             pay_method : "card",
             //주문번호
@@ -77,17 +83,16 @@
                   if(result == "success") {
                     //결제 성공 페이지로 이동
                     var msg = '결제가 완료되었습니다.';
-              			msg += '\n고유ID : ' + rsp.imp_uid;
-              			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-              			msg += '\결제 금액 : ' + rsp.paid_amount;
-              			msg += '카드 승인번호 : ' + rsp.apply_num;
+              			msg += '\n고유ID : ' + response.imp_uid;
+              			msg += '\n상점 거래ID : ' + response.merchant_uid;
+              			msg += '\결제 금액 : ' + response.paid_amount;
+              			msg += '카드 승인번호 : ' + response.apply_num;
       
         						alert(msg);
-                    location.assign("<c:url value='/order/result' />");
+        						location.assign("<c:url value="/order/result"/>");
                   } else {
                     //결제 실패 페이지로 이동
                     alert("결제 취소");
-                    location.assign("<c:url value='/goods/main' />");
                   }
                 }, 
                 error: function(xhr) {

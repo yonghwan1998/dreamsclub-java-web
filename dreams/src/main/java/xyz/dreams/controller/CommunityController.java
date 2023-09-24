@@ -86,6 +86,7 @@ public class CommunityController {
 	public String communityDetail(@RequestParam int commNo, Model model) {
 
 		communityService.updateReplyCount(commNo); //댓글 수 카운팅
+		communityService.likeCount(commNo); //좋아요 수 카운트
 
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);

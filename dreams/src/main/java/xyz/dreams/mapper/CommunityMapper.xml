@@ -111,4 +111,13 @@
 	where c.COMM_NO=#{commNo}
 </update>
 
+
+<!-- 김예지(2023.09.24) - 좋아요 수 카운트 -->
+<select id="likeCount">
+	select like_count
+	from community
+	where comm_no=#{commNo}
+</select>
+
+
 </mapper>
