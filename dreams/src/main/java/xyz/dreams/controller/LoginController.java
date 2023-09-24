@@ -50,7 +50,7 @@ public class LoginController {
 		return "redirect:"+kakaoAuthUrl;
 	}
    
-   //카카오 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
+   //강민경: 카카오 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
  	@RequestMapping("/callback")
  	public String login(@RequestParam String code, @RequestParam String state
  			, HttpSession session) throws IOException, ParseException {
