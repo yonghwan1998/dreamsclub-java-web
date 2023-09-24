@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin/core.css">
 
 <script type="text/javascript">
@@ -127,11 +128,20 @@ function searchBtn() {
                     <tbody class="table-border-bottom-0">
                       <c:forEach items="${orderList }" var="order">
                       <tr id="row-${order.orderId}">
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${order.orderDate }</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></strong></td>
                         <td>${order.memberName }</td>
-                        <td>${order.goodsCode }</td>
-                        <td>${order.goodsPrice }</td>
-                        <td><span class="bg-label-dark">${order.orderStatus }</span></td>
+                        <td>${order.goodsCode.split("-")[0] }</td>
+                        <td><fmt:formatNumber type="number" value="${order.goodsPrice}"/>&nbsp;원</td>
+                        <td><span class="bg-label-dark">
+                          <c:choose>
+                              <c:when test="${order.orderStatus == 0}">
+                                  배송 준비중
+                              </c:when>
+                              <c:otherwise>
+                                  배송 완료
+                              </c:otherwise>
+                          </c:choose>
+                          </span></td>
                         <td>
                         
                           <!-- 
