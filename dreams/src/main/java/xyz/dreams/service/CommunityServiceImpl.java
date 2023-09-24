@@ -19,7 +19,7 @@ import xyz.dreams.util.Pager;
 public class CommunityServiceImpl implements CommunityService{
 	private final CommunityDAO communityDAO;
 
-	/*김예지(2023.08.28) - 게시판 글 등록하기*/
+	/*게시판 글 등록하기*/	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void enrollCommunity(CommunityDTO community) {
@@ -30,7 +30,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 
 	
-	/*김예지(2023.09.07) - 게시글 수정*/
+	/*게시판 글 수정하기*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyCommunity(CommunityDTO community) {
@@ -41,7 +41,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 
-	/*김예지(2023.08.30) - 게시글 삭제*/
+	/*게시판 글 삭제*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void deleteCommunity(int commNo) {
@@ -50,29 +50,27 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 
-	/*김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회)*/
+	/*게시판 글 조회(글 1개)*/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public CommunityDTO getPage(int communityNo) {
 		CommunityDTO comm = communityDAO.getPage(communityNo);
 		
-		//김예지(2023.09.08 추가) - 조회수 증가
+		//조회수 +1
 		communityDAO.upCountCommunity(communityNo);
 		
 		return communityDAO.getPage(communityNo);
 	}
 
 	
-	/*김예지(2023.09.08) - 조회수 증가*/
+	/*게시글 조회수 증가*/
 	@Override
 	public void upCountCommunity(int commNo) {
 		communityDAO.upCountCommunity(commNo);
 	}
 	
 
-	/*김예지(2023.08.27) - 게시판 목록 페이지 접속
-	  김예지(2023.08.30) - 게시판 목록 페이징
-	  김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가	*/
+	/*목록보기 + 페이징 처리*/
 	@Override
 	public Map<String, Object> getCommunityList(Map<String, Object> map) {
 		int pageNum=1; //요청 페이지번호의 선언초기화 (무조건 1부터 시작)

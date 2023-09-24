@@ -15,43 +15,41 @@ import xyz.dreams.mapper.CommunityMapper;
 public class CommunitiyDAOImpl implements CommunityDAO{
 	private final SqlSession sqlSession;
 
-	/*김예지(2023.08.28) - 게시판 글 등록하기*/
+	/*게시판 글 등록하기*/
 	@Override
 	public int enrollCommunity(CommunityDTO community) {
 		return sqlSession.getMapper(CommunityMapper.class).enrollCommunity(community);
 	}
 
 	
-	/*김예지(2023.09.07) - 게시글 수정*/	
+	/*게시판 수정*/	
 	@Override
 	public int modifyCommunity(CommunityDTO community) {
 		return sqlSession.getMapper(CommunityMapper.class).modifyCommunity(community);
 	}
 
 	
-	/*김예지(2023.08.30) - 게시글 삭제*/
+	/*페이지 삭제*/
 	@Override
 	public int deleteCommunity(int commNo) {
 		return sqlSession.getMapper(CommunityMapper.class).deleteCommunity(commNo);
 	}
 	
 	
-	/*김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회)*/	
+	/*게시판 글 하나 보는 페이지 (조회)*/	
 	@Override
 	public CommunityDTO getPage(int communityNo) {
 		return sqlSession.getMapper(CommunityMapper.class).getPage(communityNo);
 	}
 
-	/*김예지(2023.09.08) - 조회수 증가*/
+	/*조회수 증가*/
 	@Override
 	public void upCountCommunity(int commNo) {
 		sqlSession.getMapper(CommunityMapper.class).upCountCommunity(commNo);
 	}
 	
 	
-	/*김예지(2023.08.27) - 게시판 목록 페이지 접속
-	  김예지(2023.08.30) - 게시판 목록 페이징
-	  김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가	*/
+	/*페이징 처리+목록보기+검색*/
 	@Override
 	public List<CommunityDTO> selectCommunityList(Map<String, Object> map) {
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityList(map);
@@ -63,13 +61,12 @@ public class CommunitiyDAOImpl implements CommunityDAO{
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityCount(map);
 	}
 
-	/*댓글 목록 구현시 필요한 정보를 얻기위해 해당 게시글 선택*/
 	@Override
 	public CommunityDTO selectCommunityByCommNo(int commNo) {
 		return sqlSession.getMapper(CommunityMapper.class).selectCommunityByCommNo(commNo);
 	}
 
-	/*게시글 당 댓글 개수 카운팅*/
+
 	@Override
 	public int updateReplyCount(int commNo) {
 		return sqlSession.getMapper(CommunityMapper.class).updateReplyCount(commNo);
