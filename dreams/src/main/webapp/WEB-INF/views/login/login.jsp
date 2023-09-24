@@ -64,6 +64,7 @@
                                                 <div><a href="/dreams/join/check">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                                
                                             </div>
+                                            <a hrfe="#"><img height="38px" src="/img/kakao_login_medium.png"/> </a>
                                             <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
                                             <tr>
                                             <td width="20"></td>
