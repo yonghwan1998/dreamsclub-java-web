@@ -31,7 +31,11 @@ public class OrderController {
 		int result = orderService.orderCancel(orderDTO);
 		return result;
 	}
-
+	@RequestMapping(value = "/result", method = RequestMethod.GET)
+	public String order() {
+		return "order/order_result";
+	}
+	
 	
 	@RequestMapping(value = "/result", method = RequestMethod.POST)
 	public String order(@ModelAttribute OrderDTO order, Model model) {

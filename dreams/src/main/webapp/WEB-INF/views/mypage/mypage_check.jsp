@@ -86,7 +86,7 @@
 																			</c:choose>
 																		</div>
 																		<div class="sc-abukv2-2 kThsCL">
-																			<a href="${order.goodsCode}"> <!-- 주문 상세보기 링크 -->
+																			<a href="<c:url value="/order/result"/>"> <!-- 주문 상세보기 링크 -->
 																				주문 상세보기 <svg width="16" height="16"
 																					focusable="false" viewBox="0 0 16 16"
 																					aria-hidden="true" role="presentation"
@@ -113,10 +113,12 @@
 																							${order.goodsCount}개
 																						</td>
 																						<td class="sc-gnmni8-6 gbTJl">
-																							<div class="sc-gnmni8-7 bCQoer">
+																							<div class="sc-gnmni8-7 bCQoer" style="display: flex; margin-bottom: 10px;">
 																								<button
 																									class="sc-1k9quwu-0 fUUUKW sc-4d0nwb-0 iiEWkt">배송조회</button>
 																								<br>
+																							</div>
+																							<div style='display: flex;'>
 																								<form action="/goods_detail/" method="post" enctype = multipart>
 																									<!-- 강민경: 배송 완료인 경우 리뷰 작성 버튼 생성  -->
 																									<c:if test="${order.orderStatus == 1}">
