@@ -65,7 +65,7 @@
                                                
                                             </div>
                                             <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
-                                            <img alt="카카오 로그인" src="<c:url value="/img/login/kakao_login_medium.png"/>" width="200"
+                                            <img alt="카카오 로그인" src="<c:url value="/img/login/kakao_login_medium_wide.png"/>" width="200"
 												onclick="location.href='<c:url value="/login/kakao"/>';">
                                             <tr>
                                             <td width="20"></td>
