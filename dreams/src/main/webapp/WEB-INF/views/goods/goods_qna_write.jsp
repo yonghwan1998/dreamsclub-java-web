@@ -68,13 +68,15 @@
             
            </table>
            
-           <!-- 비밀글 여부 -->
+           <!-- 비밀글 여부 --> <!-- 9/24  오진서 - 비밀글 기능 추가 -->
               <p style="margin-top: 1rem;">
-            <input id = "secretYn" type = "checkbox" style="transform: scale(0.8); 
+            <input id = "secretYn" name="qnaStatus"  type = "checkbox"  value= "${pagrInfo.qnaStatus}"  style="transform: scale(0.8); 
                     position: relative; right: 22rem; height: 30px;">
                 <label for="secretYn" style="position: relative; left: 27rem; 
                     bottom: 2rem; font-size: 15px;">비밀글</label>
            <p>
+           
+           
             <!--작성 버튼(등록, 취소) -->
            <div class="qnaWriteBtn" style= "margin-left: 200px;">
                <button type="submit">등록</button>
@@ -84,4 +86,6 @@
        </div>
    </div>
 </form>
+
+
 

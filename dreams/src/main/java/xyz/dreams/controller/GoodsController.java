@@ -181,7 +181,7 @@ public class GoodsController {
 		
 		String encodedGoodsName = URLEncoder.encode(goodsName, "utf-8"); //한글로 url되서 404 뜨는거라 이거하면 ㄱㅊ아진대
 		
-		return "redirect:/goods/detail?goodsName=" + encodedGoodsName; // 입력후 굿즈메인페이지로 이동 **수정완^^
+		return "redirect:/goods/detail?goodsName=" + encodedGoodsName; // 입력후 굿즈메인페이지로 이동
 	}
 
 	
