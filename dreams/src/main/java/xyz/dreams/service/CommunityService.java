@@ -6,24 +6,29 @@ import xyz.dreams.dto.CommunityDTO;
 
 public interface CommunityService {
 
-	/*게시판 등록*/
+	/*김예지(2023.08.28) - 게시판 글 등록하기*/
 	void enrollCommunity(CommunityDTO community);
 	
-	/*게시판 글 수정*/
+	/*김예지(2023.09.07) - 게시글 수정*/
 	void modifyCommunity(CommunityDTO community);
 	
-	/*게시판 삭제*/
+	/*김예지(2023.08.30) - 게시글 삭제*/
 	void deleteCommunity(int commNo);
 	
-	/*게시판 글 하나 보기(조회)*/
+	/*김예지(2023.08.29) - 게시판 글 하나 보는 페이지 (조회)*/
 	CommunityDTO getPage(int communityNo);
 
-	/*게시글 조회수 증가*/
+	/*김예지(2023.09.08) - 조회수 증가*/
 	void upCountCommunity(int commNo);
 	
-	/*게시글 목록 + 페이징 처리*/
+	/*김예지(2023.08.27) - 게시판 목록 페이지 접속
+	  김예지(2023.08.30) - 게시판 목록 페이징
+	  김예지(2023.09.12) - 제목, 내용, 아이디 검색 추가	*/
 	Map<String, Object> getCommunityList(Map<String, Object> map);
 	
-	/*김예지(2023.09.17): 댓글 수 카운팅*/
+	/*김예지(2023.09.17) - 댓글 수 카운팅*/
 	void updateReplyCount(int commNo);
+	
+	/*김예지(2023.09.24) - 좋아요 수 카운트*/
+	void likeCount(int commNo);
 }

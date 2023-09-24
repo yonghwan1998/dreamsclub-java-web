@@ -13,6 +13,7 @@ import xyz.dreams.dto.CommunityDTO;
 import xyz.dreams.dto.CommunityLikeDTO;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CommunityLikeService;
+import xyz.dreams.service.CommunityService;
 
 @RestController
 @RequestMapping(value = "/like")
@@ -20,6 +21,7 @@ import xyz.dreams.service.CommunityLikeService;
 @Slf4j
 public class CommunityLikeController {
 	private final CommunityLikeService communityLikeService;
+	private final CommunityService communityService;
 
 	/*빈하트 클릭시 하트 저장*/
 	@ResponseBody
@@ -37,6 +39,9 @@ public class CommunityLikeController {
 		
 		//+1된 하트 개수를 게시글에 담아오기 위해 설정
 		CommunityDTO cto = communityLikeService.saveLike(to);
+		
+		//하트 총개수 담아오기
+		communityService.likeCount(commNo);
 		
 		return cto;
 	}
@@ -58,6 +63,9 @@ public class CommunityLikeController {
 		
 		//-1된 하트 개수를 게시글에 담아오기 위해 설정
 		CommunityDTO cto = communityLikeService.removeLike(to);
+		
+		//하트 총개수 담아오기
+		communityService.likeCount(commNo);
 		
 		return cto;
 	}
