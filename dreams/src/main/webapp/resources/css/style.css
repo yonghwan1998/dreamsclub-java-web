@@ -13754,6 +13754,12 @@ a.default-btn {
 }
 
 /*----- 19. Product details page  ---*/
+/*강민경: 굿즈 디테일 페이지의 리뷰 사진 고정 */
+.review-img img {
+    width: 82px;
+    height: 82px;
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .product-details-img.mr-20 {
     margin-right: 0;
