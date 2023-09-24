@@ -122,7 +122,7 @@ function selectChange(q){
 															<i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i><i class="fa fa-star-o yellow"></i>
 														</c:if>
 													</div>
-													<a href="javascript:void(0);" style="pointer-events : none;">${goods.reviewCount } Reviews</a>
+													<a href="<c:url value="/goods/detail?goodsName=${goods.goodsName}"/>" style="pointer-events : none;">${review.reviewCount } Reviews</a>
 												</div>
 												<p></p>
 												<div class="shop-list-btn btn-hover">
