@@ -64,8 +64,9 @@
                                                 <div><a href="/dreams/join/check">회원가입&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
                                                
                                             </div>
-                                            <a hrfe="#"><img height="38px" src="/img/kakao_login_medium.png"/> </a>
                                             <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
+                                            <img alt="카카오 로그인" src="<c:url value="/img/login/kakao_login_medium.png"/>" width="200"
+												onclick="location.href='<c:url value="/login/kakao"/>';">
                                             <tr>
                                             <td width="20"></td>
                                             <td style=" text-align: center;"><font color= "red">${message }</font></td>         
@@ -76,7 +77,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>

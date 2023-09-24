@@ -1,14 +1,21 @@
 
 package xyz.dreams.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.MemberDTO;
@@ -20,10 +27,9 @@ import xyz.dreams.service.MemberService;
 @RequestMapping("/login")
 @RequiredArgsConstructor
 public class LoginController {
-
-   // 정적 필드 대신 inject 어노테이션 사용 가능, 의존성 주입 
    private final MemberService memberService;
-
+   private final xyz.dreams.auth.KakaoLoginBean kakaoLoginBean;
+   
    // 1. 로그인 화면
    @RequestMapping(value = "", method = RequestMethod.GET)
    public String login() {
@@ -37,6 +43,24 @@ public class LoginController {
       session.setAttribute("member", authMember);
       return "redirect:/";
    }
+   //강민경: 카카오 로그인 페이지를 요청하기 위한 요청 처리 메소드
+   @RequestMapping("/kakao")
+	public String login(HttpSession session) throws UnsupportedEncodingException {
+		String kakaoAuthUrl=kakaoLoginBean.getAuthorizationUrl(session);
+		return "redirect:"+kakaoAuthUrl;
+	}
+   
+   //카카오 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
+ 	@RequestMapping("/callback")
+ 	public String login(@RequestParam String code, @RequestParam String state
+ 			, HttpSession session) throws IOException, ParseException {
+ 		OAuth2AccessToken accessToken=kakaoLoginBean.getAccessToken(session, code, state);
+ 		
+ 		String apiResult=kakaoLoginBean.getUserProfile(accessToken);
+ 		System.out.println(apiResult);
+ 		
+ 		return "redirect:/";
+ 	}
    
    
    //2-1. 아이디 찾기
