@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="shop-area pt-100 pb-100">
 	<div class="container">
@@ -11,53 +12,61 @@
 					<div class="product-details-img">
 						<div class="tab-content jump">
 							<div id="shop-details-2" class="tab-pane active large-img-style">
-								<img src="${pageContext.request.contextPath }/img/goods-img/${goodsDetail.goodsImage }">
+								<img
+									src="${pageContext.request.contextPath }/img/goods-img/${goodsDetail.goodsImage }">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6" style="border: 1px solid lightgray;">
-				<div class="product-details-content ml-70" style="margin-left:5rem; margin-top: 3rem;">
-					<form method="post" action="<c:url value="/order/insertGoods"/>" name="orderForm">
+				<div class="product-details-content ml-70"
+					style="margin-left: 5rem; margin-top: 3rem;">
+					<form method="post" action="<c:url value="/order/insertGoods"/>"
+						name="orderForm">
 						<h2>${goodsDetail.goodsName }</h2>
-						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
+						<input type="hidden" name="goodsCode"
+							value="${goodsDetail.goodsCode }" id="goodsCode">
 						<div class="product-details-price">
-							<input type="hidden" name="goodsPrice" value="${goodsDetail.goodsPrice }" id="price">
-							<span><fmt:formatNumber value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
+							<input type="hidden" name="goodsPrice"
+								value="${goodsDetail.goodsPrice }" id="price"> <span><fmt:formatNumber
+									value="${goodsDetail.goodsPrice }" pattern="#,###" /> 원</span>
 						</div>
 						<div class="pro-details-rating-wrap">
 							<div class="pro-details-rating">
-								<i class="fa fa-star-o yellow"></i>
-								<i class="fa fa-star-o yellow"></i>
-								<i class="fa fa-star-o yellow"></i>
-								<i class="fa fa-star-o"></i>
-								<i class="fa fa-star-o"></i>
+								<i class="fa fa-star-o yellow"></i> <i
+									class="fa fa-star-o yellow"></i> <i class="fa fa-star-o yellow"></i>
+								<i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
 							</div>
 							<span><a href="#">${reviewCount } Reviews</a></span>
 						</div>
 						<p>${goodsDetail.goodsInfo }</p>
 						<div class="pro-details-size-color">
 							<div class="pro-details-size">
-								<span>Size</span> <select id="goodsSize" name="goodsSize" style="border: 1px solid black;">
+								<span>Size</span> <select id="goodsSize" name="goodsSize"
+									style="border: 1px solid black;">
 									<option value="0" selected>사이즈를 선택해 주세요.</option>
 									<c:choose>
 										<c:when test="${goodsDetail.goodsCategory eq 'Uniform' }">
-											<option value="L" <c:if test="${goodsDetail.goodsYnL eq 'N'}">disabled</c:if>>
+											<option value="L"
+												<c:if test="${goodsDetail.goodsYnL eq 'N'}">disabled</c:if>>
 												L&nbsp;&nbsp; (재고 : ${goodsDetail.goodsStockL })
 												<c:if test="${goodsDetail.goodsYnL eq 'N'}">(선택불가)</c:if>
 											</option>
-											<option value="M" <c:if test="${goodsDetail.goodsYnM eq 'N'}">disabled</c:if>>
+											<option value="M"
+												<c:if test="${goodsDetail.goodsYnM eq 'N'}">disabled</c:if>>
 												M&nbsp;(재고 : ${goodsDetail.goodsStockM })
 												<c:if test="${goodsDetail.goodsYnM eq 'N'}">(선택불가)</c:if>
 											</option>
-											<option value="S" <c:if test="${goodsDetail.goodsYnS eq 'N'}">disabled</c:if>>
+											<option value="S"
+												<c:if test="${goodsDetail.goodsYnS eq 'N'}">disabled</c:if>>
 												S&nbsp;&nbsp;(재고 : ${goodsDetail.goodsStockS })
 												<c:if test="${goodsDetail.goodsYnS eq 'N'}">(선택불가)</c:if>
 											</option>
 										</c:when>
 										<c:otherwise>
-											<option value="F" <c:if test="${goodsDetail.goodsYnF eq 'N'}">disabled</c:if>>
+											<option value="F"
+												<c:if test="${goodsDetail.goodsYnF eq 'N'}">disabled</c:if>>
 												Free&nbsp;(재고 : ${goodsDetail.goodsStockF })
 												<c:if test="${goodsDetail.goodsYnF eq 'N'}">(선택불가)</c:if>
 											</option>
@@ -68,10 +77,12 @@
 						</div>
 						<div class="pro-details-quality">
 							<div class="cart-plus-minus">
-								<input class="cart-plus-minus-box" type="text" name="goodsCount" value="1" id="goodsCount">
+								<input class="cart-plus-minus-box" type="text" name="goodsCount"
+									value="1" id="goodsCount">
 							</div>
 							<div class="pro-details-cart btn-hover">
-                				<input type="hidden" name="isLogOn" id="isLogOn" value="${member.memberId }"/>
+								<input type="hidden" name="isLogOn" id="isLogOn"
+									value="${member.memberId }" />
 								<button class="btn btn-default btn-order" type="submit">주문하기</button>
 								<button class="btn btn-default btn-cart">장바구니</button>
 							</div>
@@ -91,17 +102,17 @@
 
 
 <div class="description-review-area pb-90">
-    <div class="container">
-        <div class="description-review-wrapper">
-            <div class="description-review-topbar nav">
-                <a data-bs-toggle="tab" href="#des-details1">상세 정보</a>
-                
-                <!--  오진서: QnA 버튼 수정 -->
-                <a data-bs-toggle="tab" href="#des-details2">Q & A</a>
-                
-                <!-- 강민경: 리뷰 버튼 수정 -->
-                <a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
-            </div>     
+	<div class="container">
+		<div class="description-review-wrapper">
+			<div class="description-review-topbar nav">
+				<a data-bs-toggle="tab" href="#des-details1">상세 정보</a>
+
+				<!--  오진서: QnA 버튼 수정 -->
+				<a data-bs-toggle="tab" href="#des-details2">Q & A</a>
+
+				<!-- 강민경: 리뷰 버튼 수정 -->
+				<a data-bs-toggle="tab" href="#des-details3">상품 리뷰</a>
+			</div>
 			<div class="tab-content description-review-bottom">
 
 				<!-- 제품 상세 정보 출력 div -->
@@ -111,7 +122,8 @@
 							<li><span>Weight</span> 400 g</li>
 							<li><span>Dimensions</span>10 x 10 x 15 cm</li>
 							<li><span>Materials</span> 60% cotton, 40% polyester</li>
-							<li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
+							<li><span>Other Info</span> American heirloom jean shorts
+								pug seitan letterpress</li>
 						</ul>
 					</div>
 				</div>
@@ -128,20 +140,24 @@
 										<!-- 방용환(수정) : 2023/09/23, 일반 유저만 보이는 버튼 -->
 										<c:if test="${member.memberStatus eq 1}">
 											<form action="<c:url value="/goods/qna/write"/>" method="get">
-												<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-												<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
+												<input type="hidden" name="goodsCode"
+													value="${goodsDetail.goodsCode }"> <input
+													type="hidden" name="goodsName"
+													value="${goodsDetail.goodsName }">
 												<button type="submit">문의하기</button>
 											</form>
 										</c:if>
 									</div>
 								</div>
 							</div>
-							<hr> <!-- 구분 선 -->							
+							<hr>
+							<!-- 구분 선 -->
 						</div>
 
 						<!-- 문의 테이블 -->
 						<div class="qnaTable" style="margin: 0 auto">
-							<table class="qnaTableMain" width="1200px" style="border-collapse: separate; border-spacing: 0px 10px;">
+							<table class="qnaTableMain" width="1200px"
+								style="border-collapse: separate; border-spacing: 0px 10px;">
 								<thead>
 									<tr>
 										<th class="t1" style="width: 100px">답변상태</th>
@@ -150,9 +166,7 @@
 										<th class="t4" style="width: 150px">작성자</th>
 										<th class="t5" style="width: 150px">작성일</th>
 										<c:if test="${member.memberStatus eq 9}">
-											<th class="t6" style="width: 100px">
-													기능													
-											</th>
+											<th class="t6" style="width: 100px">기능</th>
 										</c:if>
 									</tr>
 								</thead>
@@ -165,14 +179,11 @@
 										<tr class="boardTableList">
 
 											<!--  답변여부 -->
-											<td class="t1">
-												<c:if test="${qna.qnaYn eq 'N'}">
+											<td class="t1"><c:if test="${qna.qnaYn eq 'N'}">
 													미답변
-												</c:if>
-												<c:if test="${qna.qnaYn eq 'Y'}">
+												</c:if> <c:if test="${qna.qnaYn eq 'Y'}">
 													답변완료
-												</c:if>
-											</td>
+												</c:if></td>
 
 											<!-- 제목받아옴 -->
 											<td class="t2"><c:out value="${qna.qnaTitle}" /></td>
@@ -185,41 +196,49 @@
 
 											<!-- 방용환(수정) : 2023/09/23, 날짜에서 시간 제거 -->
 											<!-- 날짜받아옴 -->
-											<td class="t5"><c:out value="${fn:substring(qna.qnaDate,0,10)}" /></td>
-											
+											<td class="t5"><c:out
+													value="${fn:substring(qna.qnaDate,0,10)}" /></td>
+
 											<!-- 방용환(수정) : 2023/09/23, 관리자인 경우와 답변 상태가 'N'인 글만 답변하기 버튼 생성 -->
 											<td class="t6">
-												<!-- 로그인한 사람과, memberStatus 가 9 (관리자) 인경우 -->
-												<c:if test="${member.memberStatus eq 9 && qna.qnaYn eq 'N'}">
-               							<form action="<c:url value="/goods/qna/rewrite"/>"method="get">
-														<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }">
-														<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
-														<input type="hidden" name="goodsName" value="${goodsDetail.goodsName }">
-               							<button type="submit">답변하기</button>
-               							</form>
-           							</c:if>
+												<!-- 로그인한 사람과, memberStatus 가 9 (관리자) 인경우 --> <c:if
+													test="${member.memberStatus eq 9 && qna.qnaYn eq 'N'}">
+													<form action="<c:url value="/goods/qna/rewrite"/>"
+														method="get">
+														<input type="hidden" name="goodsCode"
+															value="${goodsDetail.goodsCode }"> <input
+															type="hidden" name="qnaNo" value="${qna.qnaNo }">
+														<input type="hidden" name="goodsName"
+															value="${goodsDetail.goodsName }">
+														<button type="submit">답변하기</button>
+													</form>
+												</c:if>
 											<td>
 										</tr>
-										
+
 										<!-- !! Re답변  -->
 										<c:choose>
-											<c:when test="${qna.qnaYn eq 'Y'}"> <!-- qnaYn 가 'Y'일경우 보이도록-->
-												<tr class="boardTableList" style="border-bottom: 1px solid gray;">
-	
+											<c:when test="${qna.qnaYn eq 'Y'}">
+												<!-- qnaYn 가 'Y'일경우 보이도록-->
+												<tr class="boardTableList"
+													style="border-bottom: 1px solid gray;">
+
 													<!--  답변여부 -->
 													<td class="t1"></td>
-	
+
 													<!-- 제목받아옴 -->
 													<td class="t2"></td>
-	
+
 													<!-- 내용 받아옴 -->
-													<td class="t3">&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="ㄴ${qna.qnaReCont }" /></td>
-	
+													<td class="t3">&nbsp;&nbsp;&nbsp;&nbsp;<c:out
+															value="ㄴ${qna.qnaReCont }" /></td>
+
 													<!-- 회원id 받아옴 -->
 													<td class="t4">드림즈 관리자</td>
-	
+
 													<!-- 날짜받아옴 -->
-													<td class="t5"><c:out value="${fn:substring(qna.qnaReDate,0,10)}" /></td>
+													<td class="t5"><c:out
+															value="${fn:substring(qna.qnaReDate,0,10)}" /></td>
 												</tr>
 											</c:when>
 										</c:choose>
@@ -229,36 +248,40 @@
 						</div>
 					</div>
 					<%-- 페이지 번호 출력 --%>
-            <div style="text-align: center; padding-top: 10px;">
+					<div style="text-align: center; padding-top: 10px;">
 						<c:choose>
 							<c:when test="${qnaPager.startPage > qnaPager.blockSize }">
-								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.prevPage}">[이전]</a>
+								<a
+									href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.prevPage}">[이전]</a>
 							</c:when>
 							<c:otherwise>
 								[이전]
 							</c:otherwise>
 						</c:choose>
-					
-						<c:forEach var="i" begin="${qnaPager.startPage }" end="${qnaPager.endPage }" step="1">
+
+						<c:forEach var="i" begin="${qnaPager.startPage }"
+							end="${qnaPager.endPage }" step="1">
 							<c:choose>
 								<c:when test="${qnaPager.pageNum != i  }">
-									<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${i}">[${i }]</a>
+									<a
+										href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${i}">[${i }]</a>
 								</c:when>
 								<c:otherwise>
 									[${i }]
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-					
+
 						<c:choose>
 							<c:when test="${qnaPager.endPage != qnaPager.totalPage }">
-								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.nextPage}">[다음]</a>
+								<a
+									href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&qnaPageNum=${qnaPager.nextPage}">[다음]</a>
 							</c:when>
 							<c:otherwise>
 								[다음]
 							</c:otherwise>
 						</c:choose>
-            </div>
+					</div>
 				</div>
 
 				<!-- 강민경: 상품 리뷰 작성 부분  -->
@@ -268,67 +291,94 @@
 							<div class="review-wrapper">
 								<c:forEach var="review" items="${goodsReview }">
 									<div class="single-review">
-                    <div class="review-img">
-                        <img src="${pageContext.request.contextPath }/img/review/${review.revImg}">
-                    </div>
-                    <div class="review-content">
-                        <div class="review-top-wrap">
-                            <div class="review-left">
-                                <div class="review-name" style='display: flex;'>
-                                   <p><strong><c:out value="${review.memberId}"/></strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                                 <p>별점 : <c:out value="${review.goodsStar}"/></p>
-                                </div>
-                            </div>
-                        </div>
-                        <p style="line-height: 0.1;"><c:out value="${review.revCont}"/></p>
-                        <div class="review-left">
-                          <c:if test="${member.memberId == review.memberId}" >
-  													<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
-  												</c:if>
-                        </div>
-                  </div>
-                  </div>
-               </c:forEach>
+										<c:choose>
+											<c:when test="${not empty review.revImg}">
+												<div class="review-img">
+													<img
+														src="${pageContext.request.contextPath }/img/review/${review.revImg}">
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="review-img">
+													<img
+														src="${pageContext.request.contextPath }/img/sheep.png">
+												</div>
+											</c:otherwise>
+										</c:choose>
+										<div class="review-content">
+											<div class="review-top-wrap">
+												<div class="review-left">
+													<div class="review-name" style='display: flex;'>
+														<p>
+															<strong><c:out value="${review.memberId}" /></strong>
+														</p>
+														<p>&nbsp;</p>
+														<p>&nbsp;</p>
+														<p>&nbsp;</p>
+														<p>&nbsp;</p>
+														<p>
+															별점 :
+															<c:out value="${review.goodsStar}" />
+														</p>
+													</div>
+												</div>
+											</div>
+											<p style="line-height: 0.1;">
+												<c:out value="${review.revCont}" />
+											</p>
+											<div class="review-left">
+												<c:if test="${member.memberId == review.memberId}">
+													<a href="#" role="button" id="delete_btn"
+														onclick="deleteCheck(${review.revNo})">삭제하기</a>
+												</c:if>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
-					
+
 					<%-- 페이지 번호 출력 --%>
-		            <div style="text-align: center; padding-top: 10px;">
+					<div style="text-align: center; padding-top: 10px;">
 						<c:choose>
 							<c:when test="${reviewPager.startPage > reviewPager.blockSize }">
-								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.prevPage}">[이전]</a>
+								<a
+									href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.prevPage}">[이전]</a>
 							</c:when>
 							<c:otherwise>
 								[이전]
 							</c:otherwise>
 						</c:choose>
-					
-						<c:forEach var="i" begin="${reviewPager.startPage }" end="${reviewPager.endPage }" step="1">
+
+						<c:forEach var="i" begin="${reviewPager.startPage }"
+							end="${reviewPager.endPage }" step="1">
 							<c:choose>
 								<c:when test="${reviewPager.pageNum != i  }">
-									<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${i}">[${i }]</a>
+									<a
+										href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${i}">[${i }]</a>
 								</c:when>
 								<c:otherwise>
 									[${i }]
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-					
+
 						<c:choose>
 							<c:when test="${reviewPager.endPage != reviewPager.totalPage }">
-								<a href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.nextPage}">[다음]</a>
+								<a
+									href="<c:url value="/goods/detail"/>?goodsName=${goodsDetail.goodsName }&reviewPageNum=${reviewPager.nextPage}">[다음]</a>
 							</c:when>
 							<c:otherwise>
 								[다음]
 							</c:otherwise>
 						</c:choose>
-		            </div>
-					
+					</div>
+
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <script>
@@ -416,7 +466,8 @@
    
 </script>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.js">
   	$(function() {
     
   		$(".t3").click(function() { // 질문 제목을 클릭했을 때
