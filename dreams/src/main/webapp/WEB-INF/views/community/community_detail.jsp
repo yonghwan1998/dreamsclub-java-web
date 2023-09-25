@@ -376,6 +376,9 @@ $(".heart-click").click(function() {
     //if ($(this).children('i').attr('id') == "bi-suit-heart") {
     	console.log("검은따봉 클릭" + commNo + memberId);
     	
+    	let likeCount = parseInt(likeCountElement.text())+1;
+    	likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+    	
     	//좋아요 작업처리
     	$.ajax({
             url : "<c:url value='/like/saveHeart.do'/>",
@@ -385,10 +388,9 @@ $(".heart-click").click(function() {
             	"memberId" : memberId,
             },
             success : function(cto) {
-
-                let likeCount = cto.likeCount;
-
-                likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+			
+                //let likeCount = cto.likeCount;
+                //likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
 
                 console.log("따봉추가 성공");
             },
@@ -413,6 +415,9 @@ $(".heart-click").click(function() {
     } else{
         console.log("빨간따봉 클릭" + commNo + memberId);
         
+        let likeCount = parseInt(likeCountElement.text())-1;
+    	likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+        
         //좋아요 취소 작업 처리
         $.ajax({
             url : "<c:url value='/like/removeHeart.do'/>",
@@ -423,9 +428,8 @@ $(".heart-click").click(function() {
             },
             success : function(cto) {
 
-                let likeCount = cto.likeCount;
-                
-                likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+                //let likeCount = cto.likeCount;
+                //likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
                 
                 console.log("따봉삭제 성공");
             },

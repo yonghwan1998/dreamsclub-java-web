@@ -440,7 +440,7 @@
 	            //주문번호
 	            merchant_uid : merchantUid,
 	            //결제금액
-	            amount : amount,
+	            amount : parseInt(amount),
 	            //결제창에 보여질 제품명
 	            name: name, 
 	            //결제 사용자의 이메일 주소 
@@ -470,11 +470,14 @@
 	              			msg += '카드 승인번호 : ' + response.apply_num;
 	      
 	        						alert(msg);
-	        						location.assign("<c:url value="/order/result"/>");
+	        						submitOrderForm();
 	                  } else {
 	                    //결제 실패 페이지로 이동
-	                    alert("결제 취소");
+	                	  var msg = '결제에 실패하였습니다.';
+	     		         		msg += '//' + response.error_msg;
+		                  alert(msg);
 	                  }
+	                  alert(msg);
 	                }, 
 	                error: function(xhr) {
 	                  alert("에러 = "+xhr.status);
