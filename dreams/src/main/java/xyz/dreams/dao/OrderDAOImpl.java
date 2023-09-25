@@ -17,11 +17,9 @@ public class OrderDAOImpl implements OrderDAO {
 	private final String NS = "xyz.dreams.mapper.OrderMapper";
 	
 	@Override
-	public int insert(OrderDTO order) {
-			int orderId = sqlSession.selectOne(NS+".countOrderId");
-			order.setOrderId(orderId);
-			
-			return sqlSession.insert(NS+".insert", order);
+	public int insert(OrderDTO payment) {
+		System.out.println("DAO : " + payment);
+		return sqlSession.insert(NS+".insert", payment);
 	}
 
 	@Override
@@ -36,8 +34,8 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public OrderDTO selectByOrderId(int orderId) {
-		return sqlSession.selectOne(NS+".selectByOrderId", orderId);
+	public OrderDTO selectByOrderId(String impUid) {
+		return sqlSession.selectOne(NS+".selectByOrderId", impUid);
 	}
 
 	@Override
@@ -67,8 +65,8 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public OrderDTO selectOrderId(int orderId, String memberId) {
-		return sqlSession.getMapper(OrderMapper.class).selectOrderId(orderId, memberId);	
+	public OrderDTO selectOrderId(String impUid, String memberId) {
+		return sqlSession.getMapper(OrderMapper.class).selectOrderId(impUid, memberId);	
 		}
 	
 }

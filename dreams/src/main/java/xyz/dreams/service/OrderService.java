@@ -5,13 +5,13 @@ import java.util.List;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderService {
-	void insert(OrderDTO order);
+	void insert(OrderDTO payment);
 
 	List<OrderDTO> myOrderList(String memberId);
 
 	List<OrderDTO> allOrderList();
 
-	OrderDTO selectByOrderId(int orderId);
+	OrderDTO selectByOrderId(String impUid);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
 	
@@ -19,5 +19,13 @@ public interface OrderService {
 
 	int getAmount();
 	
-	OrderDTO selectOrderId(int orderId, String memberId);
+	OrderDTO selectOrderId(String impUid, String memberId);
+	
+	String getAccessToken(OrderDTO payment);
+	
+	OrderDTO getPayment(String accessToken, String impUid);
+	
+	void addPayment(OrderDTO payment);
+	
+	String canclePayment(String accessToken, OrderDTO payment);
 }

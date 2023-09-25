@@ -97,12 +97,12 @@ public class MypageController {
     
    //강민경(2023/09/11): '리뷰 작성'버튼 누르면 리뷰 작성 페이지로 이동
    @RequestMapping(value = "/review/write", method = RequestMethod.GET)
-   public String ReviewWriterView(@RequestParam("orderId") int orderId,@ModelAttribute OrderDTO order,Model model, HttpSession session) {
+   public String ReviewWriterView(@RequestParam("impUid") String impUid,@ModelAttribute OrderDTO order,Model model, HttpSession session) {
 		//로그인 세션 불러오기
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		//DTO에 글쓴이 넣기
 		String memberId =member.getMemberId();
-		order = orderService.selectOrderId(orderId, memberId);
+		order = orderService.selectOrderId(impUid, memberId);
 	   model.addAttribute("order",order);
       log.info("order:{}",order);
       return "mypage/mypage_review_write";

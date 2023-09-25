@@ -3,7 +3,8 @@ package xyz.dreams.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -89,7 +90,7 @@ public class LoginController {
 		//객체를 만들 수 있게 해줌 
 		MemberDTO member = new MemberDTO();
 		//카카오 로그인을 통해 받아온 값을 set을 이용하여 저장 
-		member.setMemberId(id);
+		member.setMemberId("kakao"+id);
 		member.setMemberPw(UUID.randomUUID().toString());
 		member.setMemberName(name);
 		member.setMemberEmail(email);
@@ -121,8 +122,8 @@ public class LoginController {
 		
 		//접근 토큰을 이용하여 로그인 사용자의 프로필을 반환하는 메소드를 호출하여 사용자 프로필(JSON)을 저장
 		String apiResult=naverLoginBean.getUserProfile(accessToken);
-		//{"resultcode":"00","message":"success","response":{"id":"XAfMAwX_vELrzkOKnQPW2B5VSOs4kPM5P0Zl0ZuFY00","nickname":"ocj****","email":"ocj1778@hanmail.com","name":"\uc624\ucc3d\uc911"}}
-		//System.out.println(apiResult);
+		//예시: {"resultcode":"00","message":"success","response":{"id":"XAfMAwX_vELrzkOKnQPW2B5VSOs4kPM5P0Zl0ZuFY00","nickname":"ocj****","email":"ocj1778@hanmail.com","name":"\uc624\ucc3d\uc911"}}
+		System.out.println(apiResult);
 		
 		//JSONParser 객체 : JSON 형식의 문자열을 JSON 객체로 변환하는 기능을 제공하는 객체
 		JSONParser parser=new JSONParser();
@@ -138,7 +139,27 @@ public class LoginController {
 		String id=(String)responseObject.get("id");
 		String name=(String)responseObject.get("name");
 		String email=(String)responseObject.get("email");
+		String phone=(String)responseObject.get("phone");
 		
+		
+		//반환받은 네이버 사용자 프로필의 값을 사용하여 Java 객체의 필드값으로 저장
+		MemberDTO member = new MemberDTO();
+		member.setMemberId("naver_"+id);
+		member.setMemberPw(UUID.randomUUID().toString());
+		member.setMemberName(name);
+		member.setMemberEmail(email);
+		member.setMemberPhone(phone);
+		member.setMemberStatus(1); //1:일반회원
+		
+		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		memberList.add(member);
+		
+		//네이버 로그인 사용자의 정보를 member테이블에 저장
+		if(memberService.getMember("naver_"+id) ==null) {
+			memberService.addMember(member);
+		}
+				
+				
 		return "redirect:/";
 	}
  	
