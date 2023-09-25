@@ -92,4 +92,5 @@
       UPDATE MEMBER SET MEMBER_STATUS = 0 WHERE MEMBER_ID = #{memberId}
    </update>
 
+
 </mapper>
