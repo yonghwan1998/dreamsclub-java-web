@@ -68,13 +68,15 @@
             
            </table>
            
-           <!-- 비밀글 여부 --> <!-- 9/24  오진서 - 비밀글 기능 추가 -->
+           <!-- 비밀글 여부 --> 
+           <!--  구현못함 잠드소서
               <p style="margin-top: 1rem;">
             <input id = "secretYn" name="qnaStatus"  type = "checkbox"  value= "${pagrInfo.qnaStatus}"  style="transform: scale(0.8); 
                     position: relative; right: 2rem; height: 30px;">
                 <label for="secretYn" style="position: relative; left: 26rem; 
                     bottom: 2rem; font-size: 15px;">비밀글</label>
            <p>
+            -->
            
            
             <!--작성 버튼(등록, 취소) -->
