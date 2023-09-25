@@ -14,7 +14,7 @@
     <div class="communityDetailWrtten">
         <!--글 경로 (커뮤니티 > 꿈들의 모임)-->
         <div class="communityDetailPath">
-            <h5>커뮤니티  >  꿈들의 모임</h5>
+            <h5>커뮤니티  >  <a href=<c:url value="/community"/> type="button" class="newLoginBtn" style="color: green; font-weight: bold;">꿈들의 모임</a></h5>
         </div>
 
         <!--글 컨테이너-->

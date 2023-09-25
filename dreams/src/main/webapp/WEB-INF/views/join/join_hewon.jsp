@@ -143,40 +143,49 @@ input[type="reset"] {
                <label for="id">아이디</label>
                <form:input type="text" path="memberId"/>
                 <form:errors path="memberId" cssClass="errors" element="div" delimiter=" "/>
+                <!-- 
                 <div id="idMsg" class="error">아이디를 입력해 주세요.</div>
                <span id="idRegMsg" class="error">아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.</span>
                <span id="idDuplMsg" class="error">이미 사용중인 아이디입니다.</span>
-   
+   				-->
             </li>
             
             <li>
                <label for="passwd">비밀번호</label>
                <form:input type="password" path="memberPw" id="passwd"/>
                <form:errors path="memberPw" cssClass="errors" element="div" delimiter=" "/>
+               <!--  
                <div id="passwdMsg" class="error">비밀번호를 입력해 주세요.</div>
                <div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
+            	-->
             </li>
             
             <li>
                <label for="passwd">비밀번호 확인</label>
                <input type="password" id="replassword">
                 <%-- name="memberPw2" 로 name 바꿧더니 회원가입토대로 로그인이됨 --%>
+                <!-- 
                <div id="repasswdMsg" class="error">비밀번호 확인을 입력해 주세요.</div>
                <div id="repasswdMatchMsg" class="error">비밀번호와 비밀번호 확인이 서로 맞지 않습니다.</div>
+                -->
             </li>
             <li>
                <label for="name">이름</label>
                <form:input type="text" name="memberName" path="memberName" id="name"/>
                <form:errors path="memberName" cssClass="errors" element="div" delimiter=" "/>
+               <!--
                <div id="nameMsg" class="error">이름을 입력해 주세요.</div>
+                -->
             </li>
                
             <li>
                <label for="email">이메일</label>
                <form:input type="text" name="memberEmail" id="email" path="memberEmail"/>
                <form:errors path="memberEmail" cssClass="errors" element="div" delimiter=" "/>
+               <!--
                <div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
                <div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
+                -->
             </li>
             
    
@@ -221,6 +230,8 @@ input[type="reset"] {
 <!-- var idck = 0; -->
 
 <script type="text/javascript">
+
+<!--
 var idch=0;
 // 조건문 ▼
 $("#id").focus();
@@ -336,6 +347,7 @@ $("#id").change(function() {
         }
     });
 });
+-->
 
 // 주소검색
 $("#postSearch").click(function() {
