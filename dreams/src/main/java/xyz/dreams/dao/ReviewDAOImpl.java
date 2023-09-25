@@ -51,6 +51,12 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public List<OrderDTO> selectOrderStatus() {
 		return sqlSession.getMapper(OrderMapper.class).selectOrderStatus();
 	}
+
+	//이소영(추가) : 2023-09-25
+	@Override
+	public List<ReviewDTO> findByMemberId(String memberId) {
+		return sqlSession.getMapper(ReviewMapper.class).selectReviewByMember(memberId);
+	}
 	
 	
 }

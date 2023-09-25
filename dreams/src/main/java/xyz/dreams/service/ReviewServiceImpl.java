@@ -84,6 +84,12 @@ public class ReviewServiceImpl implements ReviewService{
 	public int selectReviewCount(String goodsName) {
 		return reviewDAO.selectReviewCount(goodsName);
 	}
+
+	//이소영(추가) : 2023-09-25  review mypage list
+	@Override
+	public List<ReviewDTO> findByMemberId(String memeberId) {
+		return reviewDAO.findByMemberId(memeberId);
+	}
 	
 	
 	

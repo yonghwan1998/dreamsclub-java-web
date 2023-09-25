@@ -13,6 +13,7 @@
   height: 15rem;
   width: 45%;
   text-align: center;
+  border-radius: 3rem;
 }
 
 .speech-bubble:after {

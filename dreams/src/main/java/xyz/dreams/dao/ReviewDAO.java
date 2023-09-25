@@ -23,5 +23,6 @@ public interface ReviewDAO{
 	//강민경: 상품 list 출력 
 	List<OrderDTO> selectOrderStatus();
 	
-	
+	//이소영(추가) : 2023-09-25
+	List<ReviewDTO> findByMemberId(String memberId);
 }

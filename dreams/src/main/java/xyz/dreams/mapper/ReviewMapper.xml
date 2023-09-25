@@ -56,5 +56,11 @@
 	</select>
 	
 
+	<!-- 이소영(추가) : 2023-09-25 MYPAGE Review List 출력 -->
+	<select id="selectReviewByMember" resultType="xyz.dreams.dto.ReviewDTO">
+		SELECT * FROM REVIEW 
+		WHERE MEMBER_ID = #{memberId} 
+		ORDER BY Rev_no DESC
+    </select>
 	
 </mapper>

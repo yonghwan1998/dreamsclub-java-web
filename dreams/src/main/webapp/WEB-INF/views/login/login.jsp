@@ -78,16 +78,16 @@
 											</button>
 											<!-- <a href="http://localhost:8001/dreams/login/kakao"><img src="<c:url value="/img/login/kakao_login_medium_wide.png"/>"></a> -->
 	
-											<p style="text-align: center; text-align: center; font-weight: bold; color: gray; margin-top: 25px">다른 계정으로 로그인</p>
-											<div>
-												<div>
-													<img alt="카카오 로그인" style="width: 100%; margin: 10px 0 0 0;"
-														src="<c:url value="/img/login/kakao_login_medium_wide.png"/>"
+											<p style="text-align: center; font-weight: bold; color: gray; margin: 25px 0 0 0;">소셜 계정으로 로그인</p>
+											<div style="display: flex;">
+												<div style="width: 50%; padding: 0 20px; text-align: right;">
+													<img alt="카카오 로그인" style="width: 50px; margin: 10px 0 0 0;"
+														src="<c:url value="/img/login/kakaotalk_sharing_btn_medium.png"/>"
 														onclick="location.href='<c:url value="/login/kakao"/>';">
 												</div>
-												<div>
-													<img alt="네이버 로그인" style="width: 100%; margin: 10px 0 5px 0;"
-														src="<c:url value="/img/login/btn_login_naver.png"/>"
+												<div style="width: 50%; padding: 10px 0 0 20px;">
+													<img alt="네이버 로그인" style="width: 50px;"
+														src="<c:url value="/img/login/naver.png"/>"
 														onclick="location.href='<c:url value="/login/naver"/>';">
 												</div>
 											</div>
