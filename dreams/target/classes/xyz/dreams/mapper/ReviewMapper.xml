@@ -18,7 +18,7 @@
 			GOODS_STAR,
 			GOODS_CODE
 		)VALUES(
-			REVIEW_TEST_SEQ.NEXTVAL,
+			REVIEW_SEQ.NEXTVAL,
 			#{memberId},
 			#{impUid},
 			#{revCont},
