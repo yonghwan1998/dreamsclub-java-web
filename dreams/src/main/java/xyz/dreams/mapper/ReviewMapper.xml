@@ -8,24 +8,24 @@
 	</select>
 	<!-- 강민경: 리뷰 등록 -->
 	<insert id="enrollReview">
-		insert into Review(
+		INSERT INTO REVIEW(
 			REV_NO,
-			REV_CONT,
-			GOODS_STAR,
 			MEMBER_ID,
-			ORDER_NO,
+			IMP_UID,
+			REV_CONT,
 			REV_DATE,
-			GOODS_CODE,
-			REV_IMG
-		)values(
-			REVIEW_SEQ.NEXTVAL,
-			#{revCont},
-			#{goodsStar},			
+			REV_IMG,
+			GOODS_STAR,
+			GOODS_CODE
+		)VALUES(
+			REVIEW_TEST_SEQ.NEXTVAL,
 			#{memberId},
-			#{orderNo},
+			#{impUid},
+			#{revCont},
 			SYSDATE,
-			#{goodsCode},
-			#{revImg}
+			#{revImg},
+			#{goodsStar},			
+			#{goodsCode}
 		)
 	</insert>
 
