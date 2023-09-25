@@ -8,11 +8,11 @@
 }
 </style>
 <div class="logo">
-	<h2 style="margin-top: 20px; text-align: center;">회원가입약관</h2>
+	<h2 style="margin-top: 2rem; text-align: center;">회원가입약관</h2>
 </div>
 
 <textarea rows="10"
-	style="margin-left: 10rem; margin-top: 2rem; width: 80%; height: 30rem;">
+	style="margin-left: 10rem; margin-top: 2rem; width: 60%; height: 40rem; position: relative; left: 10rem;">
  
                 가. 개인정보의 수집 및 이용 목적
                 국가공간정보포털은 다음의 목적을 위하여 개인정보를 처리합니다.
@@ -45,10 +45,12 @@
 
 <div>
 	<span
-		style="display: flex; align-items: center; justify-content: center; min-height: 15rem;">
-		<input id="ojs" type="checkbox" required style="width: 10%;"
-		name="agree" onclick="toggleSubmitButton(this)"> 약관에 동의하면 다음
-		버튼을 눌러주세요. <!--  현재 페이지에서 join.jsp 페이지으로 이동하기 -->
+		style="display: flex; align-items: center; justify-content: center; min-height: 8rem;">
+		<input id="ojs" type="checkbox" required style="width: 10%; height: 30px;" name="agree" onclick="toggleSubmitButton(this)"> 
+    <span style="position:relative; right:25px;">
+       약관에 동의하면 다음	버튼을 눌러주세요.
+    </span> 
+    <!--  현재 페이지에서 join.jsp 페이지으로 이동하기 -->
 		<button id="checkSubmit" type="submit" onclick="location.href='<c:url value="/join/hewon"/>'"
 			style="display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease;"
 			name="checkBtn" disabled>다음</button>
