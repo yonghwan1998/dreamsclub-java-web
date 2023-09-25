@@ -4,15 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
 import lombok.RequiredArgsConstructor;
-import xyz.dreams.dao.OrderDAO;
 import xyz.dreams.dao.ReviewDAO;
-import xyz.dreams.dto.OrderDTO;
 import xyz.dreams.dto.ReviewDTO;
 import xyz.dreams.util.Pager;
 
@@ -25,6 +22,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Transactional(rollbackFor = Exception.class) // 리뷰 등록 도중 작성을 중단할 경우 리뷰 등록 안되도록 롤백
 	@Override
 	public void enrollReview(ReviewDTO review) {
+		System.out.println("*****************");
+		System.out.println("Service = "+review);
+		System.out.println("*****************");
 		// 엔터키, 특수문자를 db에 그대로 전달
 		review.setRevCont(HtmlUtils.htmlEscape(review.getRevCont()));
 		reviewDAO.enrollReview(review);
@@ -76,6 +76,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int selectReviewCount(String goodsName) {
 		return reviewDAO.selectReviewCount(goodsName);
+	}
+
+	// 이소영(추가) : 2023-09-25 review mypage list
+	@Override
+	public List<ReviewDTO> findByMemberId(String memeberId) {
+		return reviewDAO.findByMemberId(memeberId);
 	}
 
 }

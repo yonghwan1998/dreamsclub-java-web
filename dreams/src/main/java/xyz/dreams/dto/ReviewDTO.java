@@ -10,7 +10,7 @@ import lombok.Data;
 public class ReviewDTO {
 	private int revNo;//리뷰 번호 
 	private String memberId;//글쓴이 - MEMBER테이블의 외래키
-	private String IMP_UID;//주문번호 - 주문 번호테이블의 외래키
+	private String impUid;//주문번호 - 주문 번호테이블의 외래키
 	private String revCont;//리뷰 내용
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date revDate; //작성날짜

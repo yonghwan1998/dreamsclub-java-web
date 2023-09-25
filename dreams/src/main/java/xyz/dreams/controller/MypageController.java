@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -91,9 +89,9 @@ public class MypageController {
 	*/
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
 	public String mypageGoodsList(HttpSession session, Model model) {
-		
+
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
-		
+
 		List<OrderDTO> orderList = orderService.getOrderListByMemberId(member.getMemberId());
 		model.addAttribute("orderList", orderList);
 		// 강민경: orderId로 주문 리스트 출력 여부 결정
@@ -102,7 +100,8 @@ public class MypageController {
 
 	// 강민경(2023/09/11): '리뷰 작성'버튼 누르면 리뷰 작성 페이지로 이동
 	@RequestMapping(value = "/review/write", method = RequestMethod.GET)
-	public String ReviewWriterView(@RequestParam("impUid") String impUid, @ModelAttribute OrderDTO order, Model model, HttpSession session) {
+	public String ReviewWriterView(@RequestParam("impUid") String impUid, @ModelAttribute OrderDTO order, Model model,
+			HttpSession session) {
 		// 로그인 세션 불러오기
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		// DTO에 글쓴이 넣기
@@ -125,7 +124,7 @@ public class MypageController {
 		// 업로드된 파일이 pdf 파일이 아닌 경우(DTO 객체보다 Model객체에 저장하는 것이 뷰에 접근 하기 쉬움
 		if (!uploadFile.isEmpty() && !uploadFile.getContentType().equals("image/png")) {
 			model.addAttribute("message", "png 파일만 업로드 해주세요.");
-			return "redirect:/mypage/review/write/"+review.getIMP_UID();
+			return "redirect:/mypage/review/write/" + review.getImpUid();
 		}
 		if (!uploadFile.isEmpty()) {
 			String uploadDirectory = context.getServletContext().getRealPath("/resources/review");
@@ -143,6 +142,10 @@ public class MypageController {
 
 		}
 		// 작성한 리뷰 글 db에 등록
+		System.out.println("*****************");
+		System.out.println("Controller = "+review);
+		System.out.println("*****************");
+		
 		reviewService.enrollReview(review);
 
 		// 다 작성한 후 마이페이지로 페이지로 이동
@@ -180,11 +183,10 @@ public class MypageController {
 		return "mypage/mypage_myqna";
 
 	}
-	/*
-	 * 강민경: 사진업로드 제목 private String extracted(MultipartFile uploadFile) { String
-	 * revImg = UUID.randomUUID().toString()+"_"+uploadFile.getOriginalFilename();
-	 * return revImg;
-	 * 
-	 * }
-	 */
+
+	@GetMapping("/myreview/{memberId}")
+	public String findByMemberId(@PathVariable String memberId, Model model) {
+		model.addAttribute("reviewList", reviewService.findByMemberId(memberId));
+		return "mypage/mypage_review";
+	}
 }
