@@ -1,6 +1,5 @@
 package xyz.dreams.service;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -21,57 +20,56 @@ import xyz.dreams.dto.OrderDTO;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 	private final OrderDAO orderDAO;
 	private final CartDAO cartDAO;
-	
+
 	@Transactional
 	@Override
 	public void insert(OrderDTO payment) {
-		
-		System.out.println("Service : " + payment);
-		
+
 		if (payment.getNewSelected() == 1) {
 			orderDAO.insert(payment);
-		}else {
+		} else {
 			payment.setMemberPcode(payment.getMemberNewPcode());
 			payment.setMemberAddress1(payment.getMemberNewAddress1());
 			payment.setMemberAddress2(payment.getMemberNewAddress2());
 			orderDAO.insert(payment);
 		}
-		
+
 		CartVO cartVO = new CartVO();
 		cartVO.setMemberId(payment.getMemberId());
 		cartVO.setGoodsCode(payment.getGoodsCode());
-		
+
 		cartDAO.delFromCart(cartVO);
 	}
-	
+
 	@Override
 	public List<OrderDTO> myOrderList(String memberId) {
 		return orderDAO.myOrderList(memberId);
 	}
-	
+
 	@Override
 	public List<OrderDTO> allOrderList() {
 		return orderDAO.allOrderList();
 	}
-	
+
 	@Override
 	public OrderDTO selectByOrderId(String impUid) {
 		return orderDAO.selectByOrderId(impUid);
 	}
+
 	@Override
 	public boolean updateOrderStatus(OrderDTO orderDTO) {
 		boolean result = orderDAO.updateOrderStatus(orderDTO);
 		return result;
 	}
-	
+
 	@Override
 	public int orderCancel(OrderDTO orderDTO) {
 		return orderDAO.orderCancel(orderDTO);
 	}
-	
+
 	@Override
 	public int getAmount() {
 		return orderDAO.getAmount();
@@ -227,5 +225,13 @@ public class OrderServiceImpl implements OrderService{
 
 		return returnValue;
 	}
-	
+
+	/*
+	- 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경
+	*/
+	@Override
+	public List<OrderDTO> getOrderListByMemberId(String memberId) {
+		return orderDAO.selectOrderListByMemberId(memberId);
+	}
+
 }

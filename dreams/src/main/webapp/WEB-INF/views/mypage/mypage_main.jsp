@@ -40,7 +40,7 @@
 						<div data-i18n="Authentications">Q&A(나의 1:1 문의)</div>
 				</a> <a href="/dreams/mypage/check" class="menu-link ">
 						<div data-i18n="Authentications">주문목록/배송조회</div>
-				</a> <a href="/dreams/mypage/myreview" class="menu-link">
+				</a> <a href="/dreams/mypage/myreview/${member.memberId }" class="menu-link">
 						<div data-i18n="Authentications">My Review</div>
 				</a></li>
 			</ul>
