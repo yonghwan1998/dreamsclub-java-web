@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.OrderMapper">
 	<insert id="insert">
-		INSERT INTO SETORDER_TEST (
+		INSERT INTO SETORDER (
 			IMP_UID,
 			MERCHANT_UID,
 			GOODS_CODE,
@@ -38,41 +38,40 @@
 	 <!-- 형섭: setOrder 테이블에서 orderId 필드의 최대값을 조회하고, 최대값이 없을 경우 1을 반환, 
 	따라서 orderId는 테이블의 주문 수를 기반으로 자동 증가하는 값 -->
 	<select id="countOrderId" resultType="integer">
-		SELECT NVL2(MAX(impUid), MAX(impUid)+1, 1) FROM SETORDER_TEST
+		SELECT NVL2(MAX(impUid), MAX(impUid)+1, 1) FROM SETORDER
 	</select>
 	
 	<select id="myOrderList" resultType="xyz.dreams.dto.OrderDTO">
-		SELECT * FROM SETORDER_TEST WHERE MEMBER_ID = #{memberId}
+		SELECT * FROM SETORDER WHERE MEMBER_ID = #{memberId}
 	</select>
 	
 	<select id="allOrderList" resultType="xyz.dreams.dto.OrderDTO">
-		SELECT * FROM SETORDER_TEST ORDER BY PAY_DATE
+		SELECT * FROM SETORDER ORDER BY PAY_DATE
 	</select>
 	
 	<select id="selectByOrderId" resultType="xyz.dreams.dto.OrderDTO">
-		SELECT * FROM SETORDER_TEST WHERE IMP_UID = #{impUid} ORDER BY PAY_DATE DESC
+		SELECT * FROM SETORDER WHERE IMP_UID = #{impUid} ORDER BY PAY_DATE DESC
 	</select>
 	
 	<select id="selectOrderId" resultType="xyz.dreams.dto.OrderDTO">
-		SELECT * FROM SETORDER_TEST WHERE IMP_UID = #{impUid} and MEMBER_ID = #{memberId} 
+		SELECT * FROM SETORDER WHERE IMP_UID = #{impUid} and MEMBER_ID = #{memberId} 
 	</select>
 	
 	<update id="updateOrderStatus">
-		UPDATE SETORDER_TEST SET STATUS = #{status} 
+		UPDATE SETORDER SET STATUS = #{status} 
 		WHERE IMP_UID = #{impUid} AND MERCHANT_UID = #{merchantUid}
 	</update>
 	
 	<delete id="orderCancel">
-		DELETE FROM SETORDER_TEST WHERE IMP_UID = #{impUid} AND MERCHANT_UID = #{merchantUid}
+		DELETE FROM SETORDER WHERE IMP_UID = #{impUid} AND MERCHANT_UID = #{merchantUid}
 	</delete>
 	
 	<select id="getAmount" resultType="integer">
-		SELECT COUNT(IMP_UID) FROM SETORDER_TEST
+		SELECT COUNT(IMP_UID) FROM SETORDER
 	</select>
 	
 	<!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
-	
 	<select id="selectOrderStatus" resultType="OrderDTO">
-		SELECT * FROM SETORDER_TEST
+		SELECT * FROM SETORDER
 	</select>
 </mapper>

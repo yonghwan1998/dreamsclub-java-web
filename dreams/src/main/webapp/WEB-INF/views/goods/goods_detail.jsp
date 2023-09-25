@@ -17,8 +17,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6">
-				<div class="product-details-content ml-70">
+			<div class="col-lg-6 col-md-6" style="border: 1px solid lightgray;">
+				<div class="product-details-content ml-70" style="margin-left:5rem; margin-top: 3rem;">
 					<form method="post" action="<c:url value="/order/insertGoods"/>" name="orderForm">
 						<h2>${goodsDetail.goodsName }</h2>
 						<input type="hidden" name="goodsCode" value="${goodsDetail.goodsCode }" id="goodsCode">
@@ -94,7 +94,7 @@
     <div class="container">
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav">
-                <a data-bs-toggle="tab" href="#des-details1">Additional information</a>
+                <a data-bs-toggle="tab" href="#des-details1">상세 정보</a>
                 
                 <!--  오진서: QnA 버튼 수정 -->
                 <a data-bs-toggle="tab" href="#des-details2">Q & A</a>
@@ -268,28 +268,27 @@
 							<div class="review-wrapper">
 								<c:forEach var="review" items="${goodsReview }">
 									<div class="single-review">
-	                                    <div class="review-img">
-	                                        <img src="${pageContext.request.contextPath }/img/review/${review.revImg}">
-	                                    </div>
-	                                    <div class="review-content">
-	                                        <div class="review-top-wrap">
-	                                            <div class="review-left">
-	                                                <div class="review-name" style='display: flex;'>
-	                                                   <p><strong><c:out value="${review.memberId}"/></strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-		                                               <p>별점 : <c:out value="${review.goodsStar}"/></p>
-	                                                </div>
-	                                            </div>
-		                                      </div>
-		                                            <p style="line-height: 0.1;"><c:out value="${review.revCont}"/></p>
-	                                            <div class="review-left">
-	                                               <c:if test="${member.memberId == review.memberId}" >
-														<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
-													</c:if>
-	                                            </div>
-			                                        
-	                                    </div>
-	                                </div>
-                               </c:forEach>
+                    <div class="review-img">
+                        <img src="${pageContext.request.contextPath }/img/review/${review.revImg}">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-top-wrap">
+                            <div class="review-left">
+                                <div class="review-name" style='display: flex;'>
+                                   <p><strong><c:out value="${review.memberId}"/></strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+                                 <p>별점 : <c:out value="${review.goodsStar}"/></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="line-height: 0.1;"><c:out value="${review.revCont}"/></p>
+                        <div class="review-left">
+                          <c:if test="${member.memberId == review.memberId}" >
+  													<a href="#" role="button" id="delete_btn" onclick="deleteCheck(${review.revNo})">삭제하기</a>   
+  												</c:if>
+                        </div>
+                  </div>
+                  </div>
+               </c:forEach>
 							</div>
 						</div>
 					</div>
@@ -332,10 +331,7 @@
     </div>
 </div>
 
-
 <script>
-  /* DOM이 완전히 불러와지면 실행 */
-
   	// 구매하기 클릭 시
     $(".btn-order").click(function () {
       
@@ -362,6 +358,8 @@
       var goodsCount = parseInt(count);
       var memberId = $("#isLogOn").val();			//회원 아이디
       var goodsPrice = $("#goodsPrice").val();//굿즈 가격
+      
+      goodsCode = "${goodsDetail.goodsCode.split('-')[0] }" + "-${goodsDetail.goodsCode.split('-')[1] }-" + goodsSize;
       
       //로그인을 안한 경우 로그인 페이지 이동
       if (memberId === "false" || memberId === '') {
