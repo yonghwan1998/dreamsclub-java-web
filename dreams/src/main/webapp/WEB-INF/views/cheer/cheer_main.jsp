@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!-- 커뮤니티 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
@@ -100,12 +102,20 @@ textarea {
                     </div> --%>
                     
                     <c:forEach items="${cheerList }" var="cheerList" >
-                    <div class="speech-bubble">
-                      <h1><c:out value="${cheerList.memberId }"/></h1>
-                      <hr style="color: lightgray;">
-                      <h2><c:out value="${cheerList.cheerContent }"/></h2>
-                      
-                    </div>
+	                    <div class="speech-bubble">
+		                    <c:if test="${fn:startsWith(cheerList.memberId, 'naver') || fn:startsWith(cheerList.memberId, 'kakao')}">
+			                    <h1>
+				                    <c:set var="cheerMemberId" value="${fn:substring(cheerList.memberId, 0, 10)}" />
+				                    <c:out value="${cheerMemberId }"/>
+			                    </h1>
+		                    </c:if>
+		                    <c:if test="${!fn:startsWith(cheerList.memberId, 'naver') && !fn:startsWith(cheerList.memberId, 'kakao')}">
+		                    	<c:out value="${cheerList.memberId}" />
+		                    </c:if>
+	                      <hr style="color: lightgray;">
+	                      <h2><c:out value="${cheerList.cheerContent }"/></h2>
+	                      
+	                    </div>
                     </c:forEach>
                     <%-- <div>  
                         <c:forEach items="${cheerList }" var="cheerList" >
