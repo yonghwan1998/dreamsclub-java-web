@@ -15,7 +15,7 @@ public interface OrderDAO {
 
 	List<OrderDTO> allOrderList();
 
-	OrderDTO selectByOrderId(int orderId);
+	OrderDTO selectByOrderId(String impUid);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
 
@@ -23,5 +23,5 @@ public interface OrderDAO {
 
 	int getAmount();
 
-	OrderDTO selectOrderId(int orderId, String memberId);
+	OrderDTO selectOrderId(String impUid, String memberId);
 }
