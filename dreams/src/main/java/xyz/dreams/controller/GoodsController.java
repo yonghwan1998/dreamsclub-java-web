@@ -61,7 +61,7 @@ public class GoodsController {
 		// 페이지 불러오기 이후에도 jsp에 그대로 보여주고, goodsService에 인자로 넘기기 위한 Map
 		Map<String, Object> map = new HashMap<>();
 		map.put("q", q);
-
+ 
 		map.put("column", column);
 
 		map.put("maxPrice", maxPrice);
