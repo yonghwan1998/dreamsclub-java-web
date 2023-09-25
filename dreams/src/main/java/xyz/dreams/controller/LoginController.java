@@ -55,6 +55,7 @@ public class LoginController {
    
    /*카카오 로그인 API - 강민경(2023.09.25)*/
    //강민경: 카카오 로그인 페이지를 요청하기 위한 요청 처리 메소드
+  
    @RequestMapping("/kakao")
 	public String kakaoLogin(HttpSession session) throws UnsupportedEncodingException {
 		String kakaoAuthUrl=kakaoLoginBean.getAuthorizationUrl(session);
@@ -90,7 +91,7 @@ public class LoginController {
 		//객체를 만들 수 있게 해줌 
 		MemberDTO member = new MemberDTO();
 		//카카오 로그인을 통해 받아온 값을 set을 이용하여 저장 
-		member.setMemberId("kakao"+id);
+		member.setMemberId(id);
 		member.setMemberPw(UUID.randomUUID().toString());
 		member.setMemberName(name);
 		member.setMemberEmail(email);
@@ -102,7 +103,7 @@ public class LoginController {
  		
  		return "redirect:/";
  	}
- 	
+ 	 
  	
  	/*네이버 로그인 - 김예지(2023.09.25)*/
  	//김예지: 네이버 로그인 페이지를 요청하기 위한 요청 처리 메소드
@@ -158,7 +159,7 @@ public class LoginController {
 		if(memberService.getMember("naver_"+id) ==null) {
 			memberService.addMember(member);
 		}
-				
+		session.setAttribute("member", member);
 				
 		return "redirect:/";
 	}
