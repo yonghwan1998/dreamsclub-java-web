@@ -14,18 +14,16 @@ public interface OrderService {
 	OrderDTO selectByOrderId(String impUid);
 
 	boolean updateOrderStatus(OrderDTO orderDTO);
-	
+
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();
-	
+
 	OrderDTO selectOrderId(String impUid, String memberId);
-	
+
 	String getAccessToken(OrderDTO payment);
-	
+
 	OrderDTO getPayment(String accessToken, String impUid);
-	
-	void addPayment(OrderDTO payment);
-	
+
 	String canclePayment(String accessToken, OrderDTO payment);
 }
