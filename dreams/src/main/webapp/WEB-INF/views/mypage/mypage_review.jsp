@@ -176,7 +176,7 @@ a:hover {
                                                    </div>
                                                    <div class="review-content">
                                                       <div class="review-id">리뷰번호: ${rev.revNo}</div>
-                                                      <div class="order-info">주문번호: ${rev.orderNo}</div>
+                                                      <div class="order-info">주문번호: ${rev.impUid}</div>
                                                       <div class="product-code">상품코드: ${rev.goodsCode}</div>
                                                       <div class="review-text">내용 : ${rev.revCont}</div>
 
