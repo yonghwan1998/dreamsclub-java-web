@@ -3,6 +3,8 @@ package xyz.dreams.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
 import xyz.dreams.exception.MemberNotFoundException;
@@ -28,6 +31,7 @@ import xyz.dreams.service.MemberService;
 @Controller
 @RequestMapping("/login")
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
    private final MemberService memberService;
    private final xyz.dreams.auth.KakaoLoginBean kakaoLoginBean;
@@ -62,9 +66,37 @@ public class LoginController {
  			, HttpSession session) throws IOException, ParseException {
  		OAuth2AccessToken accessToken=kakaoLoginBean.getAccessToken(session, code, state);
  		
+ 		//빈등록된 토큰을 가져와서 넣어줌(카카오 정보에 접근할 수 있는 토큰을 가져옴)
  		String apiResult=kakaoLoginBean.getUserProfile(accessToken);
  		System.out.println(apiResult);
- 		//강민경: 세션에 토큰 등록 
+ 		
+ 		//api에선 제이슨 형태로 전달해줘서 parser를 사용하여 자바 객체로 변환해줌 
+ 		JSONParser parser=new JSONParser();
+ 		//JSONParser.parse(String json) : JSON 형식의 문자열을 Object 객체로 변환하는 메소드
+ 		Object object=parser.parse(apiResult);
+ 		//Object 객체로 JSONObject 객체로 변환하여 저장
+		JSONObject jsonObject=(JSONObject)object;
+		
+		//JSON 객체에 저장된 값을 제공받아 저장 - 파싱(Parsing)
+		//JSONObject.get(String name) : JSONObject 객체에 저장된 값(객체)을 반환하는 메소드
+		// => Object 타입으로 값(객체)를 반환하므로 반드시 형변환하여 저장
+		
+		//JSONObject responseObject=(JSONObject)jsonObject.get("Kakao API Response");
+		String id=(String)jsonObject.get("id");
+		String name=(String)jsonObject.get("name");
+		String email=(String)jsonObject.get("email");
+		
+		//객체를 만들 수 있게 해줌 
+		MemberDTO member = new MemberDTO();
+		//카카오 로그인을 통해 받아온 값을 set을 이용하여 저장 
+		member.setMemberId(id);
+		member.setMemberPw(UUID.randomUUID().toString());
+		member.setMemberName(name);
+		member.setMemberEmail(email);
+		log.info("member:{}",member);
+		//강민경: 세션에 토큰 등록 
+ 		session.setAttribute("member", member);
+ 		
  		
  		
  		return "redirect:/";
