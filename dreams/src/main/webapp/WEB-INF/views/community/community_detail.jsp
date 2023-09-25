@@ -14,17 +14,26 @@
     <div class="communityDetailWrtten">
         <!--글 경로 (커뮤니티 > 꿈들의 모임)-->
         <div class="communityDetailPath">
-            <h5>커뮤니티  >  꿈들의 모임</h5>
+            <h5>커뮤니티  >  <a href=<c:url value="/community"/> type="button" class="newLoginBtn" style="color: green; font-weight: bold;">꿈들의 모임</a></h5>
         </div>
 
         <!--글 컨테이너-->
         <div class="communityDetailContainer">
                <!--글 제목-->
                <div class="headwrap">
-                	<div class="pageNo" style="width: 5%;"><c:out value="${pageInfo.commNo }"/></div>
-                   <div class="title" style="width: 65%;"><strong><c:out value="${pageInfo.commTitle }"/></strong></div>
-                   <div class="writer" style="width: 15%; text-align: right;">작성자 : <c:out value="${pageInfo.memberId }"/></div>
-                   <div class="wrtieDate" style="width: 15%; text-align: right;">작성일자 : <c:out value="${pageInfo.commDate }"/></div>
+					<div class="pageNo" style="width: 5%;"><c:out value="${pageInfo.commNo }"/></div>
+					<div class="title" style="width: 65%;"><strong><c:out value="${pageInfo.commTitle }"/></strong></div>
+					<%-- (김예지 2023.09.25) - 네이버 혹은 카카오로 로그인 했을 경우 아이디가 맨첫글자부터 10번째 글자까지 출력됨 --%>
+					<div class="writer" style="width: 15%; text-align: right;">작성자 :
+						<c:if test="${fn:startsWith(pageInfo.memberId, 'naver') || fn:startsWith(pageInfo.memberId, 'kakao')}">
+        					<c:set var="trimmedMemberId" value="${fn:substring(pageInfo.memberId, 0, 10)}" />
+        					<c:out value="${trimmedMemberId}"/>
+    					</c:if>
+						<c:if test="${!fn:startsWith(pageInfo.memberId, 'naver') && !fn:startsWith(pageInfo.memberId, 'kakao')}">
+							<c:out value="${pageInfo.memberId}" />
+    					</c:if>
+					</div>
+					<div class="wrtieDate" style="width: 15%; text-align: right;">작성일자 : <c:out value="${pageInfo.commDate }"/></div>
                </div>
    
                <!--글 내용-->
@@ -175,7 +184,16 @@ function replyDisplay() {
 			$(result).each(function() {
 				html+="<div class='commentList' style='border-top: none' id='commReNo"+this.commReNo+"'>";
 				html+="<div style='display: flex;'>";
-				html+="<p><strong>"+this.memberId+"</strong></p>";
+				html+="<p><strong>"
+				
+				//김예지(2023.09.25) - 댓글 작성아이디가 naver, kakao로 로그인된 아이디라면 10번째 글자까지만 출력
+				if(this.memberId.startsWith("naver")||this.memberId.startsWith("kakao")){
+					html+=this.memberId.substring(0,10)+"</strong></p>";
+				} else{
+					html+=this.memberId
+				}
+
+				html+="</strong></p>";
 				html+="<p class='commentList_date'>"+this.commReDate+"</p>";
 				html+="</div>";
 				html+="<p class='txt'>"+this.commReCont+"</p>";

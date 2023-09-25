@@ -86,12 +86,20 @@ public class CommunityController {
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String communityDetail(@RequestParam int commNo, Model model) {
 
+		//김예지(2023.09.17) - 게시글 당 댓글 수 카운팅
 		communityService.updateReplyCount(commNo); //댓글 수 카운팅
 		communityService.likeCount(commNo); //좋아요 수 카운트
 
 		CommunityDTO comm = communityService.getPage(commNo);
 		model.addAttribute("pageInfo",comm);
-				
+		
+		/*
+		//김예지(2023.09.25) - memberId가 "naver" 또는 "kakao"로 시작하는 경우 맨 앞 10글자까지만 출력
+		String memberId = comm.getMemberId();
+		if(memberId != null &&(memberId.startsWith("naver")||memberId.startsWith("kakao"))) {
+			memberId=memberId.substring(0, Math.min(memberId.length(), 10));
+		}
+		*/
 
 		return "community/community_detail";
 	}
@@ -123,7 +131,7 @@ public class CommunityController {
 		List<CommunityDTO> communityList = (List<CommunityDTO>) result.get("communityList");
 		for(CommunityDTO community : communityList) {
 			String memberId = community.getMemberId();
-			//memberId가 "naver" 또는 "kakao"로 시작하는 경우 첫번째 글자부터 7번째 글자까지만 출력
+			//memberId가 "naver" 또는 "kakao"로 시작하는 경우 첫번째 글자부터 10번째 글자까지만 출력
 			if(memberId != null && (memberId.startsWith("naver")||memberId.startsWith("kakao"))) {
 				community.setMemberId(memberId.substring(0,Math.min(memberId.length(), 10)));
 			}
