@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dto.CommunityReplyDTO;
+import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.service.CommunityReplyService;
 
 @RestController
@@ -36,7 +37,19 @@ public class CommunityReplyController {
 	//게시판 번호(commNo)가 같은 댓글들의 목록을 한번에 출력
 	@GetMapping("/list/{commNo}")
 	public List<CommunityReplyDTO> list(@PathVariable int commNo, HttpSession session) throws Exception{
-
+		
+		/* 댓글을 작성한 memberId가 네이버 혹은 카카오로 로그인한 사용자의 아이디인 경우 10번째 글자까지만 출력
+		List<CommunityReplyDTO> comments = communityReplyService.getCommunityReplyList(commNo);
+		for(CommunityReplyDTO comment : comments) {
+			String memberId = comment.getMemberId();
+			if(memberId != null && (memberId.startsWith("naver") || memberId.startsWith("kakao"))){
+				if(memberId.length()>10) {
+					comment.setMemberId(memberId.substring(0,10));
+				}
+			}
+		}
+		*/
+		
 		return communityReplyService.getCommunityReplyList(commNo);
 		
 	}
