@@ -128,7 +128,9 @@ public class LoginController {
 		if(memberService.getMember("naver_"+id) ==null) {
 			memberService.addMember(member);
 		}
-				
+		
+		//세션에 네이버 로그인 사용자 정보 저장
+		session.setAttribute("member", member);
 				
 		return "redirect:/";
 	}
