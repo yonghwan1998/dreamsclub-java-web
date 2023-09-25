@@ -60,7 +60,7 @@
 			                        <tr class="boardTableList">
 			                            <td class="t1"><c:out value="${community.commNo }"/></td>
 			                            <td class="t2 text-left">
-			                            		<a class="move" href="<c:url value='/community/detail'/>?commNo=${community.commNo }&pageNum=${search.pageNum }&column=${search.column }&keyword=${search.keyword }">${communtiy.commTitle }
+			                            		<a style="color: #10620A" class="move" href="<c:url value='/community/detail'/>?commNo=${community.commNo }&pageNum=${search.pageNum }&column=${search.column }&keyword=${search.keyword }">${communtiy.commTitle }
 			                            		<c:out value="${community.commTitle }"/>
 			                            		<c:if test="${community.replyCount ne 0 }">
 			                            			<small><b>[<c:out value="${community.replyCount }"/>]</b></small>
