@@ -45,6 +45,8 @@
 		select * from (
 			select rownum as rn, REV_NO, MEMBER_ID, REV_CONT, REV_DATE, GOODS_STAR, REV_IMG from (
 				select REV_NO, MEMBER_ID, REV_CONT, REV_DATE, GOODS_STAR, REV_IMG from REVIEW
+					<bind name="goodsName" value="goodsName+'-%'"/>
+					WHERE GOODS_CODE LIKE #{goodsName}
 					order by REV_NO desc
 				) REVIEW
 			) where rn between #{startRow} and #{endRow}
