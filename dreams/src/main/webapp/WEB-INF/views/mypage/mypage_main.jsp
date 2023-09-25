@@ -126,7 +126,7 @@
 							</div>
 						</div>
 					</div>
-
+<!-- 
 					<div>
 						<h4 class="fw-bold py-3 mb-4">주문/배송 조회
 							<span class="text-muted fw-light">(최근 30일 내에 진행중인 주문정보입니다.)</span>
@@ -150,7 +150,7 @@
 						<img alt=""
 							src="${pageContext.request.contextPath }/img/ready/ex7.png">
 					</div>
-
+ -->
 
 					<!--/ Hoverable Table rows -->
 

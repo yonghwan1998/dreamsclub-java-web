@@ -98,6 +98,14 @@ public class MypageController {
 		return "mypage/mypage_check";
 	}
 
+	//	이소영(추가) : 2023-09-26 마이페이지-주문목록-주문상세페이지 출력  
+	 @GetMapping("/check/detail")
+	    public String orderDetail(@RequestParam("impUid") String impUid, Model model) {
+	        OrderDTO order = orderService.getOrderDetailByImpUid(impUid);
+	        model.addAttribute("order", order);
+	        return "mypage/mypage_check_detail";
+	    }
+	
 	// 강민경(2023/09/11): '리뷰 작성'버튼 누르면 리뷰 작성 페이지로 이동
 	@RequestMapping(value = "/review/write", method = RequestMethod.GET)
 	public String ReviewWriterView(@RequestParam("impUid") String impUid, @ModelAttribute OrderDTO order, Model model,
@@ -174,6 +182,7 @@ public class MypageController {
 		}
 	}
 
+	// 이소영 (추가) : 2023-09-25 마이페이지 Q&A (나의 1:1 문의) 출력
 	@GetMapping("/myqna/{memberId}")
 	public String getByMemberId(@PathVariable String memberId, Model model) {
 		model.addAttribute("qnaList", qnaService.findByMemberId(memberId));
@@ -181,6 +190,7 @@ public class MypageController {
 
 	}
 
+	// 이소영 (추가) : 2023-09-25 마이페이지 My review 출력
 	@GetMapping("/myreview/{memberId}")
 	public String findByMemberId(@PathVariable String memberId, Model model) {
 		model.addAttribute("reviewList", reviewService.findByMemberId(memberId));

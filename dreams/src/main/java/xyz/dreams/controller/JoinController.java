@@ -2,10 +2,13 @@ package xyz.dreams.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,22 +50,10 @@ public class JoinController {
    }
    
    
-//   // 아이디 중복 체크
-//      @ResponseBody
-//      @RequestMapping(value="/member_id_check", method = RequestMethod.GET)
-//         public String idChk(String memberId) throws Exception {
-//            MemberDTO member = memberService.getMember(memberId);
-//            System.out.println("member = "+member);
-//            if(member==null) {
-//               return "ok";
-//            }
-//            return "no";
-//      }   
-   
-   // 아이디중복체크222
+   // 아이디중복체크
    @ResponseBody
    @RequestMapping(value = "/member_id_check", method = RequestMethod.GET)
-   public String idChk(String memberId) throws Exception {
+   public String idChk(@ModelAttribute @Valid String memberId) throws Exception {
        MemberDTO member = memberService.getMember(memberId);
        System.out.println(memberId+"="+member);
        if (member == null) {
@@ -71,6 +62,8 @@ public class JoinController {
        return "no"; // 이미 사용 중인 아이디
    }
    
+   
+
    
 
 }

@@ -31,4 +31,7 @@ public interface OrderDAO {
 	List<OrderDTO> selectOrderListByMemberId(String memberId);
 	
 	int updateStatusComplete(String impUid);
+
+	//이소영(2023/09/26): 고유주문번호 통해 조회
+	OrderDTO getOrderDetailByImpUid(String impUid);
 }
