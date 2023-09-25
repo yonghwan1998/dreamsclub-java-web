@@ -8,6 +8,18 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.col-lg-3, .col-lg-9 {
+  border:1px solid lightgray;
+}
+
+.col-xl-4 {
+  border-right: 1px solid lightgray;
+}
+
+.col-xl-4, .col-xl-8{
+  border-bottom: 1px solid lightgray;
+}
 </style>
 
 <script>
@@ -43,7 +55,7 @@ function selectChange(q){
 	<div class="container">
 		<div class="row flex-row-reverse">
 			<div class="col-lg-9">
-				<div class="shop-top-bar">
+				<div class="shop-top-bar" style="border-bottom:1px solid black; padding: 15px;">
 					<div class="select-shoing-wrap">
 						<div class="shop-select">
 							<!--

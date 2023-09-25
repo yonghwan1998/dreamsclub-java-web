@@ -482,8 +482,11 @@
        						location.assign("<c:url value="/goods/main"/>");
 	                  } else {
 	                    //결제 실패 페이지로 이동
-	                    alert("결제 취소");
+	                	  var msg = '결제에 실패하였습니다.';
+	     		         		msg += '//' + response.error_msg;
+		                  alert(msg);
 	                  }
+	                  alert(msg);
 	                }, 
 	                error: function(xhr) {
 	                  alert("에러 = "+xhr.status);
