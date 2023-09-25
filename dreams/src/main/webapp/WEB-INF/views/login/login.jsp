@@ -78,7 +78,7 @@
 											</button>
 											<!-- <a href="http://localhost:8001/dreams/login/kakao"><img src="<c:url value="/img/login/kakao_login_medium_wide.png"/>"></a> -->
 	
-											<p style="text-align: center; text-align: center; font-weight: bold; color: gray; margin-top: 25px">소셜 로그인</p>
+											<p style="text-align: center; text-align: center; font-weight: bold; color: gray; margin-top: 25px">다른 계정으로 로그인</p>
 											<div>
 												<div>
 													<img alt="카카오 로그인" style="width: 100%; margin: 10px 0 0 0;"
