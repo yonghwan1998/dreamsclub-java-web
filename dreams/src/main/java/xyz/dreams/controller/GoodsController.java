@@ -49,8 +49,7 @@ public class GoodsController {
 	public String view(String q, @RequestParam(defaultValue = "goods_code") String column,
 			@RequestParam(defaultValue = "9999999") int maxPrice, @RequestParam(defaultValue = "0") String minPrice,
 			@RequestParam(defaultValue = "true") Boolean uniform, @RequestParam(defaultValue = "true") Boolean cap,
-			@RequestParam(defaultValue = "true") Boolean fan, Model model,
-			@RequestParam(name="goodsName", required = false) String goodsName) {
+			@RequestParam(defaultValue = "true") Boolean fan, Model model) {
 
 		// 띄어쓰기 무시하고 검색하기 위해 검색 키워드(q)에서 띄어쓰기를 제거하는 작업
 		if (q != null) {
