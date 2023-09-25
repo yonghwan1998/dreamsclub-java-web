@@ -18,9 +18,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 	// 강민경: 리뷰 등록
 	@Override
 	public int enrollReview(ReviewDTO review) {
-		System.out.println("*****************");
-		System.out.println("DAO = "+review);
-		System.out.println("*****************");
 		return sqlSession.getMapper(ReviewMapper.class).enrollReview(review);
 	}
 

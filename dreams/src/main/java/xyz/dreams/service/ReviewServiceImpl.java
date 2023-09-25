@@ -22,9 +22,6 @@ public class ReviewServiceImpl implements ReviewService {
 	@Transactional(rollbackFor = Exception.class) // 리뷰 등록 도중 작성을 중단할 경우 리뷰 등록 안되도록 롤백
 	@Override
 	public void enrollReview(ReviewDTO review) {
-		System.out.println("*****************");
-		System.out.println("Service = "+review);
-		System.out.println("*****************");
 		// 엔터키, 특수문자를 db에 그대로 전달
 		review.setRevCont(HtmlUtils.htmlEscape(review.getRevCont()));
 		reviewDAO.enrollReview(review);

@@ -60,7 +60,7 @@
 	<select id="selectReviewByMember" resultType="xyz.dreams.dto.ReviewDTO">
 		SELECT * FROM REVIEW 
 		WHERE MEMBER_ID = #{memberId} 
-		ORDER BY Rev_no DESC
+		ORDER BY REV_NO DESC
     </select>
 	
 </mapper>
