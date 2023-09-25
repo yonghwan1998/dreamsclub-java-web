@@ -127,14 +127,14 @@ function searchBtn() {
                     </thead>
                     <tbody class="table-border-bottom-0">
                       <c:forEach items="${orderList }" var="order">
-                      <tr id="row-${order.orderId}">
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></strong></td>
+                      <tr id="row-${order.impUid}">
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><fmt:formatDate value="${order.payDate}" pattern="yyyy-MM-dd"/></strong></td>
                         <td>${order.memberName }</td>
                         <td>${order.goodsCode.split("-")[0] }</td>
                         <td><fmt:formatNumber type="number" value="${order.goodsPrice}"/>&nbsp;원</td>
                         <td><span class="bg-label-dark">
                           <c:choose>
-                              <c:when test="${order.orderStatus == 0}">
+                              <c:when test="${order.status == '0'}">
                                   배송 준비중
                               </c:when>
                               <c:otherwise>
