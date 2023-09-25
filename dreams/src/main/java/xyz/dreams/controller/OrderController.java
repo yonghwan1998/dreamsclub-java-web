@@ -110,6 +110,7 @@ public class OrderController {
 		if (beforeAmount.equals(amount)) {// 검증 성공
 			System.out.println("Controller : " + returnPayment);
 			orderService.insert(returnPayment);// 테이블에 결제정보 삽입 처리
+			orderService.modifyStatusComplete(payment.getImpUid());
 			return "success";
 		} else {// 검증 실패(결제 금액 불일치) - 위변조된 결제
 			orderService.canclePayment(accessToken, returnPayment);

@@ -74,4 +74,9 @@
 	<select id="selectOrderListByMemberId" resultType="OrderDTO">
 		SELECT * FROM SETORDER WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+	<update id="updateStatusComplete">
+		UPDATE SETORDER SET STATUS = 'complete'
+			WHERE IMP_UID = #{impUid}
+	</update>
 </mapper>

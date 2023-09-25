@@ -30,4 +30,6 @@ public interface OrderMapper {
 	- 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경
 	*/
 	List<OrderDTO> selectOrderListByMemberId(String memberId);
+	
+	int updateStatusComplete(String impUid);
 }

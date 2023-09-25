@@ -234,4 +234,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.selectOrderListByMemberId(memberId);
 	}
 
+	@Override
+	public void modifyStatusComplete(String impUid) {
+		System.out.println(impUid);
+		orderDAO.updateStatusComplete(impUid);
+	}
+
 }
