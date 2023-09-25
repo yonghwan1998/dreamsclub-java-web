@@ -8,19 +8,67 @@
 
 <style type="text/css">
 
+#registration-form {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 fieldset {
-   text-align: left;
-   margin: 10px auto;
-   width: 1100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+     margin: 2rem auto;
+     width: 45rem;
 }
 
 legend {
-   font-size: 1.2em;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 3rem;
+    margin-top: 20px;
 }
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-left: 3rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 3rem;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 
 #join label {
    width: 150px;
-   text-align: right;
+   text-align: left;
    float: left;
    margin-right: 10px;
 }
@@ -42,6 +90,7 @@ legend {
 }
 .errors{
    color: red;
+   margin-left: 3rem;
 }
 
 #idCheck, #postSearch {
@@ -56,6 +105,26 @@ legend {
 #idCheck:hover, #postSearch:hover {
    background: black;
    color: white;
+}
+
+.btn {
+  position: relative;
+  border: 0;
+  padding: 15px 25px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  margin: 0 1rem 5rem 0;
+}
+
+.btn:active {
+  top: 4px; 
+}
+
+.btn.purple, .btn-two.purple {background-color: #a749ff;}
+
+.rounded {
+  border-radius: 10px!important;
 }
 
 </style>
@@ -123,9 +192,8 @@ legend {
              
       
             <li>
-               <label>우편번호</label>
+               <label>우편번호</label><span id="postSearch" style="right: 6.5rem; position: relative;">우편번호 검색</span>
                <input type="text" name="memberPcode" id="zipcode" size="7" readonly="readonly"/>
-               <span id="postSearch">우편번호 검색</span>
                <div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
             </li>
             <li>
@@ -143,8 +211,8 @@ legend {
          </ul>
       </fieldset>
    <div id="fs">
-      <form:button type="submit">회원가입</form:button>
-      <form:button type="reset">다시입력</form:button>
+      <form:button type="submit" class="btn purple rounded">회원가입</form:button>
+      <form:button type="reset" class="btn purple rounded">다시입력</form:button>
    </div>
 </form:form>   
 
