@@ -45,21 +45,9 @@ public class JoinController {
 
       return "redirect:/login"; //회원가입 성공시 http://localhost:8000/dreams/login으로 다시리턴
    }
+
    
-   
-//   // 아이디 중복 체크
-//      @ResponseBody
-//      @RequestMapping(value="/member_id_check", method = RequestMethod.GET)
-//         public String idChk(String memberId) throws Exception {
-//            MemberDTO member = memberService.getMember(memberId);
-//            System.out.println("member = "+member);
-//            if(member==null) {
-//               return "ok";
-//            }
-//            return "no";
-//      }   
-   
-   // 아이디중복체크222
+   // 아이디중복체크
    @ResponseBody
    @RequestMapping(value = "/member_id_check", method = RequestMethod.GET)
    public String idChk(String memberId) throws Exception {
