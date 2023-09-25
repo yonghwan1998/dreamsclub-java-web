@@ -64,6 +64,8 @@ public class LoginController {
  		
  		String apiResult=kakaoLoginBean.getUserProfile(accessToken);
  		System.out.println(apiResult);
+ 		//강민경: 세션에 토큰 등록 
+ 		
  		
  		return "redirect:/";
  	}
