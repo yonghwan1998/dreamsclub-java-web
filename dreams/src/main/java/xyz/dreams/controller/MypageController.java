@@ -143,6 +143,7 @@ public class MypageController {
 		}
 		// 작성한 리뷰 글 db에 등록
 		reviewService.enrollReview(review);
+		orderService.modifyStatusComplete(review.getImpUid());
 
 		// 다 작성한 후 마이페이지로 페이지로 이동
 		return "mypage/mypage_check";
