@@ -124,7 +124,7 @@ public class MypageController {
 		// 업로드된 파일이 pdf 파일이 아닌 경우(DTO 객체보다 Model객체에 저장하는 것이 뷰에 접근 하기 쉬움
 		if (!uploadFile.isEmpty() && !uploadFile.getContentType().equals("image/png")) {
 			model.addAttribute("message", "png 파일만 업로드 해주세요.");
-			return "redirect:/mypage/review/write/" + review.getImpUid();
+			return "redirect:/mypage/review/write/";
 		}
 		if (!uploadFile.isEmpty()) {
 			String uploadDirectory = context.getServletContext().getRealPath("/resources/review");
@@ -142,10 +142,6 @@ public class MypageController {
 
 		}
 		// 작성한 리뷰 글 db에 등록
-		System.out.println("*****************");
-		System.out.println("Controller = "+review);
-		System.out.println("*****************");
-		
 		reviewService.enrollReview(review);
 
 		// 다 작성한 후 마이페이지로 페이지로 이동
