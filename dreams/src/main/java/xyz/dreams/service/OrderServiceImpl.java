@@ -27,20 +27,22 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Transactional
 	@Override
-	public void insert(OrderDTO order) {
+	public void insert(OrderDTO payment) {
 		
-		if (order.getNewSelected() == 1) {
-			orderDAO.insert(order);
+		System.out.println("Service : " + payment);
+		
+		if (payment.getNewSelected() == 1) {
+			orderDAO.insert(payment);
 		}else {
-			order.setMemberPcode(order.getMemberNewPcode());
-			order.setMemberAddress1(order.getMemberNewAddress1());
-			order.setMemberAddress2(order.getMemberNewAddress2());
-			orderDAO.insert(order);
+			payment.setMemberPcode(payment.getMemberNewPcode());
+			payment.setMemberAddress1(payment.getMemberNewAddress1());
+			payment.setMemberAddress2(payment.getMemberNewAddress2());
+			orderDAO.insert(payment);
 		}
 		
 		CartVO cartVO = new CartVO();
-		cartVO.setMemberId(order.getMemberId());
-		cartVO.setGoodsCode(order.getGoodsCode());
+		cartVO.setMemberId(payment.getMemberId());
+		cartVO.setGoodsCode(payment.getGoodsCode());
 		
 		cartDAO.delFromCart(cartVO);
 	}

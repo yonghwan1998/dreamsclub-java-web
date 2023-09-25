@@ -5,7 +5,7 @@ import java.util.List;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderService {
-	void insert(OrderDTO order);
+	void insert(OrderDTO payment);
 
 	List<OrderDTO> myOrderList(String memberId);
 

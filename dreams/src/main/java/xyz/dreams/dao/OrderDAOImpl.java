@@ -17,8 +17,9 @@ public class OrderDAOImpl implements OrderDAO {
 	private final String NS = "xyz.dreams.mapper.OrderMapper";
 	
 	@Override
-	public int insert(OrderDTO order) {
-		return sqlSession.insert(NS+".insert", order);
+	public int insert(OrderDTO payment) {
+		System.out.println("DAO : " + payment);
+		return sqlSession.insert(NS+".insert", payment);
 	}
 
 	@Override

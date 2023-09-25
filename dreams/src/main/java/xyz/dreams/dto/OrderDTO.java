@@ -33,7 +33,6 @@ public class OrderDTO {
 	private String goodsCode;
 	private long goodsPrice;
 	private int goodsCount;
-	private String goodsInfo;
 	private String memberId;
 	private String memberName;
 	private String memberEmail;

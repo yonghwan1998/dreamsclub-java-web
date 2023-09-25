@@ -416,13 +416,15 @@
 	    var goodsCode = "${cartInfo.goodsCode }";
 	    var goodsName = "${cartInfo.goodsCode.split('-')[0] }";
 	    var goodsCount = "${cartInfo.goodsCount }";
-	    var goodsInfo = "${cartInfo.goodsInfo }";
 	    
-	    var memberEmail = "${member.memberEmail}";
+	    var memberId = "${member.memberId}";
 	    var memberName = "${member.memberName}";
+	    var memberEmail = "${member.memberEmail}";
 	    var memberPhone = "${member.memberPhone}";
 	    var memberPcode = "${member.memberPcode}";
-	    var memberAddress = "${member.memberAddress1}" + "${member.memberAddress2}";
+	    var memberAddress1 = "${member.memberAddress1}";
+	    var memberAddress2 = "${member.memberAddress2}";
+	    var memberAddress = memberAddress1 + memberAddress2;
 	    
 	    //결제 전 주문번호와 결제금액을 세션에 저장하기 위한 페이지 요청
 	    // => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
@@ -466,7 +468,17 @@
 	                contentType: "application/json",
 	                data: JSON.stringify({
 	                	"impUid": response.imp_uid,
-	                	"merchantUid": response.merchant_uid
+	                	"merchantUid": response.merchant_uid,
+	                	"goodsCode": goodsCode,
+	                	"goodsCount": goodsCount,
+	                	"memberId": memberId,
+	                	"memberName": memberName,
+	                	"memberEmail": memberEmail,
+	                	"memberPhone": memberPhone,
+	                	"memberPcode": memberPcode,
+	                	"memberAddress1": memberAddress1,
+	                	"memberAddress2": memberAddress2,
+	                	"newSelected": '1'
 	                }),
 	                dataType: "text",
 	                success: function(result) {
@@ -479,7 +491,7 @@
 	              			msg += '카드 승인번호 : ' + response.apply_num;
 	      
        						alert(msg);
-       						location.assign("<c:url value="/goods/main"/>");
+       						location.assign("<c:url value="/team"/>");
 	                  } else {
 	                    //결제 실패 페이지로 이동
 	                	  var msg = '결제에 실패하였습니다.';
