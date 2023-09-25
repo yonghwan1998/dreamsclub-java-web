@@ -57,13 +57,15 @@ public class LoginController {
 	}
    
    //강민경: 카카오 로그인 성공시 Callback URL 페이지를 처리하기 위한 요청 처리 메소드
- 	@RequestMapping("/callback")
+ 	@RequestMapping("/kakao/callback")
  	public String kakaoLogin(@RequestParam String code, @RequestParam String state
  			, HttpSession session) throws IOException, ParseException {
  		OAuth2AccessToken accessToken=kakaoLoginBean.getAccessToken(session, code, state);
  		
  		String apiResult=kakaoLoginBean.getUserProfile(accessToken);
  		System.out.println(apiResult);
+ 		//강민경: 세션에 토큰 등록 
+ 		
  		
  		return "redirect:/";
  	}
@@ -94,7 +96,7 @@ public class LoginController {
 		JSONParser parser=new JSONParser();
 		//JSONParser.parse(String json) : JSON 형식의 문자열을 Object 객체로 변환하는 메소드
 		Object object=parser.parse(apiResult);
-		//Object 객체로 JSONObject 객체로 변환하여 저장
+		//Object 객체로 JSONObject 객체로 변환하여 저장.,,,
 		JSONObject jsonObject=(JSONObject)object;
 		
 		//JSON 객체에 저장된 값을 제공받아 저장 - 파싱(Parsing)
