@@ -71,7 +71,7 @@
 	</select>
 	
 	<!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
-	<select id="selectOrderStatus" resultType="OrderDTO">
-		SELECT * FROM SETORDER
+	<select id="selectOrderListByMemberId" resultType="OrderDTO">
+		SELECT * FROM SETORDER WHERE MEMBER_ID = #{memberId}
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package xyz.dreams.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -115,8 +116,20 @@ public class CommunityController {
 	
 	@RequestMapping(value = "")
 	 public String community(@RequestParam Map<String, Object> map, Model model) {
+		
+		Map<String, Object> result = communityService.getCommunityList(map);
+		
+		//김예지(2023.09.25 추가) - community_main 화면 memberId 검사 및 수정
+		List<CommunityDTO> communityList = (List<CommunityDTO>) result.get("communityList");
+		for(CommunityDTO community : communityList) {
+			String memberId = community.getMemberId();
+			//memberId가 "naver" 또는 "kakao"로 시작하는 경우 첫번째 글자부터 7번째 글자까지만 출력
+			if(memberId != null && (memberId.startsWith("naver")||memberId.startsWith("kakao"))) {
+				community.setMemberId(memberId.substring(0,Math.min(memberId.length(), 10)));
+			}
+		}
 				
-		model.addAttribute("result", communityService.getCommunityList(map));	//목록 출력 리스트
+		model.addAttribute("result", result);	//목록 출력 리스트
 		model.addAttribute("search", map);	//검색
 		return "community/community_main";
 	}	
