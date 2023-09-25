@@ -65,10 +65,12 @@
                                                
                                             </div>
                                             <button type="button" onclick="MemberLogin();" class="MemberLogin" ><span>로그인</span></button>
-                                            <a href="http://localhost:8001/dreams/login/kakao"><img src="<c:url value="/img/login/kakao_login_medium_wide.png"/>"></a>
+                                            <!-- <a href="http://localhost:8001/dreams/login/kakao"><img src="<c:url value="/img/login/kakao_login_medium_wide.png"/>"></a> -->
                                             
-                                            <!-- <img alt="카카오 로그인" src="<c:url value="/img/login/kakao_login_medium_wide.png"/>" width="200"
-												onclick="location.href='<c:url value="/login/kakao"/>';">-->
+                                            <img alt="카카오 로그인" src="<c:url value="/img/login/kakao_login_medium_wide.png"/>" width="200"
+												onclick="location.href='<c:url value="/login/kakao"/>';">
+                                            <img alt="네이버 로그인" src="<c:url value="/img/login/btn_login_naver.png"/>" width="200"
+												onclick="location.href='<c:url value="/login/naver"/>';">
                                             <tr>
                                             <td width="20"></td>
                                             <td style=" text-align: center;"><font color= "red">${message }</font></td>         
