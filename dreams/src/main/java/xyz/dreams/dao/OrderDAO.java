@@ -9,7 +9,7 @@ import xyz.dreams.dto.OrderDTO;
 
 @Repository
 public interface OrderDAO {
-	int insert(OrderDTO order);
+	int insert(OrderDTO payment);
 
 	List<OrderDTO> myOrderList(String memberId);
 

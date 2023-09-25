@@ -91,7 +91,14 @@ public class OrderController {
 		String accessToken = orderService.getAccessToken(payment);
 
 		// 토큰과 결제고유값을 전달하여 API를 이용하여 결제정보를 반환받아 저장
-		OrderDTO returnPayment = orderService.getPayment(accessToken, payment.getImpUid());
+		OrderDTO uniquePayment = orderService.getPayment(accessToken, payment.getImpUid());
+		
+		payment.setImpUid(uniquePayment.getImpUid());
+		payment.setMerchantUid(uniquePayment.getMerchantUid());
+		payment.setGoodsPrice(uniquePayment.getGoodsPrice());
+		payment.setStatus(uniquePayment.getStatus());
+		
+		OrderDTO returnPayment = payment; 
 
 		// 세션에 저장된 결제 금액을 반환받아 저장
 		Long beforeAmount = (Long) session.getAttribute(payment.getMerchantUid());
@@ -100,10 +107,21 @@ public class OrderController {
 		// 결제된 결제금액을 반환받아 저장
 		Long amount = returnPayment.getGoodsPrice();
 		
-		System.out.println(beforeAmount.equals(amount));
+		// 결제 페이지에서 전달 받은 정보 저장
+//		returnPayment.setGoodsCode(payment.getGoodsCode());
+//		returnPayment.setGoodsCount(payment.getGoodsCount());
+//		returnPayment.setMemberId(payment.getMemberId());
+//		returnPayment.setMemberName(payment.getMemberName());
+//		returnPayment.setMemberEmail(payment.getMemberEmail());
+//		returnPayment.setMemberPhone(payment.getMemberPhone());
+//		returnPayment.setMemberPcode(payment.getMemberPcode());
+//		returnPayment.setMemberAddress1(payment.getMemberAddress1());
+//		returnPayment.setMemberAddress2(payment.getMemberAddress2());
+//		returnPayment.setNewSelected(payment.getNewSelected());
 		
 		if (beforeAmount.equals(amount)) {// 검증 성공
-			orderService.addPayment(returnPayment);// 테이블에 결제정보 삽입 처리
+			System.out.println("Controller : " + returnPayment);
+			orderService.insert(returnPayment);// 테이블에 결제정보 삽입 처리
 			return "success";
 		} else {// 검증 실패(결제 금액 불일치) - 위변조된 결제
 			orderService.canclePayment(accessToken, returnPayment);

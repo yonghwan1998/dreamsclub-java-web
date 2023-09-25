@@ -8,7 +8,6 @@
 			GOODS_CODE,
 			GOODS_PRICE,
 			GOODS_COUNT,
-			GOODS_INFO,
 			MEMBER_ID,
 			MEMBER_NAME,
 			MEMBER_EMAIL,
@@ -17,7 +16,6 @@
 			MEMBER_ADDRESS1,
 			MEMBER_ADDRESS2,
 			PAY_DATE,
-			DELIVER_MSG,
 			STATUS
 			) VALUES (
 			#{impUid},
@@ -25,7 +23,6 @@
 			#{goodsCode},
 			#{goodsPrice},
 			#{goodsCount},
-			#{goodsInfo},
 			#{memberId},
 			#{memberName},
 			#{memberEmail},
@@ -34,7 +31,6 @@
 			#{memberAddress1},
 			#{memberAddress2},
 			SYSDATE,
-			#{deliverMsg},
 			#{status}
 		)
 	</insert>

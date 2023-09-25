@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderMapper {
-	int insert(OrderDTO order);
+	int insert(OrderDTO payment);
 
 	List<OrderDTO> myOrderList(String memberId);
 
