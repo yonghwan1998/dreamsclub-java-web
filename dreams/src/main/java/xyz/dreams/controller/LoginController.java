@@ -55,7 +55,6 @@ public class LoginController {
    
    /*카카오 로그인 API - 강민경(2023.09.25)*/
    //강민경: 카카오 로그인 페이지를 요청하기 위한 요청 처리 메소드
-  
    @RequestMapping("/kakao")
 	public String kakaoLogin(HttpSession session) throws UnsupportedEncodingException {
 		String kakaoAuthUrl=kakaoLoginBean.getAuthorizationUrl(session);
@@ -88,16 +87,30 @@ public class LoginController {
 		
 		//JSONObject responseObject=(JSONObject)jsonObject.get("Kakao API Response");
 		log.info("jsonObject:{}",jsonObject);
-		//INFO : xyz.dreams.controller.LoginController - jsonObject:{"id":3036377524,"connected_at":"2023-09-25T01:34:06Z","kakao_account":{"email_needs_agreement":false,"profile_nickname_needs_agreement":false,"profile":{"nickname":"강민경"},"is_email_valid":true,"is_email_verified":true,"has_email":true,"email":"rkdalsrud987@naver.com"},"properties":{"nickname":"강민경"}}
+		/*INFO : xyz.dreams.controller.LoginController 
+		- jsonObject:{
+			"id":3036377524,
+			"connected_at":"2023-09-25T01:34:06Z",
+			"kakao_account":{
+				"email_needs_agreement":false,
+				"profile_nickname_needs_agreement":false,
+				"profile":{"nickname":"강민경"},
+				"is_email_valid":true,
+				"is_email_verified":true,
+				"has_email":true,
+				"email":"rkdalsrud987@naver.com"},
+				"properties":{"nickname":"강민경"}
+		  }
+		*/
 		log.info("jsonObject:{}",kakaoAccount);		
 		log.info("jsonObject:{}",profile);		 
-/*
+		/*
 		Long id=(Long)jsonObject.get("id");
 		String name=(String)jsonObject.get("nickname");//카카오 api에서 name 대신 nickname을 받아서 넣어줌
 		String email=(String)jsonObject.get("email");
 		log.info("email:{}",email);
 		log.info("name:{}",name);
-*/		
+		 */		
 		Long id=(Long)jsonObject.get("id");
 		String email=(String)kakaoAccount.get("email");
 		String name=(String)profile.get("nickname");//카카오 api에서 name 대신 nickname을 받아서 넣어줌
