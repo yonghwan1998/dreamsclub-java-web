@@ -382,14 +382,7 @@
   
   
   <script>
-		var csrfHeaderName="${_csrf.headerName}"
-	  var csrfTokenValue="${_csrf.token}";
-	  var goodsPrice="${cartInfo.goodsPrice }";
-	  var goodsName = "${cartInfo.goodsCode.split("-")[0]}";
 	  var payMethod = document.querySelector("#payHow");
-	  $(document).ajaxSend(function(e, xhr) {
-	    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-	  });
 	  
   	$("#confirm").click(function() {
   		var option = payMethod.options[payMethod.selectedIndex];
@@ -418,16 +411,31 @@
 	    //주문번호 - 주문테이블에서 제공된 값 사용 
 	    var merchantUid="merchant_"+new Date().getTime();
 	    //결제금액 - 주문테이블에서 제공된 값 사용 
-	    var amount=goodsPrice;
+	    var goodsPrice="${cartInfo.goodsPrice }";
 	    //주문상품
-	    var name=goodsName;
+	    var goodsCode = "${cartInfo.goodsCode }";
+	    var goodsName = "${cartInfo.goodsCode.split('-')[0] }";
+	    var goodsCount = "${cartInfo.goodsCount }";
+	    
+	    var memberId = "${member.memberId}";
+	    var memberName = "${member.memberName}";
+	    var memberEmail = "${member.memberEmail}";
+	    var memberPhone = "${member.memberPhone}";
+	    var memberPcode = "${member.memberPcode}";
+	    var memberAddress1 = "${member.memberAddress1}";
+	    var memberAddress2 = "${member.memberAddress2}";
+	    var memberAddress = memberAddress1 + memberAddress2;
+	    
 	    //결제 전 주문번호와 결제금액을 세션에 저장하기 위한 페이지 요청
 	    // => 결제 후 결제정보와 비교하여 검증하기 위해 세션에 저장 
 	    $.ajax({
 	      type: "post",
-	      url: "<c:url value="/payment/pay"/>",
+	      url: "<c:url value="/order/pay"/>",
 	      contentType: "application/json",
-	      data: JSON.stringify({"merchantUid":merchantUid, "amount":amount, "name":name}),
+	      data: JSON.stringify({
+	          "merchantUid":merchantUid,
+	          "goodsPrice":goodsPrice
+	      }),
 	      dataType: "text",
 	      success: function(result) {
 	        if(result=="ok") {
@@ -440,25 +448,38 @@
 	            //주문번호
 	            merchant_uid : merchantUid,
 	            //결제금액
-	            amount : parseInt(amount),
-	            //결제창에 보여질 제품명
-	            name: name, 
-	            //결제 사용자의 이메일 주소 
-	            buyer_email: "gudtjq0306@naver.com",
-	            buyer_name: "홍길동",//결제 사용자 이름
-	            buyer_tel: "010-1234-5678",//결제 사용자 전화번호
-	            buyer_postcode: "123-456",//결제 사용자 우편번호
-	            buyer_addr: "서울시 강남구 역삼동 내빌딩 5층 501호",//결제 사용자 주소
-	          //m_redirect_url: "http://localhost:8000:auth/payment/pay",//모바일의 리다이렉트 URL 주소
+	            amount : goodsPrice,
+				//결제창에 보여질 제품명
+				name : goodsName,
+				//결제 사용자의 이메일 주소 
+				buyer_email : memberEmail,
+				buyer_name : memberName,//결제 사용자 이름
+				buyer_tel : memberPhone,//결제 사용자 전화번호
+				buyer_postcode : memberPcode,//결제 사용자 우편번호
+				buyer_addr : memberAddress,//결제 사용자 주소
 	          }, function(response) {//결제 관련 응답 결과를 제공받아 처리하는 함수
 	            //response : 응답결과를 저장한 Object 객체
+	            console.log(response);
 	            if (response.success) {//결제한 경우
 	              //결제금액을 검증하기 위한 페이지를 요청
 	              $.ajax({
 	                type: "post",
-	                url: "<c:url value="/payment/complate"/>",
+	                url: "<c:url value="/order/complete"/>",
 	                contentType: "application/json",
-	                data: JSON.stringify({"impUid": response.imp_uid, "merchantUid": response.merchant_uid}),
+	                data: JSON.stringify({
+	                	"impUid": response.imp_uid,
+	                	"merchantUid": response.merchant_uid,
+	                	"goodsCode": goodsCode,
+	                	"goodsCount": goodsCount,
+	                	"memberId": memberId,
+	                	"memberName": memberName,
+	                	"memberEmail": memberEmail,
+	                	"memberPhone": memberPhone,
+	                	"memberPcode": memberPcode,
+	                	"memberAddress1": memberAddress1,
+	                	"memberAddress2": memberAddress2,
+	                	"newSelected": '1'
+	                }),
 	                dataType: "text",
 	                success: function(result) {
 	                  if(result == "success") {
@@ -469,8 +490,8 @@
 	              			msg += '\결제 금액 : ' + response.paid_amount;
 	              			msg += '카드 승인번호 : ' + response.apply_num;
 	      
-	        						alert(msg);
-	        						submitOrderForm();
+       						alert(msg);
+       						location.assign("<c:url value="/team"/>");
 	                  } else {
 	                    //결제 실패 페이지로 이동
 	                	  var msg = '결제에 실패하였습니다.';

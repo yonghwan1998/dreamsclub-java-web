@@ -150,7 +150,7 @@ td {
 			</table> <br>
 
 			<form name="review" id="review" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="orderNo" value="${order.orderId }">
+				<input type="hidden" name="impUid" value="${order.impUid }">
 				<table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
 					<tr>
 						<td width=100 align=center bgcolor="E6ECDE" height="22">구매 상품</td>

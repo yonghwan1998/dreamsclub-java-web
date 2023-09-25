@@ -335,7 +335,6 @@
 
 <script>
   /* DOM이 완전히 불러와지면 실행 */
-  	$(function () {
 
   	// 구매하기 클릭 시
     $(".btn-order").click(function () {
@@ -349,13 +348,17 @@
     	//로그인을 한 경우 form 태그 제출
     	  var form = document.getElementById("orderForm");
         form.submit();
+      }
     });
+    
+  	
 
  // 장바구니 버튼 클릭 시
     $(".btn-cart").click(function (event) {
       event.preventDefault();
       var goodsCode = $("#goodsCode").val();	//굿즈명
       var count = $("#goodsCount").val();			//굿즈 수량
+      var goodsSize = $("#goodsSize").val();			
       var goodsCount = parseInt(count);
       var memberId = $("#isLogOn").val();			//회원 아이디
       var goodsPrice = $("#goodsPrice").val();//굿즈 가격
@@ -400,7 +403,7 @@
           
         }
     });
-  });
+  
    
    //강민경(2023/09/20): 상세 페이지의 리뷰 삭제 기능 
      function deleteCheck(no) {
