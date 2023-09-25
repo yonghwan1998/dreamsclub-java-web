@@ -48,4 +48,5 @@ public class OrderDTO {
 	private String memberNewAddress1;
 	private String memberNewAddress2;
 	int newSelected;
+	private String goodsImg; //마이페이지 주문목록 이미지 출력 
 }

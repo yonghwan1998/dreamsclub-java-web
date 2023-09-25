@@ -81,5 +81,11 @@ public class OrderDAOImpl implements OrderDAO {
 	public int updateStatusComplete(String impUid) {
 		return sqlSession.getMapper(OrderMapper.class).updateStatusComplete(impUid);	
 	}
+
+	//이소영(2023/09/26) : 고유주문번호 통해 조회
+	@Override
+	public OrderDTO getOrderDetailByImpUid(String impUid) {
+		return sqlSession.getMapper(OrderMapper.class).getOrderDetailByImpUid(impUid);
+	}
 	
 }

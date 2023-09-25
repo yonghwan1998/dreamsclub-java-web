@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import xyz.dreams.dao.CartDAO;
+import xyz.dreams.dao.GoodsDAO;
 import xyz.dreams.dao.OrderDAO;
 import xyz.dreams.dto.CartVO;
+import xyz.dreams.dto.GoodsDTO;
 import xyz.dreams.dto.OrderDTO;
 
 @Service
@@ -23,6 +25,7 @@ import xyz.dreams.dto.OrderDTO;
 public class OrderServiceImpl implements OrderService {
 	private final OrderDAO orderDAO;
 	private final CartDAO cartDAO;
+	private final GoodsDAO goodsDAO;
 
 	@Transactional
 	@Override
@@ -227,17 +230,38 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	/*
-	- 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경
-	*/
+	 * - 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경 return
+	 * orderDAO.selectOrderListByMemberId(memberId);
+	 * 
+	 * - 이소영(23/09/26 // OrderDTO에 이미지 경로를 저장하여 주문목록에 출력
+	 */
 	@Override
 	public List<OrderDTO> getOrderListByMemberId(String memberId) {
-		return orderDAO.selectOrderListByMemberId(memberId);
+		List<OrderDTO> orderList = orderDAO.selectOrderListByMemberId(memberId);
+
+		for (OrderDTO order : orderList) {
+			GoodsDTO goods = goodsDAO.selectOrderGoods(order.getGoodsCode());
+			order.setGoodsImg(goods.getGoodsImage()); // OrderDTO에 이미지 경로를 저장
+		}
+
+		return orderList;
+
 	}
 
 	@Override
 	public void modifyStatusComplete(String impUid) {
 		System.out.println(impUid);
 		orderDAO.updateStatusComplete(impUid);
+	}
+
+	// -- 이소영(23/09/26 // 주문상세출력
+	@Override
+	public OrderDTO getOrderDetailByImpUid(String impUid) {
+		OrderDTO order = orderDAO.getOrderDetailByImpUid(impUid);
+		GoodsDTO goods = goodsDAO.selectOrderGoods(order.getGoodsCode());
+		order.setGoodsImg(goods.getGoodsImage()); // OrderDTO에 이미지 경로를 저장
+
+		return order;
 	}
 
 }
