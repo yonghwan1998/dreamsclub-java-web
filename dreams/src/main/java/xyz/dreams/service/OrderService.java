@@ -26,4 +26,9 @@ public interface OrderService {
 	OrderDTO getPayment(String accessToken, String impUid);
 
 	String canclePayment(String accessToken, OrderDTO payment);
+	
+	/*
+	- 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경
+	*/
+	List<OrderDTO> getOrderListByMemberId(String memberId);
 }

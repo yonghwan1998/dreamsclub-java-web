@@ -20,9 +20,6 @@ public interface ReviewService {
 	//강민경: 페이징 처리
 	Map<String, Object> getReviewList(int reviewPageNum, String goodsName);
 	
-	//강민경: 주문 완료 후 상품 리스트 출력
-	List<OrderDTO> selectOrderStatus();
-	
 	//강민경(2023/09/23): 굿즈 상세페이지에서 리뷰 갯수 출력 
 	int selectReviewCount(String goodsName);
 }
