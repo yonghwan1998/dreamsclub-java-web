@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import xyz.dreams.dto.OrderDTO;
 
 public interface OrderMapper {
-	int insert(OrderDTO order);
+	int insert(OrderDTO payment);
 
 	List<OrderDTO> myOrderList(String memberId);
 
@@ -20,9 +20,9 @@ public interface OrderMapper {
 	int orderCancel(OrderDTO orderDTO);
 
 	int getAmount();
-	
-	//강민경(2023/09/20): 마이페이지에서 상품 리스트 출력 
+
+	// 강민경(2023/09/20): 마이페이지에서 상품 리스트 출력
 	List<OrderDTO> selectOrderStatus();
-	
-	OrderDTO selectOrderId(@Param("orderId")int orderId, @Param("memberId")String memberId);
+
+	OrderDTO selectOrderId(@Param("impUid") String impUid, @Param("memberId") String memberId);
 }

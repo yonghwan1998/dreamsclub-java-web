@@ -1,91 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="xyz.dreams.mapper.OrderMapper">
-  <insert id="insert">
-    <selectKey resultType="integer" keyProperty="orderSeqNum" order="BEFORE">
-    SELECT order_seq_num.nextval FROM dual
-    </selectKey>
-    INSERT INTO setOrder (
-      order_id,
-      order_seq_num,
-      goods_code,
-      goods_price,
-      goods_count,
-      goods_stock,
-      goods_info,
-      goods_size,
-      member_id,
-      member_name,
-      member_email,
-      member_phone,
-      member_pcode,
-      member_address1,
-      member_address2,
-      order_date,
-      deliver_msg,
-      order_status,
-      cal_info
-      ) VALUES (
-      #{orderId},
-      #{orderSeqNum},
-      #{goodsCode},
-      #{goodsPrice},
-      #{goodsCount},
-      #{goodsStock},
-      #{goodsInfo},
-      #{goodsSize},
-      #{memberId},
-      #{memberName},
-      #{memberEmail},
-      #{memberPhone},
-      #{memberPcode},
-      #{memberAddress1},
-      #{memberAddress2},
-      SYSDATE,
-      #{deliverMsg},
-      #{orderStatus},
-      #{calInfo}
-      )
-</insert>
-  
-  <!-- 형섭: setOrder 테이블에서 orderId 필드의 최대값을 조회하고, 최대값이 없을 경우 1을 반환, 
-  따라서 orderId는 테이블의 주문 수를 기반으로 자동 증가하는 값 -->
-  <select id="countOrderId" resultType="integer">
-    SELECT NVL2(MAX(order_id), MAX(order_id)+1, 1) FROM setOrder
-  </select>
-  
-  <select id="myOrderList" resultType="xyz.dreams.dto.OrderDTO">
-    SELECT * FROM setOrder WHERE member_id = #{memberId}
-  </select>
-  
-  <select id="allOrderList" resultType="xyz.dreams.dto.OrderDTO">
-    SELECT * FROM setOrder ORDER BY order_date
-  </select>
-  
-  <select id="selectByOrderId" resultType="xyz.dreams.dto.OrderDTO">
-    SELECT * FROM setOrder WHERE order_id = #{orderId} ORDER BY order_date DESC
-  </select>
-  
-  <select id="selectOrderId" resultType="xyz.dreams.dto.OrderDTO">
-    SELECT * FROM setOrder WHERE order_id = #{orderId} and member_id=#{memberId} 
-  </select>
-  
-  <update id="updateOrderStatus">
-    UPDATE setOrder SET order_status = #{orderStatus} 
-    WHERE orderId = #{orderId} AND order_seq_num = #{orderSeqNum}
-  </update>
-  
-  <delete id="orderCancel">
-    DELETE FROM setOrder WHERE order_id = #{orderId} AND order_seq_num = #{orderSeqNum}
-  </delete>
-  
-  <select id="getAmount" resultType="integer">
-    SELECT COUNT(order_id) FROM setOrder
-  </select>
-  
-  <!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
-
-   <select id="selectOrderStatus" resultType="OrderDTO">
-	select * from setorder where order_status in (0,1)
+	<insert id="insert">
+		INSERT INTO SETORDER (
+			IMP_UID,
+			MERCHANT_UID,
+			GOODS_CODE,
+			GOODS_PRICE,
+			GOODS_COUNT,
+			MEMBER_ID,
+			MEMBER_NAME,
+			MEMBER_EMAIL,
+			MEMBER_PHONE,
+			MEMBER_PCODE,
+			MEMBER_ADDRESS1,
+			MEMBER_ADDRESS2,
+			PAY_DATE,
+			STATUS
+			) VALUES (
+			#{impUid},
+			#{merchantUid},
+			#{goodsCode},
+			#{goodsPrice},
+			#{goodsCount},
+			#{memberId},
+			#{memberName},
+			#{memberEmail},
+			#{memberPhone},
+			#{memberPcode},
+			#{memberAddress1},
+			#{memberAddress2},
+			SYSDATE,
+			#{status}
+		)
+	</insert>
+ 
+	 <!-- 형섭: setOrder 테이블에서 orderId 필드의 최대값을 조회하고, 최대값이 없을 경우 1을 반환, 
+	따라서 orderId는 테이블의 주문 수를 기반으로 자동 증가하는 값 -->
+	<select id="countOrderId" resultType="integer">
+		SELECT NVL2(MAX(impUid), MAX(impUid)+1, 1) FROM SETORDER
+	</select>
+	
+	<select id="myOrderList" resultType="xyz.dreams.dto.OrderDTO">
+		SELECT * FROM SETORDER WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="allOrderList" resultType="xyz.dreams.dto.OrderDTO">
+		SELECT * FROM SETORDER ORDER BY PAY_DATE
+	</select>
+	
+	<select id="selectByOrderId" resultType="xyz.dreams.dto.OrderDTO">
+		SELECT * FROM SETORDER WHERE IMP_UID = #{impUid} ORDER BY PAY_DATE DESC
+	</select>
+	
+	<select id="selectOrderId" resultType="xyz.dreams.dto.OrderDTO">
+		SELECT * FROM SETORDER WHERE IMP_UID = #{impUid} and MEMBER_ID = #{memberId} 
+	</select>
+	
+	<update id="updateOrderStatus">
+		UPDATE SETORDER SET STATUS = #{status} 
+		WHERE IMP_UID = #{impUid} AND MERCHANT_UID = #{merchantUid}
+	</update>
+	
+	<delete id="orderCancel">
+		DELETE FROM SETORDER WHERE IMP_UID = #{impUid} AND MERCHANT_UID = #{merchantUid}
+	</delete>
+	
+	<select id="getAmount" resultType="integer">
+		SELECT COUNT(IMP_UID) FROM SETORDER
+	</select>
+	
+	<!-- 강민경(2023/09/20): 배송준비, 배송완료일 때만 출력되도록 쿼리문 작성  -->
+	<select id="selectOrderStatus" resultType="OrderDTO">
+		SELECT * FROM SETORDER
 	</select>
 </mapper>
