@@ -68,5 +68,13 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderDTO selectOrderId(String impUid, String memberId) {
 		return sqlSession.getMapper(OrderMapper.class).selectOrderId(impUid, memberId);	
 	}
+
+	/*
+	- 방용환(수정) : 2023/09/25, 테이블 변경에 따른 변경
+	*/
+	@Override
+	public List<OrderDTO> selectOrderListByMemberId(String memberId) {
+		return sqlSession.getMapper(OrderMapper.class).selectOrderListByMemberId(memberId);	
+	}
 	
 }
