@@ -250,7 +250,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void modifyStatusComplete(String impUid) {
-		System.out.println(impUid);
 		orderDAO.updateStatusComplete(impUid);
 	}
 
@@ -262,6 +261,11 @@ public class OrderServiceImpl implements OrderService {
 		order.setGoodsImg(goods.getGoodsImage()); // OrderDTO에 이미지 경로를 저장
 
 		return order;
+	}
+
+	@Override
+	public void modifyStatusReviewed(String impUid) {
+		orderDAO.updateStatusReviewed(impUid);
 	}
 
 }

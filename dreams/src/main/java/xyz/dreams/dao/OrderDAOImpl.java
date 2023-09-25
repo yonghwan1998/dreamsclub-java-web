@@ -87,5 +87,10 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderDTO getOrderDetailByImpUid(String impUid) {
 		return sqlSession.getMapper(OrderMapper.class).getOrderDetailByImpUid(impUid);
 	}
+
+	@Override
+	public int updateStatusReviewed(String impUid) {
+		return sqlSession.getMapper(OrderMapper.class).updateStatusReviewed(impUid);	
+	}
 	
 }

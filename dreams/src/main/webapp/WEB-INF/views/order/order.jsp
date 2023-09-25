@@ -491,7 +491,7 @@
 	              			msg += '카드 승인번호 : ' + response.apply_num;
 	      
        						alert(msg);
-       						location.assign("<c:url value="/team"/>");
+       						location.assign("<c:url value="/mypage"/>");
 	                  } else {
 	                    //결제 실패 페이지로 이동
 	                	  var msg = '결제에 실패하였습니다.';

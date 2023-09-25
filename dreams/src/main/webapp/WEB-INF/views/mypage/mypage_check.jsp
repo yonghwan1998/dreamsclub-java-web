@@ -151,6 +151,9 @@ body {
 																					<c:when test="${order.status eq 'complete'}">
 																						<span style="color: red"> 배송 완료 </span>
 																					</c:when>
+																					<c:when test="${order.status eq 'reviewed'}">
+																						<span style="color: red"> 리뷰 완료 </span>
+																					</c:when>
 																					<c:otherwise>
 																						<span style="color: red"> 고객센터로 문의 바랍니다. </span>
 																					</c:otherwise>
