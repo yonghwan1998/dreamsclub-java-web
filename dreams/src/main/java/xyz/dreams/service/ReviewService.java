@@ -25,4 +25,7 @@ public interface ReviewService {
 	
 	//강민경(2023/09/23): 굿즈 상세페이지에서 리뷰 갯수 출력 
 	int selectReviewCount(String goodsName);
+	
+	//이소영(추가) : 2023-09-25
+	List<ReviewDTO> findByMemberId(String memeberId);
 }

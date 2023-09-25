@@ -147,10 +147,12 @@ public class MypageController {
 	}
    
    //강민경: 리뷰 
+   /*
    @RequestMapping(value = "/myreview", method = RequestMethod.GET)
    public String mypage6() {
       return "mypage/mypage_review";
    }
+   */
    
    //이소영(최종) : 2023-09-19 회원탈퇴 시 비밀번호 검증
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
@@ -183,4 +185,10 @@ public class MypageController {
 	   
    }
    */
+     
+     @GetMapping("/myreview/{memberId}")
+     public String findByMemberId(@PathVariable String memberId, Model model) {
+    	 model.addAttribute("reviewList", reviewService.findByMemberId(memberId));
+    	 return "mypage/mypage_review";
+     }
 }
