@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService{
 
 		// 요청 API에게 전달될 값을 JSON 형식의 문자열로 표현하여 저장
 		// => {"imp_key" : REST API Key, "imp_secret" : REST API Secret}
-		String data="{\"imp_key\":\"4625482277266567\", \"imp_secret\":\"0b4N0IvKNTPYvcZRJWbMNH3QKEBmqnq7ubqStOrcuM1Qz6WUX2k6E66rUkNn9pAULzyj2cMCm7ouwJYu\"}";
+		String data = "{\"imp_key\":\"4625482277266567\", \"imp_secret\":\"0b4N0IvKNTPYvcZRJWbMNH3QKEBmqnq7ubqStOrcuM1Qz6WUX2k6E66rUkNn9pAULzyj2cMCm7ouwJYu\"}";
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -139,42 +139,42 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public OrderDTO getPayment(String accessToken, String impUid) {
-		OrderDTO payment=new OrderDTO();//응답결과를 저장하기 위한 객체 생성
-		//결제번호를 전달하여 결재정보를 제공받기 위한 API의 URL 주소
-		String apiUrl="https://api.iamport.kr/payments/"+impUid;
+		OrderDTO payment = new OrderDTO();// 응답결과를 저장하기 위한 객체 생성
+		// 결제번호를 전달하여 결재정보를 제공받기 위한 API의 URL 주소
+		String apiUrl = "https://api.iamport.kr/payments/" + impUid;
 		try {
 			URL url = new URL(apiUrl);
-			HttpURLConnection connection=(HttpURLConnection)url.openConnection();
-			
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Authorization", accessToken);
-			
-			int responseCode=connection.getResponseCode();
 
-			if(responseCode == 200) {
-				//응답결과를 제공받기 위한 입력스트림을 확장하여 저장
-				BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				
-				//입력스트림으로 응답결과를 얻어와 저장
-				String input="";
-				String result="";
-				while((input = br.readLine()) != null) {
-					result+=input;
+			int responseCode = connection.getResponseCode();
+
+			if (responseCode == 200) {
+				// 응답결과를 제공받기 위한 입력스트림을 확장하여 저장
+				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+				// 입력스트림으로 응답결과를 얻어와 저장
+				String input = "";
+				String result = "";
+				while ((input = br.readLine()) != null) {
+					result += input;
 				}
 				br.close();
-			
-				System.out.println("result(payment) = "+result);
-				
-				//응답결과(JSON 형식의 문자열)를 Java 객체로 변환하여 파싱 처리 
-				JSONParser parser=new JSONParser();
-				JSONObject jsonObject=(JSONObject)parser.parse(result);
-	
-				JSONObject responseObject=(JSONObject)jsonObject.get("response");
-				
-				payment.setImpUid((String)responseObject.get("imp_uid"));
-				payment.setMerchantUid((String)responseObject.get("merchant_uid"));
-				payment.setGoodsPrice((Long)responseObject.get("amount"));
-				payment.setStatus((String)responseObject.get("status"));
+
+				System.out.println("result(payment) = " + result);
+
+				// 응답결과(JSON 형식의 문자열)를 Java 객체로 변환하여 파싱 처리
+				JSONParser parser = new JSONParser();
+				JSONObject jsonObject = (JSONObject) parser.parse(result);
+
+				JSONObject responseObject = (JSONObject) jsonObject.get("response");
+
+				payment.setImpUid((String) responseObject.get("imp_uid"));
+				payment.setMerchantUid((String) responseObject.get("merchant_uid"));
+				payment.setGoodsPrice((Long) responseObject.get("amount"));
+				payment.setStatus((String) responseObject.get("status"));
 			} else {
 				return null;
 			}
@@ -183,12 +183,6 @@ public class OrderServiceImpl implements OrderService{
 		}
 
 		return payment;
-	}
-
-	@Override
-	public void addPayment(OrderDTO payment) {
-		System.out.println("PAYMENT 테이블에 결재 정보를 삽입하는 명령");
-		System.out.println(payment);
 	}
 
 	@Override

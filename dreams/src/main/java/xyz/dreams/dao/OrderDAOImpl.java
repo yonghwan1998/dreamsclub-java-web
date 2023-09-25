@@ -67,6 +67,6 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public OrderDTO selectOrderId(String impUid, String memberId) {
 		return sqlSession.getMapper(OrderMapper.class).selectOrderId(impUid, memberId);	
-		}
+	}
 	
 }

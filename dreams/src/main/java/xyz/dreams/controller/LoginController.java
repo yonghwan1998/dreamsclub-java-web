@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import xyz.dreams.dto.MemberDTO;
 import xyz.dreams.exception.LoginAuthFailException;
 import xyz.dreams.exception.MemberNotFoundException;
@@ -31,6 +32,7 @@ import xyz.dreams.service.MemberService;
 @Controller
 @RequestMapping("/login")
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
    private final MemberService memberService;
    private final xyz.dreams.auth.KakaoLoginBean kakaoLoginBean;
@@ -53,6 +55,7 @@ public class LoginController {
    
    /*카카오 로그인 API - 강민경(2023.09.25)*/
    //강민경: 카카오 로그인 페이지를 요청하기 위한 요청 처리 메소드
+  
    @RequestMapping("/kakao")
 	public String kakaoLogin(HttpSession session) throws UnsupportedEncodingException {
 		String kakaoAuthUrl=kakaoLoginBean.getAuthorizationUrl(session);
@@ -65,14 +68,69 @@ public class LoginController {
  			, HttpSession session) throws IOException, ParseException {
  		OAuth2AccessToken accessToken=kakaoLoginBean.getAccessToken(session, code, state);
  		
+ 		//빈등록된 토큰을 가져와서 넣어줌(카카오 정보에 접근할 수 있는 토큰을 가져옴)
  		String apiResult=kakaoLoginBean.getUserProfile(accessToken);
  		System.out.println(apiResult);
- 		//강민경: 세션에 토큰 등록 
+ 		
+ 		//api에선 제이슨 형태로 전달해줘서 parser를 사용하여 자바 객체로 변환해줌 
+ 		JSONParser parser=new JSONParser();
+ 		//JSONParser.parse(String json) : JSON 형식의 문자열을 Object 객체로 변환하는 메소드
+ 		Object object=parser.parse(apiResult);
+ 		//Object 객체로 JSONObject 객체로 변환하여 저장
+ 		JSONObject jsonObject=(JSONObject)object;
+		JSONObject kakaoAccount =(JSONObject)jsonObject.get("kakao_account");
+		JSONObject profile =(JSONObject)kakaoAccount.get("profile");
+		
+		
+		//JSON 객체에 저장된 값을 제공받아 저장 - 파싱(Parsing)
+		//JSONObject.get(String name) : JSONObject 객체에 저장된 값(객체)을 반환하는 메소드
+		// => Object 타입으로 값(객체)를 반환하므로 반드시 형변환하여 저장
+		
+		//JSONObject responseObject=(JSONObject)jsonObject.get("Kakao API Response");
+		log.info("jsonObject:{}",jsonObject);
+		//INFO : xyz.dreams.controller.LoginController - jsonObject:{"id":3036377524,"connected_at":"2023-09-25T01:34:06Z","kakao_account":{"email_needs_agreement":false,"profile_nickname_needs_agreement":false,"profile":{"nickname":"강민경"},"is_email_valid":true,"is_email_verified":true,"has_email":true,"email":"rkdalsrud987@naver.com"},"properties":{"nickname":"강민경"}}
+		log.info("jsonObject:{}",kakaoAccount);		
+		log.info("jsonObject:{}",profile);		 
+/*
+		Long id=(Long)jsonObject.get("id");
+		String name=(String)jsonObject.get("nickname");//카카오 api에서 name 대신 nickname을 받아서 넣어줌
+		String email=(String)jsonObject.get("email");
+		log.info("email:{}",email);
+		log.info("name:{}",name);
+*/		
+		Long id=(Long)jsonObject.get("id");
+		String email=(String)kakaoAccount.get("email");
+		String name=(String)profile.get("nickname");//카카오 api에서 name 대신 nickname을 받아서 넣어줌
+		log.info("email:{}",email);
+		log.info("name:{}",name);
+
+		
+		//객체를 만들 수 있게 해줌 
+		MemberDTO member = new MemberDTO();
+		//카카오 로그인을 통해 받아온 값을 set을 이용하여 저장 
+		member.setMemberId("kakao_"+id);
+		member.setMemberPw(UUID.randomUUID().toString());
+		member.setMemberName(name);
+		member.setMemberEmail(email);
+		member.setMemberStatus(1);
+		log.info("member:{}",member);
+		
+		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		memberList.add(member);
+		
+		//네이버 로그인 사용자의 정보를 member테이블에 저장
+		if(memberService.getMember("kakao_"+id) ==null) {
+			memberService.addMember(member);
+		}
+		
+		//강민경: 세션에 토큰 등록 
+ 		session.setAttribute("member", member);
+ 		
  		
  		
  		return "redirect:/";
  	}
- 	
+ 	 
  	
  	/*네이버 로그인 - 김예지(2023.09.25)*/
  	//김예지: 네이버 로그인 페이지를 요청하기 위한 요청 처리 메소드
@@ -128,8 +186,10 @@ public class LoginController {
 		if(memberService.getMember("naver_"+id) ==null) {
 			memberService.addMember(member);
 		}
-				
-				
+		
+		//세션에 네이버 로그인 사용자 정보 저장
+		session.setAttribute("member", member);
+		
 		return "redirect:/";
 	}
  	
