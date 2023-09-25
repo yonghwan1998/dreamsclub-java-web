@@ -57,7 +57,6 @@
 	- 방용환(수정) : 2023/09/23, 페이징 처리
 	-->
 	<select id = "selectQnaList" resultType ="QnaDTO">
-		<!-- 굿즈이름-u-f 인데, 굿즈 이름 까지 보이게함 -->	
 		SELECT * FROM (
 			SELECT ROWNUM AS rn, QNA_NO, MEMBER_ID, QNA_TITLE, QNA_CONT, QNA_DATE, QNA_STATUS, QNA_YN, QNA_RE_CONT, QNA_RE_DATE, GOODS_CODE FROM (
 				SELECT QNA_NO, MEMBER_ID, QNA_TITLE, QNA_CONT, QNA_DATE, QNA_STATUS, QNA_YN, QNA_RE_CONT, QNA_RE_DATE, GOODS_CODE FROM QNA
@@ -66,7 +65,8 @@
 		) WHERE rn BETWEEN #{startRow} and #{endRow}
 	</select>
 	
-	 <!-- 9/19 오진서  qna리스트 -->
+	 <!-- 9/19 오진서 -->
+	 <!-- 굿즈이름-u-f 인데, 굿즈 이름 까지 보이게함 -->	
 	<select id = "selectQnaCount" resultType= "int">
 		<bind name="goodsChangedName" value="goodsName+'-%'"/>
 		SELECT COUNT(*) FROM QNA WHERE GOODS_CODE LIKE #{goodsChangedName}
