@@ -23,14 +23,14 @@
 
 
 <!--문의하기-->
-<form action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
+<form id="qnaForm" action="<c:url value='/goods/write/add'/>" method="post"> <!-- 제출시 이동됨 -->
    <input type="hidden" name="memberId" value="${member.memberId }">
    <input type="hidden" name="goodsCode" value="${goodsCode }"> 
    <!-- <input type="hidden" name="goodsCode" value="${goodsCode }">  --> <!-- 원본 -->
    
    <div class="boardWriteMain">
        <div class="boardWriteTitle" style="text-align: center; font-weight: bold; color: #003E00;">
-           <h3 style="margin-bottom: 40px; margin-right: 800px;">문의하기</h3>
+           <h3 style="margin-bottom: 40px; margin-right: 20rem;">문의하기</h3>
 
        </div>
        
@@ -48,7 +48,7 @@
                <tr>
                    <th>내용</th>
                    <td>
-                       <textarea id="qnaWriteContent" name="qnaCont" class="qnaWriteContent" placeholder="내용을 입력해주세요." value="${pageInfo.qnaCont}"></textarea>
+                       <textarea id="qnaWriteContent" name="qnaCont" class="qnaWriteContent" placeholder="내용을 입력해주세요.">${pageInfo.qnaCont}</textarea>
                    </td>
                </tr>
                            
@@ -71,8 +71,8 @@
            <!-- 비밀글 여부 --> <!-- 9/24  오진서 - 비밀글 기능 추가 -->
               <p style="margin-top: 1rem;">
             <input id = "secretYn" name="qnaStatus"  type = "checkbox"  value= "${pagrInfo.qnaStatus}"  style="transform: scale(0.8); 
-                    position: relative; right: 22rem; height: 30px;">
-                <label for="secretYn" style="position: relative; left: 27rem; 
+                    position: relative; right: 2rem; height: 30px;">
+                <label for="secretYn" style="position: relative; left: 26rem; 
                     bottom: 2rem; font-size: 15px;">비밀글</label>
            <p>
            
@@ -80,12 +80,19 @@
             <!--작성 버튼(등록, 취소) -->
            <div class="qnaWriteBtn" style= "margin-left: 200px;">
                <button type="submit">등록</button>
-               <a href="<c:url value="/goods/detail?goodsName=${goodsName } "/>">취소</a>
+               <a href="javascript:void(0);" onclick="closePopup();">취소</a>
            </div>  
            
        </div>
    </div>
 </form>
 
+<script>
 
+    // 팝업 창 닫기 함수
+    function closePopup() {
+        window.close(); 
+    }
+
+</script>
 

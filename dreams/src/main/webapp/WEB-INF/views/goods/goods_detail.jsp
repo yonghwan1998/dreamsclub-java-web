@@ -139,12 +139,12 @@
 									<div class="boardWriteBtn" style="text-align: right;">
 										<!-- 방용환(수정) : 2023/09/23, 일반 유저만 보이는 버튼 -->
 										<c:if test="${member.memberStatus eq 1}">
-											<form action="<c:url value="/goods/qna/write"/>" method="get">
+											<form id="qnaForm" action="<c:url value="/goods/qna/write"/>" method="get">
 												<input type="hidden" name="goodsCode"
 													value="${goodsDetail.goodsCode }"> <input
 													type="hidden" name="goodsName"
 													value="${goodsDetail.goodsName }">
-												<button type="submit">문의하기</button>
+												<button type="button" onclick="popupAndSubmit()">문의하기</button>
 											</form>
 										</c:if>
 									</div>
@@ -464,6 +464,21 @@
     }
   }
    
+</script>
+<script type="text/javascript">
+	function popupAndSubmit() {	//형섭: 문의 작성 페이지가 팝업창으로 열림
+			var width = 800;
+      var height = 600;
+      var left = (window.innerWidth - width) / 2;
+      var top = (window.innerHeight - height) / 2;
+      var url = '<c:url value="/goods/qna/write"/>'; // form action의 URL
+      var popupWindow = window.open(url, 'goods_qna_write', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+
+      // form 제출
+      var form = document.getElementById('qnaForm'); // form의 ID를 설정해야 합니다.
+      form.target = 'goods_qna_write'; // 팝업 창 이름 설정
+      form.submit();
+	}
 </script>
 
 <script type="text/javascript"
