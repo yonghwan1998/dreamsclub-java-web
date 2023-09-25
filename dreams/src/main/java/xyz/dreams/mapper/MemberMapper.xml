@@ -70,6 +70,7 @@
       MEMBER_PHONE, MEMBER_ADDRESS1, MEMBER_ADDRESS2, MEMBER_PCODE
       from member where MEMBER_ID=#{memberId}
    </select>
+   
    <!-- 강민경: 아이디 찾기 시 사용 -->
    <select id="selectSearch" resultType="string">
       select MEMBER_ID from member where MEMBER_NAME=#{memberName} and
