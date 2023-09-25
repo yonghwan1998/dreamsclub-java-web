@@ -6,13 +6,12 @@
 
 <style>
 .customTable, .customTable th, .customTable td {
-	border: 1px solid black; 
+	border: 1px solid lightgray; 
 	padding: 10px; 
 	/* ... 원하는 스타일 추가 ... */
 }
 body {
 	font-family: Arial, sans-serif;
-	padding: 20px;
 	background-color: #f4f4f4;
 }
 
