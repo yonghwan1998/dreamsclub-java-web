@@ -110,7 +110,7 @@
     <div>
         <div class="communityReplyCount" id="replyCount${pageInfo.commNo }">
             <!-- 댓글 수 카운팅 -->
-            <strong style="color: green;"><c:out value="${pageInfo.replyCount }" id="replyCountValue"/>개</strong>의 댓글이 등록되었습니다.
+            <strong style="color: green;"><c:out value="${pageInfo.replyCount }"/></strong>개의 댓글이 등록되었습니다.
         </div>
     	<div id="replyList"></div>
 	</div>
@@ -195,7 +195,10 @@ function replyDisplay() {
 			
 			//댓글 개수 업데이트 (result가 댓글의 배열이라고 가정)
 			var commentCount = result.length;
-			$("#replyCountValue").text(commentCount);
+			// 동적으로 ID를 설정합니다.
+            var replyCountElement = $("#replyCount${pageInfo.commNo} strong");
+            replyCountElement.attr("id", "replyCountValue");
+            replyCountElement.text(commentCount);
 		},
 		error: function(xhr) {
 			alert("에러 = "+xhr.status);
@@ -234,7 +237,6 @@ $("#addBtn").click(function() {
 				$("#commReCont").val("");
 				//김예지(2023.09.17 추가) - 댓글 쓴 후 카운팅 숫자 0으로 되돌아가기
 	            $("#textLengthCheck").text("(0/300)");
-				location.reload();	//새로고침
 			}
 		},
 		error: function(xhr) {
@@ -261,6 +263,13 @@ function delete_reply(commReNo){
 
 			if(result=="success"){
 				replyDisplay();		//성공시 댓글목록 바로 출력
+				
+				//댓글 개수 업데이트 (result가 댓글의 배열이라고 가정)
+				var commentCount = result.length;
+				// 동적으로 ID를 설정합니다.
+	            var replyCountElement = $("#replyCount${pageInfo.commNo} strong");
+	            replyCountElement.attr("id", "replyCountValue");
+	            replyCountElement.text(commentCount);
 			}
 		},
 		error: function(xhr){
