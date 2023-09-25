@@ -4,6 +4,57 @@
 <!-- 커뮤니티 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/community.css">
 
+<style>
+.speech-bubble {
+  position: relative;
+  background: #19945f;
+  border-radius: .4em;
+  margin: 100px auto 50px auto;
+  height: 15rem;
+  width: 45%;
+  text-align: center;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 24px solid transparent;
+  border-top-color: #19945f;
+  border-bottom: 0;
+  border-right: 0;
+  margin-left: -12px;
+  margin-bottom: -24px;
+}
+
+h1 {
+  font-size: 28px;
+  color: white;
+}
+
+h2 {
+  color: white;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+textarea {
+  resize: none;
+  left: 15rem;
+  position: relative;
+  height: 15rem;
+  width: 60%;
+  font-size: 48px;
+  line-height: 1.5;
+}
+</style>
+
+
 <!--게시판 전체-->
 <div class="communityContainer">
     <div class="commnunityTitle">
@@ -20,13 +71,13 @@
            	</c:if>
            	<c:if test="${not empty member }">
 				<input type="hidden" name="memberId" value="${member.memberId }"/>
-				<textarea name="cheerContent" id="textBox" cols="30" rows="4" placeholder="글을 입력해 주세요." maxlength="200" style="resize: none;"></textarea>
+				<textarea name="cheerContent" id="textBox" cols="30" rows="4" placeholder="응원의 한마디를 남겨 주세요." maxlength="200" style="resize: none;"></textarea>
 				<!--글쓰기 버튼-->
 	            <div class="writeBtnContainer" style="margin-top: 10px">
 	                <div style="text-align: right;">
 		                <span class="textCount">0자</span>
 			    		<span class="textTotal">/ 50자</span>
-	                   	<button type="submit">메모</button>
+	                   	<button type="submit">작성</button>
 	                </div>
 	            </div>
            	</c:if>
@@ -35,58 +86,69 @@
         <div class="commnunityTable">
             <!--테이블 본체-->
             <div class="boardTable" style="margin: 0 auto">
-                <table class="boardTableMain" width="1200px">
-                    <thead>
-                        <tr>
-                            <th class="t1" scope="col" style="width: 100px">번호</th>
-                            <th class="t2" style="width: 100px">작성자</th>
-                            <th class="t3" style="width: 700px">내용</th>
-                            <th class="t4" style="width: 150px">작성일</th>
-                            <c:if test="${member.memberStatus eq '9' }"><th class="t5" style="width: 75px">기능</th></c:if>
-                        </tr>
-                    </thead>
-                    <tbody>  
+                <div class="boardTableMain" width="1200px">
+                    
+                    <%-- <div>
+                        <div>
+                            <div class="t1" scope="col" style="width: 100px">번호</div>
+                            <div class="t2" style="width: 100px">작성자</div>
+                            <div class="t3" style="width: 700px">내용</div>
+                            <div class="t4" style="width: 150px">작성일</div>
+                            <c:if test="${member.memberStatus eq '9' }"><div class="t5" style="width: 75px">기능</div></c:if>
+                        </div>
+                    </div> --%>
+                    
+                    <c:forEach items="${cheerList }" var="cheerList" >
+                    <div class="speech-bubble">
+                      <h1><c:out value="${cheerList.memberId }"/></h1>
+                      <hr style="color: lightgray;">
+                      <h2><c:out value="${cheerList.cheerContent }"/></h2>
+                      
+                    </div>
+                    </c:forEach>
+                    <%-- <div>  
                         <c:forEach items="${cheerList }" var="cheerList" >
-	                        <tr class="boardTableList">
+	                        <div class="boardTableList">
 	                        	<!-- cheerDel 상태 ('N') -->
 	                        
 	                        	<!-- 1. cheerNo -->
-	                            <td class="t1 ${cheerList.cheerNo }"><c:out value="${cheerList.cheerNo }"/></td>
+	                            <div class="t1 ${cheerList.cheerNo }"><c:out value="${cheerList.cheerNo }"/></div>
 	                            
 	                        	<!-- 2. memberId -->
 	                            <c:if test="${cheerList.cheerDel eq 'N' }">
-		                            <td class="t2"><c:out value="${cheerList.memberId }"/></td>
+		                            <div class="t2"><c:out value="${cheerList.memberId }"/></div>
 	                            </c:if>
 	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
-		                            <td class="t2"><c:out value="드림즈 관리자"/></td>
+		                            <div class="t2"><c:out value="드림즈 관리자"/></div>
 	                            </c:if>
 	                            
 	                        	<!-- 3. cheerContent -->
 	                            <c:if test="${cheerList.cheerDel eq 'N' }">
-	                            	<td class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></td>
+	                            	<div class="t3" style="text-align: left"><c:out value="${cheerList.cheerContent }"/></div>
 	                            </c:if>
 	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
-	                            	<td class="t3" style="text-align: left; color: red;"><c:out value="관리자 요청에 의해 삭제된 글입니다."/></td>
+	                            	<div class="t3" style="text-align: left; color: red;"><c:out value="관리자 요청에 의해 삭제된 글입니다."/></div>
 	                            </c:if>
 	                            
 	                        	<!-- 4. cheerDate -->
-	                            <td class="t4"><c:out value="${cheerList.cheerDate }"/></td>
+	                            <div class="t4"><c:out value="${cheerList.cheerDate }"/></div>
 	                            
 	                        	<!-- 5. delButton, returnBtn -->
 	                            <c:if test="${cheerList.cheerDel eq 'N' }">
 		                            <c:if test="${member.memberStatus eq '9' }">
-		                            	<td class="t5"><button onclick="deleteMemo('${cheerList.cheerNo }');">삭제</button></td>
+		                            	<div class="t5"><button onclick="deleteMemo('${cheerList.cheerNo }');">삭제</button></div>
 		                            </c:if>
 	                            </c:if>
 	                            <c:if test="${cheerList.cheerDel eq 'Y' }">
 		                            <c:if test="${member.memberStatus eq '9' }">
-		                            	<td class="t5"><button onclick="returnMemo('${cheerList.cheerNo }');">복구</button></td>
+		                            	<div class="t5"><button onclick="returnMemo('${cheerList.cheerNo }');">복구</button></div>
 		                            </c:if>
 	                            </c:if>
-	                        </tr>
+	                        </div>
 	                    </c:forEach> 
-                    </tbody>
-                </table>
+                    </div> --%>
+                    
+                </div>
             </div>
 
             <%-- 페이지 번호 출력 --%>

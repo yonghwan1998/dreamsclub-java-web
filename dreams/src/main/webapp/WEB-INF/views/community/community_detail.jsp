@@ -31,7 +31,7 @@
 				<!--  <div class="communityDetailContainerBody" style="white-space: pre;"><c:out value="${pageInfo.commCont}"/></div>-->
                 <div class="communityDetailContainerBody" style="white-space: pre;">${pageInfo.commCont}</div>
                 
-                <%-- 좋아요 - 김예지(2023.09.24) --%>
+                <!-- 좋아요 - 김예지(2023.09.24) -->
                 <div style="text-align: center;">
                 	<div>
 		                <c:choose>
@@ -90,9 +90,8 @@
 			</form>
     </div>
     
-    <!--[댓글]-->
-
-    <!--댓글 입력폼-->
+   	<!-- [댓글] -->
+   	<!--댓글 입력폼-->
     <form id="communityReplyFrom" name=register> 
         <div class="communityReply">
             <div class="onekan" >
@@ -109,9 +108,9 @@
         </div>
     </form>
     <div>
-        <div class="communityReplyCount">
+        <div class="communityReplyCount" id="replyCount${pageInfo.commNo }">
             <!-- 댓글 수 카운팅 -->
-            <strong style="color: green;"><c:out value="${pageInfo.replyCount }"/>개</strong>의 댓글이 등록되었습니다.
+            <strong style="color: green;"><c:out value="${pageInfo.replyCount }" id="replyCountValue"/>개</strong>의 댓글이 등록되었습니다.
         </div>
     	<div id="replyList"></div>
 	</div>
@@ -122,22 +121,21 @@
 <!-- JS -->
 <script type="text/javascript">
 
-//페이지 로드시 실행될 것들 - 김예지(2023.09.22)
+/*페이지 로드시 실행될 것들 - 김예지(2023.09.22)*/
 //좋아요 로드 추가(김예지 2023.09.24)
 $(document).ready(function() {
 	replyDisplay(); //댓글 리스트 출력
-	//하트 상태 확인 출력
-	//모든 하트 아이콘을 반복
+	//좋아요 상태 확인 출력 - 모든 하트 아이콘을 반복
     $(".heart-click").each(function () {
         let $heart = $(this);
         let commNo = $heart.attr("id");
         let memberId = $heart.data('member');
         let likeStatusKey = "likeStatus_" + commNo + "_" + memberId;
         
-        // 로컬 스토리지에서 좋아요 상태를 가져옴
+        //로컬 스토리지에서 좋아요 상태를 가져옴
         let isLiked = localStorage.getItem(likeStatusKey) === "true";
         
-        // 하트 아이콘 상태를 업데이트함
+        //좋아요 아이콘 상태를 업데이트함
         if (isLiked) {
             $heart.data("liked", true);
             $heart.html('<i class="fa-sharp fa-regular fa-thumbs-up fa-2x" style="color: #ff0000;" id="bi-suit-heart-fill"></i>');
@@ -147,6 +145,8 @@ $(document).ready(function() {
         }
     });
 });
+
+
 
 /*김예지(2023.08.25) - 삭제 확인하기 */
 function deleteCheck(){
@@ -192,6 +192,10 @@ function replyDisplay() {
 			});
 			//위의 HTMLdml id="replyList"의 자리에 댓글목록이 아래로 출력된다.
 			$("#replyList").html(html);
+			
+			//댓글 개수 업데이트 (result가 댓글의 배열이라고 가정)
+			var commentCount = result.length;
+			$("#replyCountValue").text(commentCount);
 		},
 		error: function(xhr) {
 			alert("에러 = "+xhr.status);
@@ -199,6 +203,7 @@ function replyDisplay() {
 	});
 }
 
+//초기에 replyDisplay() 함수호출
 replyDisplay();
 
 
@@ -242,10 +247,11 @@ $("#addBtn").click(function() {
 
 /*김예지(2023.9.15) - 댓글 삭제*/
 function delete_reply(commReNo){
-
+	
 	if(!confirm("정말 삭제하시겠습니까?")){
 		return false;
 	}
+	
 	//삭제 ajax
 	$.ajax({
 		type: "delete",
@@ -376,8 +382,9 @@ $(".heart-click").click(function() {
     //if ($(this).children('i').attr('id') == "bi-suit-heart") {
     	console.log("검은따봉 클릭" + commNo + memberId);
     	
+    	//게시판의 좋아요 개수를 즉시 업데이트
     	let likeCount = parseInt(likeCountElement.text())+1;
-    	likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+    	likeCountElement.text(likeCount); 
     	
     	//좋아요 작업처리
     	$.ajax({
@@ -415,8 +422,9 @@ $(".heart-click").click(function() {
     } else{
         console.log("빨간따봉 클릭" + commNo + memberId);
         
+    	//게시판의 좋아요 개수를 즉시 업데이트
         let likeCount = parseInt(likeCountElement.text())-1;
-    	likeCountElement.text(likeCount); // 좋아요 수를 즉시 업데이트
+    	likeCountElement.text(likeCount);
         
         //좋아요 취소 작업 처리
         $.ajax({
