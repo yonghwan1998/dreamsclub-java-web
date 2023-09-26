@@ -91,6 +91,7 @@ public class QnaServiceImpl implements QnaService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pager.getStartRow());
 		map.put("endRow", pager.getEndRow());
+		map.put("goodsName", goodsName);
 		List<QnaDTO> qnaList = qnaDAO.selectQnaList(map);
 
 		// Controller 클래스에게 제공되는 데이타 처리 결과값을 반환하기 위한 Map 객체 생성
