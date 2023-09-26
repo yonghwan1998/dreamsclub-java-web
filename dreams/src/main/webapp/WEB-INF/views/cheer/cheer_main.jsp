@@ -101,21 +101,19 @@ textarea {
                         </div>
                     </div> --%>
                     
+                    
                     <c:forEach items="${cheerList }" var="cheerList" >
-	                    <div class="speech-bubble">
-		                    <c:if test="${fn:startsWith(cheerList.memberId, 'naver') || fn:startsWith(cheerList.memberId, 'kakao')}">
-			                    <h1>
-				                    <c:set var="cheerMemberId" value="${fn:substring(cheerList.memberId, 0, 10)}" />
-				                    <c:out value="${cheerMemberId }"/>
-			                    </h1>
-		                    </c:if>
-		                    <c:if test="${!fn:startsWith(cheerList.memberId, 'naver') && !fn:startsWith(cheerList.memberId, 'kakao')}">
-		                    	<c:out value="${cheerList.memberId}" />
-		                    </c:if>
-	                      <hr style="color: lightgray;">
-	                      <h2><c:out value="${cheerList.cheerContent }"/></h2>
-	                      
-	                    </div>
+                    <div class="speech-bubble">
+                      <c:if test="${fn:length(cheerList.memberId) > 20}">
+                          <h1>네이버 로그인 사용자</h1>
+                      </c:if>
+                      <c:if test="${fn:length(cheerList.memberId) < 20}">
+                        <h1><c:out value="${cheerList.memberId }"/></h1>
+                      </c:if>
+                      <hr style="color: lightgray;">
+                      <h2><c:out value="${cheerList.cheerContent }"/></h2>
+
+                    </div>
                     </c:forEach>
                     <%-- <div>  
                         <c:forEach items="${cheerList }" var="cheerList" >
