@@ -70,7 +70,7 @@
 		                	<%-- 로그인 상태가 아닐때 - 하트 클릭 안되도록 --%>
 		                	<c:otherwise>
 		                		<span>
-			                		추천 기능은 <a href=<c:url value="/login"/> type="button" id="newLogin" class="newLoginBtn">로그인</a> 후 사용 가능합니다.<br>
+			                		추천 기능은 <a href=<c:url value="/login"/> type="button" id="newLogin" class="newLoginBtn" style="color: green;">로그인</a> 후 사용 가능합니다.<br>
 		                			<a href="javascript:" class="heart-notlogin">
 		                				<i class="fa-sharp fa-regular fa-thumbs-up fa-2x" style="color: black; " class="bi bi-suit-heart"></i>
 		                			</a>
