@@ -177,43 +177,42 @@ public class LoginController {
  	
    
    
-   //2-1. 아이디 찾기
-   @RequestMapping(value = "/search_id", method = RequestMethod.GET)
-   public String search_id() {
-      return "login/search_id";
-   }
-   //2-2. 아이디 찾기, 매개변수 member에는 name, email를 받음 
-   @RequestMapping(value = "/search_id", method = RequestMethod.POST)
-   public String search_id(@ModelAttribute MemberDTO member, Model model)  {
-      String id = memberService.searchId(member);
-      model.addAttribute("searchId", id);
-      return "login/search_result_id";
-   }
-   
+	//2-1. 아이디 찾기
+	@RequestMapping(value = "/search_id", method = RequestMethod.GET)
+	public String search_id() {
+		return "login/search_id";
+	}
+	//2-2. 아이디 찾기, 매개변수 member에는 name, email를 받음 
+	@RequestMapping(value = "/search_id", method = RequestMethod.POST)
+	public String search_id(@ModelAttribute MemberDTO member, Model model)  {
+		String id = memberService.searchId(member);
+		model.addAttribute("searchId", id);
+		return "login/search_result_id";
+	}
 
-   //3-1. 비밀번호 찾기
-   @RequestMapping(value = "/search_pw", method = RequestMethod.GET)
-   public String search_pw() {
-      return "login/search_pw";
-   }
-   
-   
-   //3-2. 비밀번호 찾기-이메일 전송 
-   @RequestMapping(value = "/search_pw", method = RequestMethod.POST)
-   public String search_pw(@ModelAttribute MemberDTO member, HttpServletResponse response) throws MemberNotFoundException{
-      memberService.searchPw(response, member);
-      
-      return "redirect:/login";
-   }
-   
-   
-   
-   //4. 로그아웃
-   @RequestMapping("/logout")
-   public String logout(HttpSession session) {
-         session.invalidate();
-      
-      return "redirect:/";
-   }
+	//3-1. 비밀번호 찾기
+	@RequestMapping(value = "/search_pw", method = RequestMethod.GET)
+	public String search_pw() {
+		return "login/search_pw";
+	}
+	
+	
+	//3-2. 비밀번호 찾기-이메일 전송 
+	@RequestMapping(value = "/search_pw", method = RequestMethod.POST)
+	public String search_pw(@ModelAttribute MemberDTO member, HttpServletResponse response) throws MemberNotFoundException{
+		memberService.searchPw(response, member);
+		
+		return "redirect:/login";
+	}
+	
+	
+	
+	//4. 로그아웃
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+			session.invalidate();
+		
+		return "redirect:/";
+	}
 
 }

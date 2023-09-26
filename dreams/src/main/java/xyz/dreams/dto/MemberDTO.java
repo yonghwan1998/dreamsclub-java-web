@@ -29,7 +29,6 @@ MEMBER_LAST_LOGIN NOT NULL DATE
 @Data
 public class MemberDTO {
    @NotEmpty(message = "아이디를 반드시 입력해 주세요.")
-   @Pattern(regexp= "^[a-zA-Z0-9]{4,12}$", message="아이디는 4 ~12자의 영문 대소문자의 숫자로만 작성 가능합니다.")
    private String memberId;
    @NotEmpty(message = "비밀번호를 입력해 주세요.")
    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*_-]).{6,20}$", message = "비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.")
