@@ -22,7 +22,7 @@ public class KakaoLoginBean {
 	//카카오 로그인 -> 보안 탭에서 키 생성 후 등록 
     private final static String KAKAO_CLIENT_SECRET = "IM5g4AXb1qOtvT4WS4iycNpcD5iLTzdu";
     //Redirect URI 주소 
-    private final static String KAKAO_REDIRECT_URI = "http://localhost:8000/dreams/login/kakao/callback";
+    private final static String KAKAO_REDIRECT_URI = "https://www.itwill.xyz/dreams/login/kakao/callback";
     // 처음 클라이언트랑 요청한 클라이언트와 같은지 토큰 비교 
     private final static String SESSION_STATE = "kakao_oauth_state";
     /* 프로필 조회 API URL */
