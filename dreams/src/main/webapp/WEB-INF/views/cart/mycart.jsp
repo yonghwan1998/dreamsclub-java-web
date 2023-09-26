@@ -177,7 +177,7 @@ h1 {
   					</div>
   					<form id="orderForm" action="<c:url value="/order/insert"/>" method="post">
   					<div style="display:table-cell">	
-              <input type="hidden" value="${cartList.cartId}" name="cartId">
+              <input type="hidden" value="${cartList.cartId}" name="cartId" id="cartId">
               <input type="hidden" value="${cartList.goodsCode}" name="goodsCode">
               <input type="hidden" value="${cartList.goodsCount}" name="goodsCount">
               <input type="hidden" value="${cartList.goodsPrice}" name="goodsPrice">

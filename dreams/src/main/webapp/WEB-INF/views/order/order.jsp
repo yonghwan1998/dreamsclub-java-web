@@ -487,11 +487,20 @@
 	                    var msg = '결제가 완료되었습니다.';
 	              			msg += '\n고유ID : ' + response.imp_uid;
 	              			msg += '\n상점 거래ID : ' + response.merchant_uid;
-	              			msg += '\결제 금액 : ' + response.paid_amount;
-	              			msg += '카드 승인번호 : ' + response.apply_num;
+	              			msg += '\n결제 금액 : ' + response.paid_amount;
+	              			msg += '\n카드 승인번호 : ' + response.apply_num;
 	      
+<<<<<<< HEAD
+	              			var redirectUrl = "<c:url value='/order/result'/>" +
+                	        "?impUid=" + response.imp_uid +
+                	        "&merchantUid=" + response.merchant_uid +
+                	        "&paidAmount=" + response.paid_amount;
+
+	              	    location.assign(redirectUrl);
+=======
        						alert(msg);
        						location.assign("<c:url value="/mypage/check"/>");
+>>>>>>> branch 'develop' of https://github.com/yonghwan1998/dreamsclub-java-web.git
 	                  } else {
 	                    //결제 실패 페이지로 이동
 	                	  var msg = '결제에 실패하였습니다.';

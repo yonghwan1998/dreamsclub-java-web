@@ -467,8 +467,8 @@
 </script>
 <script type="text/javascript">
 	function popupAndSubmit() {	//형섭: 문의 작성 페이지가 팝업창으로 열림
-			var width = 800;
-      var height = 600;
+			var width = 700;
+      var height = 500;
       var left = (window.innerWidth - width) / 2;
       var top = (window.innerHeight - height) / 2;
       var url = '<c:url value="/goods/qna/write"/>'; // form action의 URL
